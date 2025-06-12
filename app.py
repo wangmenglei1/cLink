@@ -652,56 +652,131 @@ def add_device_instance():
 
     return jsonify({'message': 'Device instance added successfully to warehouse', 'instance': new_instance}), 201
 
-@app.route('/add_connection', methods=['POST'])
-def add_connection():
+@app.route('/batch_add_device_instances', methods=['POST'])
+def batch_add_device_instances():
     data = request.get_json()
     if not data:
-        return jsonify({'error': 'Invalid JSON', 'message': 'No JSON data received'}), 400
+        return jsonify({'message': '无效的JSON数据'}), 400
 
-    source_id = data.get('source')
-    target_id = data.get('target')
-    source_port_name = data.get('source_port')
-    target_port_name = data.get('target_port')
+    device_type_name = data.get('deviceType')
+    name_prefix = data.get('namePrefix', '').strip()
+    start_number = data.get('start')
+    end_number = data.get('end')
 
-    if not all([source_id, target_id, source_port_name, target_port_name]):
-         return jsonify({'error': 'Missing data', 'message': 'Missing source, target, source_port, or target_port for connection'}), 400
+    # --- Validation ---
+    if not all([device_type_name, name_prefix, isinstance(start_number, int), isinstance(end_number, int)]):
+        return jsonify({'message': '设备型号、命名前缀、起始和结束编号均为必填项。'}), 400
+    
+    if start_number > end_number:
+        return jsonify({'message': '起始编号不能大于结束编号。'}), 400
 
-    source_instance = find_instance_by_id(source_id)
-    target_instance = find_instance_by_id(target_id)
+    if end_number - start_number + 1 > 200: # Limit batch size to prevent abuse/overload
+        return jsonify({'message': '单次批量添加的设备数量不能超过200台。'}), 400
+    
+    load_all_data_before_request()
 
-    if not source_instance or not target_instance:
-        return jsonify({'error': 'Invalid device instance ID', 'message': 'Source or target device instance not found'}), 400
+    device_type_definition = next((dt for dt in device_types if dt['name'] == device_type_name), None)
+    if not device_type_definition:
+        return jsonify({'message': f'设备型号 "{device_type_name}" 未找到。'}), 404
 
-    source_interface = next((iface for iface in source_instance['interfaces'] if iface['name'] == source_port_name), None)
-    target_interface = next((iface for iface in target_instance['interfaces'] if iface['name'] == target_port_name), None)
+    existing_names = {inst['instance_name'].lower() for inst in device_instances}
+    new_instances = []
+    skipped_names = []
 
-    if not source_interface or not target_interface:
-         return jsonify({'error': 'Invalid port name', 'message': 'Source or target port not found on the device instance'}), 400
+    for i in range(start_number, end_number + 1):
+        instance_name = f"{name_prefix}{i:02d}"
+        if instance_name.lower() in existing_names:
+            skipped_names.append(instance_name)
+            continue
 
-    if source_interface['status'] != 'available' or target_interface['status'] != 'available':
-         return jsonify({'error': 'Port already in use', 'message': 'One or both selected ports are already connected'}), 400
+        # Create interfaces for the new instance
+        instance_interfaces = []
+        for iface_template in device_type_definition.get('interfaces', []):
+            instance_interfaces.append({
+                'name': iface_template['name'],
+                'type': iface_template['type'],
+                'status': 'available'
+            })
+        
+        new_instance = {
+            'id': f'device_{uuid.uuid4().hex[:12]}',
+            'instance_name': instance_name,
+            'device_type': device_type_name,
+            'interfaces': instance_interfaces,
+            'position': None,
+            'rack_id': None,
+            'rack_u': None,
+            'power_status': 'off'
+        }
+        new_instances.append(new_instance)
 
-    # Update interface status to connected
-    update_interface_status(source_id, source_port_name, 'connected')
-    update_interface_status(target_id, target_port_name, 'connected')
+    if not new_instances:
+        return jsonify({'message': f'未能添加任何新设备。以下名称均已存在: {", ".join(skipped_names)}'}), 409
 
-    new_connection = {
-        'source': source_id,
-        'target': target_id,
-        'source_port': source_port_name,
-        'target_port': target_port_name,
-    }
-    connections.append(new_connection)
-
-    # Save connections and updated instances
-    save_data(CONNECTIONS_FILE, connections)
+    device_instances.extend(new_instances)
     save_data(DEVICE_INSTANCES_FILE, device_instances)
 
-    # print("Received new connection:", new_connection) # Avoid excessive printing
-    # print("Current connections:", connections) # Avoid excessive printing
+    message = f'成功添加 {len(new_instances)} 台设备。'
+    if skipped_names:
+        message += f' 跳过 {len(skipped_names)} 台已存在的设备: {", ".join(skipped_names)}'
+    
+    return jsonify({'message': message, 'added_count': len(new_instances), 'skipped_count': len(skipped_names)}), 201
 
-    # Return updated instance data so frontend can refresh interface lists
-    return jsonify({'message': 'Connection added successfully', 'connection': new_connection, 'updated_instances': [source_instance, target_instance]}), 201
+@app.route('/add_connection', methods=['POST'])
+def add_connection():
+    try:
+        data = request.get_json()
+        if not data:
+            return jsonify({'error': 'Invalid JSON', 'message': 'No JSON data received'}), 400
+
+        source_id = data.get('source')
+        target_id = data.get('target')
+        source_port_name = data.get('source_port')
+        target_port_name = data.get('target_port')
+
+        if not all([source_id, target_id, source_port_name, target_port_name]):
+             return jsonify({'error': 'Missing data', 'message': 'Missing source, target, source_port, or target_port for connection'}), 400
+
+        source_instance = find_instance_by_id(source_id)
+        target_instance = find_instance_by_id(target_id)
+
+        if not source_instance or not target_instance:
+            return jsonify({'error': 'Invalid device instance ID', 'message': 'Source or target device instance not found'}), 400
+
+        source_interface = next((iface for iface in source_instance['interfaces'] if iface['name'] == source_port_name), None)
+        target_interface = next((iface for iface in target_instance['interfaces'] if iface['name'] == target_port_name), None)
+
+        if not source_interface or not target_interface:
+             return jsonify({'error': 'Invalid port name', 'message': 'Source or target port not found on the device instance'}), 400
+
+        if source_interface['status'] != 'available' or target_interface['status'] != 'available':
+             return jsonify({'error': 'Port already in use', 'message': 'One or both selected ports are already connected'}), 400
+
+        # Update interface status to connected
+        update_interface_status(source_id, source_port_name, 'connected')
+        update_interface_status(target_id, target_port_name, 'connected')
+
+        new_connection = {
+            'source': source_id,
+            'target': target_id,
+            'source_port': source_port_name,
+            'target_port': target_port_name,
+        }
+        connections.append(new_connection)
+
+        # Save connections and updated instances
+        save_data(CONNECTIONS_FILE, connections)
+        save_data(DEVICE_INSTANCES_FILE, device_instances)
+
+        # print("Received new connection:", new_connection) # Avoid excessive printing
+        # print("Current connections:", connections) # Avoid excessive printing
+
+        # Return updated instance data so frontend can refresh interface lists
+        return jsonify({'message': 'Connection added successfully', 'connection': new_connection, 'updated_instances': [source_instance, target_instance]}), 201
+
+    except Exception as e:
+        print(f'Error adding connection: {e}')
+        return jsonify({'message': 'Internal server error during connection addition'}), 500
 
 # Route to delete a device instance
 @app.route('/delete_device_instance/<string:instance_id>', methods=['DELETE'])
@@ -2278,6 +2353,80 @@ status_map = {
     'on': '开启',
     'off': '关闭'
 }
+
+@app.route('/devices/batch_delete', methods=['POST'])
+def batch_delete_devices():
+    """Atomically deletes a batch of devices."""
+    try:
+        load_all_data_before_request()
+        data = request.get_json()
+        device_ids_to_delete = data.get('device_ids', [])
+
+        if not isinstance(device_ids_to_delete, list) or not device_ids_to_delete:
+            return jsonify({'message': 'Please provide a list of device IDs to delete.'}), 400
+
+        global device_instances, connections, racks
+        
+        # --- Validation ---
+        error_details = []
+        for device_id in device_ids_to_delete:
+            instance = find_instance_by_id(device_id)
+            if not instance:
+                # Might have been deleted by another process, but we can ignore it.
+                continue
+            if instance.get('rack_id'):
+                error_details.append(f'设备 "{instance.get("instance_name")}" 必须先下架才能删除。')
+        
+        if error_details:
+            return jsonify({'message': '验证失败，部分设备仍处于上架状态。', 'errors': error_details}), 400
+
+        # --- Perform Deletion in a single operation ---
+        
+        original_instance_count = len(device_instances)
+        ids_to_delete_set = set(device_ids_to_delete)
+        
+        # Filter out devices to be deleted
+        device_instances[:] = [inst for inst in device_instances if inst['id'] not in ids_to_delete_set]
+        
+        # Find connections associated with the deleted devices to free up ports on the other end
+        ports_to_free = []
+        remaining_connections = []
+        for conn in connections:
+            source_deleted = conn['source'] in ids_to_delete_set
+            target_deleted = conn['target'] in ids_to_delete_set
+            
+            if source_deleted and not target_deleted:
+                ports_to_free.append({'instance_id': conn['target'], 'port_name': conn['target_port']})
+            elif not source_deleted and target_deleted:
+                ports_to_free.append({'instance_id': conn['source'], 'port_name': conn['source_port']})
+            
+            if not source_deleted and not target_deleted:
+                remaining_connections.append(conn)
+
+        connections[:] = remaining_connections
+        
+        # Free up the ports on the remaining connected devices
+        for port_info in ports_to_free:
+            update_interface_status(port_info['instance_id'], port_info['port_name'], 'available')
+
+        # Since validation ensures devices are unmounted, we don't need to check racks.
+        # However, a safety check is good practice.
+        for rack in racks:
+            if 'devices' in rack:
+                rack['devices'][:] = [dev_id for dev_id in rack['devices'] if dev_id not in ids_to_delete_set]
+
+        # Save all changes once
+        save_data(DEVICE_INSTANCES_FILE, device_instances)
+        save_data(CONNECTIONS_FILE, connections)
+        save_data(RACKS_FILE, racks)
+        
+        deleted_count = original_instance_count - len(device_instances)
+
+        return jsonify({'message': f'成功删除 {deleted_count} 个设备。'}), 200
+
+    except Exception as e:
+        print(f"Error during batch device deletion: {e}")
+        return jsonify({'message': '批量删除期间发生内部错误。'}), 500
 
 if __name__ == '__main__':
     app.run(host='172.31.60.204', port=58000, debug=True) 

@@ -1,6 +1,6 @@
 {
   "version": "2.0",
-  "timestamp": "2025-06-12T10:41:49.040832",
+  "timestamp": "2025-06-12T14:10:22.567811",
   "racks": [
     {
       "id": "rack_1749632196564_1",
@@ -9,7 +9,11 @@
       "height_u": 42,
       "department": "跳纤柜",
       "devices": [
-        "device_1749047906081_7"
+        "device_1e6fbef98853",
+        "device_1de6f997468a",
+        "device_5568f2989004",
+        "device_7d3f2516f840",
+        "device_5f8056d870a0"
       ]
     },
     {
@@ -18,9 +22,7 @@
       "room_id": "room_1749092010312",
       "height_u": 42,
       "department": "运营商",
-      "devices": [
-        "device_1749047906087_8"
-      ]
+      "devices": []
     },
     {
       "id": "rack_1749632196567_3",
@@ -28,9 +30,7 @@
       "room_id": "room_1749092010312",
       "height_u": 42,
       "department": "运营商",
-      "devices": [
-        "device_1749047906092_9"
-      ]
+      "devices": []
     },
     {
       "id": "rack_1749632196569_4",
@@ -85,7 +85,7 @@
       "name": "A10",
       "room_id": "room_1749092010312",
       "height_u": 42,
-      "department": "预留",
+      "department": "证券",
       "devices": []
     },
     {

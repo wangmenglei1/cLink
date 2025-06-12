@@ -1,741 +1,3102 @@
 {
   "version": "2.0",
-  "timestamp": "2025-06-12T10:41:49.014114",
+  "timestamp": "2025-06-12T14:10:22.554855",
   "device_instances": [
     {
-      "id": "device_1749047906081_7",
-      "instance_name": "Server08",
-      "device_type": "HP",
+      "id": "device_5a0ed48c0d13",
+      "instance_name": "SW01",
+      "device_type": "S6805",
       "interfaces": [
         {
           "name": "M-GigabitEthernet0/0/0",
-          "type": "Management",
+          "type": "management",
           "status": "available"
         },
         {
-          "name": "GE1/0/1",
-          "type": "GigabitEthernet",
+          "name": "XGE1/0/1",
+          "type": "optic",
+          "status": "available"
+        },
+        {
+          "name": "XGE1/0/2",
+          "type": "optic",
+          "status": "available"
+        },
+        {
+          "name": "XGE1/0/3",
+          "type": "optic",
+          "status": "available"
+        },
+        {
+          "name": "XGE1/0/4",
+          "type": "optic",
+          "status": "available"
+        },
+        {
+          "name": "XGE1/0/5",
+          "type": "optic",
+          "status": "available"
+        },
+        {
+          "name": "XGE1/0/6",
+          "type": "optic",
+          "status": "available"
+        },
+        {
+          "name": "XGE1/0/7",
+          "type": "optic",
+          "status": "available"
+        },
+        {
+          "name": "XGE1/0/8",
+          "type": "optic",
+          "status": "available"
+        },
+        {
+          "name": "XGE1/0/9",
+          "type": "optic",
+          "status": "available"
+        },
+        {
+          "name": "XGE1/0/10",
+          "type": "optic",
+          "status": "available"
+        },
+        {
+          "name": "XGE1/0/11",
+          "type": "optic",
+          "status": "available"
+        },
+        {
+          "name": "XGE1/0/12",
+          "type": "optic",
+          "status": "available"
+        },
+        {
+          "name": "XGE1/0/13",
+          "type": "optic",
+          "status": "available"
+        },
+        {
+          "name": "XGE1/0/14",
+          "type": "optic",
+          "status": "available"
+        },
+        {
+          "name": "XGE1/0/15",
+          "type": "optic",
+          "status": "available"
+        },
+        {
+          "name": "XGE1/0/16",
+          "type": "optic",
+          "status": "available"
+        },
+        {
+          "name": "XGE1/0/17",
+          "type": "optic",
+          "status": "available"
+        },
+        {
+          "name": "XGE1/0/18",
+          "type": "optic",
+          "status": "available"
+        },
+        {
+          "name": "XGE1/0/19",
+          "type": "optic",
+          "status": "available"
+        },
+        {
+          "name": "XGE1/0/20",
+          "type": "optic",
+          "status": "available"
+        },
+        {
+          "name": "XGE1/0/21",
+          "type": "optic",
+          "status": "available"
+        },
+        {
+          "name": "XGE1/0/22",
+          "type": "optic",
+          "status": "available"
+        },
+        {
+          "name": "XGE1/0/23",
+          "type": "optic",
+          "status": "available"
+        },
+        {
+          "name": "XGE1/0/24",
+          "type": "optic",
+          "status": "available"
+        },
+        {
+          "name": "XGE1/0/25",
+          "type": "optic",
+          "status": "available"
+        },
+        {
+          "name": "XGE1/0/26",
+          "type": "optic",
+          "status": "available"
+        },
+        {
+          "name": "XGE1/0/27",
+          "type": "optic",
+          "status": "available"
+        },
+        {
+          "name": "XGE1/0/28",
+          "type": "optic",
+          "status": "available"
+        },
+        {
+          "name": "XGE1/0/29",
+          "type": "optic",
+          "status": "available"
+        },
+        {
+          "name": "XGE1/0/30",
+          "type": "optic",
+          "status": "available"
+        },
+        {
+          "name": "XGE1/0/31",
+          "type": "optic",
+          "status": "available"
+        },
+        {
+          "name": "XGE1/0/32",
+          "type": "optic",
+          "status": "available"
+        },
+        {
+          "name": "XGE1/0/33",
+          "type": "optic",
+          "status": "available"
+        },
+        {
+          "name": "XGE1/0/34",
+          "type": "optic",
+          "status": "available"
+        },
+        {
+          "name": "XGE1/0/35",
+          "type": "optic",
+          "status": "available"
+        },
+        {
+          "name": "XGE1/0/36",
+          "type": "optic",
+          "status": "available"
+        },
+        {
+          "name": "XGE1/0/37",
+          "type": "optic",
+          "status": "available"
+        },
+        {
+          "name": "XGE1/0/38",
+          "type": "optic",
+          "status": "available"
+        },
+        {
+          "name": "XGE1/0/39",
+          "type": "optic",
+          "status": "available"
+        },
+        {
+          "name": "XGE1/0/40",
+          "type": "optic",
+          "status": "available"
+        },
+        {
+          "name": "XGE1/0/41",
+          "type": "optic",
+          "status": "available"
+        },
+        {
+          "name": "XGE1/0/42",
+          "type": "optic",
+          "status": "available"
+        },
+        {
+          "name": "XGE1/0/43",
+          "type": "optic",
+          "status": "available"
+        },
+        {
+          "name": "XGE1/0/44",
+          "type": "optic",
+          "status": "available"
+        },
+        {
+          "name": "XGE1/0/45",
+          "type": "optic",
+          "status": "available"
+        },
+        {
+          "name": "XGE1/0/46",
+          "type": "optic",
+          "status": "available"
+        },
+        {
+          "name": "XGE1/0/47",
+          "type": "optic",
+          "status": "available"
+        },
+        {
+          "name": "XGE1/0/48",
+          "type": "optic",
+          "status": "available"
+        },
+        {
+          "name": "HGE1/0/49",
+          "type": "optic",
+          "status": "available"
+        },
+        {
+          "name": "HGE1/0/50",
+          "type": "optic",
+          "status": "available"
+        },
+        {
+          "name": "HGE1/0/51",
+          "type": "optic",
+          "status": "available"
+        },
+        {
+          "name": "HGE1/0/52",
+          "type": "optic",
+          "status": "available"
+        },
+        {
+          "name": "HGE1/0/53",
+          "type": "optic",
+          "status": "available"
+        },
+        {
+          "name": "HGE1/0/54",
+          "type": "optic",
           "status": "available"
         }
       ],
-      "position": {
-        "x": 400,
-        "y": 200
-      },
+      "position": null,
+      "rack_id": null,
+      "rack_u": null,
+      "power_status": "off"
+    },
+    {
+      "id": "device_1e6fbef98853",
+      "instance_name": "SW1",
+      "device_type": "S6805",
+      "interfaces": [
+        {
+          "name": "XGE1/0/1",
+          "type": "optic",
+          "status": "available"
+        },
+        {
+          "name": "XGE1/0/2",
+          "type": "optic",
+          "status": "available"
+        },
+        {
+          "name": "XGE1/0/3",
+          "type": "optic",
+          "status": "available"
+        },
+        {
+          "name": "XGE1/0/4",
+          "type": "optic",
+          "status": "available"
+        },
+        {
+          "name": "XGE1/0/5",
+          "type": "optic",
+          "status": "available"
+        },
+        {
+          "name": "XGE1/0/6",
+          "type": "optic",
+          "status": "available"
+        },
+        {
+          "name": "XGE1/0/7",
+          "type": "optic",
+          "status": "available"
+        },
+        {
+          "name": "XGE1/0/8",
+          "type": "optic",
+          "status": "available"
+        },
+        {
+          "name": "XGE1/0/9",
+          "type": "optic",
+          "status": "available"
+        },
+        {
+          "name": "XGE1/0/10",
+          "type": "optic",
+          "status": "available"
+        },
+        {
+          "name": "XGE1/0/11",
+          "type": "optic",
+          "status": "available"
+        },
+        {
+          "name": "XGE1/0/12",
+          "type": "optic",
+          "status": "available"
+        },
+        {
+          "name": "XGE1/0/13",
+          "type": "optic",
+          "status": "available"
+        },
+        {
+          "name": "XGE1/0/14",
+          "type": "optic",
+          "status": "available"
+        },
+        {
+          "name": "XGE1/0/15",
+          "type": "optic",
+          "status": "available"
+        },
+        {
+          "name": "XGE1/0/16",
+          "type": "optic",
+          "status": "available"
+        },
+        {
+          "name": "XGE1/0/17",
+          "type": "optic",
+          "status": "available"
+        },
+        {
+          "name": "XGE1/0/18",
+          "type": "optic",
+          "status": "available"
+        },
+        {
+          "name": "XGE1/0/19",
+          "type": "optic",
+          "status": "available"
+        },
+        {
+          "name": "XGE1/0/20",
+          "type": "optic",
+          "status": "available"
+        },
+        {
+          "name": "XGE1/0/21",
+          "type": "optic",
+          "status": "available"
+        },
+        {
+          "name": "XGE1/0/22",
+          "type": "optic",
+          "status": "available"
+        },
+        {
+          "name": "XGE1/0/23",
+          "type": "optic",
+          "status": "available"
+        },
+        {
+          "name": "XGE1/0/24",
+          "type": "optic",
+          "status": "available"
+        },
+        {
+          "name": "XGE1/0/25",
+          "type": "optic",
+          "status": "available"
+        },
+        {
+          "name": "XGE1/0/26",
+          "type": "optic",
+          "status": "available"
+        },
+        {
+          "name": "XGE1/0/27",
+          "type": "optic",
+          "status": "available"
+        },
+        {
+          "name": "XGE1/0/28",
+          "type": "optic",
+          "status": "available"
+        },
+        {
+          "name": "XGE1/0/29",
+          "type": "optic",
+          "status": "available"
+        },
+        {
+          "name": "XGE1/0/30",
+          "type": "optic",
+          "status": "available"
+        },
+        {
+          "name": "XGE1/0/31",
+          "type": "optic",
+          "status": "available"
+        },
+        {
+          "name": "XGE1/0/32",
+          "type": "optic",
+          "status": "available"
+        },
+        {
+          "name": "XGE1/0/33",
+          "type": "optic",
+          "status": "available"
+        },
+        {
+          "name": "XGE1/0/34",
+          "type": "optic",
+          "status": "available"
+        },
+        {
+          "name": "XGE1/0/35",
+          "type": "optic",
+          "status": "available"
+        },
+        {
+          "name": "XGE1/0/36",
+          "type": "optic",
+          "status": "available"
+        },
+        {
+          "name": "XGE1/0/37",
+          "type": "optic",
+          "status": "available"
+        },
+        {
+          "name": "XGE1/0/38",
+          "type": "optic",
+          "status": "available"
+        },
+        {
+          "name": "XGE1/0/39",
+          "type": "optic",
+          "status": "available"
+        },
+        {
+          "name": "XGE1/0/40",
+          "type": "optic",
+          "status": "available"
+        },
+        {
+          "name": "XGE1/0/41",
+          "type": "optic",
+          "status": "available"
+        },
+        {
+          "name": "XGE1/0/42",
+          "type": "optic",
+          "status": "available"
+        },
+        {
+          "name": "XGE1/0/43",
+          "type": "optic",
+          "status": "available"
+        },
+        {
+          "name": "XGE1/0/44",
+          "type": "optic",
+          "status": "available"
+        },
+        {
+          "name": "XGE1/0/45",
+          "type": "optic",
+          "status": "available"
+        },
+        {
+          "name": "XGE1/0/46",
+          "type": "optic",
+          "status": "available"
+        },
+        {
+          "name": "XGE1/0/47",
+          "type": "optic",
+          "status": "available"
+        },
+        {
+          "name": "XGE1/0/48",
+          "type": "optic",
+          "status": "available"
+        },
+        {
+          "name": "HGE1/0/49",
+          "type": "optic",
+          "status": "available"
+        },
+        {
+          "name": "HGE1/0/50",
+          "type": "optic",
+          "status": "available"
+        },
+        {
+          "name": "HGE1/0/51",
+          "type": "optic",
+          "status": "available"
+        },
+        {
+          "name": "HGE1/0/52",
+          "type": "optic",
+          "status": "available"
+        },
+        {
+          "name": "HGE1/0/53",
+          "type": "optic",
+          "status": "available"
+        },
+        {
+          "name": "HGE1/0/54",
+          "type": "optic",
+          "status": "available"
+        }
+      ],
+      "position": null,
       "rack_id": "rack_1749632196564_1",
       "rack_u": 30,
       "power_status": "off"
     },
     {
-      "id": "device_1749047906087_8",
-      "instance_name": "Server09",
-      "device_type": "HP",
+      "id": "device_1de6f997468a",
+      "instance_name": "SW02",
+      "device_type": "S6805",
       "interfaces": [
         {
-          "name": "M-GigabitEthernet0/0/0",
-          "type": "Management",
+          "name": "XGE1/0/1",
+          "type": "optic",
           "status": "available"
         },
         {
-          "name": "GE1/0/1",
-          "type": "GigabitEthernet",
+          "name": "XGE1/0/2",
+          "type": "optic",
+          "status": "available"
+        },
+        {
+          "name": "XGE1/0/3",
+          "type": "optic",
+          "status": "available"
+        },
+        {
+          "name": "XGE1/0/4",
+          "type": "optic",
+          "status": "available"
+        },
+        {
+          "name": "XGE1/0/5",
+          "type": "optic",
+          "status": "available"
+        },
+        {
+          "name": "XGE1/0/6",
+          "type": "optic",
+          "status": "available"
+        },
+        {
+          "name": "XGE1/0/7",
+          "type": "optic",
+          "status": "available"
+        },
+        {
+          "name": "XGE1/0/8",
+          "type": "optic",
+          "status": "available"
+        },
+        {
+          "name": "XGE1/0/9",
+          "type": "optic",
+          "status": "available"
+        },
+        {
+          "name": "XGE1/0/10",
+          "type": "optic",
+          "status": "available"
+        },
+        {
+          "name": "XGE1/0/11",
+          "type": "optic",
+          "status": "available"
+        },
+        {
+          "name": "XGE1/0/12",
+          "type": "optic",
+          "status": "available"
+        },
+        {
+          "name": "XGE1/0/13",
+          "type": "optic",
+          "status": "available"
+        },
+        {
+          "name": "XGE1/0/14",
+          "type": "optic",
+          "status": "available"
+        },
+        {
+          "name": "XGE1/0/15",
+          "type": "optic",
+          "status": "available"
+        },
+        {
+          "name": "XGE1/0/16",
+          "type": "optic",
+          "status": "available"
+        },
+        {
+          "name": "XGE1/0/17",
+          "type": "optic",
+          "status": "available"
+        },
+        {
+          "name": "XGE1/0/18",
+          "type": "optic",
+          "status": "available"
+        },
+        {
+          "name": "XGE1/0/19",
+          "type": "optic",
+          "status": "available"
+        },
+        {
+          "name": "XGE1/0/20",
+          "type": "optic",
+          "status": "available"
+        },
+        {
+          "name": "XGE1/0/21",
+          "type": "optic",
+          "status": "available"
+        },
+        {
+          "name": "XGE1/0/22",
+          "type": "optic",
+          "status": "available"
+        },
+        {
+          "name": "XGE1/0/23",
+          "type": "optic",
+          "status": "available"
+        },
+        {
+          "name": "XGE1/0/24",
+          "type": "optic",
+          "status": "available"
+        },
+        {
+          "name": "XGE1/0/25",
+          "type": "optic",
+          "status": "available"
+        },
+        {
+          "name": "XGE1/0/26",
+          "type": "optic",
+          "status": "available"
+        },
+        {
+          "name": "XGE1/0/27",
+          "type": "optic",
+          "status": "available"
+        },
+        {
+          "name": "XGE1/0/28",
+          "type": "optic",
+          "status": "available"
+        },
+        {
+          "name": "XGE1/0/29",
+          "type": "optic",
+          "status": "available"
+        },
+        {
+          "name": "XGE1/0/30",
+          "type": "optic",
+          "status": "available"
+        },
+        {
+          "name": "XGE1/0/31",
+          "type": "optic",
+          "status": "available"
+        },
+        {
+          "name": "XGE1/0/32",
+          "type": "optic",
+          "status": "available"
+        },
+        {
+          "name": "XGE1/0/33",
+          "type": "optic",
+          "status": "available"
+        },
+        {
+          "name": "XGE1/0/34",
+          "type": "optic",
+          "status": "available"
+        },
+        {
+          "name": "XGE1/0/35",
+          "type": "optic",
+          "status": "available"
+        },
+        {
+          "name": "XGE1/0/36",
+          "type": "optic",
+          "status": "available"
+        },
+        {
+          "name": "XGE1/0/37",
+          "type": "optic",
+          "status": "available"
+        },
+        {
+          "name": "XGE1/0/38",
+          "type": "optic",
+          "status": "available"
+        },
+        {
+          "name": "XGE1/0/39",
+          "type": "optic",
+          "status": "available"
+        },
+        {
+          "name": "XGE1/0/40",
+          "type": "optic",
+          "status": "available"
+        },
+        {
+          "name": "XGE1/0/41",
+          "type": "optic",
+          "status": "available"
+        },
+        {
+          "name": "XGE1/0/42",
+          "type": "optic",
+          "status": "available"
+        },
+        {
+          "name": "XGE1/0/43",
+          "type": "optic",
+          "status": "available"
+        },
+        {
+          "name": "XGE1/0/44",
+          "type": "optic",
+          "status": "available"
+        },
+        {
+          "name": "XGE1/0/45",
+          "type": "optic",
+          "status": "available"
+        },
+        {
+          "name": "XGE1/0/46",
+          "type": "optic",
+          "status": "available"
+        },
+        {
+          "name": "XGE1/0/47",
+          "type": "optic",
+          "status": "available"
+        },
+        {
+          "name": "XGE1/0/48",
+          "type": "optic",
+          "status": "available"
+        },
+        {
+          "name": "HGE1/0/49",
+          "type": "optic",
+          "status": "available"
+        },
+        {
+          "name": "HGE1/0/50",
+          "type": "optic",
+          "status": "available"
+        },
+        {
+          "name": "HGE1/0/51",
+          "type": "optic",
+          "status": "available"
+        },
+        {
+          "name": "HGE1/0/52",
+          "type": "optic",
+          "status": "available"
+        },
+        {
+          "name": "HGE1/0/53",
+          "type": "optic",
+          "status": "available"
+        },
+        {
+          "name": "HGE1/0/54",
+          "type": "optic",
           "status": "available"
         }
       ],
-      "position": {
-        "x": 100,
-        "y": 300
-      },
-      "rack_id": "rack_1749632196566_2",
-      "rack_u": 30,
+      "position": null,
+      "rack_id": "rack_1749632196564_1",
+      "rack_u": 32,
       "power_status": "off"
     },
     {
-      "id": "device_1749047906092_9",
-      "instance_name": "Server10",
-      "device_type": "HP",
-      "interfaces": [
-        {
-          "name": "M-GigabitEthernet0/0/0",
-          "type": "Management",
-          "status": "available"
-        },
-        {
-          "name": "GE1/0/1",
-          "type": "GigabitEthernet",
-          "status": "available"
-        }
-      ],
-      "position": {
-        "x": 340.4500303129687,
-        "y": 310.0216927410759
-      },
-      "rack_id": "rack_1749632196567_3",
-      "rack_u": 30,
-      "power_status": "off"
-    },
-    {
-      "id": "device_1749087498647_0",
-      "instance_name": "SW01",
-      "device_type": "5130",
-      "interfaces": [
-        {
-          "name": "M-GigabitEthernet0/0/0",
-          "type": "Management",
-          "status": "available"
-        },
-        {
-          "name": "GE1/0/1",
-          "type": "GigabitEthernet",
-          "status": "available"
-        },
-        {
-          "name": "GE1/0/2",
-          "type": "GigabitEthernet",
-          "status": "available"
-        },
-        {
-          "name": "GE1/0/3",
-          "type": "GigabitEthernet",
-          "status": "available"
-        },
-        {
-          "name": "GE1/0/4",
-          "type": "GigabitEthernet",
-          "status": "available"
-        },
-        {
-          "name": "GE1/0/5",
-          "type": "GigabitEthernet",
-          "status": "available"
-        },
-        {
-          "name": "GE1/0/6",
-          "type": "GigabitEthernet",
-          "status": "available"
-        },
-        {
-          "name": "GE1/0/7",
-          "type": "GigabitEthernet",
-          "status": "available"
-        },
-        {
-          "name": "GE1/0/8",
-          "type": "GigabitEthernet",
-          "status": "available"
-        },
-        {
-          "name": "GE1/0/9",
-          "type": "GigabitEthernet",
-          "status": "available"
-        },
-        {
-          "name": "GE1/0/10",
-          "type": "GigabitEthernet",
-          "status": "available"
-        }
-      ],
-      "position": {
-        "x": 656.5735977260617,
-        "y": 195.0770445398066
-      },
-      "rack_id": null,
-      "rack_u": null,
-      "power_status": "off"
-    },
-    {
-      "id": "device_1749087498664_2",
+      "id": "device_5568f2989004",
       "instance_name": "SW03",
-      "device_type": "5130",
+      "device_type": "S6805",
       "interfaces": [
         {
-          "name": "M-GigabitEthernet0/0/0",
-          "type": "Management",
+          "name": "XGE1/0/1",
+          "type": "optic",
           "status": "available"
         },
         {
-          "name": "GE1/0/1",
-          "type": "GigabitEthernet",
+          "name": "XGE1/0/2",
+          "type": "optic",
           "status": "available"
         },
         {
-          "name": "GE1/0/2",
-          "type": "GigabitEthernet",
+          "name": "XGE1/0/3",
+          "type": "optic",
           "status": "available"
         },
         {
-          "name": "GE1/0/3",
-          "type": "GigabitEthernet",
+          "name": "XGE1/0/4",
+          "type": "optic",
           "status": "available"
         },
         {
-          "name": "GE1/0/4",
-          "type": "GigabitEthernet",
+          "name": "XGE1/0/5",
+          "type": "optic",
           "status": "available"
         },
         {
-          "name": "GE1/0/5",
-          "type": "GigabitEthernet",
+          "name": "XGE1/0/6",
+          "type": "optic",
           "status": "available"
         },
         {
-          "name": "GE1/0/6",
-          "type": "GigabitEthernet",
+          "name": "XGE1/0/7",
+          "type": "optic",
           "status": "available"
         },
         {
-          "name": "GE1/0/7",
-          "type": "GigabitEthernet",
+          "name": "XGE1/0/8",
+          "type": "optic",
           "status": "available"
         },
         {
-          "name": "GE1/0/8",
-          "type": "GigabitEthernet",
+          "name": "XGE1/0/9",
+          "type": "optic",
           "status": "available"
         },
         {
-          "name": "GE1/0/9",
-          "type": "GigabitEthernet",
+          "name": "XGE1/0/10",
+          "type": "optic",
           "status": "available"
         },
         {
-          "name": "GE1/0/10",
-          "type": "GigabitEthernet",
+          "name": "XGE1/0/11",
+          "type": "optic",
+          "status": "available"
+        },
+        {
+          "name": "XGE1/0/12",
+          "type": "optic",
+          "status": "available"
+        },
+        {
+          "name": "XGE1/0/13",
+          "type": "optic",
+          "status": "available"
+        },
+        {
+          "name": "XGE1/0/14",
+          "type": "optic",
+          "status": "available"
+        },
+        {
+          "name": "XGE1/0/15",
+          "type": "optic",
+          "status": "available"
+        },
+        {
+          "name": "XGE1/0/16",
+          "type": "optic",
+          "status": "available"
+        },
+        {
+          "name": "XGE1/0/17",
+          "type": "optic",
+          "status": "available"
+        },
+        {
+          "name": "XGE1/0/18",
+          "type": "optic",
+          "status": "available"
+        },
+        {
+          "name": "XGE1/0/19",
+          "type": "optic",
+          "status": "available"
+        },
+        {
+          "name": "XGE1/0/20",
+          "type": "optic",
+          "status": "available"
+        },
+        {
+          "name": "XGE1/0/21",
+          "type": "optic",
+          "status": "available"
+        },
+        {
+          "name": "XGE1/0/22",
+          "type": "optic",
+          "status": "available"
+        },
+        {
+          "name": "XGE1/0/23",
+          "type": "optic",
+          "status": "available"
+        },
+        {
+          "name": "XGE1/0/24",
+          "type": "optic",
+          "status": "available"
+        },
+        {
+          "name": "XGE1/0/25",
+          "type": "optic",
+          "status": "available"
+        },
+        {
+          "name": "XGE1/0/26",
+          "type": "optic",
+          "status": "available"
+        },
+        {
+          "name": "XGE1/0/27",
+          "type": "optic",
+          "status": "available"
+        },
+        {
+          "name": "XGE1/0/28",
+          "type": "optic",
+          "status": "available"
+        },
+        {
+          "name": "XGE1/0/29",
+          "type": "optic",
+          "status": "available"
+        },
+        {
+          "name": "XGE1/0/30",
+          "type": "optic",
+          "status": "available"
+        },
+        {
+          "name": "XGE1/0/31",
+          "type": "optic",
+          "status": "available"
+        },
+        {
+          "name": "XGE1/0/32",
+          "type": "optic",
+          "status": "available"
+        },
+        {
+          "name": "XGE1/0/33",
+          "type": "optic",
+          "status": "available"
+        },
+        {
+          "name": "XGE1/0/34",
+          "type": "optic",
+          "status": "available"
+        },
+        {
+          "name": "XGE1/0/35",
+          "type": "optic",
+          "status": "available"
+        },
+        {
+          "name": "XGE1/0/36",
+          "type": "optic",
+          "status": "available"
+        },
+        {
+          "name": "XGE1/0/37",
+          "type": "optic",
+          "status": "available"
+        },
+        {
+          "name": "XGE1/0/38",
+          "type": "optic",
+          "status": "available"
+        },
+        {
+          "name": "XGE1/0/39",
+          "type": "optic",
+          "status": "available"
+        },
+        {
+          "name": "XGE1/0/40",
+          "type": "optic",
+          "status": "available"
+        },
+        {
+          "name": "XGE1/0/41",
+          "type": "optic",
+          "status": "available"
+        },
+        {
+          "name": "XGE1/0/42",
+          "type": "optic",
+          "status": "available"
+        },
+        {
+          "name": "XGE1/0/43",
+          "type": "optic",
+          "status": "available"
+        },
+        {
+          "name": "XGE1/0/44",
+          "type": "optic",
+          "status": "available"
+        },
+        {
+          "name": "XGE1/0/45",
+          "type": "optic",
+          "status": "available"
+        },
+        {
+          "name": "XGE1/0/46",
+          "type": "optic",
+          "status": "available"
+        },
+        {
+          "name": "XGE1/0/47",
+          "type": "optic",
+          "status": "available"
+        },
+        {
+          "name": "XGE1/0/48",
+          "type": "optic",
+          "status": "available"
+        },
+        {
+          "name": "HGE1/0/49",
+          "type": "optic",
+          "status": "available"
+        },
+        {
+          "name": "HGE1/0/50",
+          "type": "optic",
+          "status": "available"
+        },
+        {
+          "name": "HGE1/0/51",
+          "type": "optic",
+          "status": "available"
+        },
+        {
+          "name": "HGE1/0/52",
+          "type": "optic",
+          "status": "available"
+        },
+        {
+          "name": "HGE1/0/53",
+          "type": "optic",
+          "status": "available"
+        },
+        {
+          "name": "HGE1/0/54",
+          "type": "optic",
           "status": "available"
         }
       ],
-      "position": {
-        "x": 549.048071625603,
-        "y": 301.72372427156637
-      },
-      "rack_id": null,
-      "rack_u": null
+      "position": null,
+      "rack_id": "rack_1749632196564_1",
+      "rack_u": 34,
+      "power_status": "off"
     },
     {
-      "id": "device_1749087498673_3",
+      "id": "device_7d3f2516f840",
       "instance_name": "SW04",
-      "device_type": "5130",
+      "device_type": "S6805",
       "interfaces": [
         {
-          "name": "M-GigabitEthernet0/0/0",
-          "type": "Management",
+          "name": "XGE1/0/1",
+          "type": "optic",
           "status": "available"
         },
         {
-          "name": "GE1/0/1",
-          "type": "GigabitEthernet",
+          "name": "XGE1/0/2",
+          "type": "optic",
           "status": "available"
         },
         {
-          "name": "GE1/0/2",
-          "type": "GigabitEthernet",
+          "name": "XGE1/0/3",
+          "type": "optic",
           "status": "available"
         },
         {
-          "name": "GE1/0/3",
-          "type": "GigabitEthernet",
+          "name": "XGE1/0/4",
+          "type": "optic",
           "status": "available"
         },
         {
-          "name": "GE1/0/4",
-          "type": "GigabitEthernet",
+          "name": "XGE1/0/5",
+          "type": "optic",
           "status": "available"
         },
         {
-          "name": "GE1/0/5",
-          "type": "GigabitEthernet",
+          "name": "XGE1/0/6",
+          "type": "optic",
           "status": "available"
         },
         {
-          "name": "GE1/0/6",
-          "type": "GigabitEthernet",
+          "name": "XGE1/0/7",
+          "type": "optic",
           "status": "available"
         },
         {
-          "name": "GE1/0/7",
-          "type": "GigabitEthernet",
+          "name": "XGE1/0/8",
+          "type": "optic",
           "status": "available"
         },
         {
-          "name": "GE1/0/8",
-          "type": "GigabitEthernet",
+          "name": "XGE1/0/9",
+          "type": "optic",
           "status": "available"
         },
         {
-          "name": "GE1/0/9",
-          "type": "GigabitEthernet",
+          "name": "XGE1/0/10",
+          "type": "optic",
           "status": "available"
         },
         {
-          "name": "GE1/0/10",
-          "type": "GigabitEthernet",
+          "name": "XGE1/0/11",
+          "type": "optic",
+          "status": "available"
+        },
+        {
+          "name": "XGE1/0/12",
+          "type": "optic",
+          "status": "available"
+        },
+        {
+          "name": "XGE1/0/13",
+          "type": "optic",
+          "status": "available"
+        },
+        {
+          "name": "XGE1/0/14",
+          "type": "optic",
+          "status": "available"
+        },
+        {
+          "name": "XGE1/0/15",
+          "type": "optic",
+          "status": "available"
+        },
+        {
+          "name": "XGE1/0/16",
+          "type": "optic",
+          "status": "available"
+        },
+        {
+          "name": "XGE1/0/17",
+          "type": "optic",
+          "status": "available"
+        },
+        {
+          "name": "XGE1/0/18",
+          "type": "optic",
+          "status": "available"
+        },
+        {
+          "name": "XGE1/0/19",
+          "type": "optic",
+          "status": "available"
+        },
+        {
+          "name": "XGE1/0/20",
+          "type": "optic",
+          "status": "available"
+        },
+        {
+          "name": "XGE1/0/21",
+          "type": "optic",
+          "status": "available"
+        },
+        {
+          "name": "XGE1/0/22",
+          "type": "optic",
+          "status": "available"
+        },
+        {
+          "name": "XGE1/0/23",
+          "type": "optic",
+          "status": "available"
+        },
+        {
+          "name": "XGE1/0/24",
+          "type": "optic",
+          "status": "available"
+        },
+        {
+          "name": "XGE1/0/25",
+          "type": "optic",
+          "status": "available"
+        },
+        {
+          "name": "XGE1/0/26",
+          "type": "optic",
+          "status": "available"
+        },
+        {
+          "name": "XGE1/0/27",
+          "type": "optic",
+          "status": "available"
+        },
+        {
+          "name": "XGE1/0/28",
+          "type": "optic",
+          "status": "available"
+        },
+        {
+          "name": "XGE1/0/29",
+          "type": "optic",
+          "status": "available"
+        },
+        {
+          "name": "XGE1/0/30",
+          "type": "optic",
+          "status": "available"
+        },
+        {
+          "name": "XGE1/0/31",
+          "type": "optic",
+          "status": "available"
+        },
+        {
+          "name": "XGE1/0/32",
+          "type": "optic",
+          "status": "available"
+        },
+        {
+          "name": "XGE1/0/33",
+          "type": "optic",
+          "status": "available"
+        },
+        {
+          "name": "XGE1/0/34",
+          "type": "optic",
+          "status": "available"
+        },
+        {
+          "name": "XGE1/0/35",
+          "type": "optic",
+          "status": "available"
+        },
+        {
+          "name": "XGE1/0/36",
+          "type": "optic",
+          "status": "available"
+        },
+        {
+          "name": "XGE1/0/37",
+          "type": "optic",
+          "status": "available"
+        },
+        {
+          "name": "XGE1/0/38",
+          "type": "optic",
+          "status": "available"
+        },
+        {
+          "name": "XGE1/0/39",
+          "type": "optic",
+          "status": "available"
+        },
+        {
+          "name": "XGE1/0/40",
+          "type": "optic",
+          "status": "available"
+        },
+        {
+          "name": "XGE1/0/41",
+          "type": "optic",
+          "status": "available"
+        },
+        {
+          "name": "XGE1/0/42",
+          "type": "optic",
+          "status": "available"
+        },
+        {
+          "name": "XGE1/0/43",
+          "type": "optic",
+          "status": "available"
+        },
+        {
+          "name": "XGE1/0/44",
+          "type": "optic",
+          "status": "available"
+        },
+        {
+          "name": "XGE1/0/45",
+          "type": "optic",
+          "status": "available"
+        },
+        {
+          "name": "XGE1/0/46",
+          "type": "optic",
+          "status": "available"
+        },
+        {
+          "name": "XGE1/0/47",
+          "type": "optic",
+          "status": "available"
+        },
+        {
+          "name": "XGE1/0/48",
+          "type": "optic",
+          "status": "available"
+        },
+        {
+          "name": "HGE1/0/49",
+          "type": "optic",
+          "status": "available"
+        },
+        {
+          "name": "HGE1/0/50",
+          "type": "optic",
+          "status": "available"
+        },
+        {
+          "name": "HGE1/0/51",
+          "type": "optic",
+          "status": "available"
+        },
+        {
+          "name": "HGE1/0/52",
+          "type": "optic",
+          "status": "available"
+        },
+        {
+          "name": "HGE1/0/53",
+          "type": "optic",
+          "status": "available"
+        },
+        {
+          "name": "HGE1/0/54",
+          "type": "optic",
           "status": "available"
         }
       ],
-      "position": {
-        "x": 100,
-        "y": 200
-      },
-      "rack_id": null,
-      "rack_u": null,
+      "position": null,
+      "rack_id": "rack_1749632196564_1",
+      "rack_u": 36,
       "power_status": "off"
     },
     {
-      "id": "device_1749087498682_4",
+      "id": "device_5f8056d870a0",
       "instance_name": "SW05",
-      "device_type": "5130",
+      "device_type": "S6805",
       "interfaces": [
         {
-          "name": "M-GigabitEthernet0/0/0",
-          "type": "Management",
+          "name": "XGE1/0/1",
+          "type": "optic",
           "status": "available"
         },
         {
-          "name": "GE1/0/1",
-          "type": "GigabitEthernet",
+          "name": "XGE1/0/2",
+          "type": "optic",
           "status": "available"
         },
         {
-          "name": "GE1/0/2",
-          "type": "GigabitEthernet",
+          "name": "XGE1/0/3",
+          "type": "optic",
           "status": "available"
         },
         {
-          "name": "GE1/0/3",
-          "type": "GigabitEthernet",
+          "name": "XGE1/0/4",
+          "type": "optic",
           "status": "available"
         },
         {
-          "name": "GE1/0/4",
-          "type": "GigabitEthernet",
+          "name": "XGE1/0/5",
+          "type": "optic",
           "status": "available"
         },
         {
-          "name": "GE1/0/5",
-          "type": "GigabitEthernet",
+          "name": "XGE1/0/6",
+          "type": "optic",
           "status": "available"
         },
         {
-          "name": "GE1/0/6",
-          "type": "GigabitEthernet",
+          "name": "XGE1/0/7",
+          "type": "optic",
           "status": "available"
         },
         {
-          "name": "GE1/0/7",
-          "type": "GigabitEthernet",
+          "name": "XGE1/0/8",
+          "type": "optic",
           "status": "available"
         },
         {
-          "name": "GE1/0/8",
-          "type": "GigabitEthernet",
+          "name": "XGE1/0/9",
+          "type": "optic",
           "status": "available"
         },
         {
-          "name": "GE1/0/9",
-          "type": "GigabitEthernet",
+          "name": "XGE1/0/10",
+          "type": "optic",
           "status": "available"
         },
         {
-          "name": "GE1/0/10",
-          "type": "GigabitEthernet",
+          "name": "XGE1/0/11",
+          "type": "optic",
+          "status": "available"
+        },
+        {
+          "name": "XGE1/0/12",
+          "type": "optic",
+          "status": "available"
+        },
+        {
+          "name": "XGE1/0/13",
+          "type": "optic",
+          "status": "available"
+        },
+        {
+          "name": "XGE1/0/14",
+          "type": "optic",
+          "status": "available"
+        },
+        {
+          "name": "XGE1/0/15",
+          "type": "optic",
+          "status": "available"
+        },
+        {
+          "name": "XGE1/0/16",
+          "type": "optic",
+          "status": "available"
+        },
+        {
+          "name": "XGE1/0/17",
+          "type": "optic",
+          "status": "available"
+        },
+        {
+          "name": "XGE1/0/18",
+          "type": "optic",
+          "status": "available"
+        },
+        {
+          "name": "XGE1/0/19",
+          "type": "optic",
+          "status": "available"
+        },
+        {
+          "name": "XGE1/0/20",
+          "type": "optic",
+          "status": "available"
+        },
+        {
+          "name": "XGE1/0/21",
+          "type": "optic",
+          "status": "available"
+        },
+        {
+          "name": "XGE1/0/22",
+          "type": "optic",
+          "status": "available"
+        },
+        {
+          "name": "XGE1/0/23",
+          "type": "optic",
+          "status": "available"
+        },
+        {
+          "name": "XGE1/0/24",
+          "type": "optic",
+          "status": "available"
+        },
+        {
+          "name": "XGE1/0/25",
+          "type": "optic",
+          "status": "available"
+        },
+        {
+          "name": "XGE1/0/26",
+          "type": "optic",
+          "status": "available"
+        },
+        {
+          "name": "XGE1/0/27",
+          "type": "optic",
+          "status": "available"
+        },
+        {
+          "name": "XGE1/0/28",
+          "type": "optic",
+          "status": "available"
+        },
+        {
+          "name": "XGE1/0/29",
+          "type": "optic",
+          "status": "available"
+        },
+        {
+          "name": "XGE1/0/30",
+          "type": "optic",
+          "status": "available"
+        },
+        {
+          "name": "XGE1/0/31",
+          "type": "optic",
+          "status": "available"
+        },
+        {
+          "name": "XGE1/0/32",
+          "type": "optic",
+          "status": "available"
+        },
+        {
+          "name": "XGE1/0/33",
+          "type": "optic",
+          "status": "available"
+        },
+        {
+          "name": "XGE1/0/34",
+          "type": "optic",
+          "status": "available"
+        },
+        {
+          "name": "XGE1/0/35",
+          "type": "optic",
+          "status": "available"
+        },
+        {
+          "name": "XGE1/0/36",
+          "type": "optic",
+          "status": "available"
+        },
+        {
+          "name": "XGE1/0/37",
+          "type": "optic",
+          "status": "available"
+        },
+        {
+          "name": "XGE1/0/38",
+          "type": "optic",
+          "status": "available"
+        },
+        {
+          "name": "XGE1/0/39",
+          "type": "optic",
+          "status": "available"
+        },
+        {
+          "name": "XGE1/0/40",
+          "type": "optic",
+          "status": "available"
+        },
+        {
+          "name": "XGE1/0/41",
+          "type": "optic",
+          "status": "available"
+        },
+        {
+          "name": "XGE1/0/42",
+          "type": "optic",
+          "status": "available"
+        },
+        {
+          "name": "XGE1/0/43",
+          "type": "optic",
+          "status": "available"
+        },
+        {
+          "name": "XGE1/0/44",
+          "type": "optic",
+          "status": "available"
+        },
+        {
+          "name": "XGE1/0/45",
+          "type": "optic",
+          "status": "available"
+        },
+        {
+          "name": "XGE1/0/46",
+          "type": "optic",
+          "status": "available"
+        },
+        {
+          "name": "XGE1/0/47",
+          "type": "optic",
+          "status": "available"
+        },
+        {
+          "name": "XGE1/0/48",
+          "type": "optic",
+          "status": "available"
+        },
+        {
+          "name": "HGE1/0/49",
+          "type": "optic",
+          "status": "available"
+        },
+        {
+          "name": "HGE1/0/50",
+          "type": "optic",
+          "status": "available"
+        },
+        {
+          "name": "HGE1/0/51",
+          "type": "optic",
+          "status": "available"
+        },
+        {
+          "name": "HGE1/0/52",
+          "type": "optic",
+          "status": "available"
+        },
+        {
+          "name": "HGE1/0/53",
+          "type": "optic",
+          "status": "available"
+        },
+        {
+          "name": "HGE1/0/54",
+          "type": "optic",
           "status": "available"
         }
       ],
-      "position": {
-        "x": 200,
-        "y": 200
-      },
-      "rack_id": null,
-      "rack_u": null,
+      "position": null,
+      "rack_id": "rack_1749632196564_1",
+      "rack_u": 38,
       "power_status": "off"
     },
     {
-      "id": "device_1749087498692_5",
+      "id": "device_32025920270e",
       "instance_name": "SW06",
-      "device_type": "5130",
+      "device_type": "S6805",
       "interfaces": [
         {
-          "name": "M-GigabitEthernet0/0/0",
-          "type": "Management",
+          "name": "XGE1/0/1",
+          "type": "optic",
           "status": "available"
         },
         {
-          "name": "GE1/0/1",
-          "type": "GigabitEthernet",
+          "name": "XGE1/0/2",
+          "type": "optic",
           "status": "available"
         },
         {
-          "name": "GE1/0/2",
-          "type": "GigabitEthernet",
+          "name": "XGE1/0/3",
+          "type": "optic",
           "status": "available"
         },
         {
-          "name": "GE1/0/3",
-          "type": "GigabitEthernet",
+          "name": "XGE1/0/4",
+          "type": "optic",
           "status": "available"
         },
         {
-          "name": "GE1/0/4",
-          "type": "GigabitEthernet",
+          "name": "XGE1/0/5",
+          "type": "optic",
           "status": "available"
         },
         {
-          "name": "GE1/0/5",
-          "type": "GigabitEthernet",
+          "name": "XGE1/0/6",
+          "type": "optic",
           "status": "available"
         },
         {
-          "name": "GE1/0/6",
-          "type": "GigabitEthernet",
+          "name": "XGE1/0/7",
+          "type": "optic",
           "status": "available"
         },
         {
-          "name": "GE1/0/7",
-          "type": "GigabitEthernet",
+          "name": "XGE1/0/8",
+          "type": "optic",
           "status": "available"
         },
         {
-          "name": "GE1/0/8",
-          "type": "GigabitEthernet",
+          "name": "XGE1/0/9",
+          "type": "optic",
           "status": "available"
         },
         {
-          "name": "GE1/0/9",
-          "type": "GigabitEthernet",
+          "name": "XGE1/0/10",
+          "type": "optic",
           "status": "available"
         },
         {
-          "name": "GE1/0/10",
-          "type": "GigabitEthernet",
+          "name": "XGE1/0/11",
+          "type": "optic",
+          "status": "available"
+        },
+        {
+          "name": "XGE1/0/12",
+          "type": "optic",
+          "status": "available"
+        },
+        {
+          "name": "XGE1/0/13",
+          "type": "optic",
+          "status": "available"
+        },
+        {
+          "name": "XGE1/0/14",
+          "type": "optic",
+          "status": "available"
+        },
+        {
+          "name": "XGE1/0/15",
+          "type": "optic",
+          "status": "available"
+        },
+        {
+          "name": "XGE1/0/16",
+          "type": "optic",
+          "status": "available"
+        },
+        {
+          "name": "XGE1/0/17",
+          "type": "optic",
+          "status": "available"
+        },
+        {
+          "name": "XGE1/0/18",
+          "type": "optic",
+          "status": "available"
+        },
+        {
+          "name": "XGE1/0/19",
+          "type": "optic",
+          "status": "available"
+        },
+        {
+          "name": "XGE1/0/20",
+          "type": "optic",
+          "status": "available"
+        },
+        {
+          "name": "XGE1/0/21",
+          "type": "optic",
+          "status": "available"
+        },
+        {
+          "name": "XGE1/0/22",
+          "type": "optic",
+          "status": "available"
+        },
+        {
+          "name": "XGE1/0/23",
+          "type": "optic",
+          "status": "available"
+        },
+        {
+          "name": "XGE1/0/24",
+          "type": "optic",
+          "status": "available"
+        },
+        {
+          "name": "XGE1/0/25",
+          "type": "optic",
+          "status": "available"
+        },
+        {
+          "name": "XGE1/0/26",
+          "type": "optic",
+          "status": "available"
+        },
+        {
+          "name": "XGE1/0/27",
+          "type": "optic",
+          "status": "available"
+        },
+        {
+          "name": "XGE1/0/28",
+          "type": "optic",
+          "status": "available"
+        },
+        {
+          "name": "XGE1/0/29",
+          "type": "optic",
+          "status": "available"
+        },
+        {
+          "name": "XGE1/0/30",
+          "type": "optic",
+          "status": "available"
+        },
+        {
+          "name": "XGE1/0/31",
+          "type": "optic",
+          "status": "available"
+        },
+        {
+          "name": "XGE1/0/32",
+          "type": "optic",
+          "status": "available"
+        },
+        {
+          "name": "XGE1/0/33",
+          "type": "optic",
+          "status": "available"
+        },
+        {
+          "name": "XGE1/0/34",
+          "type": "optic",
+          "status": "available"
+        },
+        {
+          "name": "XGE1/0/35",
+          "type": "optic",
+          "status": "available"
+        },
+        {
+          "name": "XGE1/0/36",
+          "type": "optic",
+          "status": "available"
+        },
+        {
+          "name": "XGE1/0/37",
+          "type": "optic",
+          "status": "available"
+        },
+        {
+          "name": "XGE1/0/38",
+          "type": "optic",
+          "status": "available"
+        },
+        {
+          "name": "XGE1/0/39",
+          "type": "optic",
+          "status": "available"
+        },
+        {
+          "name": "XGE1/0/40",
+          "type": "optic",
+          "status": "available"
+        },
+        {
+          "name": "XGE1/0/41",
+          "type": "optic",
+          "status": "available"
+        },
+        {
+          "name": "XGE1/0/42",
+          "type": "optic",
+          "status": "available"
+        },
+        {
+          "name": "XGE1/0/43",
+          "type": "optic",
+          "status": "available"
+        },
+        {
+          "name": "XGE1/0/44",
+          "type": "optic",
+          "status": "available"
+        },
+        {
+          "name": "XGE1/0/45",
+          "type": "optic",
+          "status": "available"
+        },
+        {
+          "name": "XGE1/0/46",
+          "type": "optic",
+          "status": "available"
+        },
+        {
+          "name": "XGE1/0/47",
+          "type": "optic",
+          "status": "available"
+        },
+        {
+          "name": "XGE1/0/48",
+          "type": "optic",
+          "status": "available"
+        },
+        {
+          "name": "HGE1/0/49",
+          "type": "optic",
+          "status": "available"
+        },
+        {
+          "name": "HGE1/0/50",
+          "type": "optic",
+          "status": "available"
+        },
+        {
+          "name": "HGE1/0/51",
+          "type": "optic",
+          "status": "available"
+        },
+        {
+          "name": "HGE1/0/52",
+          "type": "optic",
+          "status": "available"
+        },
+        {
+          "name": "HGE1/0/53",
+          "type": "optic",
+          "status": "available"
+        },
+        {
+          "name": "HGE1/0/54",
+          "type": "optic",
           "status": "available"
         }
       ],
-      "position": {
-        "x": 300,
-        "y": 200
-      },
+      "position": null,
       "rack_id": null,
       "rack_u": null,
       "power_status": "off"
     },
     {
-      "id": "device_1749088483461_6",
+      "id": "device_af2bdc673003",
       "instance_name": "SW07",
-      "device_type": "5130",
+      "device_type": "S6805",
       "interfaces": [
         {
-          "name": "M-GigabitEthernet0/0/0",
-          "type": "Management",
+          "name": "XGE1/0/1",
+          "type": "optic",
           "status": "available"
         },
         {
-          "name": "GE1/0/1",
-          "type": "GigabitEthernet",
+          "name": "XGE1/0/2",
+          "type": "optic",
           "status": "available"
         },
         {
-          "name": "GE1/0/2",
-          "type": "GigabitEthernet",
+          "name": "XGE1/0/3",
+          "type": "optic",
           "status": "available"
         },
         {
-          "name": "GE1/0/3",
-          "type": "GigabitEthernet",
+          "name": "XGE1/0/4",
+          "type": "optic",
           "status": "available"
         },
         {
-          "name": "GE1/0/4",
-          "type": "GigabitEthernet",
+          "name": "XGE1/0/5",
+          "type": "optic",
           "status": "available"
         },
         {
-          "name": "GE1/0/5",
-          "type": "GigabitEthernet",
+          "name": "XGE1/0/6",
+          "type": "optic",
           "status": "available"
         },
         {
-          "name": "GE1/0/6",
-          "type": "GigabitEthernet",
+          "name": "XGE1/0/7",
+          "type": "optic",
           "status": "available"
         },
         {
-          "name": "GE1/0/7",
-          "type": "GigabitEthernet",
+          "name": "XGE1/0/8",
+          "type": "optic",
           "status": "available"
         },
         {
-          "name": "GE1/0/8",
-          "type": "GigabitEthernet",
+          "name": "XGE1/0/9",
+          "type": "optic",
           "status": "available"
         },
         {
-          "name": "GE1/0/9",
-          "type": "GigabitEthernet",
+          "name": "XGE1/0/10",
+          "type": "optic",
           "status": "available"
         },
         {
-          "name": "GE1/0/10",
-          "type": "GigabitEthernet",
+          "name": "XGE1/0/11",
+          "type": "optic",
+          "status": "available"
+        },
+        {
+          "name": "XGE1/0/12",
+          "type": "optic",
+          "status": "available"
+        },
+        {
+          "name": "XGE1/0/13",
+          "type": "optic",
+          "status": "available"
+        },
+        {
+          "name": "XGE1/0/14",
+          "type": "optic",
+          "status": "available"
+        },
+        {
+          "name": "XGE1/0/15",
+          "type": "optic",
+          "status": "available"
+        },
+        {
+          "name": "XGE1/0/16",
+          "type": "optic",
+          "status": "available"
+        },
+        {
+          "name": "XGE1/0/17",
+          "type": "optic",
+          "status": "available"
+        },
+        {
+          "name": "XGE1/0/18",
+          "type": "optic",
+          "status": "available"
+        },
+        {
+          "name": "XGE1/0/19",
+          "type": "optic",
+          "status": "available"
+        },
+        {
+          "name": "XGE1/0/20",
+          "type": "optic",
+          "status": "available"
+        },
+        {
+          "name": "XGE1/0/21",
+          "type": "optic",
+          "status": "available"
+        },
+        {
+          "name": "XGE1/0/22",
+          "type": "optic",
+          "status": "available"
+        },
+        {
+          "name": "XGE1/0/23",
+          "type": "optic",
+          "status": "available"
+        },
+        {
+          "name": "XGE1/0/24",
+          "type": "optic",
+          "status": "available"
+        },
+        {
+          "name": "XGE1/0/25",
+          "type": "optic",
+          "status": "available"
+        },
+        {
+          "name": "XGE1/0/26",
+          "type": "optic",
+          "status": "available"
+        },
+        {
+          "name": "XGE1/0/27",
+          "type": "optic",
+          "status": "available"
+        },
+        {
+          "name": "XGE1/0/28",
+          "type": "optic",
+          "status": "available"
+        },
+        {
+          "name": "XGE1/0/29",
+          "type": "optic",
+          "status": "available"
+        },
+        {
+          "name": "XGE1/0/30",
+          "type": "optic",
+          "status": "available"
+        },
+        {
+          "name": "XGE1/0/31",
+          "type": "optic",
+          "status": "available"
+        },
+        {
+          "name": "XGE1/0/32",
+          "type": "optic",
+          "status": "available"
+        },
+        {
+          "name": "XGE1/0/33",
+          "type": "optic",
+          "status": "available"
+        },
+        {
+          "name": "XGE1/0/34",
+          "type": "optic",
+          "status": "available"
+        },
+        {
+          "name": "XGE1/0/35",
+          "type": "optic",
+          "status": "available"
+        },
+        {
+          "name": "XGE1/0/36",
+          "type": "optic",
+          "status": "available"
+        },
+        {
+          "name": "XGE1/0/37",
+          "type": "optic",
+          "status": "available"
+        },
+        {
+          "name": "XGE1/0/38",
+          "type": "optic",
+          "status": "available"
+        },
+        {
+          "name": "XGE1/0/39",
+          "type": "optic",
+          "status": "available"
+        },
+        {
+          "name": "XGE1/0/40",
+          "type": "optic",
+          "status": "available"
+        },
+        {
+          "name": "XGE1/0/41",
+          "type": "optic",
+          "status": "available"
+        },
+        {
+          "name": "XGE1/0/42",
+          "type": "optic",
+          "status": "available"
+        },
+        {
+          "name": "XGE1/0/43",
+          "type": "optic",
+          "status": "available"
+        },
+        {
+          "name": "XGE1/0/44",
+          "type": "optic",
+          "status": "available"
+        },
+        {
+          "name": "XGE1/0/45",
+          "type": "optic",
+          "status": "available"
+        },
+        {
+          "name": "XGE1/0/46",
+          "type": "optic",
+          "status": "available"
+        },
+        {
+          "name": "XGE1/0/47",
+          "type": "optic",
+          "status": "available"
+        },
+        {
+          "name": "XGE1/0/48",
+          "type": "optic",
+          "status": "available"
+        },
+        {
+          "name": "HGE1/0/49",
+          "type": "optic",
+          "status": "available"
+        },
+        {
+          "name": "HGE1/0/50",
+          "type": "optic",
+          "status": "available"
+        },
+        {
+          "name": "HGE1/0/51",
+          "type": "optic",
+          "status": "available"
+        },
+        {
+          "name": "HGE1/0/52",
+          "type": "optic",
+          "status": "available"
+        },
+        {
+          "name": "HGE1/0/53",
+          "type": "optic",
+          "status": "available"
+        },
+        {
+          "name": "HGE1/0/54",
+          "type": "optic",
           "status": "available"
         }
       ],
-      "position": {
-        "x": 300,
-        "y": 200
-      },
+      "position": null,
       "rack_id": null,
       "rack_u": null,
       "power_status": "off"
     },
     {
-      "id": "device_1749088483473_7",
+      "id": "device_d0744c9a8dbb",
       "instance_name": "SW08",
-      "device_type": "5130",
+      "device_type": "S6805",
       "interfaces": [
         {
-          "name": "M-GigabitEthernet0/0/0",
-          "type": "Management",
+          "name": "XGE1/0/1",
+          "type": "optic",
           "status": "available"
         },
         {
-          "name": "GE1/0/1",
-          "type": "GigabitEthernet",
+          "name": "XGE1/0/2",
+          "type": "optic",
           "status": "available"
         },
         {
-          "name": "GE1/0/2",
-          "type": "GigabitEthernet",
+          "name": "XGE1/0/3",
+          "type": "optic",
           "status": "available"
         },
         {
-          "name": "GE1/0/3",
-          "type": "GigabitEthernet",
+          "name": "XGE1/0/4",
+          "type": "optic",
           "status": "available"
         },
         {
-          "name": "GE1/0/4",
-          "type": "GigabitEthernet",
+          "name": "XGE1/0/5",
+          "type": "optic",
           "status": "available"
         },
         {
-          "name": "GE1/0/5",
-          "type": "GigabitEthernet",
+          "name": "XGE1/0/6",
+          "type": "optic",
           "status": "available"
         },
         {
-          "name": "GE1/0/6",
-          "type": "GigabitEthernet",
+          "name": "XGE1/0/7",
+          "type": "optic",
           "status": "available"
         },
         {
-          "name": "GE1/0/7",
-          "type": "GigabitEthernet",
+          "name": "XGE1/0/8",
+          "type": "optic",
           "status": "available"
         },
         {
-          "name": "GE1/0/8",
-          "type": "GigabitEthernet",
+          "name": "XGE1/0/9",
+          "type": "optic",
           "status": "available"
         },
         {
-          "name": "GE1/0/9",
-          "type": "GigabitEthernet",
+          "name": "XGE1/0/10",
+          "type": "optic",
           "status": "available"
         },
         {
-          "name": "GE1/0/10",
-          "type": "GigabitEthernet",
+          "name": "XGE1/0/11",
+          "type": "optic",
+          "status": "available"
+        },
+        {
+          "name": "XGE1/0/12",
+          "type": "optic",
+          "status": "available"
+        },
+        {
+          "name": "XGE1/0/13",
+          "type": "optic",
+          "status": "available"
+        },
+        {
+          "name": "XGE1/0/14",
+          "type": "optic",
+          "status": "available"
+        },
+        {
+          "name": "XGE1/0/15",
+          "type": "optic",
+          "status": "available"
+        },
+        {
+          "name": "XGE1/0/16",
+          "type": "optic",
+          "status": "available"
+        },
+        {
+          "name": "XGE1/0/17",
+          "type": "optic",
+          "status": "available"
+        },
+        {
+          "name": "XGE1/0/18",
+          "type": "optic",
+          "status": "available"
+        },
+        {
+          "name": "XGE1/0/19",
+          "type": "optic",
+          "status": "available"
+        },
+        {
+          "name": "XGE1/0/20",
+          "type": "optic",
+          "status": "available"
+        },
+        {
+          "name": "XGE1/0/21",
+          "type": "optic",
+          "status": "available"
+        },
+        {
+          "name": "XGE1/0/22",
+          "type": "optic",
+          "status": "available"
+        },
+        {
+          "name": "XGE1/0/23",
+          "type": "optic",
+          "status": "available"
+        },
+        {
+          "name": "XGE1/0/24",
+          "type": "optic",
+          "status": "available"
+        },
+        {
+          "name": "XGE1/0/25",
+          "type": "optic",
+          "status": "available"
+        },
+        {
+          "name": "XGE1/0/26",
+          "type": "optic",
+          "status": "available"
+        },
+        {
+          "name": "XGE1/0/27",
+          "type": "optic",
+          "status": "available"
+        },
+        {
+          "name": "XGE1/0/28",
+          "type": "optic",
+          "status": "available"
+        },
+        {
+          "name": "XGE1/0/29",
+          "type": "optic",
+          "status": "available"
+        },
+        {
+          "name": "XGE1/0/30",
+          "type": "optic",
+          "status": "available"
+        },
+        {
+          "name": "XGE1/0/31",
+          "type": "optic",
+          "status": "available"
+        },
+        {
+          "name": "XGE1/0/32",
+          "type": "optic",
+          "status": "available"
+        },
+        {
+          "name": "XGE1/0/33",
+          "type": "optic",
+          "status": "available"
+        },
+        {
+          "name": "XGE1/0/34",
+          "type": "optic",
+          "status": "available"
+        },
+        {
+          "name": "XGE1/0/35",
+          "type": "optic",
+          "status": "available"
+        },
+        {
+          "name": "XGE1/0/36",
+          "type": "optic",
+          "status": "available"
+        },
+        {
+          "name": "XGE1/0/37",
+          "type": "optic",
+          "status": "available"
+        },
+        {
+          "name": "XGE1/0/38",
+          "type": "optic",
+          "status": "available"
+        },
+        {
+          "name": "XGE1/0/39",
+          "type": "optic",
+          "status": "available"
+        },
+        {
+          "name": "XGE1/0/40",
+          "type": "optic",
+          "status": "available"
+        },
+        {
+          "name": "XGE1/0/41",
+          "type": "optic",
+          "status": "available"
+        },
+        {
+          "name": "XGE1/0/42",
+          "type": "optic",
+          "status": "available"
+        },
+        {
+          "name": "XGE1/0/43",
+          "type": "optic",
+          "status": "available"
+        },
+        {
+          "name": "XGE1/0/44",
+          "type": "optic",
+          "status": "available"
+        },
+        {
+          "name": "XGE1/0/45",
+          "type": "optic",
+          "status": "available"
+        },
+        {
+          "name": "XGE1/0/46",
+          "type": "optic",
+          "status": "available"
+        },
+        {
+          "name": "XGE1/0/47",
+          "type": "optic",
+          "status": "available"
+        },
+        {
+          "name": "XGE1/0/48",
+          "type": "optic",
+          "status": "available"
+        },
+        {
+          "name": "HGE1/0/49",
+          "type": "optic",
+          "status": "available"
+        },
+        {
+          "name": "HGE1/0/50",
+          "type": "optic",
+          "status": "available"
+        },
+        {
+          "name": "HGE1/0/51",
+          "type": "optic",
+          "status": "available"
+        },
+        {
+          "name": "HGE1/0/52",
+          "type": "optic",
+          "status": "available"
+        },
+        {
+          "name": "HGE1/0/53",
+          "type": "optic",
+          "status": "available"
+        },
+        {
+          "name": "HGE1/0/54",
+          "type": "optic",
           "status": "available"
         }
       ],
-      "position": {
-        "x": 400,
-        "y": 200
-      },
+      "position": null,
       "rack_id": null,
-      "rack_u": null
+      "rack_u": null,
+      "power_status": "off"
     },
     {
-      "id": "device_1749088483483_8",
+      "id": "device_fa1e131c47d6",
       "instance_name": "SW09",
-      "device_type": "5130",
+      "device_type": "S6805",
       "interfaces": [
         {
-          "name": "M-GigabitEthernet0/0/0",
-          "type": "Management",
+          "name": "XGE1/0/1",
+          "type": "optic",
           "status": "available"
         },
         {
-          "name": "GE1/0/1",
-          "type": "GigabitEthernet",
+          "name": "XGE1/0/2",
+          "type": "optic",
           "status": "available"
         },
         {
-          "name": "GE1/0/2",
-          "type": "GigabitEthernet",
+          "name": "XGE1/0/3",
+          "type": "optic",
           "status": "available"
         },
         {
-          "name": "GE1/0/3",
-          "type": "GigabitEthernet",
+          "name": "XGE1/0/4",
+          "type": "optic",
           "status": "available"
         },
         {
-          "name": "GE1/0/4",
-          "type": "GigabitEthernet",
+          "name": "XGE1/0/5",
+          "type": "optic",
           "status": "available"
         },
         {
-          "name": "GE1/0/5",
-          "type": "GigabitEthernet",
+          "name": "XGE1/0/6",
+          "type": "optic",
           "status": "available"
         },
         {
-          "name": "GE1/0/6",
-          "type": "GigabitEthernet",
+          "name": "XGE1/0/7",
+          "type": "optic",
           "status": "available"
         },
         {
-          "name": "GE1/0/7",
-          "type": "GigabitEthernet",
+          "name": "XGE1/0/8",
+          "type": "optic",
           "status": "available"
         },
         {
-          "name": "GE1/0/8",
-          "type": "GigabitEthernet",
+          "name": "XGE1/0/9",
+          "type": "optic",
           "status": "available"
         },
         {
-          "name": "GE1/0/9",
-          "type": "GigabitEthernet",
+          "name": "XGE1/0/10",
+          "type": "optic",
           "status": "available"
         },
         {
-          "name": "GE1/0/10",
-          "type": "GigabitEthernet",
+          "name": "XGE1/0/11",
+          "type": "optic",
+          "status": "available"
+        },
+        {
+          "name": "XGE1/0/12",
+          "type": "optic",
+          "status": "available"
+        },
+        {
+          "name": "XGE1/0/13",
+          "type": "optic",
+          "status": "available"
+        },
+        {
+          "name": "XGE1/0/14",
+          "type": "optic",
+          "status": "available"
+        },
+        {
+          "name": "XGE1/0/15",
+          "type": "optic",
+          "status": "available"
+        },
+        {
+          "name": "XGE1/0/16",
+          "type": "optic",
+          "status": "available"
+        },
+        {
+          "name": "XGE1/0/17",
+          "type": "optic",
+          "status": "available"
+        },
+        {
+          "name": "XGE1/0/18",
+          "type": "optic",
+          "status": "available"
+        },
+        {
+          "name": "XGE1/0/19",
+          "type": "optic",
+          "status": "available"
+        },
+        {
+          "name": "XGE1/0/20",
+          "type": "optic",
+          "status": "available"
+        },
+        {
+          "name": "XGE1/0/21",
+          "type": "optic",
+          "status": "available"
+        },
+        {
+          "name": "XGE1/0/22",
+          "type": "optic",
+          "status": "available"
+        },
+        {
+          "name": "XGE1/0/23",
+          "type": "optic",
+          "status": "available"
+        },
+        {
+          "name": "XGE1/0/24",
+          "type": "optic",
+          "status": "available"
+        },
+        {
+          "name": "XGE1/0/25",
+          "type": "optic",
+          "status": "available"
+        },
+        {
+          "name": "XGE1/0/26",
+          "type": "optic",
+          "status": "available"
+        },
+        {
+          "name": "XGE1/0/27",
+          "type": "optic",
+          "status": "available"
+        },
+        {
+          "name": "XGE1/0/28",
+          "type": "optic",
+          "status": "available"
+        },
+        {
+          "name": "XGE1/0/29",
+          "type": "optic",
+          "status": "available"
+        },
+        {
+          "name": "XGE1/0/30",
+          "type": "optic",
+          "status": "available"
+        },
+        {
+          "name": "XGE1/0/31",
+          "type": "optic",
+          "status": "available"
+        },
+        {
+          "name": "XGE1/0/32",
+          "type": "optic",
+          "status": "available"
+        },
+        {
+          "name": "XGE1/0/33",
+          "type": "optic",
+          "status": "available"
+        },
+        {
+          "name": "XGE1/0/34",
+          "type": "optic",
+          "status": "available"
+        },
+        {
+          "name": "XGE1/0/35",
+          "type": "optic",
+          "status": "available"
+        },
+        {
+          "name": "XGE1/0/36",
+          "type": "optic",
+          "status": "available"
+        },
+        {
+          "name": "XGE1/0/37",
+          "type": "optic",
+          "status": "available"
+        },
+        {
+          "name": "XGE1/0/38",
+          "type": "optic",
+          "status": "available"
+        },
+        {
+          "name": "XGE1/0/39",
+          "type": "optic",
+          "status": "available"
+        },
+        {
+          "name": "XGE1/0/40",
+          "type": "optic",
+          "status": "available"
+        },
+        {
+          "name": "XGE1/0/41",
+          "type": "optic",
+          "status": "available"
+        },
+        {
+          "name": "XGE1/0/42",
+          "type": "optic",
+          "status": "available"
+        },
+        {
+          "name": "XGE1/0/43",
+          "type": "optic",
+          "status": "available"
+        },
+        {
+          "name": "XGE1/0/44",
+          "type": "optic",
+          "status": "available"
+        },
+        {
+          "name": "XGE1/0/45",
+          "type": "optic",
+          "status": "available"
+        },
+        {
+          "name": "XGE1/0/46",
+          "type": "optic",
+          "status": "available"
+        },
+        {
+          "name": "XGE1/0/47",
+          "type": "optic",
+          "status": "available"
+        },
+        {
+          "name": "XGE1/0/48",
+          "type": "optic",
+          "status": "available"
+        },
+        {
+          "name": "HGE1/0/49",
+          "type": "optic",
+          "status": "available"
+        },
+        {
+          "name": "HGE1/0/50",
+          "type": "optic",
+          "status": "available"
+        },
+        {
+          "name": "HGE1/0/51",
+          "type": "optic",
+          "status": "available"
+        },
+        {
+          "name": "HGE1/0/52",
+          "type": "optic",
+          "status": "available"
+        },
+        {
+          "name": "HGE1/0/53",
+          "type": "optic",
+          "status": "available"
+        },
+        {
+          "name": "HGE1/0/54",
+          "type": "optic",
           "status": "available"
         }
       ],
-      "position": {
-        "x": 100,
-        "y": 300
-      },
+      "position": null,
       "rack_id": null,
-      "rack_u": null
+      "rack_u": null,
+      "power_status": "off"
     },
     {
-      "id": "test_server_01",
-      "instance_name": "TestServer01",
-      "device_type": "TestServer",
+      "id": "device_6257db983b1e",
+      "instance_name": "SW10",
+      "device_type": "S6805",
       "interfaces": [
         {
-          "name": "M-GigabitEthernet0/0/0",
-          "type": "Management",
+          "name": "XGE1/0/1",
+          "type": "optic",
           "status": "available"
         },
         {
-          "name": "GigabitEthernet0/0/1",
-          "type": "Ethernet",
+          "name": "XGE1/0/2",
+          "type": "optic",
           "status": "available"
         },
         {
-          "name": "GigabitEthernet0/0/2",
-          "type": "Ethernet",
+          "name": "XGE1/0/3",
+          "type": "optic",
           "status": "available"
         },
         {
-          "name": "GigabitEthernet0/0/3",
-          "type": "Ethernet",
+          "name": "XGE1/0/4",
+          "type": "optic",
           "status": "available"
         },
         {
-          "name": "GigabitEthernet0/0/4",
-          "type": "Ethernet",
+          "name": "XGE1/0/5",
+          "type": "optic",
+          "status": "available"
+        },
+        {
+          "name": "XGE1/0/6",
+          "type": "optic",
+          "status": "available"
+        },
+        {
+          "name": "XGE1/0/7",
+          "type": "optic",
+          "status": "available"
+        },
+        {
+          "name": "XGE1/0/8",
+          "type": "optic",
+          "status": "available"
+        },
+        {
+          "name": "XGE1/0/9",
+          "type": "optic",
+          "status": "available"
+        },
+        {
+          "name": "XGE1/0/10",
+          "type": "optic",
+          "status": "available"
+        },
+        {
+          "name": "XGE1/0/11",
+          "type": "optic",
+          "status": "available"
+        },
+        {
+          "name": "XGE1/0/12",
+          "type": "optic",
+          "status": "available"
+        },
+        {
+          "name": "XGE1/0/13",
+          "type": "optic",
+          "status": "available"
+        },
+        {
+          "name": "XGE1/0/14",
+          "type": "optic",
+          "status": "available"
+        },
+        {
+          "name": "XGE1/0/15",
+          "type": "optic",
+          "status": "available"
+        },
+        {
+          "name": "XGE1/0/16",
+          "type": "optic",
+          "status": "available"
+        },
+        {
+          "name": "XGE1/0/17",
+          "type": "optic",
+          "status": "available"
+        },
+        {
+          "name": "XGE1/0/18",
+          "type": "optic",
+          "status": "available"
+        },
+        {
+          "name": "XGE1/0/19",
+          "type": "optic",
+          "status": "available"
+        },
+        {
+          "name": "XGE1/0/20",
+          "type": "optic",
+          "status": "available"
+        },
+        {
+          "name": "XGE1/0/21",
+          "type": "optic",
+          "status": "available"
+        },
+        {
+          "name": "XGE1/0/22",
+          "type": "optic",
+          "status": "available"
+        },
+        {
+          "name": "XGE1/0/23",
+          "type": "optic",
+          "status": "available"
+        },
+        {
+          "name": "XGE1/0/24",
+          "type": "optic",
+          "status": "available"
+        },
+        {
+          "name": "XGE1/0/25",
+          "type": "optic",
+          "status": "available"
+        },
+        {
+          "name": "XGE1/0/26",
+          "type": "optic",
+          "status": "available"
+        },
+        {
+          "name": "XGE1/0/27",
+          "type": "optic",
+          "status": "available"
+        },
+        {
+          "name": "XGE1/0/28",
+          "type": "optic",
+          "status": "available"
+        },
+        {
+          "name": "XGE1/0/29",
+          "type": "optic",
+          "status": "available"
+        },
+        {
+          "name": "XGE1/0/30",
+          "type": "optic",
+          "status": "available"
+        },
+        {
+          "name": "XGE1/0/31",
+          "type": "optic",
+          "status": "available"
+        },
+        {
+          "name": "XGE1/0/32",
+          "type": "optic",
+          "status": "available"
+        },
+        {
+          "name": "XGE1/0/33",
+          "type": "optic",
+          "status": "available"
+        },
+        {
+          "name": "XGE1/0/34",
+          "type": "optic",
+          "status": "available"
+        },
+        {
+          "name": "XGE1/0/35",
+          "type": "optic",
+          "status": "available"
+        },
+        {
+          "name": "XGE1/0/36",
+          "type": "optic",
+          "status": "available"
+        },
+        {
+          "name": "XGE1/0/37",
+          "type": "optic",
+          "status": "available"
+        },
+        {
+          "name": "XGE1/0/38",
+          "type": "optic",
+          "status": "available"
+        },
+        {
+          "name": "XGE1/0/39",
+          "type": "optic",
+          "status": "available"
+        },
+        {
+          "name": "XGE1/0/40",
+          "type": "optic",
+          "status": "available"
+        },
+        {
+          "name": "XGE1/0/41",
+          "type": "optic",
+          "status": "available"
+        },
+        {
+          "name": "XGE1/0/42",
+          "type": "optic",
+          "status": "available"
+        },
+        {
+          "name": "XGE1/0/43",
+          "type": "optic",
+          "status": "available"
+        },
+        {
+          "name": "XGE1/0/44",
+          "type": "optic",
+          "status": "available"
+        },
+        {
+          "name": "XGE1/0/45",
+          "type": "optic",
+          "status": "available"
+        },
+        {
+          "name": "XGE1/0/46",
+          "type": "optic",
+          "status": "available"
+        },
+        {
+          "name": "XGE1/0/47",
+          "type": "optic",
+          "status": "available"
+        },
+        {
+          "name": "XGE1/0/48",
+          "type": "optic",
+          "status": "available"
+        },
+        {
+          "name": "HGE1/0/49",
+          "type": "optic",
+          "status": "available"
+        },
+        {
+          "name": "HGE1/0/50",
+          "type": "optic",
+          "status": "available"
+        },
+        {
+          "name": "HGE1/0/51",
+          "type": "optic",
+          "status": "available"
+        },
+        {
+          "name": "HGE1/0/52",
+          "type": "optic",
+          "status": "available"
+        },
+        {
+          "name": "HGE1/0/53",
+          "type": "optic",
+          "status": "available"
+        },
+        {
+          "name": "HGE1/0/54",
+          "type": "optic",
           "status": "available"
         }
       ],
-      "position": {
-        "x": 916.5057747378152,
-        "y": 111.7099781027308
-      },
+      "position": null,
       "rack_id": null,
-      "rack_u": null
-    },
-    {
-      "id": "test_server_04",
-      "instance_name": "TestServer04",
-      "device_type": "TestServer",
-      "interfaces": [
-        {
-          "name": "M-GigabitEthernet0/0/0",
-          "type": "Management",
-          "status": "available"
-        },
-        {
-          "name": "GigabitEthernet0/0/1",
-          "type": "Ethernet",
-          "status": "available"
-        },
-        {
-          "name": "GigabitEthernet0/0/2",
-          "type": "Ethernet",
-          "status": "available"
-        },
-        {
-          "name": "GigabitEthernet0/0/3",
-          "type": "Ethernet",
-          "status": "available"
-        },
-        {
-          "name": "GigabitEthernet0/0/4",
-          "type": "Ethernet",
-          "status": "available"
-        }
-      ],
-      "position": {
-        "x": 1053.959239300575,
-        "y": 286.50570656382644
-      },
-      "rack_id": null,
-      "rack_u": null
-    },
-    {
-      "id": "test_server_05",
-      "instance_name": "TestServer05",
-      "device_type": "TestServer",
-      "interfaces": [
-        {
-          "name": "M-GigabitEthernet0/0/0",
-          "type": "Management",
-          "status": "available"
-        },
-        {
-          "name": "GigabitEthernet0/0/1",
-          "type": "Ethernet",
-          "status": "available"
-        },
-        {
-          "name": "GigabitEthernet0/0/2",
-          "type": "Ethernet",
-          "status": "available"
-        },
-        {
-          "name": "GigabitEthernet0/0/3",
-          "type": "Ethernet",
-          "status": "available"
-        },
-        {
-          "name": "GigabitEthernet0/0/4",
-          "type": "Ethernet",
-          "status": "available"
-        }
-      ],
-      "position": {
-        "x": 1104.9512909312336,
-        "y": 212.1018342644276
-      },
-      "rack_id": null,
-      "rack_u": null
+      "rack_u": null,
+      "power_status": "off"
     }
   ]
 }

@@ -1,6 +1,6 @@
 {
   "version": "2.0",
-  "timestamp": "2025-06-11T22:02:13.116291",
+  "timestamp": "2025-06-12T13:24:04.751877",
   "device_types": [
     {
       "name": "5130",
@@ -104,6 +104,740 @@
         {
           "name": "GigabitEthernet0/0/4",
           "type": "Ethernet"
+        }
+      ]
+    },
+    {
+      "name": "S6805",
+      "height_u": 1,
+      "interfaces": [
+        {
+          "name": "XGE1/0/1",
+          "type": "optic",
+          "connected_to": null
+        },
+        {
+          "name": "XGE1/0/2",
+          "type": "optic",
+          "connected_to": null
+        },
+        {
+          "name": "XGE1/0/3",
+          "type": "optic",
+          "connected_to": null
+        },
+        {
+          "name": "XGE1/0/4",
+          "type": "optic",
+          "connected_to": null
+        },
+        {
+          "name": "XGE1/0/5",
+          "type": "optic",
+          "connected_to": null
+        },
+        {
+          "name": "XGE1/0/6",
+          "type": "optic",
+          "connected_to": null
+        },
+        {
+          "name": "XGE1/0/7",
+          "type": "optic",
+          "connected_to": null
+        },
+        {
+          "name": "XGE1/0/8",
+          "type": "optic",
+          "connected_to": null
+        },
+        {
+          "name": "XGE1/0/9",
+          "type": "optic",
+          "connected_to": null
+        },
+        {
+          "name": "XGE1/0/10",
+          "type": "optic",
+          "connected_to": null
+        },
+        {
+          "name": "XGE1/0/11",
+          "type": "optic",
+          "connected_to": null
+        },
+        {
+          "name": "XGE1/0/12",
+          "type": "optic",
+          "connected_to": null
+        },
+        {
+          "name": "XGE1/0/13",
+          "type": "optic",
+          "connected_to": null
+        },
+        {
+          "name": "XGE1/0/14",
+          "type": "optic",
+          "connected_to": null
+        },
+        {
+          "name": "XGE1/0/15",
+          "type": "optic",
+          "connected_to": null
+        },
+        {
+          "name": "XGE1/0/16",
+          "type": "optic",
+          "connected_to": null
+        },
+        {
+          "name": "XGE1/0/17",
+          "type": "optic",
+          "connected_to": null
+        },
+        {
+          "name": "XGE1/0/18",
+          "type": "optic",
+          "connected_to": null
+        },
+        {
+          "name": "XGE1/0/19",
+          "type": "optic",
+          "connected_to": null
+        },
+        {
+          "name": "XGE1/0/20",
+          "type": "optic",
+          "connected_to": null
+        },
+        {
+          "name": "XGE1/0/21",
+          "type": "optic",
+          "connected_to": null
+        },
+        {
+          "name": "XGE1/0/22",
+          "type": "optic",
+          "connected_to": null
+        },
+        {
+          "name": "XGE1/0/23",
+          "type": "optic",
+          "connected_to": null
+        },
+        {
+          "name": "XGE1/0/24",
+          "type": "optic",
+          "connected_to": null
+        },
+        {
+          "name": "XGE1/0/25",
+          "type": "optic",
+          "connected_to": null
+        },
+        {
+          "name": "XGE1/0/26",
+          "type": "optic",
+          "connected_to": null
+        },
+        {
+          "name": "XGE1/0/27",
+          "type": "optic",
+          "connected_to": null
+        },
+        {
+          "name": "XGE1/0/28",
+          "type": "optic",
+          "connected_to": null
+        },
+        {
+          "name": "XGE1/0/29",
+          "type": "optic",
+          "connected_to": null
+        },
+        {
+          "name": "XGE1/0/30",
+          "type": "optic",
+          "connected_to": null
+        },
+        {
+          "name": "XGE1/0/31",
+          "type": "optic",
+          "connected_to": null
+        },
+        {
+          "name": "XGE1/0/32",
+          "type": "optic",
+          "connected_to": null
+        },
+        {
+          "name": "XGE1/0/33",
+          "type": "optic",
+          "connected_to": null
+        },
+        {
+          "name": "XGE1/0/34",
+          "type": "optic",
+          "connected_to": null
+        },
+        {
+          "name": "XGE1/0/35",
+          "type": "optic",
+          "connected_to": null
+        },
+        {
+          "name": "XGE1/0/36",
+          "type": "optic",
+          "connected_to": null
+        },
+        {
+          "name": "XGE1/0/37",
+          "type": "optic",
+          "connected_to": null
+        },
+        {
+          "name": "XGE1/0/38",
+          "type": "optic",
+          "connected_to": null
+        },
+        {
+          "name": "XGE1/0/39",
+          "type": "optic",
+          "connected_to": null
+        },
+        {
+          "name": "XGE1/0/40",
+          "type": "optic",
+          "connected_to": null
+        },
+        {
+          "name": "XGE1/0/41",
+          "type": "optic",
+          "connected_to": null
+        },
+        {
+          "name": "XGE1/0/42",
+          "type": "optic",
+          "connected_to": null
+        },
+        {
+          "name": "XGE1/0/43",
+          "type": "optic",
+          "connected_to": null
+        },
+        {
+          "name": "XGE1/0/44",
+          "type": "optic",
+          "connected_to": null
+        },
+        {
+          "name": "XGE1/0/45",
+          "type": "optic",
+          "connected_to": null
+        },
+        {
+          "name": "XGE1/0/46",
+          "type": "optic",
+          "connected_to": null
+        },
+        {
+          "name": "XGE1/0/47",
+          "type": "optic",
+          "connected_to": null
+        },
+        {
+          "name": "XGE1/0/48",
+          "type": "optic",
+          "connected_to": null
+        },
+        {
+          "name": "HGE1/0/49",
+          "type": "optic",
+          "connected_to": null
+        },
+        {
+          "name": "HGE1/0/50",
+          "type": "optic",
+          "connected_to": null
+        },
+        {
+          "name": "HGE1/0/51",
+          "type": "optic",
+          "connected_to": null
+        },
+        {
+          "name": "HGE1/0/52",
+          "type": "optic",
+          "connected_to": null
+        },
+        {
+          "name": "HGE1/0/53",
+          "type": "optic",
+          "connected_to": null
+        },
+        {
+          "name": "HGE1/0/54",
+          "type": "optic",
+          "connected_to": null
+        }
+      ],
+      "definitions": [
+        {
+          "rate": "10G",
+          "media_type": "光口",
+          "naming_prefix": "1/0/",
+          "start": 1,
+          "end": 48
+        },
+        {
+          "rate": "100G",
+          "media_type": "光口",
+          "naming_prefix": "1/0/",
+          "start": 49,
+          "end": 54
+        }
+      ]
+    },
+    {
+      "name": "S12504",
+      "height_u": 6,
+      "interfaces": [
+        {
+          "name": "HGE1/0/1",
+          "type": "optic",
+          "connected_to": null
+        },
+        {
+          "name": "HGE1/0/2",
+          "type": "optic",
+          "connected_to": null
+        },
+        {
+          "name": "HGE1/0/3",
+          "type": "optic",
+          "connected_to": null
+        },
+        {
+          "name": "HGE1/0/4",
+          "type": "optic",
+          "connected_to": null
+        },
+        {
+          "name": "HGE1/0/5",
+          "type": "optic",
+          "connected_to": null
+        },
+        {
+          "name": "HGE1/0/6",
+          "type": "optic",
+          "connected_to": null
+        },
+        {
+          "name": "HGE1/0/7",
+          "type": "optic",
+          "connected_to": null
+        },
+        {
+          "name": "HGE1/0/8",
+          "type": "optic",
+          "connected_to": null
+        },
+        {
+          "name": "HGE1/0/9",
+          "type": "optic",
+          "connected_to": null
+        },
+        {
+          "name": "HGE1/0/10",
+          "type": "optic",
+          "connected_to": null
+        },
+        {
+          "name": "HGE1/0/11",
+          "type": "optic",
+          "connected_to": null
+        },
+        {
+          "name": "HGE1/0/12",
+          "type": "optic",
+          "connected_to": null
+        },
+        {
+          "name": "HGE1/0/13",
+          "type": "optic",
+          "connected_to": null
+        },
+        {
+          "name": "HGE1/0/14",
+          "type": "optic",
+          "connected_to": null
+        },
+        {
+          "name": "HGE1/0/15",
+          "type": "optic",
+          "connected_to": null
+        },
+        {
+          "name": "HGE1/0/16",
+          "type": "optic",
+          "connected_to": null
+        },
+        {
+          "name": "HGE1/0/17",
+          "type": "optic",
+          "connected_to": null
+        },
+        {
+          "name": "HGE1/0/18",
+          "type": "optic",
+          "connected_to": null
+        },
+        {
+          "name": "HGE1/0/19",
+          "type": "optic",
+          "connected_to": null
+        },
+        {
+          "name": "HGE1/0/20",
+          "type": "optic",
+          "connected_to": null
+        },
+        {
+          "name": "HGE1/0/21",
+          "type": "optic",
+          "connected_to": null
+        },
+        {
+          "name": "HGE1/0/22",
+          "type": "optic",
+          "connected_to": null
+        },
+        {
+          "name": "HGE1/0/23",
+          "type": "optic",
+          "connected_to": null
+        },
+        {
+          "name": "HGE1/0/24",
+          "type": "optic",
+          "connected_to": null
+        },
+        {
+          "name": "HGE1/0/25",
+          "type": "optic",
+          "connected_to": null
+        },
+        {
+          "name": "HGE1/0/26",
+          "type": "optic",
+          "connected_to": null
+        },
+        {
+          "name": "HGE1/0/27",
+          "type": "optic",
+          "connected_to": null
+        },
+        {
+          "name": "HGE1/0/28",
+          "type": "optic",
+          "connected_to": null
+        },
+        {
+          "name": "HGE1/0/29",
+          "type": "optic",
+          "connected_to": null
+        },
+        {
+          "name": "HGE1/0/30",
+          "type": "optic",
+          "connected_to": null
+        },
+        {
+          "name": "HGE1/0/31",
+          "type": "optic",
+          "connected_to": null
+        },
+        {
+          "name": "HGE1/0/32",
+          "type": "optic",
+          "connected_to": null
+        },
+        {
+          "name": "HGE1/0/33",
+          "type": "optic",
+          "connected_to": null
+        },
+        {
+          "name": "HGE1/0/34",
+          "type": "optic",
+          "connected_to": null
+        },
+        {
+          "name": "HGE1/0/35",
+          "type": "optic",
+          "connected_to": null
+        },
+        {
+          "name": "HGE1/0/36",
+          "type": "optic",
+          "connected_to": null
+        },
+        {
+          "name": "XGE1/0/1",
+          "type": "optic",
+          "connected_to": null
+        },
+        {
+          "name": "XGE1/0/2",
+          "type": "optic",
+          "connected_to": null
+        },
+        {
+          "name": "XGE1/0/3",
+          "type": "optic",
+          "connected_to": null
+        },
+        {
+          "name": "XGE1/0/4",
+          "type": "optic",
+          "connected_to": null
+        },
+        {
+          "name": "XGE1/0/5",
+          "type": "optic",
+          "connected_to": null
+        },
+        {
+          "name": "XGE1/0/6",
+          "type": "optic",
+          "connected_to": null
+        },
+        {
+          "name": "XGE1/0/7",
+          "type": "optic",
+          "connected_to": null
+        },
+        {
+          "name": "XGE1/0/8",
+          "type": "optic",
+          "connected_to": null
+        },
+        {
+          "name": "XGE1/0/9",
+          "type": "optic",
+          "connected_to": null
+        },
+        {
+          "name": "XGE1/0/10",
+          "type": "optic",
+          "connected_to": null
+        },
+        {
+          "name": "XGE1/0/11",
+          "type": "optic",
+          "connected_to": null
+        },
+        {
+          "name": "XGE1/0/12",
+          "type": "optic",
+          "connected_to": null
+        },
+        {
+          "name": "XGE1/0/13",
+          "type": "optic",
+          "connected_to": null
+        },
+        {
+          "name": "XGE1/0/14",
+          "type": "optic",
+          "connected_to": null
+        },
+        {
+          "name": "XGE1/0/15",
+          "type": "optic",
+          "connected_to": null
+        },
+        {
+          "name": "XGE1/0/16",
+          "type": "optic",
+          "connected_to": null
+        },
+        {
+          "name": "XGE1/0/17",
+          "type": "optic",
+          "connected_to": null
+        },
+        {
+          "name": "XGE1/0/18",
+          "type": "optic",
+          "connected_to": null
+        },
+        {
+          "name": "XGE1/0/19",
+          "type": "optic",
+          "connected_to": null
+        },
+        {
+          "name": "XGE1/0/20",
+          "type": "optic",
+          "connected_to": null
+        },
+        {
+          "name": "XGE1/0/21",
+          "type": "optic",
+          "connected_to": null
+        },
+        {
+          "name": "XGE1/0/22",
+          "type": "optic",
+          "connected_to": null
+        },
+        {
+          "name": "XGE1/0/23",
+          "type": "optic",
+          "connected_to": null
+        },
+        {
+          "name": "XGE1/0/24",
+          "type": "optic",
+          "connected_to": null
+        },
+        {
+          "name": "XGE1/0/25",
+          "type": "optic",
+          "connected_to": null
+        },
+        {
+          "name": "XGE1/0/26",
+          "type": "optic",
+          "connected_to": null
+        },
+        {
+          "name": "XGE1/0/27",
+          "type": "optic",
+          "connected_to": null
+        },
+        {
+          "name": "XGE1/0/28",
+          "type": "optic",
+          "connected_to": null
+        },
+        {
+          "name": "XGE1/0/29",
+          "type": "optic",
+          "connected_to": null
+        },
+        {
+          "name": "XGE1/0/30",
+          "type": "optic",
+          "connected_to": null
+        },
+        {
+          "name": "XGE1/0/31",
+          "type": "optic",
+          "connected_to": null
+        },
+        {
+          "name": "XGE1/0/32",
+          "type": "optic",
+          "connected_to": null
+        },
+        {
+          "name": "XGE1/0/33",
+          "type": "optic",
+          "connected_to": null
+        },
+        {
+          "name": "XGE1/0/34",
+          "type": "optic",
+          "connected_to": null
+        },
+        {
+          "name": "XGE1/0/35",
+          "type": "optic",
+          "connected_to": null
+        },
+        {
+          "name": "XGE1/0/36",
+          "type": "optic",
+          "connected_to": null
+        },
+        {
+          "name": "XGE1/0/37",
+          "type": "optic",
+          "connected_to": null
+        },
+        {
+          "name": "XGE1/0/38",
+          "type": "optic",
+          "connected_to": null
+        },
+        {
+          "name": "XGE1/0/39",
+          "type": "optic",
+          "connected_to": null
+        },
+        {
+          "name": "XGE1/0/40",
+          "type": "optic",
+          "connected_to": null
+        },
+        {
+          "name": "XGE1/0/41",
+          "type": "optic",
+          "connected_to": null
+        },
+        {
+          "name": "XGE1/0/42",
+          "type": "optic",
+          "connected_to": null
+        },
+        {
+          "name": "XGE1/0/43",
+          "type": "optic",
+          "connected_to": null
+        },
+        {
+          "name": "XGE1/0/44",
+          "type": "optic",
+          "connected_to": null
+        },
+        {
+          "name": "XGE1/0/45",
+          "type": "optic",
+          "connected_to": null
+        },
+        {
+          "name": "XGE1/0/46",
+          "type": "optic",
+          "connected_to": null
+        },
+        {
+          "name": "XGE1/0/47",
+          "type": "optic",
+          "connected_to": null
+        },
+        {
+          "name": "XGE1/0/48",
+          "type": "optic",
+          "connected_to": null
+        }
+      ],
+      "definitions": [
+        {
+          "rate": "100G",
+          "media_type": "光口",
+          "naming_prefix": "1/0/",
+          "start": 1,
+          "end": 36
+        },
+        {
+          "rate": "10G",
+          "media_type": "光口",
+          "naming_prefix": "1/0/",
+          "start": 1,
+          "end": 48
         }
       ]
     }

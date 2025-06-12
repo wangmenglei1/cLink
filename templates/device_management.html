@@ -81,7 +81,8 @@
                         <option value="unmounted">未上架</option>
                     </select>
                 </div>
-                <div class="col-md-3 btn-group">
+                <div class="col-md-4 btn-group">
+                    <button id="batch-mount-btn" class="btn btn-primary w-100" disabled>批量上架</button>
                     <button id="batch-power-on-btn" class="btn btn-success w-100" disabled>批量上电</button>
                     <button id="batch-power-off-btn" class="btn btn-warning w-100" disabled>批量下电</button>
                     <button id="batch-unmount-btn" class="btn btn-secondary w-100" disabled>批量下架</button>
@@ -147,12 +148,50 @@
                 </div>
                 <div class="modal-body">
                     <div class="mb-3">
-                        <label for="add-instance-type" class="form-label">设备型号</label>
-                        <select id="add-instance-type" class="form-select" required></select>
+                        <label for="add-mode-select" class="form-label">添加模式</label>
+                        <select id="add-mode-select" class="form-select">
+                            <option value="single" selected>添加单台设备</option>
+                            <option value="batch">批量添加设备</option>
+                        </select>
                     </div>
-                    <div class="mb-3">
-                        <label for="add-instance-name" class="form-label">设备名称</label>
-                        <input type="text" class="form-control" id="add-instance-name" required>
+                    <hr>
+
+                    <!-- Single Device Form -->
+                    <div id="single-add-form-container">
+                        <div class="mb-3">
+                            <label for="add-instance-type-single" class="form-label">设备型号</label>
+                            <select id="add-instance-type-single" class="form-select" required></select>
+                        </div>
+                        <div class="mb-3">
+                            <label for="add-instance-name" class="form-label">设备名称</label>
+                            <input type="text" class="form-control" id="add-instance-name" required>
+                        </div>
+                    </div>
+
+                    <!-- Batch Device Form -->
+                    <div id="batch-add-form-container" style="display: none;">
+                        <div class="mb-3">
+                            <label for="add-instance-type-batch" class="form-label">设备型号</label>
+                            <select id="add-instance-type-batch" class="form-select" required></select>
+                        </div>
+                        <div class="mb-3">
+                            <label for="batch-name-prefix" class="form-label">设备命名前缀</label>
+                            <input type="text" class="form-control" id="batch-name-prefix" placeholder="例如: Core-Switch-" required>
+                        </div>
+                        <div class="row">
+                            <div class="col">
+                                <label for="batch-start-number" class="form-label">开始编号</label>
+                                <input type="number" class="form-control" id="batch-start-number" min="1" value="1" required>
+                            </div>
+                            <div class="col">
+                                <label for="batch-end-number" class="form-label">结束编号</label>
+                                <input type="number" class="form-control" id="batch-end-number" min="1" value="10" required>
+                            </div>
+                        </div>
+                        <div class="alert alert-info mt-3">
+                            <i class="fas fa-info-circle me-2"></i>
+                            <span id="batch-add-preview"></span>
+                        </div>
                     </div>
                 </div>
                 <div class="modal-footer">
@@ -187,10 +226,13 @@
                             </div>
                         </div>
                         <h6 class="mt-3">接口组定义</h6>
-                        <div id="interfaces-container" class="mt-2">
-                            <!-- Interface rows will be added here -->
+                        <div id="interfaceGroupsContainer">
+                            <!-- Interface group rows will be dynamically added here by JavaScript -->
                         </div>
-                        <button id="add-interface-btn" class="btn btn-sm btn-outline-primary mt-2"><i class="fas fa-plus me-1"></i>添加接口组</button>
+
+                        <button type="button" id="add-interface-group-btn" class="btn btn-outline-primary btn-sm mt-2">
+                            <i class="fas fa-plus me-1"></i> 添加接口组
+                        </button>
                     </div>
                     <div class="d-grid gap-2 mt-3">
                         <button id="save-device-type-btn" class="btn btn-success"><i class="fas fa-save me-2"></i>保存设备型号</button>
@@ -209,6 +251,45 @@
         </div>
     </div>
 
+    <!-- Batch Mount Modal -->
+    <div class="modal fade" id="batch-mount-modal" tabindex="-1">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">批量上架设备</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+                </div>
+                <div class="modal-body">
+                    <p>将 <strong id="batch-mount-device-count">0</strong> 台选定设备上架至：</p>
+                    <div id="batch-mount-device-list" class="mb-3" style="max-height: 150px; overflow-y: auto;">
+                        <!-- Selected device names will be listed here -->
+                    </div>
+                    <div class="row">
+                        <div class="col-md-6 mb-3">
+                            <label for="batch-mount-room-select" class="form-label">目标机房</label>
+                            <select id="batch-mount-room-select" class="form-select"></select>
+                        </div>
+                        <div class="col-md-6 mb-3">
+                            <label for="batch-mount-rack-select" class="form-label">目标机柜</label>
+                            <select id="batch-mount-rack-select" class="form-select"></select>
+                        </div>
+                    </div>
+                    <div class="mb-3">
+                        <label for="batch-mount-start-u" class="form-label">起始U位</label>
+                        <input type="number" id="batch-mount-start-u" class="form-control" min="1" value="1">
+                    </div>
+                    <div class="alert alert-info" role="alert">
+                        设备将从起始U位开始，根据各自的高度依次向上堆叠放置。
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">取消</button>
+                    <button type="button" id="confirm-batch-mount-btn" class="btn btn-primary">确认上架</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script>
     <script>
     document.addEventListener('DOMContentLoaded', function() {
@@ -216,29 +297,34 @@
         let allRooms = [];
         let allRacks = [];
         let allTypes = [];
+        let interfaceConfig = {}; // To store the configuration from the backend
 
         const editDeviceModal = new bootstrap.Modal(document.getElementById('edit-device-modal'));
         const addInstanceModal = new bootstrap.Modal(document.getElementById('add-instance-modal'));
         const manageTypesModal = new bootstrap.Modal(document.getElementById('manage-types-modal'));
+        const batchMountModal = new bootstrap.Modal(document.getElementById('batch-mount-modal'));
 
         // Fetch all necessary data
         async function fetchAllData() {
             try {
-                const [devicesRes, roomsRes, racksRes, typesRes] = await Promise.all([
+                const [devicesRes, roomsRes, racksRes, typesRes, configRes] = await Promise.all([
                     fetch('/get_device_instances'),
                     fetch('/get_rooms'),
                     fetch('/get_racks'),
-                    fetch('/get_device_types')
+                    fetch('/get_device_types'),
+                    fetch('/api/interface_config') // Fetch the new interface config
                 ]);
                 const devicesData = await devicesRes.json();
                 const roomsData = await roomsRes.json();
                 const racksData = await racksRes.json();
                 const typesData = await typesRes.json();
+                const configData = await configRes.json();
 
                 allDevices = devicesData.device_instances || [];
                 allRooms = roomsData.rooms || [];
                 allRacks = racksData.racks || [];
                 allTypes = typesData.device_types || [];
+                interfaceConfig = configData || {}; // Store the config
 
                 populateFilters();
                 renderTable();
@@ -260,9 +346,15 @@
         }
 
         function populateAddInstanceDeviceTypes() {
-            const select = document.getElementById('add-instance-type');
-            select.innerHTML = '<option value="">请选择型号...</option>';
-            allTypes.forEach(type => select.add(new Option(type.name, type.name)));
+            const singleSelect = document.getElementById('add-instance-type-single');
+            const batchSelect = document.getElementById('add-instance-type-batch');
+            singleSelect.innerHTML = '<option value="">请选择型号...</option>';
+            batchSelect.innerHTML = '<option value="">请选择型号...</option>';
+            allTypes.forEach(type => {
+                const option = new Option(type.name, type.name);
+                singleSelect.add(option.cloneNode(true));
+                batchSelect.add(option);
+            });
         }
 
         // Render table
@@ -353,6 +445,14 @@
 
         document.getElementById('rack-filter').addEventListener('change', renderTable);
         
+        const batchPrefixInput = document.getElementById('batch-name-prefix');
+        const batchStartInput = document.getElementById('batch-start-number');
+        const batchEndInput = document.getElementById('batch-end-number');
+
+        batchPrefixInput.addEventListener('input', updateBatchPreview);
+        batchStartInput.addEventListener('input', updateBatchPreview);
+        batchEndInput.addEventListener('input', updateBatchPreview);
+
         // Table actions (edit, delete, power, unmount)
         document.getElementById('devices-table-body').addEventListener('click', (e) => {
             const target = e.target;
@@ -392,7 +492,7 @@
                 const response = await fetch(`/update_device_instance/${id}`, {
                     method: 'PUT',
                     headers: { 'Content-Type': 'application/json' },
-                    body: JSON.stringify({ instance_name: newName })
+                    body: JSON.stringify({ instanceName: newName })
                 });
                 const result = await response.json();
                 if (response.ok) {
@@ -439,6 +539,92 @@
             }
         });
 
+        document.getElementById('batch-mount-btn').addEventListener('click', () => {
+            const selectedIds = getSelectedDeviceIds();
+            const selectedDevices = selectedIds.map(id => allDevices.find(d => d.id === id)).filter(Boolean);
+
+            // Populate modal
+            document.getElementById('batch-mount-device-count').textContent = selectedDevices.length;
+            const deviceList = document.getElementById('batch-mount-device-list');
+            deviceList.innerHTML = selectedDevices.map(d => `<small class="d-block text-muted">- ${d.instance_name}</small>`).join('');
+            
+            const roomSelect = document.getElementById('batch-mount-room-select');
+            roomSelect.innerHTML = '<option value="">选择机房...</option>';
+            allRooms.forEach(room => roomSelect.add(new Option(room.name, room.id)));
+            
+            // Clear rack select initially
+            document.getElementById('batch-mount-rack-select').innerHTML = '<option value="">选择机柜...</option>';
+            
+            batchMountModal.show();
+        });
+
+        // Handle room selection in batch mount modal
+        document.getElementById('batch-mount-room-select').addEventListener('change', e => {
+            const rackSelect = document.getElementById('batch-mount-rack-select');
+            rackSelect.innerHTML = '<option value="">选择机柜...</option>';
+            if (e.target.value) {
+                allRacks.filter(rack => rack.room_id === e.target.value)
+                         .forEach(rack => rackSelect.add(new Option(rack.name, rack.id)));
+            }
+        });
+
+        document.getElementById('confirm-batch-mount-btn').addEventListener('click', async () => {
+            const selectedIds = getSelectedDeviceIds();
+            const rack_id = document.getElementById('batch-mount-rack-select').value;
+            const start_u_val = document.getElementById('batch-mount-start-u').value;
+
+            if (!rack_id) {
+                alert('请选择目标机柜。');
+                return;
+            }
+            if (!start_u_val) {
+                alert('请输入起始U位。');
+                return;
+            }
+
+            let current_u = parseInt(start_u_val, 10);
+            const device_updates = [];
+
+            for (const deviceId of selectedIds) {
+                const device = allDevices.find(d => d.id === deviceId);
+                const deviceType = allTypes.find(t => t.name === device.device_type);
+                if (!device || !deviceType) {
+                    alert(`无法找到设备 ${deviceId} 或其型号的详细信息。`);
+                    return;
+                }
+                const deviceHeight = deviceType.height_u || 1;
+                
+                device_updates.push({
+                    device_id: deviceId,
+                    rack_u: current_u
+                });
+
+                current_u += deviceHeight;
+            }
+
+            try {
+                const response = await fetch('/batch_rack_mount', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ rack_id, device_updates })
+                });
+
+                const result = await response.json();
+                alert(result.message); // Show backend message
+
+                if (response.ok) {
+                    batchMountModal.hide();
+                    await fetchAllData();
+                } else if (result.errors) {
+                    // Provide more detailed error feedback if available
+                    alert('上架失败，详情: \n' + result.errors.join('\n'));
+                }
+            } catch (error) {
+                console.error('Batch mount failed:', error);
+                alert('批量上架操作失败，请查看控制台日志。');
+            }
+        });
+
         async function setPowerStatus(ids, status) {
             try {
                 const response = await fetch('/devices/batch_power', {
@@ -477,11 +663,26 @@
 
         async function deleteDevices(ids) {
             try {
-                const deletePromises = ids.map(id => fetch(`/delete_device_instance/${id}`, { method: 'DELETE' }));
-                await Promise.all(deletePromises);
-                await fetchAllData();
+                const response = await fetch('/devices/batch_delete', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ device_ids: ids })
+                });
+                const result = await response.json();
+                
+                if (response.ok) {
+                    alert(result.message);
+                    await fetchAllData();
+                } else {
+                    let errorMessage = result.message || '批量删除失败。';
+                    if (result.errors) {
+                        errorMessage += '\n\n详情:\n' + result.errors.join('\n');
+                    }
+                    alert(errorMessage);
+                }
             } catch (error) {
                 console.error('Failed to delete devices:', error);
+                alert('批量删除失败，请查看控制台日志。');
             }
         }
         
@@ -498,11 +699,26 @@
         function updateBatchDeleteButtonState() {
              const selectedCheckboxes = document.querySelectorAll('.device-checkbox:checked');
              const anyChecked = selectedCheckboxes.length > 0;
+             let allSelectedAreUnmounted = true;
+             
+             if (anyChecked) {
+                const selectedIds = [...selectedCheckboxes].map(cb => cb.value);
+                for (const id of selectedIds) {
+                    const device = allDevices.find(d => d.id === id);
+                    if (!device || device.rack_id) {
+                        allSelectedAreUnmounted = false;
+                        break;
+                    }
+                }
+             } else {
+                allSelectedAreUnmounted = false;
+             }
              
              document.getElementById('batch-delete-btn').disabled = !anyChecked;
              document.getElementById('batch-power-on-btn').disabled = !anyChecked;
              document.getElementById('batch-power-off-btn').disabled = !anyChecked;
              document.getElementById('batch-unmount-btn').disabled = !anyChecked;
+             document.getElementById('batch-mount-btn').disabled = !allSelectedAreUnmounted;
         }
 
         // Top-level buttons
@@ -512,9 +728,35 @@
             manageTypesModal.show();
         });
 
-        // Add new device instance
+        // --- New Add Instance Logic ---
+
+        // Handle mode switching in the add modal
+        document.getElementById('add-mode-select').addEventListener('change', function() {
+            const singleForm = document.getElementById('single-add-form-container');
+            const batchForm = document.getElementById('batch-add-form-container');
+            if (this.value === 'single') {
+                singleForm.style.display = 'block';
+                batchForm.style.display = 'none';
+            } else {
+                singleForm.style.display = 'none';
+                batchForm.style.display = 'block';
+                updateBatchPreview();
+            }
+        });
+
+
+        // Handle the unified save button click
         document.getElementById('save-instance-btn').addEventListener('click', async () => {
-            const device_type = document.getElementById('add-instance-type').value;
+            const mode = document.getElementById('add-mode-select').value;
+            if (mode === 'single') {
+                await addSingleInstance();
+            } else {
+                await addBatchInstances();
+            }
+        });
+
+        async function addSingleInstance() {
+            const device_type = document.getElementById('add-instance-type-single').value;
             const instance_name = document.getElementById('add-instance-name').value.trim();
 
             if (!device_type || !instance_name) {
@@ -526,20 +768,59 @@
                 const response = await fetch('/add_device_instance', {
                     method: 'POST',
                     headers: { 'Content-Type': 'application/json' },
-                    body: JSON.stringify({ device_type, instance_name })
+                    body: JSON.stringify({ deviceType: device_type, instanceName: instance_name })
                 });
                 const result = await response.json();
+                alert(result.message);
                 if (response.ok) {
                     addInstanceModal.hide();
                     document.getElementById('add-instance-name').value = '';
                     await fetchAllData();
-                } else {
-                    alert('添加失败: ' + result.message);
                 }
             } catch (error) {
-                console.error('Failed to add device instance:', error);
+                console.error('Failed to add single device instance:', error);
+                alert('添加失败，请查看控制台日志。');
             }
-        });
+        }
+
+        async function addBatchInstances() {
+            const deviceType = document.getElementById('add-instance-type-batch').value;
+            const namePrefix = document.getElementById('batch-name-prefix').value.trim();
+            const start = parseInt(document.getElementById('batch-start-number').value, 10);
+            const end = parseInt(document.getElementById('batch-end-number').value, 10);
+
+            if (!deviceType || !namePrefix || isNaN(start) || isNaN(end)) {
+                alert('请填写所有批量添加所需的字段。');
+                return;
+            }
+            if (start > end) {
+                alert('开始编号不能大于结束编号。');
+                return;
+            }
+
+            try {
+                const response = await fetch('/batch_add_device_instances', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ deviceType, namePrefix, start, end })
+                });
+                const result = await response.json();
+                alert(result.message);
+                if (response.ok) {
+                    addInstanceModal.hide();
+                    // Reset batch form fields
+                    document.getElementById('batch-name-prefix').value = '';
+                    document.getElementById('batch-start-number').value = '1';
+                    document.getElementById('batch-end-number').value = '10';
+                    await fetchAllData();
+                }
+            } catch (error) {
+                console.error('Failed to add batch device instances:', error);
+                alert('批量添加失败，请查看控制台日志。');
+            }
+        }
+
+        // --- End of New Add Instance Logic ---
 
         // Manage Device Types Modal Logic
         function renderDefinedTypesList() {
@@ -556,6 +837,17 @@
                     ? `<span class="badge bg-warning text-dark">使用中</span>`
                     : `<span class="badge bg-success">未使用</span>`;
 
+                // New logic to display structured definitions
+                let definitionsHtml = '';
+                if (type.definitions && type.definitions.length > 0) {
+                    definitionsHtml = type.definitions.map(def => {
+                        const prefix = interfaceConfig[def.rate]?.media_types[def.media_type]?.prefix || '?';
+                        return `<li class="list-group-item">${def.rate} ${def.media_type}: ${prefix}${def.naming_prefix}${def.start} - ${def.end}</li>`;
+                    }).join('');
+                } else {
+                    definitionsHtml = '<li class="list-group-item">无详细接口定义</li>';
+                }
+
                 const accordionItem = document.createElement('div');
                 accordionItem.className = 'accordion-item';
                 accordionItem.innerHTML = `
@@ -568,10 +860,7 @@
                         <div class="accordion-body">
                             <strong>接口定义:</strong>
                             <ul class="list-group mt-2">
-                                ${ (type.definitions && type.definitions.length > 0)
-                                    ? type.definitions.map(def => `<li class="list-group-item">${def.type}: ${def.prefix}${def.start} - ${def.prefix}${def.end}</li>`).join('')
-                                    : '<li class="list-group-item">无接口定义</li>'
-                                }
+                                ${definitionsHtml}
                             </ul>
                             <div class="mt-3">
                                 <button class="btn btn-sm btn-primary edit-type-btn" data-type-name="${type.name}" ${isInUse ? 'disabled' : ''}>
@@ -589,47 +878,82 @@
             });
         }
 
-        document.getElementById('add-interface-btn').addEventListener('click', () => {
-            const container = document.getElementById('interfaces-container');
-            const interfaceRow = document.createElement('div');
-            interfaceRow.className = 'row g-2 mb-2 align-items-center interface-row';
-            interfaceRow.innerHTML = `
-                <div class="col-md-3"><input type="text" class="form-control interface-type" placeholder="类型 (e.g., 光口)"></div>
-                <div class="col-md-4"><input type="text" class="form-control interface-prefix" placeholder="名称前缀 (e.g., GE1/0/)"></div>
-                <div class="col-md-2"><input type="number" class="form-control interface-start" placeholder="起始" min="0" value="1"></div>
-                <div class="col-md-2"><input type="number" class="form-control interface-end" placeholder="结束" min="1" value="24"></div>
-                <div class="col-md-1"><button class="btn btn-sm btn-danger remove-interface-btn">&times;</button></div>
+        function addInterfaceGroupRow(definition = {}) {
+            const container = document.getElementById('interfaceGroupsContainer');
+            const row = document.createElement('div');
+            row.className = 'row g-3 align-items-center mb-3 border rounded p-2 interface-group-row';
+
+            // Create Rate dropdown options from the fetched config
+            const rateOptions = Object.keys(interfaceConfig).map(rate => 
+                `<option value="${rate}" ${definition.rate === rate ? 'selected' : ''}>${rate}</option>`
+            ).join('');
+
+            // Determine the initial rate to populate the media type dropdown
+            const initialRate = definition.rate || Object.keys(interfaceConfig)[0];
+            const mediaTypeConfig = interfaceConfig[initialRate]?.media_types || {};
+            const mediaTypeOptions = Object.keys(mediaTypeConfig).map(media => 
+                `<option value="${media}" ${definition.media_type === media ? 'selected' : ''}>${media}</option>`
+            ).join('');
+
+            row.innerHTML = `
+                <div class="col-md-2">
+                    <label class="form-label-sm">速率</label>
+                    <select class="form-select form-select-sm rate-select">${rateOptions}</select>
+                </div>
+                <div class="col-md-2">
+                    <label class="form-label-sm">介质类型</label>
+                    <select class="form-select form-select-sm media-type-select">${mediaTypeOptions}</select>
+                </div>
+                <div class="col-md-3">
+                    <label class="form-label-sm">端口编号前缀</label>
+                    <input type="text" class="form-control form-control-sm naming-prefix" placeholder="例如: 1/0/" value="${definition.naming_prefix || '1/0/'}">
+                </div>
+                <div class="col-md-2">
+                    <label class="form-label-sm">开始编号</label>
+                    <input type="number" class="form-control form-control-sm start-number" min="0" value="${definition.start !== undefined ? definition.start : 1}">
+                </div>
+                <div class="col-md-2">
+                    <label class="form-label-sm">结束编号</label>
+                    <input type="number" class="form-control form-control-sm end-number" min="0" value="${definition.end !== undefined ? definition.end : 48}">
+                </div>
+                <div class="col-md-1 d-flex align-items-end">
+                    <button type="button" class="btn btn-danger btn-sm" onclick="this.closest('.interface-group-row').remove()">
+                        <i class="fas fa-trash"></i>
+                    </button>
+                </div>
             `;
-            container.appendChild(interfaceRow);
-        });
+            
+            // --- Add Interactivity ---
+            const rateSelect = row.querySelector('.rate-select');
+            const mediaSelect = row.querySelector('.media-type-select');
+            
+            rateSelect.addEventListener('change', (event) => {
+                const selectedRate = event.target.value;
+                const newMediaConfig = interfaceConfig[selectedRate];
+                if (!newMediaConfig) return;
 
-        document.getElementById('interfaces-container').addEventListener('click', e => {
-            if (e.target.classList.contains('remove-interface-btn')) {
-                e.target.closest('.interface-row').remove();
-            }
-        });
+                // Update media type options based on the new rate
+                mediaSelect.innerHTML = Object.keys(newMediaConfig.media_types).map(media => 
+                    `<option value="${media}">${media}</option>`
+                ).join('');
 
-        document.getElementById('defined-types-accordion').addEventListener('click', async e => {
-            const target = e.target.closest('button');
-            if (!target) return;
-
-            if (target.classList.contains('delete-type-btn')) {
-                const typeName = target.dataset.typeName;
-                if (confirm(`确定要删除设备型号 "${typeName}" 吗？此操作不可逆。`)) {
-                    try {
-                        const response = await fetch(`/delete_device_type/${typeName}`, { method: 'DELETE' });
-                        const result = await response.json();
-                        alert(result.message);
-                        if (response.ok) {
-                            await fetchAllData();
-                            renderDefinedTypesList();
-                        }
-                    } catch (error) {
-                        console.error('Failed to delete device type:', error);
-                    }
+                // Set the default media type for the selected rate
+                mediaSelect.value = newMediaConfig.default_media;
+            });
+            
+            // Set the initial media type default value when the row is first created
+            if (initialRate) {
+                const initialMediaDefault = definition.media_type || interfaceConfig[initialRate]?.default_media;
+                if (initialMediaDefault) {
+                    mediaSelect.value = initialMediaDefault;
                 }
             }
 
+            container.appendChild(row);
+        }
+
+        document.getElementById('defined-types-accordion').addEventListener('click', async e => {
+            const target = e.target;
             if (target.classList.contains('edit-type-btn')) {
                 const typeName = target.dataset.typeName;
                 const typeData = allTypes.find(t => t.name === typeName);
@@ -644,33 +968,31 @@
             document.getElementById('device-type-name').value = typeData.name;
             document.getElementById('device-height').value = typeData.height_u;
 
-            const container = document.getElementById('interfaces-container');
-            container.innerHTML = '';
+            const container = document.getElementById('interfaceGroupsContainer');
+            container.innerHTML = ''; // Clear previous rows
+            
             const definitions = typeData.definitions || [];
-            definitions.forEach(def => {
-                 const interfaceRow = document.createElement('div');
-                interfaceRow.className = 'row g-2 mb-2 align-items-center interface-row';
-                interfaceRow.innerHTML = `
-                    <div class="col-md-3"><input type="text" class="form-control interface-type" value="${def.type}"></div>
-                    <div class="col-md-4"><input type="text" class="form-control interface-prefix" value="${def.prefix || ''}"></div>
-                    <div class="col-md-2"><input type="number" class="form-control interface-start" value="${def.start}"></div>
-                    <div class="col-md-2"><input type="number" class="form-control interface-end" value="${def.end}"></div>
-                    <div class="col-md-1"><button class="btn btn-sm btn-danger remove-interface-btn">&times;</button></div>
-                `;
-                container.appendChild(interfaceRow);
-            });
-
-            alert(`已加载型号 "${typeData.name}" 的数据到表单中，您可以开始编辑。`);
+            if (definitions.length > 0) {
+                definitions.forEach(def => addInterfaceGroupRow(def));
+            } else {
+                // If there are no definitions, add a blank row for the user to start
+                addInterfaceGroupRow();
+            }
+            // No alert needed, just show the form populated
         }
 
         function clearTypeForm() {
             document.getElementById('device-type-edit-mode').value = '';
             document.getElementById('device-type-name').value = '';
             document.getElementById('device-height').value = '1';
-            document.getElementById('interfaces-container').innerHTML = '';
+            const container = document.getElementById('interfaceGroupsContainer');
+            container.innerHTML = '';
+            addInterfaceGroupRow(); // Add a fresh row after clearing
         }
 
         document.getElementById('clear-type-form-btn').addEventListener('click', clearTypeForm);
+
+        document.getElementById('add-interface-group-btn').addEventListener('click', addInterfaceGroupRow);
 
         document.getElementById('save-device-type-btn').addEventListener('click', async () => {
             const originalTypeName = document.getElementById('device-type-edit-mode').value;
@@ -679,17 +1001,27 @@
             const deviceModelName = document.getElementById('device-type-name').value.trim();
             const height_u = parseInt(document.getElementById('device-height').value, 10);
             const interfaces = [];
-            document.querySelectorAll('.interface-row').forEach(row => {
+            let formIsValid = true;
+            document.querySelectorAll('.interface-group-row').forEach(row => {
+                const start = parseInt(row.querySelector('.start-number').value, 10);
+                const end = parseInt(row.querySelector('.end-number').value, 10);
+                
+                if (isNaN(start) || isNaN(end) || start < 0 || end < 0 || start > end) {
+                    alert('接口组的起止编号无效');
+                    formIsValid = false;
+                }
+
                 interfaces.push({
-                    type: row.querySelector('.interface-type').value.trim(),
-                    prefix: row.querySelector('.interface-prefix').value.trim(),
-                    start: parseInt(row.querySelector('.interface-start').value, 10),
-                    end: parseInt(row.querySelector('.interface-end').value, 10),
+                    rate: row.querySelector('.rate-select').value,
+                    media_type: row.querySelector('.media-type-select').value,
+                    naming_prefix: row.querySelector('.naming-prefix').value.trim(),
+                    start: start,
+                    end: end,
                 });
             });
 
-            if (!deviceModelName || isNaN(height_u) || height_u < 1) {
-                alert('请输入有效的设备型号名称和高度。');
+            if (!deviceModelName || isNaN(height_u) || height_u < 1 || !formIsValid) {
+                alert('请输入有效的设备型号名称、高度和接口定义。');
                 return;
             }
 
@@ -708,16 +1040,45 @@
                 if (response.ok) {
                     await fetchAllData();
                     renderDefinedTypesList();
-                    clearTypeForm();
+                    // Don't clear the form automatically, let the user decide.
+                    if (!isEditMode) { // Clear only if it was a new creation
+                       clearTypeForm();
+                    }
                 }
             } catch (error) {
                 console.error('Failed to save device type:', error);
             }
         });
 
+        function updateBatchPreview() {
+            const prefixInput = document.getElementById('batch-name-prefix');
+            const startInput = document.getElementById('batch-start-number');
+            const endInput = document.getElementById('batch-end-number');
+            const previewSpan = document.getElementById('batch-add-preview');
+
+            const prefix = prefixInput.value.trim();
+            const start = parseInt(startInput.value, 10);
+            const end = parseInt(endInput.value, 10);
+
+            if (isNaN(start) || isNaN(end) || start < 1 || end < 1 || start > end) {
+                previewSpan.innerHTML = '请输入有效的起止编号 (均需 > 0)。';
+                return;
+            }
+
+            const count = end - start + 1;
+            let previewHtml = `将创建 <strong>${count}</strong> 台设备。<br>`;
+            if (prefix && count > 0) {
+                const example1 = `${prefix}${String(start).padStart(2, '0')}`;
+                const example2 = (count > 1) ? `, ${prefix}${String(Math.min(start + 1, end)).padStart(2, '0')}` : '';
+                const ellipsis = (count > 2) ? '...' : '';
+                previewHtml += `<small class="text-muted">名称示例: ${example1}${example2}${ellipsis}</small>`;
+            }
+            previewSpan.innerHTML = previewHtml;
+        }
+
         // Initial Load
         fetchAllData();
     });
     </script>
 </body>
-</html> 
+</html>
