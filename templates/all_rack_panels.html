@@ -1,0 +1,687 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>所有机柜面板图 - 数据中心管理系统</title>
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Font Awesome 图标 -->
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    
+    <style>
+        :root {
+            --primary-color: #2563eb;
+            --secondary-color: #64748b;
+            --success-color: #10b981;
+            --warning-color: #f59e0b;
+            --danger-color: #ef4444;
+            --light-bg: #f8fafc;
+            --dark-text: #1e293b;
+            --border-color: #e2e8f0;
+            --shadow: 0 1px 3px 0 rgb(0 0 0 / 0.1), 0 1px 2px -1px rgb(0 0 0 / 0.1);
+            --shadow-lg: 0 10px 15px -3px rgb(0 0 0 / 0.1), 0 4px 6px -4px rgb(0 0 0 / 0.1);
+        }
+
+        body {
+            background-color: var(--light-bg);
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+            color: var(--dark-text);
+            line-height: 1.6;
+        }
+
+        .navbar-custom {
+            background: linear-gradient(135deg, var(--primary-color) 0%, #1d4ed8 100%);
+            box-shadow: var(--shadow-lg);
+        }
+
+        .navbar-brand {
+            font-weight: 700;
+            font-size: 1.5rem;
+        }
+
+        .card {
+            border: none;
+            border-radius: 12px;
+            box-shadow: var(--shadow);
+            transition: all 0.3s ease;
+            background: white;
+        }
+
+        .card:hover {
+            transform: translateY(-2px);
+            box-shadow: var(--shadow-lg);
+        }
+
+        .card-header {
+            background: linear-gradient(135deg, #f8fafc 0%, #e2e8f0 100%);
+            border-radius: 12px 12px 0 0 !important;
+            border-bottom: 2px solid var(--border-color);
+            padding: 1.25rem;
+        }
+
+        .card-title {
+            margin: 0;
+            font-weight: 600;
+            color: var(--dark-text);
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+        }
+
+        .btn-primary {
+            background: var(--primary-color);
+            border-color: var(--primary-color);
+            border-radius: 8px;
+            padding: 0.625rem 1.25rem;
+            font-weight: 500;
+            transition: all 0.2s ease;
+        }
+
+        .btn-primary:hover {
+            background: #1d4ed8;
+            border-color: #1d4ed8;
+            transform: translateY(-1px);
+        }
+
+        .btn-success {
+            background: var(--success-color);
+            border-color: var(--success-color);
+            border-radius: 8px;
+        }
+
+        .btn-warning {
+            background: var(--warning-color);
+            border-color: var(--warning-color);
+            border-radius: 8px;
+        }
+
+        .form-control, .form-select {
+            border-radius: 8px;
+            border: 2px solid var(--border-color);
+            padding: 0.625rem 0.875rem;
+            transition: all 0.2s ease;
+        }
+
+        .form-control:focus, .form-select:focus {
+            border-color: var(--primary-color);
+            box-shadow: 0 0 0 0.25rem rgba(37, 99, 235, 0.1);
+        }
+
+        .filter-card {
+            background: white;
+            border-radius: 12px;
+            padding: 1.5rem;
+            box-shadow: var(--shadow);
+            margin-bottom: 2rem;
+        }
+
+        .filter-controls {
+            display: flex;
+            gap: 1rem;
+            align-items: end;
+            flex-wrap: wrap;
+        }
+
+        .filter-group {
+            flex: 1;
+            min-width: 150px;
+        }
+
+        .filter-label {
+            font-weight: 500;
+            color: var(--dark-text);
+            margin-bottom: 0.5rem;
+            display: block;
+        }
+
+        .nav-links {
+            background: white;
+            padding: 1rem;
+            border-radius: 8px;
+            margin-bottom: 2rem;
+            box-shadow: var(--shadow);
+        }
+
+        .nav-links a {
+            color: var(--primary-color);
+            text-decoration: none;
+            font-weight: 500;
+            transition: color 0.2s ease;
+        }
+
+        .nav-links a:hover {
+            color: #1d4ed8;
+        }
+
+        .rack-rows {
+            display: flex;
+            flex-direction: column;
+            gap: 2rem;
+        }
+
+        .rack-row {
+            background: white;
+            border-radius: 12px;
+            padding: 1.5rem;
+            box-shadow: var(--shadow);
+            transition: all 0.3s ease;
+        }
+
+        .rack-row:hover {
+            transform: translateY(-2px);
+            box-shadow: var(--shadow-lg);
+        }
+
+        .rack-row-header {
+            display: flex;
+            align-items: center;
+            margin-bottom: 1.5rem;
+            padding-bottom: 1rem;
+            border-bottom: 2px solid var(--border-color);
+        }
+
+        .rack-row-title {
+            font-weight: 700;
+            font-size: 1.5rem;
+            color: var(--primary-color);
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+        }
+
+        .rack-row-panels {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+            gap: 1.5rem;
+        }
+
+        .rack-panel-block {
+            background: linear-gradient(135deg, #f8fafc 0%, #e2e8f0 100%);
+            border-radius: 12px;
+            padding: 1rem;
+            box-shadow: var(--shadow);
+            transition: all 0.3s ease;
+            border: 2px solid var(--border-color);
+        }
+
+        .rack-panel-block:hover {
+            transform: translateY(-2px);
+            box-shadow: var(--shadow-lg);
+            border-color: var(--primary-color);
+        }
+
+        .rack-panel-title {
+            text-align: center;
+            font-weight: 600;
+            margin-bottom: 0.75rem;
+            color: var(--dark-text);
+            font-size: 0.95rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 0.5rem;
+        }
+
+        .multi-rack-panel-container {
+            display: flex;
+            align-items: flex-start;
+            justify-content: center;
+            background: white;
+            border-radius: 8px;
+            padding: 0.75rem;
+            border: 1px solid var(--border-color);
+        }
+
+        .u-numbers-area {
+            width: 40px;
+            margin-right: 8px;
+            font-size: 10px;
+            text-align: right;
+            color: var(--secondary-color);
+            font-weight: 500;
+        }
+
+        .rack-panel {
+            border: 2px solid var(--primary-color);
+            width: 180px;
+            position: relative;
+            box-sizing: border-box;
+            background: white;
+            border-radius: 4px;
+        }
+
+        .rack-device {
+            border: 1px solid var(--success-color);
+            background: linear-gradient(135deg, #d1fae5 0%, #a7f3d0 100%);
+            position: absolute;
+            left: 0;
+            width: calc(100% - 2px);
+            font-size: 8px;
+            text-align: center;
+            overflow: hidden;
+            box-sizing: border-box;
+            white-space: nowrap;
+            text-overflow: ellipsis;
+            color: var(--dark-text);
+            font-weight: 500;
+            border-radius: 2px;
+            line-height: 1.2;
+            padding: 1px 2px;
+        }
+
+        .empty-state {
+            text-align: center;
+            padding: 3rem 2rem;
+            color: var(--secondary-color);
+        }
+
+        .empty-state i {
+            font-size: 4rem;
+            margin-bottom: 1rem;
+            opacity: 0.5;
+        }
+
+        .empty-state h3 {
+            font-size: 1.25rem;
+            margin-bottom: 0.5rem;
+            color: var(--dark-text);
+        }
+
+        .statistics-card {
+            background: linear-gradient(135deg, var(--primary-color) 0%, #1d4ed8 100%);
+            color: white;
+            border-radius: 12px;
+            padding: 1.5rem;
+            text-align: center;
+            margin-bottom: 2rem;
+        }
+
+        .statistics-number {
+            font-size: 2.5rem;
+            font-weight: 700;
+            margin-bottom: 0.5rem;
+        }
+
+        .statistics-label {
+            font-size: 0.875rem;
+            opacity: 0.9;
+        }
+
+        .section-divider {
+            height: 2px;
+            background: linear-gradient(90deg, transparent, var(--border-color), transparent);
+            margin: 2rem 0;
+        }
+
+        @media (max-width: 768px) {
+            .filter-controls {
+                flex-direction: column;
+                align-items: stretch;
+            }
+            
+            .filter-group {
+                min-width: auto;
+            }
+            
+            .rack-row-panels {
+                grid-template-columns: 1fr;
+            }
+            
+            .statistics-number {
+                font-size: 2rem;
+            }
+        }
+
+        .fade-in {
+            animation: fadeIn 0.5s ease-in;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+    </style>
+</head>
+<body>
+    <!-- 导航栏 -->
+    <nav class="navbar navbar-expand-lg navbar-dark navbar-custom">
+        <div class="container-fluid">
+            <a class="navbar-brand" href="/">
+                <i class="fas fa-th-large me-2"></i>
+                数据中心管理系统
+            </a>
+            <div class="navbar-nav ms-auto">
+                <a class="nav-link" href="/">
+                    <i class="fas fa-project-diagram me-1"></i>
+                    网络拓扑
+                </a>
+                <a class="nav-link" href="/rack_management">
+                    <i class="fas fa-server me-1"></i>
+                    机柜管理
+                </a>
+            </div>
+        </div>
+    </nav>
+
+    <div class="container-fluid py-4">
+        <!-- 页面标题 -->
+        <div class="row mb-4">
+            <div class="col-12">
+                <h1 class="display-5 fw-bold text-center mb-0">
+                    <i class="fas fa-th-large text-primary me-3"></i>
+                    所有机柜面板图
+                </h1>
+                <p class="text-center text-muted mt-2">查看和管理所有机柜的布局和设备分布</p>
+            </div>
+        </div>
+
+        <!-- 导航链接 -->
+        <div class="nav-links">
+            <div class="d-flex justify-content-center gap-3 flex-wrap">
+                <a href="/">
+                    <i class="fas fa-arrow-left me-2"></i>
+                    返回拓扑图
+                </a>
+                <span class="text-muted">|</span>
+                <a href="/rack_management">
+                    <i class="fas fa-cogs me-2"></i>
+                    机柜管理
+                </a>
+                <span class="text-muted">|</span>
+                <button id="export-excel-btn" class="btn btn-warning btn-sm">
+                    <i class="fas fa-file-excel me-2"></i>
+                    导出Excel
+                </button>
+            </div>
+        </div>
+
+        <!-- 统计卡片 -->
+        <div id="statistics-summary" class="statistics-card fade-in" style="display: none;">
+            <div class="row">
+                <div class="col-md-3">
+                    <div class="statistics-number" id="total-racks">0</div>
+                    <div class="statistics-label">总机柜数</div>
+                </div>
+                <div class="col-md-3">
+                    <div class="statistics-number" id="total-devices">0</div>
+                    <div class="statistics-label">总设备数</div>
+                </div>
+                <div class="col-md-3">
+                    <div class="statistics-number" id="total-rooms">0</div>
+                    <div class="statistics-label">机房数量</div>
+                </div>
+                <div class="col-md-3">
+                    <div class="statistics-number" id="utilization-rate">0%</div>
+                    <div class="statistics-label">平均利用率</div>
+                </div>
+            </div>
+        </div>
+
+        <!-- 筛选控制器 -->
+        <div class="filter-card fade-in">
+            <h5 class="mb-3">
+                <i class="fas fa-filter text-primary me-2"></i>
+                筛选条件
+            </h5>
+            <div class="filter-controls">
+                <div class="filter-group">
+                    <label class="filter-label">机房:</label>
+                    <select id="filter-room" class="form-select">
+                        <option value="">所有机房</option>
+                    </select>
+                </div>
+                <div class="filter-group">
+                    <label class="filter-label">排:</label>
+                    <select id="filter-row" class="form-select">
+                        <option value="">所有排</option>
+                    </select>
+                </div>
+                <div class="filter-group">
+                    <label class="filter-label">机柜名:</label>
+                    <input type="text" id="filter-rack-name" class="form-control" placeholder="输入机柜名">
+                </div>
+                <div class="filter-group">
+                    <button id="filter-clear" class="btn btn-outline-secondary">
+                        <i class="fas fa-times me-2"></i>
+                        重置
+                    </button>
+                </div>
+            </div>
+        </div>
+
+        <!-- 机柜面板展示区域 -->
+        <div id="filtered-rack-rows" class="rack-rows">
+            <!-- 机柜面板将在这里动态生成 -->
+        </div>
+
+        <!-- 空状态 -->
+        <div id="empty-state" class="empty-state fade-in" style="display: none;">
+            <i class="fas fa-server"></i>
+            <h3>暂无机柜数据</h3>
+            <p>请先在机柜管理页面添加机柜，然后返回查看面板图。</p>
+            <a href="/rack_management" class="btn btn-primary">
+                <i class="fas fa-plus me-2"></i>
+                添加机柜
+            </a>
+        </div>
+    </div>
+
+    <!-- Bootstrap JS -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script>
+
+    <script>
+        // 页面加载完成后的处理
+        document.addEventListener('DOMContentLoaded', function() {
+            // 数据从Flask后端传入
+            const racksByRow = JSON.parse('{{ racks_by_row | tojson | safe }}');
+            const deviceInstances = JSON.parse('{{ device_instances | tojson | safe }}');
+            const allDeviceTypes = JSON.parse('{{ all_device_types | tojson | safe }}');
+            const rows = JSON.parse('{{ rows | tojson | safe }}');
+            const rooms = JSON.parse('{{ rooms | tojson | safe }}');
+
+            // 机柜列表拍平成数组
+            let allRacks = [];
+            rows.forEach(row => {
+                (racksByRow[row] || []).forEach(rack => allRacks.push(rack));
+            });
+
+            // 显示统计信息
+            function updateStatistics() {
+                document.getElementById('total-racks').textContent = allRacks.length;
+                document.getElementById('total-devices').textContent = deviceInstances.length;
+                document.getElementById('total-rooms').textContent = rooms.length;
+                
+                // 计算平均利用率
+                let totalU = 0;
+                let usedU = 0;
+                allRacks.forEach(rack => {
+                    totalU += rack.height_u;
+                    const racksDevices = deviceInstances.filter(d => d.rack_id === rack.id);
+                    racksDevices.forEach(device => {
+                        const deviceType = allDeviceTypes.find(type => type.name.trim() === device.device_type.trim());
+                        usedU += deviceType ? deviceType.height_u : 1;
+                    });
+                });
+                const utilizationRate = totalU > 0 ? Math.round((usedU / totalU) * 100) : 0;
+                document.getElementById('utilization-rate').textContent = utilizationRate + '%';
+                
+                if (allRacks.length > 0) {
+                    document.getElementById('statistics-summary').style.display = 'block';
+                }
+            }
+
+            // 填充筛选下拉选项
+            function fillFilterOptions() {
+                const roomSelect = document.getElementById('filter-room');
+                rooms.forEach(room => {
+                    const opt = document.createElement('option');
+                    opt.value = room.id;
+                    opt.textContent = room.name;
+                    roomSelect.appendChild(opt);
+                });
+
+                const rowSelect = document.getElementById('filter-row');
+                rows.forEach(row => {
+                    const opt = document.createElement('option');
+                    opt.value = row;
+                    opt.textContent = row + '排';
+                    rowSelect.appendChild(opt);
+                });
+            }
+
+            // 渲染机柜面板
+            function renderRackPanel(rack, devicesInRack, allDeviceTypes) {
+                const uHeightPx = 20;
+                const rackPanelLayout = document.createElement('div');
+                rackPanelLayout.className = 'multi-rack-panel-container';
+
+                const uNumbersArea = document.createElement('div');
+                uNumbersArea.className = 'u-numbers-area';
+
+                for (let u = rack.height_u; u >= 1; u--) {
+                    const uLabel = document.createElement('div');
+                    uLabel.textContent = u;
+                    const topMargin = (rack.height_u - u) * uHeightPx;
+                    uLabel.style.marginTop = topMargin + 'px';
+                    uLabel.style.lineHeight = uHeightPx + 'px';
+                    uLabel.style.margin = '0';
+                    uNumbersArea.appendChild(uLabel);
+                }
+
+                const rackPanelDiv = document.createElement('div');
+                rackPanelDiv.className = 'rack-panel';
+                rackPanelDiv.style.height = (rack.height_u * uHeightPx) + 'px';
+
+                devicesInRack.forEach(device => {
+                    const deviceElement = document.createElement('div');
+                    deviceElement.className = 'rack-device';
+
+                    const deviceType = allDeviceTypes.find(type => type.name.trim() === device.device_type.trim());
+                    const deviceHeightU = deviceType ? deviceType.height_u : 1;
+
+                    deviceElement.style.height = (deviceHeightU * uHeightPx) + 'px';
+
+                    const bottomU = device.rack_u;
+                    const topU = bottomU + deviceHeightU - 1;
+                    const positionFromTop = (rack.height_u - topU) * uHeightPx;
+                    deviceElement.style.top = positionFromTop + 'px';
+
+                    deviceElement.textContent = `${device.instance_name} (${deviceHeightU}U)`;
+                    deviceElement.title = `${device.instance_name} - ${device.device_type} - U${device.rack_u}`;
+
+                    rackPanelDiv.appendChild(deviceElement);
+                });
+
+                rackPanelLayout.appendChild(uNumbersArea);
+                rackPanelLayout.appendChild(rackPanelDiv);
+
+                return rackPanelLayout;
+            }
+
+            // 主渲染函数
+            function renderFilteredRackPanels() {
+                const roomId = document.getElementById('filter-room').value;
+                const rowVal = document.getElementById('filter-row').value;
+                const rackNameVal = document.getElementById('filter-rack-name').value.trim().toLowerCase();
+
+                // 过滤机柜
+                let filtered = allRacks.filter(rack => {
+                    let ok = true;
+                    if (roomId && rack.room_id !== roomId) ok = false;
+                    if (rowVal && rack.name[0].toUpperCase() !== rowVal) ok = false;
+                    if (rackNameVal && !rack.name.toLowerCase().includes(rackNameVal)) ok = false;
+                    return ok;
+                });
+
+                // 按row分组
+                const filteredByRow = {};
+                filtered.forEach(rack => {
+                    const row = rack.name[0].toUpperCase();
+                    if (!filteredByRow[row]) filteredByRow[row] = [];
+                    filteredByRow[row].push(rack);
+                });
+
+                const filteredRows = Object.keys(filteredByRow).sort();
+
+                // 渲染
+                const container = document.getElementById('filtered-rack-rows');
+                const emptyState = document.getElementById('empty-state');
+                
+                container.innerHTML = '';
+
+                if (filteredRows.length === 0) {
+                    emptyState.style.display = 'block';
+                    return;
+                } else {
+                    emptyState.style.display = 'none';
+                }
+
+                filteredRows.forEach(row => {
+                    const rowDiv = document.createElement('div');
+                    rowDiv.className = 'rack-row fade-in';
+
+                    const rowHeader = document.createElement('div');
+                    rowHeader.className = 'rack-row-header';
+
+                    const rowTitle = document.createElement('div');
+                    rowTitle.className = 'rack-row-title';
+                    rowTitle.innerHTML = `
+                        <i class="fas fa-grip-horizontal"></i>
+                        ${row}排机柜
+                    `;
+                    rowHeader.appendChild(rowTitle);
+                    rowDiv.appendChild(rowHeader);
+
+                    const rowPanelsDiv = document.createElement('div');
+                    rowPanelsDiv.className = 'rack-row-panels';
+
+                    filteredByRow[row].forEach(rack => {
+                        const rackDevices = deviceInstances.filter(device => device.rack_id === rack.id);
+                        const rackBlockDiv = document.createElement('div');
+                        rackBlockDiv.className = 'rack-panel-block';
+
+                        const titleDiv = document.createElement('div');
+                        titleDiv.className = 'rack-panel-title';
+                        titleDiv.innerHTML = `
+                            <i class="fas fa-server"></i>
+                            ${rack.name}
+                        `;
+
+                        const panelContainer = renderRackPanel(rack, rackDevices, allDeviceTypes);
+
+                        rackBlockDiv.appendChild(titleDiv);
+                        rackBlockDiv.appendChild(panelContainer);
+                        rowPanelsDiv.appendChild(rackBlockDiv);
+                    });
+
+                    rowDiv.appendChild(rowPanelsDiv);
+                    container.appendChild(rowDiv);
+                });
+            }
+
+            // 事件监听器
+            document.getElementById('filter-room').addEventListener('change', renderFilteredRackPanels);
+            document.getElementById('filter-row').addEventListener('change', renderFilteredRackPanels);
+            document.getElementById('filter-rack-name').addEventListener('input', renderFilteredRackPanels);
+            
+            document.getElementById('filter-clear').addEventListener('click', function() {
+                document.getElementById('filter-room').value = '';
+                document.getElementById('filter-row').value = '';
+                document.getElementById('filter-rack-name').value = '';
+                renderFilteredRackPanels();
+            });
+
+            // 导出Excel功能
+            document.getElementById('export-excel-btn').addEventListener('click', function() {
+                window.location.href = '/export_rack_panels_excel';
+            });
+
+            // 初始化
+            fillFilterOptions();
+            updateStatistics();
+            renderFilteredRackPanels();
+        });
+    </script>
+</body>
+</html> 

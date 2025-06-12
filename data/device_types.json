@@ -1,0 +1,111 @@
+{
+  "version": "2.0",
+  "timestamp": "2025-06-11T22:02:13.116291",
+  "device_types": [
+    {
+      "name": "5130",
+      "height_u": 1,
+      "interfaces_definition": [
+        {
+          "type": "GigabitEthernet",
+          "prefix": "GE",
+          "naming": "1/0/",
+          "start_num": 1,
+          "end_num": 10
+        }
+      ],
+      "full_interfaces_list": [
+        {
+          "name": "GE1/0/1",
+          "type": "GigabitEthernet"
+        },
+        {
+          "name": "GE1/0/2",
+          "type": "GigabitEthernet"
+        },
+        {
+          "name": "GE1/0/3",
+          "type": "GigabitEthernet"
+        },
+        {
+          "name": "GE1/0/4",
+          "type": "GigabitEthernet"
+        },
+        {
+          "name": "GE1/0/5",
+          "type": "GigabitEthernet"
+        },
+        {
+          "name": "GE1/0/6",
+          "type": "GigabitEthernet"
+        },
+        {
+          "name": "GE1/0/7",
+          "type": "GigabitEthernet"
+        },
+        {
+          "name": "GE1/0/8",
+          "type": "GigabitEthernet"
+        },
+        {
+          "name": "GE1/0/9",
+          "type": "GigabitEthernet"
+        },
+        {
+          "name": "GE1/0/10",
+          "type": "GigabitEthernet"
+        }
+      ]
+    },
+    {
+      "name": "HP",
+      "height_u": 2,
+      "interfaces_definition": [
+        {
+          "type": "GigabitEthernet",
+          "prefix": "GE",
+          "naming": "1/0/",
+          "start_num": 1,
+          "end_num": 1
+        }
+      ],
+      "full_interfaces_list": [
+        {
+          "name": "GE1/0/1",
+          "type": "GigabitEthernet"
+        }
+      ]
+    },
+    {
+      "name": "TestServer",
+      "height_u": 1,
+      "interfaces_definition": [
+        {
+          "type": "Ethernet",
+          "prefix": "GigabitEthernet",
+          "naming": "0/0/",
+          "start_num": 1,
+          "end_num": 4
+        }
+      ],
+      "full_interfaces_list": [
+        {
+          "name": "GigabitEthernet0/0/1",
+          "type": "Ethernet"
+        },
+        {
+          "name": "GigabitEthernet0/0/2",
+          "type": "Ethernet"
+        },
+        {
+          "name": "GigabitEthernet0/0/3",
+          "type": "Ethernet"
+        },
+        {
+          "name": "GigabitEthernet0/0/4",
+          "type": "Ethernet"
+        }
+      ]
+    }
+  ]
+}

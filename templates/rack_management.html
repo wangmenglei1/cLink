@@ -1,0 +1,3648 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>机房机柜管理 - 数据中心管理系统</title>
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Font Awesome 图标 -->
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    
+    <style>
+        :root {
+            --primary-color: #2563eb;
+            --secondary-color: #64748b;
+            --success-color: #10b981;
+            --warning-color: #f59e0b;
+            --danger-color: #ef4444;
+            --light-bg: #f8fafc;
+            --dark-text: #1e293b;
+            --border-color: #e2e8f0;
+            --shadow: 0 1px 3px 0 rgb(0 0 0 / 0.1), 0 1px 2px -1px rgb(0 0 0 / 0.1);
+            --shadow-lg: 0 10px 15px -3px rgb(0 0 0 / 0.1), 0 4px 6px -4px rgb(0 0 0 / 0.1);
+        }
+
+        body {
+            background-color: var(--light-bg);
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+            color: var(--dark-text);
+            line-height: 1.6;
+        }
+
+        .navbar-custom {
+            background: linear-gradient(135deg, var(--primary-color) 0%, #1d4ed8 100%);
+            box-shadow: var(--shadow-lg);
+        }
+
+        .navbar-brand {
+            font-weight: 700;
+            font-size: 1.5rem;
+        }
+
+        .card {
+            border: none;
+            border-radius: 12px;
+            box-shadow: var(--shadow);
+            transition: all 0.3s ease;
+            background: white;
+        }
+
+        .card:hover {
+            transform: translateY(-2px);
+            box-shadow: var(--shadow-lg);
+        }
+
+        .card-header {
+            background: linear-gradient(135deg, #f8fafc 0%, #e2e8f0 100%);
+            border-radius: 12px 12px 0 0 !important;
+            border-bottom: 2px solid var(--border-color);
+            padding: 1.25rem;
+        }
+
+        .card-title {
+            margin: 0;
+            font-weight: 600;
+            color: var(--dark-text);
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+        }
+
+        .btn-primary {
+            background: var(--primary-color);
+            border-color: var(--primary-color);
+            border-radius: 8px;
+            padding: 0.625rem 1.25rem;
+            font-weight: 500;
+            transition: all 0.2s ease;
+        }
+
+        .btn-primary:hover {
+            background: #1d4ed8;
+            border-color: #1d4ed8;
+            transform: translateY(-1px);
+        }
+
+        .btn-success {
+            background: var(--success-color);
+            border-color: var(--success-color);
+            border-radius: 8px;
+        }
+
+        .btn-danger {
+            background: var(--danger-color);
+            border-color: var(--danger-color);
+            border-radius: 8px;
+        }
+
+        .btn-warning {
+            background: var(--warning-color);
+            border-color: var(--warning-color);
+            border-radius: 8px;
+        }
+
+        .btn-outline-primary {
+            border-color: var(--primary-color);
+            color: var(--primary-color);
+            border-radius: 8px;
+        }
+
+        .btn-outline-primary:hover {
+            background: var(--primary-color);
+            border-color: var(--primary-color);
+        }
+
+        .form-control {
+            border-radius: 8px;
+            border: 2px solid var(--border-color);
+            padding: 0.625rem 0.875rem;
+            transition: all 0.2s ease;
+        }
+
+        .form-control:focus {
+            border-color: var(--primary-color);
+            box-shadow: 0 0 0 0.25rem rgba(37, 99, 235, 0.1);
+        }
+
+        .form-select {
+            border-radius: 8px;
+            border: 2px solid var(--border-color);
+            padding: 0.625rem 0.875rem;
+        }
+
+        .form-select:focus {
+            border-color: var(--primary-color);
+            box-shadow: 0 0 0 0.25rem rgba(37, 99, 235, 0.1);
+        }
+
+        .form-label {
+            font-weight: 500;
+            color: var(--dark-text);
+            margin-bottom: 0.5rem;
+        }
+
+        .list-group-item {
+            border: 2px solid var(--border-color);
+            border-radius: 8px !important;
+            margin-bottom: 0.5rem;
+            padding: 1rem;
+            background: white;
+            transition: all 0.2s ease;
+        }
+
+        .list-group-item:hover {
+            border-color: var(--primary-color);
+            transform: translateY(-1px);
+            box-shadow: var(--shadow);
+        }
+
+        .list-group-item:last-child {
+            margin-bottom: 0;
+        }
+
+        .item-content {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .item-info {
+            flex: 1;
+        }
+
+        .item-title {
+            font-weight: 600;
+            color: var(--dark-text);
+            margin-bottom: 0.25rem;
+        }
+
+        .item-subtitle {
+            color: var(--secondary-color);
+            font-size: 0.875rem;
+        }
+
+        .item-actions {
+            display: flex;
+            gap: 0.5rem;
+        }
+
+        .btn-sm {
+            padding: 0.375rem 0.75rem;
+            font-size: 0.875rem;
+        }
+
+        .rack-panel-container {
+            flex-direction: column;
+            align-items: center;
+            margin-top: 15px !important;
+            margin-bottom: 0 !important;
+            width: 100%;
+        }
+
+        .rack-panel {
+            border: 2px solid var(--border-color);
+            width: 180px;
+            height: 20px;
+            position: relative;
+            padding-left: 50px;
+            box-sizing: border-box;
+            border-radius: 4px;
+            background: white;
+        }
+
+        .rack-panel div[style*="position: absolute"] {
+            left: 5px;
+            font-size: 9px;
+            width: 40px;
+            text-align: right;
+            box-sizing: border-box;
+            color: var(--secondary-color);
+        }
+
+        .rack-device {
+            border: 2px solid var(--primary-color);
+            background: linear-gradient(135deg, #dbeafe 0%, #bfdbfe 100%);
+            position: absolute;
+            left: 50px;
+            width: calc(100% - 50px);
+            font-size: 8px;
+            text-align: center;
+            overflow: hidden;
+            box-sizing: border-box;
+            white-space: nowrap;
+            text-overflow: ellipsis;
+            border-radius: 2px;
+            color: var(--primary-color);
+            font-weight: 500;
+        }
+
+        .modal-content {
+            border-radius: 16px;
+            border: none;
+            box-shadow: var(--shadow-lg);
+        }
+
+        .modal-header {
+            background: linear-gradient(135deg, var(--primary-color) 0%, #1d4ed8 100%);
+            color: white;
+            border-radius: 16px 16px 0 0;
+            border-bottom: none;
+        }
+
+        .modal-title {
+            font-weight: 600;
+        }
+
+        .rack-panel-layout.hidden {
+            display: none;
+        }
+
+        .section-divider {
+            height: 2px;
+            background: linear-gradient(90deg, transparent, var(--border-color), transparent);
+            margin: 2rem 0;
+        }
+
+        .nav-links {
+            background: white;
+            padding: 1rem;
+            border-radius: 8px;
+            margin-bottom: 2rem;
+            box-shadow: var(--shadow);
+        }
+
+        .nav-links a {
+            color: var(--primary-color);
+            text-decoration: none;
+            font-weight: 500;
+            transition: color 0.2s ease;
+        }
+
+        .nav-links a:hover {
+            color: #1d4ed8;
+        }
+
+        .empty-state {
+            text-align: center;
+            padding: 2rem;
+            color: var(--secondary-color);
+        }
+
+        .empty-state i {
+            font-size: 3rem;
+            margin-bottom: 1rem;
+            opacity: 0.5;
+        }
+
+        @media (max-width: 768px) {
+            .container-fluid {
+                padding: 0.5rem;
+            }
+            
+            .item-content {
+                flex-direction: column;
+                align-items: flex-start;
+                gap: 1rem;
+            }
+            
+            .item-actions {
+                width: 100%;
+                justify-content: flex-end;
+            }
+        }
+
+        .fade-in {
+            animation: fadeIn 0.5s ease-in;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        /* 批量上架功能样式 */
+        .device-checkbox-list, .rack-checkbox-list, .rack-config-list {
+            max-height: 300px;
+            overflow-y: auto;
+            border: 2px solid var(--border-color);
+            border-radius: 8px;
+            padding: 0.5rem;
+            background: white;
+        }
+
+        .device-checkbox-item, .rack-checkbox-item {
+            display: flex;
+            align-items: center;
+            padding: 0.75rem;
+            margin-bottom: 0.5rem;
+            border: 1px solid var(--border-color);
+            border-radius: 6px;
+            background: #f8fafc;
+            transition: all 0.2s ease;
+        }
+
+        .device-checkbox-item:hover, .rack-checkbox-item:hover {
+            background: #e2e8f0;
+            border-color: var(--primary-color);
+        }
+
+        .device-checkbox-item.selected, .rack-checkbox-item.selected {
+            background: rgba(37, 99, 235, 0.1);
+            border-color: var(--primary-color);
+        }
+
+        .device-checkbox-item input[type="checkbox"], 
+        .rack-checkbox-item input[type="checkbox"] {
+            margin-right: 0.75rem;
+            transform: scale(1.2);
+        }
+
+        .device-info-text, .rack-info-text {
+            flex: 1;
+        }
+
+        .device-name, .rack-name {
+            font-weight: 600;
+            color: var(--dark-text);
+            margin-bottom: 0.25rem;
+        }
+
+        .device-type, .rack-details {
+            color: var(--secondary-color);
+            font-size: 0.875rem;
+        }
+
+        .rack-config-item {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 0.75rem;
+            margin-bottom: 0.5rem;
+            border: 1px solid var(--border-color);
+            border-radius: 6px;
+            background: #f8fafc;
+        }
+
+        .rack-config-info {
+            flex: 1;
+        }
+
+        .rack-config-controls {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .rack-config-controls input {
+            width: 80px;
+        }
+
+        .capacity-warning {
+            background-color: #fef3cd !important;
+            border-color: #ffc107 !important;
+            color: #664d03 !important;
+        }
+
+        .capacity-error {
+            background-color: #f8d7da !important;
+            border-color: #dc3545 !important;
+            color: #721c24 !important;
+        }
+
+        .section-divider {
+            height: 2px;
+            background: linear-gradient(90deg, transparent, var(--border-color), transparent);
+            margin: 1.5rem 0;
+            border: none;
+        }
+    </style>
+</head>
+<body>
+    <!-- 导航栏 -->
+    <nav class="navbar navbar-expand-lg navbar-dark navbar-custom">
+        <div class="container-fluid">
+            <a class="navbar-brand" href="/">
+                <i class="fas fa-building me-2"></i>
+                数据中心管理系统
+            </a>
+            <div class="navbar-nav ms-auto">
+                <a class="nav-link" href="/">
+                    <i class="fas fa-project-diagram me-1"></i>
+                    网络拓扑
+                </a>
+                <a class="nav-link" href="/all_rack_panels">
+                    <i class="fas fa-th-large me-1"></i>
+                    机柜面板
+                </a>
+            </div>
+        </div>
+    </nav>
+
+    <div class="container-fluid py-4">
+        <!-- 页面标题 -->
+        <div class="row mb-4">
+            <div class="col-12">
+                <h1 class="display-5 fw-bold text-center mb-0">
+                    <i class="fas fa-server text-primary me-3"></i>
+                    机房机柜管理
+                </h1>
+                <p class="text-center text-muted mt-2">管理数据中心机房和机柜资源</p>
+            </div>
+        </div>
+
+        <!-- 导航链接 -->
+        <div class="nav-links">
+            <div class="d-flex justify-content-center gap-3">
+                <a href="/">
+                    <i class="fas fa-arrow-left me-2"></i>
+                    返回拓扑图
+                </a>
+                <span class="text-muted">|</span>
+                <a href="/all_rack_panels">
+                    <i class="fas fa-th-large me-2"></i>
+                    查看所有机柜面板图
+                </a>
+            </div>
+        </div>
+
+        <div class="row">
+            <!-- 机房管理区域 -->
+            <div class="col-lg-6 col-md-12 mb-4">
+                <div class="card fade-in">
+                    <div class="card-header">
+                        <h3 class="card-title">
+                            <i class="fas fa-building text-primary"></i>
+                            机房管理
+                        </h3>
+                    </div>
+                    <div class="card-body">
+                        <!-- 添加机房表单 -->
+                        <div class="row mb-4">
+                            <div class="col-md-8 mb-2">
+                                <input type="text" id="new-room-name" class="form-control" placeholder="请输入机房名称">
+                            </div>
+                            <div class="col-md-4 mb-2">
+                                <button id="addRoomBtn" class="btn btn-primary w-100">
+                                    <i class="fas fa-plus me-2"></i>
+                                    添加机房
+                                </button>
+                            </div>
+                        </div>
+
+                        <!-- 机房列表 -->
+                        <div class="list-group" id="rooms-list">
+                            <!-- 机房列表将在这里动态生成 -->
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- 机柜管理区域 -->
+            <div class="col-lg-6 col-md-12 mb-4">
+                <div class="card fade-in">
+                    <div class="card-header">
+                        <h3 class="card-title">
+                            <i class="fas fa-server text-success"></i>
+                            机柜管理
+                        </h3>
+                    </div>
+                    <div class="card-body">
+                        <!-- 添加机柜表单 -->
+                        <div class="row mb-4">
+                            <div class="col-md-6 mb-2">
+                                <label for="new-rack-name" class="form-label">机柜名称</label>
+                                <input type="text" id="new-rack-name" class="form-control" placeholder="请输入机柜名称">
+                            </div>
+                            <div class="col-md-6 mb-2">
+                                <label for="rack-room" class="form-label">所属机房</label>
+                                <select id="rack-room" class="form-select">
+                                    <option value="">--请选择机房--</option>
+                                </select>
+                            </div>
+                            <div class="col-md-6 mb-2">
+                                <label for="new-rack-height" class="form-label">机柜高度 (U)</label>
+                                <input type="number" class="form-control" id="new-rack-height" min="1" max="100" value="42" required>
+                            </div>
+                            <div class="col-md-6 mb-2">
+                                <label for="new-rack-department" class="form-label">使用部门</label>
+                                <input type="text" class="form-control" id="new-rack-department" placeholder="请输入使用部门">
+                            </div>
+                            <div class="col-md-6 mb-2 d-flex align-items-end">
+                                <button id="addRackBtn" class="btn btn-success w-100">
+                                    <i class="fas fa-plus me-2"></i>
+                                    添加机柜
+                                </button>
+                            </div>
+                            <div class="col-md-6 mb-2 d-flex align-items-end">
+                                <button id="batchAddRackBtn" class="btn btn-info w-100" data-bs-toggle="modal" data-bs-target="#batchAddRackModal">
+                                    <i class="fas fa-layer-group me-2"></i>
+                                    批量添加机柜
+                                </button>
+                            </div>
+                        </div>
+
+                        <div class="section-divider"></div>
+
+                        <!-- 数据一致性检查按钮 -->
+                        <div class="row">
+                            <div class="col-12 mb-3">
+                                <h5 class="mb-3">
+                                    <i class="fas fa-shield-alt text-success me-2"></i>
+                                    数据维护工具
+                                </h5>
+                            </div>
+                            <div class="col-md-6 mb-2">
+                                <button id="checkDataConsistencyBtn" class="btn btn-success w-100">
+                                    <i class="fas fa-check-circle me-2"></i>
+                                    检查数据一致性
+                                </button>
+                            </div>
+                            <div class="col-md-6 mb-2">
+                                <button id="refreshDataBtn" class="btn btn-outline-success w-100" onclick="location.reload()">
+                                    <i class="fas fa-sync-alt me-2"></i>
+                                    刷新页面数据
+                                </button>
+                            </div>
+                            <div class="col-12">
+                                <div id="dataConsistencyResult" class="alert d-none" role="alert">
+                                    <!-- 检查结果将显示在这里 -->
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="section-divider"></div>
+
+                        <!-- 批量上架功能按钮 -->
+                        <div class="row">
+                            <div class="col-12 mb-3">
+                                <h5 class="mb-3">
+                                    <i class="fas fa-layer-group text-primary me-2"></i>
+                                    批量上架设备
+                                </h5>
+                            </div>
+                            <div class="col-md-4 mb-2">
+                                <button class="btn btn-primary w-100" data-bs-toggle="modal" data-bs-target="#singleRackBatchModal">
+                                    <i class="fas fa-server me-2"></i>
+                                    单机柜批量上架
+                                </button>
+                            </div>
+                            <div class="col-md-4 mb-2">
+                                <button class="btn btn-info w-100" data-bs-toggle="modal" data-bs-target="#multiRackSingleDeviceModal">
+                                    <i class="fas fa-sitemap me-2"></i>
+                                    多机柜单设备
+                                </button>
+                            </div>
+                            <div class="col-md-4 mb-2">
+                                <button class="btn btn-warning w-100" data-bs-toggle="modal" data-bs-target="#multiRackMultiDeviceModal">
+                                    <i class="fas fa-th-large me-2"></i>
+                                    多机柜批量上架
+                                </button>
+                            </div>
+                        </div>
+
+                        <div class="section-divider"></div>
+
+                        <!-- 批量下架功能按钮 -->
+                        <div class="row">
+                            <div class="col-12 mb-3">
+                                <h5 class="mb-3">
+                                    <i class="fas fa-layer-group text-danger me-2"></i>
+                                    批量下架设备
+                                </h5>
+                            </div>
+                            <div class="col-md-4 mb-2">
+                                <button class="btn btn-danger w-100" data-bs-toggle="modal" data-bs-target="#batchUnmountModal">
+                                    <i class="fas fa-download me-2"></i>
+                                    批量选择下架
+                                </button>
+                            </div>
+                            <div class="col-md-4 mb-2">
+                                <button class="btn btn-warning w-100" data-bs-toggle="modal" data-bs-target="#rackUnmountModal">
+                                    <i class="fas fa-server me-2"></i>
+                                    整机柜下架
+                                </button>
+                            </div>
+                            <div class="col-md-4 mb-2">
+                                <button class="btn btn-outline-danger w-100" data-bs-toggle="modal" data-bs-target="#quickUnmountModal">
+                                    <i class="fas fa-bolt me-2"></i>
+                                    快速下架
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- 机柜列表区域 -->
+        <div class="row mt-4">
+            <div class="col-12">
+                <div class="card fade-in">
+                    <div class="card-header">
+                        <h3 class="card-title">
+                            <i class="fas fa-list text-info"></i>
+                            机柜列表
+                        </h3>
+                    </div>
+                    <div class="card-body">
+                        <!-- Filters and Batch Actions -->
+                        <div class="row mb-3 align-items-center">
+                            <div class="col-lg-4 col-md-6 mb-2">
+                                <select id="rack-filter-room" class="form-select">
+                                    <option value="">筛选机房 (全部)</option>
+                                </select>
+                            </div>
+                            <div class="col-lg-5 col-md-6 mb-2">
+                                <input type="text" id="rack-search-input" class="form-control" placeholder="搜索机柜名称...">
+                            </div>
+                            <div class="col-lg-3 col-md-12 mb-2">
+                                <button id="batch-delete-racks-btn" class="btn btn-danger w-100" disabled>
+                                    <i class="fas fa-trash-alt me-2"></i>
+                                    批量删除选中
+                                </button>
+                            </div>
+                        </div>
+
+                        <!-- Rack List -->
+                        <div class="list-group" id="racks-list">
+                            <!-- 机柜列表将在这里动态生成 -->
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- 添加设备到机柜模态框 -->
+    <div class="modal fade" id="add-to-rack-modal" tabindex="-1">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">
+                        <i class="fas fa-plus-circle me-2"></i>
+                        将设备添加到机柜
+                    </h5>
+                    <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal"></button>
+                </div>
+                <div class="modal-body">
+                    <div id="modal-rack-info" class="alert alert-info">
+                        <i class="fas fa-info-circle me-2"></i>
+                        <span id="rack-info-text"></span>
+                    </div>
+                    
+                    <div class="mb-3">
+                        <label for="modal-device-select" class="form-label">选择设备</label>
+                        <select id="modal-device-select" class="form-select">
+                            <option value="">--请选择未放置设备--</option>
+                        </select>
+                    </div>
+                    
+                    <div class="mb-3">
+                        <label for="modal-rack-u" class="form-label">起始 U 位</label>
+                        <input type="number" id="modal-rack-u" class="form-control" min="1" value="1">
+                    </div>
+                    
+                    <input type="hidden" id="modal-instance-id">
+                    <input type="hidden" id="modal-rack-id">
+                    <input type="hidden" id="modal-room-id">
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">
+                        <i class="fas fa-times me-2"></i>
+                        取消
+                    </button>
+                    <button id="saveRackPositionBtn" class="btn btn-primary">
+                        <i class="fas fa-save me-2"></i>
+                        保存
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- 单机柜批量上架模态框 -->
+    <div class="modal fade" id="singleRackBatchModal" tabindex="-1">
+        <div class="modal-dialog modal-lg modal-dialog-centered">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">
+                        <i class="fas fa-server me-2"></i>
+                        单机柜批量上架设备
+                    </h5>
+                    <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal"></button>
+                </div>
+                <div class="modal-body">
+                    <div class="row">
+                        <div class="col-md-6 mb-3">
+                            <label for="singleRackSelect" class="form-label">
+                                <i class="fas fa-server me-1"></i>
+                                选择机柜
+                            </label>
+                            <select id="singleRackSelect" class="form-select" required>
+                                <option value="">请选择机柜...</option>
+                            </select>
+                        </div>
+                        <div class="col-md-6 mb-3">
+                            <label for="singleRackStartU" class="form-label">
+                                <i class="fas fa-play me-1"></i>
+                                开始U位
+                            </label>
+                            <input type="number" id="singleRackStartU" class="form-control" min="1" value="1" required>
+                        </div>
+                    </div>
+                    
+                    <div class="mb-3">
+                        <label class="form-label">
+                            <i class="fas fa-microchip me-1"></i>
+                            选择要上架的设备 (需要相同高度)
+                        </label>
+                        <div id="singleRackDeviceList" class="device-checkbox-list">
+                            <!-- 设备复选框列表将在这里动态生成 -->
+                        </div>
+                    </div>
+                    
+                    <div class="row">
+                        <div class="col-md-6 mb-3">
+                            <label for="singleRackSpacing" class="form-label">
+                                <i class="fas fa-arrows-alt-v me-1"></i>
+                                设备间隔 (U)
+                            </label>
+                            <input type="number" id="singleRackSpacing" class="form-control" min="0" value="1">
+                            <small class="form-text text-muted">0表示紧密放置，1表示间隔1U空间</small>
+                        </div>
+                        <div class="col-md-6 mb-3">
+                            <label class="form-label">容量预检</label>
+                            <div class="alert alert-info" id="singleRackCapacityInfo">
+                                <i class="fas fa-info-circle me-2"></i>
+                                <span id="singleRackCapacityText">请先选择机柜和设备</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">
+                        <i class="fas fa-times me-1"></i>
+                        取消
+                    </button>
+                    <button type="button" id="confirmSingleRackBatch" class="btn btn-success">
+                        <i class="fas fa-upload me-1"></i>
+                        批量上架
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- 多机柜单设备类型上架模态框 -->
+    <div class="modal fade" id="multiRackSingleDeviceModal" tabindex="-1">
+        <div class="modal-dialog modal-lg modal-dialog-centered">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">
+                        <i class="fas fa-sitemap me-2"></i>
+                        多机柜单设备类型上架
+                    </h5>
+                    <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal"></button>
+                </div>
+                <div class="modal-body">
+                    <div class="row">
+                        <div class="col-md-6 mb-3">
+                            <label for="multiRackDeviceType" class="form-label">
+                                <i class="fas fa-microchip me-1"></i>
+                                设备类型
+                            </label>
+                            <select id="multiRackDeviceType" class="form-select" required>
+                                <option value="">请选择设备类型...</option>
+                            </select>
+                        </div>
+                        <div class="col-md-6 mb-3">
+                            <label for="multiRackFixedU" class="form-label">
+                                <i class="fas fa-map-pin me-1"></i>
+                                固定U位
+                            </label>
+                            <input type="number" id="multiRackFixedU" class="form-control" min="1" value="1" required>
+                            <small class="form-text text-muted">所有机柜都将在此U位放置设备</small>
+                        </div>
+                    </div>
+                    
+                    <div class="mb-3">
+                        <label class="form-label">
+                            <i class="fas fa-server me-1"></i>
+                            选择目标机柜
+                        </label>
+                        <div class="row mb-2">
+                            <div class="col-md-6">
+                                <select id="multiRackRoomFilter" class="form-select form-select-sm">
+                                    <option value="">所有机房</option>
+                                </select>
+                            </div>
+                            <div class="col-md-6">
+                                <input type="text" id="multiRackSearchInput" class="form-control form-control-sm" placeholder="搜索机柜名称...">
+                            </div>
+                        </div>
+                        <div id="multiRackList" class="rack-checkbox-list">
+                            <!-- 机柜复选框列表将在这里动态生成 -->
+                        </div>
+                    </div>
+                    
+                    <div class="mb-3">
+                        <label class="form-label">
+                            <i class="fas fa-microchip me-1"></i>
+                            选择要上架的设备
+                        </label>
+                        <div class="row mb-2">
+                            <div class="col-md-12">
+                                <input type="text" id="multiRackDeviceSearchInput" class="form-control form-control-sm" placeholder="搜索设备名称...">
+                            </div>
+                        </div>
+                        <div id="multiRackDeviceList" class="device-checkbox-list">
+                            <!-- 设备复选框列表将在这里动态生成 -->
+                        </div>
+                    </div>
+                    
+                    <div class="alert alert-warning" id="multiRackConflictInfo">
+                        <i class="fas fa-exclamation-triangle me-2"></i>
+                        <span id="multiRackConflictText">将检查冲突和空间情况</span>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">
+                        <i class="fas fa-times me-1"></i>
+                        取消
+                    </button>
+                    <button type="button" id="confirmMultiRackSingle" class="btn btn-info">
+                        <i class="fas fa-upload me-1"></i>
+                        批量上架
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- 多机柜多设备批量上架模态框 -->
+    <div class="modal fade" id="multiRackMultiDeviceModal" tabindex="-1">
+        <div class="modal-dialog modal-lg modal-dialog-centered">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">
+                        <i class="fas fa-th-large me-2"></i>
+                        多机柜多设备批量上架
+                    </h5>
+                    <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal"></button>
+                </div>
+                <div class="modal-body">
+                    <div class="row">
+                        <div class="col-md-6 mb-3">
+                            <label for="multiRackMultiSpacing" class="form-label">
+                                <i class="fas fa-arrows-alt-v me-1"></i>
+                                设备间隔 (U)
+                            </label>
+                            <input type="number" id="multiRackMultiSpacing" class="form-control" min="0" value="1">
+                        </div>
+                        <div class="col-md-6 mb-3">
+                            <label for="multiRackMultiStartU" class="form-label">
+                                <i class="fas fa-play me-1"></i>
+                                默认开始U位
+                            </label>
+                            <input type="number" id="multiRackMultiStartU" class="form-control" min="1" value="1">
+                        </div>
+                    </div>
+                    
+                    <div class="mb-3">
+                        <label class="form-label">
+                            <i class="fas fa-microchip me-1"></i>
+                            选择要上架的设备 (需要相同高度)
+                        </label>
+                        <div id="multiRackMultiDeviceList" class="device-checkbox-list">
+                            <!-- 设备复选框列表将在这里动态生成 -->
+                        </div>
+                    </div>
+                    
+                    <div class="mb-3">
+                        <label class="form-label">
+                            <i class="fas fa-server me-1"></i>
+                            机柜配置
+                        </label>
+                        <div class="row mb-2">
+                            <div class="col-md-6">
+                                <select id="multiRackMultiRoomFilter" class="form-select form-select-sm">
+                                    <option value="">所有机房</option>
+                                </select>
+                            </div>
+                            <div class="col-md-6">
+                                <input type="text" id="multiRackMultiSearchInput" class="form-control form-control-sm" placeholder="搜索机柜名称...">
+                            </div>
+                        </div>
+                        <div id="multiRackMultiConfigList" class="rack-config-list">
+                            <!-- 机柜配置列表将在这里动态生成 -->
+                        </div>
+                    </div>
+                    
+                    <div class="alert alert-info" id="multiRackMultiSummary">
+                        <i class="fas fa-info-circle me-2"></i>
+                        <span id="multiRackMultiSummaryText">上架计划摘要将在这里显示</span>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">
+                        <i class="fas fa-times me-1"></i>
+                        取消
+                    </button>
+                    <button type="button" id="confirmMultiRackMulti" class="btn btn-warning">
+                        <i class="fas fa-upload me-1"></i>
+                        批量上架
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- 批量选择下架模态框 -->
+    <div class="modal fade" id="batchUnmountModal" tabindex="-1">
+        <div class="modal-dialog modal-lg modal-dialog-centered">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">
+                        <i class="fas fa-download me-2"></i>
+                        批量选择下架设备
+                    </h5>
+                    <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal"></button>
+                </div>
+                <div class="modal-body">
+                    <div class="mb-3">
+                        <label class="form-label">
+                            <i class="fas fa-microchip me-1"></i>
+                            选择要下架的设备
+                        </label>
+                        <div id="batchUnmountDeviceList" class="device-checkbox-list">
+                            <!-- 已上架设备复选框列表将在这里动态生成 -->
+                        </div>
+                    </div>
+                    
+                    <div class="alert alert-warning" id="batchUnmountSummary">
+                        <i class="fas fa-info-circle me-2"></i>
+                        <span id="batchUnmountSummaryText">请选择要下架的设备</span>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">
+                        <i class="fas fa-times me-1"></i>
+                        取消
+                    </button>
+                    <button type="button" id="confirmBatchUnmount" class="btn btn-danger">
+                        <i class="fas fa-download me-1"></i>
+                        批量下架
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- 整机柜下架模态框 -->
+    <div class="modal fade" id="rackUnmountModal" tabindex="-1">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">
+                        <i class="fas fa-server me-2"></i>
+                        整机柜下架设备
+                    </h5>
+                    <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal"></button>
+                </div>
+                <div class="modal-body">
+                    <div class="mb-3">
+                        <label for="rackUnmountSelect" class="form-label">
+                            <i class="fas fa-server me-1"></i>
+                            选择机柜
+                        </label>
+                        <select id="rackUnmountSelect" class="form-select" required>
+                            <option value="">请选择要清空的机柜...</option>
+                        </select>
+                    </div>
+                    
+                    <div id="rackUnmountInfo" class="alert alert-info d-none">
+                        <i class="fas fa-info-circle me-2"></i>
+                        <span id="rackUnmountInfoText">机柜信息将在这里显示</span>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">
+                        <i class="fas fa-times me-1"></i>
+                        取消
+                    </button>
+                    <button type="button" id="confirmRackUnmount" class="btn btn-warning">
+                        <i class="fas fa-trash-alt me-1"></i>
+                        清空机柜
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- 快速下架模态框 -->
+    <div class="modal fade" id="quickUnmountModal" tabindex="-1">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">
+                        <i class="fas fa-bolt me-2"></i>
+                        快速下架设备
+                    </h5>
+                    <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal"></button>
+                </div>
+                <div class="modal-body">
+                    <div class="mb-3">
+                        <label for="quickUnmountSelect" class="form-label">
+                            <i class="fas fa-microchip me-1"></i>
+                            选择单个设备
+                        </label>
+                        <select id="quickUnmountSelect" class="form-select" required>
+                            <option value="">请选择要下架的设备...</option>
+                        </select>
+                    </div>
+                    
+                    <div id="quickUnmountInfo" class="alert alert-info d-none">
+                        <i class="fas fa-info-circle me-2"></i>
+                        <span id="quickUnmountInfoText">设备信息将在这里显示</span>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">
+                        <i class="fas fa-times me-1"></i>
+                        取消
+                    </button>
+                    <button type="button" id="confirmQuickUnmount" class="btn btn-danger">
+                        <i class="fas fa-download me-1"></i>
+                        下架设备
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- 批量添加机柜模态框 -->
+    <div class="modal fade" id="batchAddRackModal" tabindex="-1">
+        <div class="modal-dialog modal-lg modal-dialog-centered">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">
+                        <i class="fas fa-layer-group me-2"></i>
+                        批量添加机柜
+                    </h5>
+                    <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal"></button>
+                </div>
+                <div class="modal-body">
+                    <div class="row">
+                        <div class="col-md-6">
+                            <label for="batchRackRoom" class="form-label">机房 <span class="text-danger">*</span></label>
+                            <select class="form-select" id="batchRackRoom" required>
+                                <option value="">请选择机房...</option>
+                            </select>
+                        </div>
+                        <div class="col-md-6">
+                            <label for="batchRackRow" class="form-label">机柜排 <span class="text-danger">*</span></label>
+                            <input type="text" class="form-control" id="batchRackRow" required 
+                                   placeholder="如: A, B, North, Zone-C..." 
+                                   maxlength="10" 
+                                   title="支持字母、数字、中文和连字符，最长10字符">
+                            <div class="form-text">支持自定义排名，如：A、B、North、机房A、Zone-1等</div>
+                        </div>
+                    </div>
+                    
+                    <div class="row">
+                        <div class="col-md-4 mb-3">
+                            <label for="batchRackStartNumber" class="form-label">
+                                <i class="fas fa-play me-1"></i>
+                                开始编号
+                            </label>
+                            <input type="number" id="batchRackStartNumber" class="form-control" min="1" max="999" value="1" required>
+                            <small class="form-text text-muted">编号范围：1-999</small>
+                        </div>
+                        <div class="col-md-4 mb-3">
+                            <label for="batchRackEndNumber" class="form-label">
+                                <i class="fas fa-stop me-1"></i>
+                                结束编号
+                            </label>
+                            <input type="number" id="batchRackEndNumber" class="form-control" min="1" max="999" value="10" required>
+                            <small class="form-text text-muted">编号范围：1-999</small>
+                        </div>
+                        <div class="col-md-4 mb-3">
+                            <label for="batchRackHeight" class="form-label">
+                                <i class="fas fa-arrows-alt-v me-1"></i>
+                                机柜高度 (U)
+                            </label>
+                            <input type="number" id="batchRackHeight" class="form-control" min="1" max="100" value="42" required>
+                            <small class="form-text text-muted">高度范围：1-100U</small>
+                        </div>
+                    </div>
+                    
+                    <div class="alert alert-info" id="batchRackPreview">
+                        <i class="fas fa-info-circle me-2"></i>
+                        <span id="batchRackPreviewText">请填写上述信息以预览将要创建的机柜</span>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">
+                        <i class="fas fa-times me-1"></i>
+                        取消
+                    </button>
+                    <button type="button" id="confirmBatchAddRack" class="btn btn-info">
+                        <i class="fas fa-plus me-1"></i>
+                        批量创建
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Edit Rack Modal -->
+    <div class="modal fade" id="editRackModal" tabindex="-1" aria-labelledby="editRackModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="editRackModalLabel"><i class="fas fa-edit me-2"></i>编辑机柜</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <input type="hidden" id="edit-rack-id">
+                    <div class="mb-3">
+                        <label for="edit-rack-name" class="form-label">机柜名称</label>
+                        <input type="text" class="form-control" id="edit-rack-name" required>
+                    </div>
+                    <div class="mb-3">
+                        <label for="edit-rack-room" class="form-label">所属机房</label>
+                        <select class="form-select" id="edit-rack-room" required>
+                            <!-- Room options will be populated here -->
+                        </select>
+                    </div>
+                    <div class="mb-3">
+                        <label for="edit-rack-height" class="form-label">机柜高度 (U)</label>
+                        <input type="number" class="form-control" id="edit-rack-height" min="1" max="100" required>
+                    </div>
+                    <div class="mb-3">
+                        <label for="edit-rack-department" class="form-label">使用部门</label>
+                        <input type="text" class="form-control" id="edit-rack-department" placeholder="请输入使用部门 (可选)">
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">取消</button>
+                    <button type="button" class="btn btn-primary" id="saveRackChangesBtn">保存更改</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Bootstrap JS -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script>
+    <!-- jQuery -->
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            console.log('DOMContentLoaded fired.');
+
+            let currentRoomsData = [];
+            let allRacksData = [];
+            let allDeviceTypes = [];
+            let allDeviceInstances = [];
+
+            // Function to show toast notifications
+            function showToast(message, type = 'success') {
+                const toastContainer = document.createElement('div');
+                toastContainer.className = 'position-fixed top-0 end-0 p-3';
+                toastContainer.style.zIndex = '11';
+                
+                const toast = document.createElement('div');
+                toast.className = `toast align-items-center text-white bg-${type === 'success' ? 'success' : 'danger'} border-0`;
+                toast.setAttribute('role', 'alert');
+                toast.innerHTML = `
+                    <div class="d-flex">
+                        <div class="toast-body">
+                            <i class="fas fa-${type === 'success' ? 'check-circle' : 'exclamation-circle'} me-2"></i>
+                            ${message}
+                        </div>
+                        <button type="button" class="btn-close btn-close-white me-2 m-auto" data-bs-dismiss="toast"></button>
+                    </div>
+                `;
+                
+                toastContainer.appendChild(toast);
+                document.body.appendChild(toastContainer);
+                
+                const bsToast = new bootstrap.Toast(toast);
+                bsToast.show();
+                
+                toast.addEventListener('hidden.bs.toast', () => {
+                    document.body.removeChild(toastContainer);
+                });
+            }
+
+            // Function to fetch both rooms and racks data and display them
+            async function fetchRoomsAndRacks() {
+                try {
+                    const roomsResponse = await fetch('/get_rooms');
+                    const roomsData = await roomsResponse.json();
+                    currentRoomsData = roomsData.rooms;
+                    displayRooms(currentRoomsData);
+
+                    const racksResponse = await fetch('/get_racks');
+                    const racksData = await racksResponse.json();
+                    allRacksData = racksData.racks;
+                    
+                    const deviceInstancesResponse = await fetch('/get_device_instances');
+                    const deviceInstancesData = await deviceInstancesResponse.json();
+                    allDeviceInstances = deviceInstancesData.device_instances;
+                    
+                    const deviceTypesResponse = await fetch('/get_device_types');
+                    const deviceTypesData = await deviceTypesResponse.json();
+                    allDeviceTypes = deviceTypesData.device_types;
+                    console.log('Fetched device types:', allDeviceTypes);
+
+                    // Populate room filter for racks
+                    const roomFilterSelect = document.getElementById('rack-filter-room');
+                    roomFilterSelect.innerHTML = '<option value="">筛选机房 (全部)</option>';
+                    currentRoomsData.forEach(room => {
+                        const option = document.createElement('option');
+                        option.value = room.id;
+                        option.textContent = room.name;
+                        roomFilterSelect.appendChild(option);
+                    });
+
+                    // Initial display of racks
+                    filterAndDisplayRacks();
+
+                } catch (error) {
+                    console.error('Error fetching data:', error);
+                    showToast('加载数据失败', 'error');
+                }
+            }
+
+            // Function to filter racks based on UI controls and then call displayRacks
+            function filterAndDisplayRacks() {
+                const roomFilter = document.getElementById('rack-filter-room').value;
+                const nameFilter = document.getElementById('rack-search-input').value.toLowerCase();
+
+                const filteredRacks = allRacksData.filter(rack => {
+                    const matchesRoom = !roomFilter || rack.room_id === roomFilter;
+                    const matchesName = !nameFilter || rack.name.toLowerCase().includes(nameFilter);
+                    return matchesRoom && matchesName;
+                });
+
+                displayRacks(filteredRacks, currentRoomsData);
+            }
+
+            // Function to fetch and display rooms
+            function displayRooms(roomsData) {
+                const roomsList = document.getElementById('rooms-list');
+                const rackRoomSelect = document.getElementById('rack-room');
+                roomsList.innerHTML = '';
+                rackRoomSelect.innerHTML = '<option value="">--请选择机房--</option>';
+
+                if (roomsData.length === 0) {
+                    const emptyState = document.createElement('div');
+                    emptyState.className = 'empty-state';
+                    emptyState.innerHTML = `
+                        <i class="fas fa-building-slash"></i>
+                        <p>暂无机房数据</p>
+                    `;
+                    roomsList.appendChild(emptyState);
+                } else {
+                    roomsData.forEach(room => {
+                        const listItem = document.createElement('div');
+                        listItem.className = 'list-group-item';
+                        listItem.innerHTML = `
+                            <div class="item-content">
+                                <div class="item-info">
+                                    <div class="item-title">${room.name}</div>
+                                    <div class="item-subtitle">机房ID: ${room.id}</div>
+                                </div>
+                                <div class="item-actions">
+                                    <button class="btn btn-danger btn-sm delete-room-btn" data-room-id="${room.id}">
+                                        <i class="fas fa-trash me-1"></i>
+                                        删除
+                                    </button>
+                                </div>
+                            </div>
+                        `;
+                        roomsList.appendChild(listItem);
+                        
+                        const option = document.createElement('option');
+                        option.value = room.id;
+                        option.textContent = room.name;
+                        rackRoomSelect.appendChild(option);
+                    });
+                }
+            }
+
+            // Function to fetch and display racks
+            function displayRacks(racksData, roomsData) {
+                const racksList = document.getElementById('racks-list');
+                racksList.innerHTML = ''; // Clear current list
+
+                if (racksData.length === 0) {
+                    const emptyState = document.createElement('div');
+                    emptyState.className = 'empty-state';
+                    emptyState.innerHTML = `
+                        <i class="fas fa-search"></i>
+                        <p>没有找到匹配的机柜</p>
+                    `;
+                    racksList.appendChild(emptyState);
+                    return; // Exit if no racks to display
+                }
+
+                // Add list header with select all
+                const listHeader = document.createElement('div');
+                listHeader.className = 'list-group-item list-group-item-light d-flex align-items-center';
+                listHeader.innerHTML = `
+                    <div class="form-check" style="flex-basis: 50px;">
+                        <input class="form-check-input" type="checkbox" id="select-all-racks-checkbox">
+                    </div>
+                    <strong>选择全部</strong>
+                `;
+                racksList.appendChild(listHeader);
+
+                // Display each rack
+                racksData.forEach(rack => {
+                    const room = roomsData.find(r => r.id === rack.room_id);
+                    const roomName = room ? room.name : 'Unknown Room';
+                    
+                    const listItem = document.createElement('div');
+                    listItem.className = 'list-group-item';
+                    listItem.innerHTML = `
+                        <div class="item-content d-flex align-items-center">
+                            <div class="form-check" style="flex-basis: 50px;">
+                                <input class="form-check-input rack-select-checkbox" type="checkbox" value="${rack.id}" data-rack-name="${rack.name}">
+                            </div>
+                            <div class="item-info">
+                                <div class="item-title">${rack.name}</div>
+                                <div class="item-subtitle">所属机房: ${roomName} | 高度: ${rack.height_u}U | 使用部门: ${rack.department || '未设置'}</div>
+                            </div>
+                            <div class="item-actions">
+                                <button type="button" class="btn btn-primary btn-sm" onclick="showAddToRackModalForRack('${rack.id}')">
+                                    <i class="fas fa-plus me-1"></i> 上架设备
+                                </button>
+                                <button type="button" class="btn btn-warning btn-sm" onclick="showEditRackModal('${rack.id}', '${rack.name}', ${rack.height_u}, '${rack.room_id}', '${rack.department || ''}')">
+                                    <i class="fas fa-edit me-1"></i> 编辑
+                                </button>
+                                <button type="button" class="btn btn-info btn-sm" onclick="window.open('/rack_panel/${rack.id}', '_blank')">
+                                    <i class="fas fa-eye me-1"></i> 查看面板
+                                </button>
+                            </div>
+                        </div>
+                    `;
+                    racksList.appendChild(listItem);
+                });
+            }
+
+            // Event listeners for add buttons
+            document.getElementById('addRoomBtn').addEventListener('click', async function() {
+                const roomNameInput = document.getElementById('new-room-name');
+                const roomName = roomNameInput.value.trim();
+
+                if (!roomName) {
+                    showToast('机房名称不能为空', 'error');
+                    return;
+                }
+
+                try {
+                    const response = await fetch('/add_room', {
+                        method: 'POST',
+                        headers: {
+                            'Content-Type': 'application/json'
+                        },
+                        body: JSON.stringify({ name: roomName })
+                    });
+
+                    const data = await response.json();
+                    
+                    if (response.ok) {
+                        showToast('机房添加成功', 'success');
+                        roomNameInput.value = '';
+                        fetchRoomsAndRacks();
+                    } else {
+                        showToast(data.message || '添加机房失败', 'error');
+                    }
+
+                } catch (error) {
+                    console.error('Error adding room:', error);
+                    showToast('添加机房失败', 'error');
+                }
+            });
+
+            document.getElementById('addRackBtn').addEventListener('click', async function() {
+                const rackNameInput = document.getElementById('new-rack-name');
+                const roomSelect = document.getElementById('rack-room');
+                const heightInput = document.getElementById('new-rack-height');
+                const departmentInput = document.getElementById('new-rack-department');
+
+                const rackName = rackNameInput.value.trim();
+                const roomId = roomSelect.value;
+                const heightU = parseInt(heightInput.value, 10);
+                const department = departmentInput.value.trim();
+
+                if (!rackName) {
+                    showToast('机柜名称不能为空', 'error');
+                    return;
+                }
+                if (!roomId) {
+                    showToast('请选择所属机房', 'error');
+                    return;
+                }
+                if (isNaN(heightU) || heightU <= 0) {
+                    showToast('机柜高度必须是正整数', 'error');
+                    return;
+                }
+
+                try {
+                    const response = await fetch('/add_rack', {
+                        method: 'POST',
+                        headers: {
+                            'Content-Type': 'application/json'
+                        },
+                        body: JSON.stringify({
+                            name: rackName,
+                            room_id: roomId,
+                            height_u: heightU,
+                            department: department
+                        })
+                    });
+
+                    const data = await response.json();
+
+                    if (response.ok) {
+                        showToast('机柜添加成功', 'success');
+                        rackNameInput.value = '';
+                        heightInput.value = '42';
+                        roomSelect.value = '';
+                        departmentInput.value = '';
+                        fetchRoomsAndRacks();
+                    } else {
+                        showToast(data.message || '添加机柜失败', 'error');
+                    }
+
+                } catch (error) {
+                    console.error('Error adding rack:', error);
+                    showToast('添加机柜失败', 'error');
+                }
+            });
+
+            // Add event listener for deleting rooms using event delegation
+            document.getElementById('rooms-list').addEventListener('click', async function(event) {
+                if (event.target.closest('.delete-room-btn')) {
+                    const button = event.target.closest('.delete-room-btn');
+                    const roomId = button.dataset.roomId;
+                    const roomName = button.closest('.list-group-item').querySelector('.item-title').textContent;
+
+                    if (confirm(`确定要删除机房 "${roomName}"?\n删除机房也会删除其下的所有机柜！`)) {
+                        try {
+                            const response = await fetch(`/delete_room/${roomId}`, {
+                                method: 'DELETE'
+                            });
+
+                            const data = await response.json();
+
+                            if (response.ok) {
+                                showToast('机房删除成功', 'success');
+                                fetchRoomsAndRacks();
+                            } else {
+                                showToast(data.message || '删除机房失败', 'error');
+                            }
+
+                        } catch (error) {
+                            console.error('Error deleting room:', error);
+                            showToast('删除机房失败', 'error');
+                        }
+                    }
+                }
+            });
+
+            // Add event listener for deleting racks using event delegation
+            document.getElementById('racks-list').addEventListener('click', async function(event) {
+                if (event.target.closest('.add-to-rack-btn')) {
+                    const button = event.target.closest('.add-to-rack-btn');
+                    const rackId = button.dataset.rackId;
+                    showAddToRackModalForRack(rackId);
+                }
+            });
+
+            // Initial data load on page load
+            fetchRoomsAndRacks();
+
+            // Event listeners for filters
+            document.getElementById('rack-filter-room').addEventListener('change', filterAndDisplayRacks);
+            document.getElementById('rack-search-input').addEventListener('input', filterAndDisplayRacks);
+
+            // Event listeners for batch selection and deletion
+            document.getElementById('racks-list').addEventListener('change', function(event) {
+                const target = event.target;
+                const selectAllCheckbox = document.getElementById('select-all-racks-checkbox');
+                const allCheckboxes = document.querySelectorAll('.rack-select-checkbox');
+                
+                if (target.id === 'select-all-racks-checkbox') {
+                    allCheckboxes.forEach(checkbox => checkbox.checked = target.checked);
+                }
+                
+                if (target.classList.contains('rack-select-checkbox')) {
+                    if (selectAllCheckbox) {
+                        const allChecked = [...allCheckboxes].every(checkbox => checkbox.checked);
+                        selectAllCheckbox.checked = allChecked;
+                    }
+                }
+                
+                // Update delete button state
+                const anyChecked = [...allCheckboxes].some(checkbox => checkbox.checked);
+                document.getElementById('batch-delete-racks-btn').disabled = !anyChecked;
+            });
+
+            document.getElementById('batch-delete-racks-btn').addEventListener('click', async function() {
+                const selectedCheckboxes = document.querySelectorAll('.rack-select-checkbox:checked');
+                const rackIdsToDelete = [...selectedCheckboxes].map(cb => cb.value);
+                const rackNamesToDelete = [...selectedCheckboxes].map(cb => cb.dataset.rackName);
+                
+                if (rackIdsToDelete.length === 0) {
+                    showToast('请至少选择一个机柜进行删除', 'warning');
+                    return;
+                }
+                
+                if (confirm(`确定要删除选中的 ${rackIdsToDelete.length} 个机柜吗？\n\n- ${rackNamesToDelete.join('\n- ')}\n\n警告：这将同时删除机柜内的所有设备！此操作不可逆！`)) {
+                    try {
+                        const response = await fetch('/batch_delete_racks', {
+                            method: 'POST',
+                            headers: { 'Content-Type': 'application/json' },
+                            body: JSON.stringify({ rack_ids: rackIdsToDelete })
+                        });
+                        
+                        const data = await response.json();
+                        
+                        if (response.ok) {
+                            showToast(data.message, 'success');
+                            await fetchRoomsAndRacks(); // Refresh data
+                        } else {
+                            showToast(data.message || '批量删除失败', 'error');
+                        }
+                        
+                    } catch (error) {
+                        console.error('Error batch deleting racks:', error);
+                        showToast('批量删除过程中发生网络或脚本错误', 'error');
+                    }
+                }
+            });
+
+            // --- Modal Logic for Add to Rack ---
+            const addToRackModal = new bootstrap.Modal(document.getElementById('add-to-rack-modal'));
+            const modalDeviceSelect = document.getElementById('modal-device-select');
+            const modalRackUInput = document.getElementById('modal-rack-u');
+            const modalInstanceIdInput = document.getElementById('modal-instance-id');
+            const saveRackPositionBtn = document.getElementById('saveRackPositionBtn');
+
+            // Function to show the modal
+            function showAddToRackModal(instanceId) {
+                document.getElementById('modal-instance-id').value = instanceId || '';
+                populateModalDeviceSelect();
+                document.getElementById('rack-info-text').textContent = '';
+                document.getElementById('modal-rack-id').value = '';
+                document.getElementById('modal-room-id').value = '';
+                addToRackModal.show();
+            }
+
+            // Function to populate the device select dropdown in the modal
+            function populateModalDeviceSelect() {
+                const deviceSelect = document.getElementById('modal-device-select');
+                deviceSelect.innerHTML = '<option value="">--请选择未放置设备--</option>';
+                allDeviceInstances.filter(device => !device.rack_id).forEach(device => {
+                    const option = document.createElement('option');
+                    option.value = device.id;
+                    option.textContent = `${device.instance_name} (ID: ${device.id}) - 类型: ${device.device_type}`;
+                    deviceSelect.appendChild(option);
+                });
+            }
+
+            // Event listener for the Save button in the modal
+            saveRackPositionBtn.addEventListener('click', async function() {
+                const instanceId = document.getElementById('modal-device-select').value || document.getElementById('modal-instance-id').value;
+                const rackId = document.getElementById('modal-rack-id').value;
+                const rackU = parseInt(document.getElementById('modal-rack-u').value, 10);
+
+                if (!instanceId) {
+                    showToast('请选择要放置的设备', 'error');
+                    return;
+                }
+
+                if (!rackId) {
+                    showToast('未指定目标机柜', 'error');
+                    return;
+                }
+
+                if (isNaN(rackU) || rackU <= 0) {
+                    showToast('U位必须是正整数', 'error');
+                    return;
+                }
+
+                try {
+                    // 使用批量上架API替代单设备API，确保数据一致性
+                    const response = await fetch('/batch_rack_mount', {
+                        method: 'POST',
+                        headers: {
+                            'Content-Type': 'application/json'
+                        },
+                        body: JSON.stringify({
+                            rack_id: rackId,
+                            device_updates: [{
+                                device_id: instanceId,
+                                rack_u: rackU
+                            }]
+                        })
+                    });
+
+                    const data = await response.json();
+
+                    if (response.ok) {
+                        showToast('设备位置更新成功', 'success');
+                        addToRackModal.hide();
+                        fetchRoomsAndRacks();
+                    } else {
+                        const errorMessage = data.errors && data.errors.length > 0 
+                            ? data.errors.join(', ') 
+                            : (data.message || '更新机柜位置失败');
+                        showToast(errorMessage, 'error');
+                    }
+
+                } catch (error) {
+                    console.error('Error updating rack position:', error);
+                    showToast('更新机柜位置失败', 'error');
+                }
+            });
+
+            // Function to show modal for specific rack
+            function showAddToRackModalForRack(rackId) {
+                showAddToRackModal('');
+                populateModalDeviceSelect();
+                const rack = allRacksData.find(r => r.id === rackId);
+                if (rack) {
+                    const room = currentRoomsData.find(rm => rm.id === rack.room_id);
+                    document.getElementById('rack-info-text').textContent = `目标机柜：${rack.name}（所属机房：${room ? room.name : '未知机房'}）`;
+                    document.getElementById('modal-rack-id').value = rack.id;
+                    document.getElementById('modal-room-id').value = rack.room_id;
+                }
+            }
+
+            // ==================== 批量上架功能 ====================
+
+            // 通用辅助函数
+            function getDeviceHeight(deviceType) {
+                const type = allDeviceTypes.find(type => type.name.trim() === deviceType.trim());
+                return type ? type.height_u : 1;
+            }
+
+            function getDevicesInRack(rackId) {
+                return allDeviceInstances.filter(device => device.rack_id === rackId);
+            }
+
+            function checkSpaceConflict(rackId, startU, deviceHeightU) {
+                const devicesInRack = getDevicesInRack(rackId);
+                const endU = startU + deviceHeightU - 1;
+
+                for (let device of devicesInRack) {
+                    const deviceHeight = getDeviceHeight(device.device_type);
+                    const deviceEndU = device.rack_u + deviceHeight - 1;
+                    
+                    // 检查是否有重叠
+                    if (!(endU < device.rack_u || startU > deviceEndU)) {
+                        return false; // 有冲突
+                    }
+                }
+                return true; // 无冲突
+            }
+
+            // 1. 单机柜批量上架功能
+            const singleRackBatchModal = new bootstrap.Modal(document.getElementById('singleRackBatchModal'));
+
+            function populateSingleRackSelect() {
+                const select = document.getElementById('singleRackSelect');
+                select.innerHTML = '<option value="">请选择机柜...</option>';
+                
+                allRacksData.forEach(rack => {
+                    const room = currentRoomsData.find(r => r.id === rack.room_id);
+                    const option = document.createElement('option');
+                    option.value = rack.id;
+                    option.textContent = `${rack.name} (${room ? room.name : '未知机房'}) - ${rack.height_u}U`;
+                    option.dataset.rackData = JSON.stringify(rack);
+                    select.appendChild(option);
+                });
+            }
+
+            function populateSingleRackDeviceList() {
+                const container = document.getElementById('singleRackDeviceList');
+                container.innerHTML = '';
+                
+                const unplacedDevices = allDeviceInstances.filter(device => !device.rack_id);
+                
+                if (unplacedDevices.length === 0) {
+                    container.innerHTML = '<p class="text-muted text-center">暂无未放置的设备</p>';
+                    return;
+                }
+
+                unplacedDevices.forEach(device => {
+                    const deviceHeight = getDeviceHeight(device.device_type);
+                    const item = document.createElement('div');
+                    item.className = 'device-checkbox-item';
+                    item.innerHTML = `
+                        <input type="checkbox" id="device_${device.id}" value="${device.id}" data-height="${deviceHeight}">
+                        <div class="device-info-text">
+                            <div class="device-name">${device.instance_name}</div>
+                            <div class="device-type">${device.device_type} - ${deviceHeight}U</div>
+                        </div>
+                    `;
+                    
+                    const checkbox = item.querySelector('input[type="checkbox"]');
+                    checkbox.addEventListener('change', function() {
+                        if (this.checked) {
+                            item.classList.add('selected');
+                        } else {
+                            item.classList.remove('selected');
+                        }
+                        updateSingleRackCapacity();
+                        filterDevicesByHeight('singleRack');
+                    });
+                    
+                    container.appendChild(item);
+                });
+            }
+
+            function filterDevicesByHeight(context) {
+                let containerSelector, selectedDevices;
+                
+                if (context === 'singleRack') {
+                    containerSelector = '#singleRackDeviceList';
+                    selectedDevices = document.querySelectorAll('#singleRackDeviceList input[type="checkbox"]:checked');
+                } else if (context === 'multiRackMulti') {
+                    containerSelector = '#multiRackMultiDeviceList';
+                    selectedDevices = document.querySelectorAll('#multiRackMultiDeviceList input[type="checkbox"]:checked');
+                }
+
+                if (selectedDevices.length === 0) return;
+
+                // 获取第一个选中设备的高度
+                const firstDeviceHeight = parseInt(selectedDevices[0].dataset.height);
+                
+                // 禁用其他高度的设备
+                const allCheckboxes = document.querySelectorAll(`${containerSelector} input[type="checkbox"]`);
+                allCheckboxes.forEach(checkbox => {
+                    const deviceHeight = parseInt(checkbox.dataset.height);
+                    const item = checkbox.closest('.device-checkbox-item');
+                    
+                    if (deviceHeight !== firstDeviceHeight && !checkbox.checked) {
+                        checkbox.disabled = true;
+                        item.style.opacity = '0.5';
+                    } else {
+                        checkbox.disabled = false;
+                        item.style.opacity = '1';
+                    }
+                });
+            }
+
+            function updateSingleRackCapacity() {
+                const rackSelect = document.getElementById('singleRackSelect');
+                const startUInput = document.getElementById('singleRackStartU');
+                const spacingInput = document.getElementById('singleRackSpacing');
+                const selectedDevices = document.querySelectorAll('#singleRackDeviceList input[type="checkbox"]:checked');
+                const capacityText = document.getElementById('singleRackCapacityText');
+                const capacityInfo = document.getElementById('singleRackCapacityInfo');
+
+                if (!rackSelect.value || selectedDevices.length === 0) {
+                    capacityText.textContent = '请先选择机柜和设备';
+                    capacityInfo.className = 'alert alert-info';
+                    return;
+                }
+
+                const rack = JSON.parse(rackSelect.options[rackSelect.selectedIndex].dataset.rackData);
+                const startU = parseInt(startUInput.value) || 1;
+                const spacing = parseInt(spacingInput.value) || 1;
+                const deviceHeight = parseInt(selectedDevices[0].dataset.height);
+                const deviceCount = selectedDevices.length;
+
+                // 计算需要的总高度
+                const totalSpacing = (deviceCount - 1) * spacing;
+                const totalDeviceHeight = deviceCount * deviceHeight;
+                const totalNeededHeight = totalDeviceHeight + totalSpacing;
+                const endU = startU + totalNeededHeight - 1;
+
+                // 检查是否超出机柜高度
+                if (endU > rack.height_u) {
+                    capacityText.innerHTML = `
+                        <strong>空间不足！</strong><br>
+                        需要 ${totalNeededHeight}U 空间，但机柜从 U${startU} 开始只有 ${rack.height_u - startU + 1}U 可用空间<br>
+                        建议最多放置 ${Math.floor((rack.height_u - startU + 1 + spacing) / (deviceHeight + spacing))} 台设备
+                    `;
+                    capacityInfo.className = 'alert alert-danger capacity-error';
+                    return;
+                }
+
+                // 检查空间冲突
+                let hasConflict = false;
+                for (let i = 0; i < deviceCount; i++) {
+                    const deviceStartU = startU + i * (deviceHeight + spacing);
+                    if (!checkSpaceConflict(rack.id, deviceStartU, deviceHeight)) {
+                        hasConflict = true;
+                        break;
+                    }
+                }
+
+                if (hasConflict) {
+                    capacityText.innerHTML = `
+                        <strong>空间冲突！</strong><br>
+                        选择的位置与现有设备冲突，请调整开始U位或间隔
+                    `;
+                    capacityInfo.className = 'alert alert-warning capacity-warning';
+                } else {
+                    capacityText.innerHTML = `
+                        <strong>可以放置！</strong><br>
+                        将在 U${startU} 到 U${endU} 放置 ${deviceCount} 台设备<br>
+                        每台设备 ${deviceHeight}U，间隔 ${spacing}U
+                    `;
+                    capacityInfo.className = 'alert alert-success';
+                }
+            }
+
+            // 单机柜批量上架事件监听器
+            document.getElementById('singleRackSelect').addEventListener('change', updateSingleRackCapacity);
+            document.getElementById('singleRackStartU').addEventListener('input', updateSingleRackCapacity);
+            document.getElementById('singleRackSpacing').addEventListener('input', updateSingleRackCapacity);
+
+            document.getElementById('singleRackBatchModal').addEventListener('show.bs.modal', async function() {
+                // 先刷新数据，确保获取最新的设备状态
+                await fetchRoomsAndRacks();
+                populateSingleRackSelect();
+                populateSingleRackDeviceList();
+            });
+
+            document.getElementById('confirmSingleRackBatch').addEventListener('click', async function() {
+                const rackSelect = document.getElementById('singleRackSelect');
+                const selectedDevices = document.querySelectorAll('#singleRackDeviceList input[type="checkbox"]:checked');
+                const startU = parseInt(document.getElementById('singleRackStartU').value) || 1;
+                const spacing = parseInt(document.getElementById('singleRackSpacing').value) || 0;
+
+                if (!rackSelect.value || selectedDevices.length === 0) {
+                    showToast('请选择机柜和设备', 'error');
+                    return;
+                }
+
+                const rack = JSON.parse(rackSelect.options[rackSelect.selectedIndex].dataset.rackData);
+                const deviceHeight = parseInt(selectedDevices[0].dataset.height);
+
+                try {
+                    // Prepare device updates array for the new API
+                    const deviceUpdates = [];
+                    for (let i = 0; i < selectedDevices.length; i++) {
+                        const deviceId = selectedDevices[i].value;
+                        const deviceU = startU + i * (deviceHeight + spacing);
+                        deviceUpdates.push({
+                            device_id: deviceId,
+                            rack_u: deviceU
+                        });
+                    }
+
+                    // Use the new batch rack mount API
+                    const response = await fetch('/batch_rack_mount', {
+                        method: 'POST',
+                        headers: {
+                            'Content-Type': 'application/json'
+                        },
+                        body: JSON.stringify({
+                            rack_id: rack.id,
+                            device_updates: deviceUpdates
+                        })
+                    });
+
+                    const result = await response.json();
+
+                    if (response.ok) {
+                        showToast(`批量上架完成！成功 ${result.success_count} 台设备`, 'success');
+                        // 等待数据刷新完成后再关闭模态框
+                        await fetchRoomsAndRacks();
+                        singleRackBatchModal.hide();
+                    } else {
+                        let errorMessage = result.message || '批量上架失败';
+                        if (result.errors && result.errors.length > 0) {
+                            errorMessage += '\n详细错误：\n' + result.errors.join('\n');
+                        }
+                        showToast(errorMessage, 'error');
+                    }
+
+                } catch (error) {
+                    console.error('Error in batch rack mounting:', error);
+                    showToast('批量上架过程中发生错误', 'error');
+                }
+            });
+
+            // 2. 多机柜单设备类型上架功能
+            const multiRackSingleDeviceModal = new bootstrap.Modal(document.getElementById('multiRackSingleDeviceModal'));
+
+            function populateMultiRackDeviceTypes() {
+                const select = document.getElementById('multiRackDeviceType');
+                select.innerHTML = '<option value="">请选择设备类型...</option>';
+                
+                // 获取未放置设备的设备类型
+                const unplacedDevices = allDeviceInstances.filter(device => !device.rack_id);
+                const deviceTypes = [...new Set(unplacedDevices.map(device => device.device_type))];
+                
+                deviceTypes.forEach(deviceType => {
+                    const option = document.createElement('option');
+                    option.value = deviceType;
+                    option.textContent = deviceType;
+                    select.appendChild(option);
+                });
+            }
+
+            function populateMultiRackList() {
+                const container = document.getElementById('multiRackList');
+                container.innerHTML = '';
+
+                // Populate room filter
+                const roomFilter = document.getElementById('multiRackRoomFilter');
+                roomFilter.innerHTML = '<option value="">所有机房</option>';
+                currentRoomsData.forEach(room => {
+                    roomFilter.add(new Option(room.name, room.id));
+                });
+                
+                filterAndDisplayMultiRacks();
+            }
+
+            function filterAndDisplayMultiRacks() {
+                const container = document.getElementById('multiRackList');
+                container.innerHTML = '';
+
+                const selectedRoomId = document.getElementById('multiRackRoomFilter').value;
+                const searchTerm = document.getElementById('multiRackSearchInput').value.toLowerCase();
+
+                let filteredRacks = allRacksData;
+
+                if (selectedRoomId) {
+                    filteredRacks = filteredRacks.filter(rack => rack.room_id === selectedRoomId);
+                }
+                if (searchTerm) {
+                    filteredRacks = filteredRacks.filter(rack => rack.name.toLowerCase().includes(searchTerm));
+                }
+
+                if (filteredRacks.length === 0) {
+                    container.innerHTML = '<p class="text-muted text-center">没有匹配的机柜</p>';
+                    return;
+                }
+                
+                filteredRacks.forEach(rack => {
+                    const room = currentRoomsData.find(r => r.id === rack.room_id);
+                    const item = document.createElement('div');
+                    item.className = 'rack-checkbox-item';
+                    item.innerHTML = `
+                        <input type="checkbox" id="rack_${rack.id}" value="${rack.id}">
+                        <div class="rack-info-text">
+                            <div class="rack-name">${rack.name}</div>
+                            <div class="rack-details">${room ? room.name : '未知机房'} - ${rack.height_u}U</div>
+                        </div>
+                    `;
+                    
+                    const checkbox = item.querySelector('input[type="checkbox"]');
+                    checkbox.addEventListener('change', function() {
+                        if (this.checked) {
+                            item.classList.add('selected');
+                        } else {
+                            item.classList.remove('selected');
+                        }
+                        updateMultiRackDeviceList();
+                        checkMultiRackConflicts();
+                    });
+                    
+                    container.appendChild(item);
+                });
+            }
+
+            function updateMultiRackDeviceList() {
+                const deviceType = document.getElementById('multiRackDeviceType').value;
+                const selectedRacks = document.querySelectorAll('#multiRackList input[type="checkbox"]:checked');
+                
+                filterAndDisplayMultiRackDevices();
+            }
+
+            function filterAndDisplayMultiRackDevices() {
+                const deviceType = document.getElementById('multiRackDeviceType').value;
+                const container = document.getElementById('multiRackDeviceList');
+                container.innerHTML = '';
+
+                if (!deviceType) {
+                    container.innerHTML = '<p class="text-muted text-center">请先选择设备类型</p>';
+                    return;
+                }
+
+                let availableDevices = allDeviceInstances.filter(device => 
+                    !device.rack_id && device.device_type === deviceType
+                );
+
+                const searchTerm = document.getElementById('multiRackDeviceSearchInput').value.toLowerCase();
+                if (searchTerm) {
+                    availableDevices = availableDevices.filter(device => device.instance_name.toLowerCase().includes(searchTerm));
+                }
+
+                if (availableDevices.length === 0) {
+                    container.innerHTML = '<p class="text-muted text-center">暂无匹配的设备</p>';
+                    return;
+                }
+
+                availableDevices.forEach(device => {
+                    const item = document.createElement('div');
+                    item.className = 'device-checkbox-item';
+                    item.innerHTML = `
+                        <input type="checkbox" id="multi_device_${device.id}" value="${device.id}">
+                        <div class="device-info-text">
+                            <div class="device-name">${device.instance_name}</div>
+                            <div class="device-type">${device.device_type}</div>
+                        </div>
+                    `;
+                    
+                    const checkbox = item.querySelector('input[type="checkbox"]');
+                    checkbox.addEventListener('change', function() {
+                        if (this.checked) {
+                            item.classList.add('selected');
+                        } else {
+                            item.classList.remove('selected');
+                        }
+                        checkMultiRackConflicts();
+                    });
+                    
+                    container.appendChild(item);
+                });
+            }
+
+            function checkMultiRackConflicts() {
+                const deviceType = document.getElementById('multiRackDeviceType').value;
+                const fixedU = parseInt(document.getElementById('multiRackFixedU').value) || 1;
+                const selectedRacks = document.querySelectorAll('#multiRackList input[type="checkbox"]:checked');
+                const selectedDevices = document.querySelectorAll('#multiRackDeviceList input[type="checkbox"]:checked');
+                const conflictText = document.getElementById('multiRackConflictText');
+                const conflictInfo = document.getElementById('multiRackConflictInfo');
+
+                if (!deviceType || selectedRacks.length === 0 || selectedDevices.length === 0) {
+                    conflictText.textContent = '将检查冲突和空间情况';
+                    conflictInfo.className = 'alert alert-warning';
+                    return;
+                }
+
+                const deviceHeight = getDeviceHeight(deviceType);
+                const conflicts = [];
+                const spaceIssues = [];
+
+                selectedRacks.forEach(rackCheckbox => {
+                    const rackId = rackCheckbox.value;
+                    const rack = allRacksData.find(r => r.id === rackId);
+                    
+                    // 检查空间
+                    if (fixedU + deviceHeight - 1 > rack.height_u) {
+                        spaceIssues.push(`${rack.name}: 超出机柜高度`);
+                        return;
+                    }
+                    
+                    // 检查冲突
+                    if (!checkSpaceConflict(rackId, fixedU, deviceHeight)) {
+                        conflicts.push(`${rack.name}: U${fixedU} 位置冲突`);
+                    }
+                });
+
+                if (conflicts.length > 0 || spaceIssues.length > 0) {
+                    const issues = [...conflicts, ...spaceIssues];
+                    conflictText.innerHTML = `
+                        <strong>发现问题：</strong><br>
+                        ${issues.join('<br>')}
+                    `;
+                    conflictInfo.className = 'alert alert-danger';
+                } else {
+                    conflictText.innerHTML = `
+                        <strong>检查通过！</strong><br>
+                        可以在 ${selectedRacks.length} 个机柜的 U${fixedU} 位置放置 ${selectedDevices.length} 台设备
+                    `;
+                    conflictInfo.className = 'alert alert-success';
+                }
+            }
+
+            // 多机柜单设备类型事件监听器
+            document.getElementById('multiRackDeviceType').addEventListener('change', function() {
+                updateMultiRackDeviceList();
+                checkMultiRackConflicts();
+            });
+
+            document.getElementById('multiRackRoomFilter').addEventListener('change', filterAndDisplayMultiRacks);
+            document.getElementById('multiRackSearchInput').addEventListener('input', filterAndDisplayMultiRacks);
+            document.getElementById('multiRackDeviceSearchInput').addEventListener('input', filterAndDisplayMultiRackDevices);
+
+            document.getElementById('multiRackFixedU').addEventListener('input', checkMultiRackConflicts);
+
+            document.getElementById('multiRackSingleDeviceModal').addEventListener('show.bs.modal', async function() {
+                // 先刷新数据，确保获取最新的设备状态
+                await fetchRoomsAndRacks();
+                populateMultiRackDeviceTypes();
+                populateMultiRackList();
+            });
+
+            document.getElementById('confirmMultiRackSingle').addEventListener('click', async function() {
+                const deviceType = document.getElementById('multiRackDeviceType').value;
+                const fixedU = parseInt(document.getElementById('multiRackFixedU').value);
+                const selectedRacks = document.querySelectorAll('#multiRackList input[type="checkbox"]:checked');
+                const selectedDevices = document.querySelectorAll('#multiRackDeviceList input[type="checkbox"]:checked');
+
+                if (!deviceType) {
+                    showToast('请选择设备类型', 'error');
+                    return;
+                }
+
+                if (selectedRacks.length === 0) {
+                    showToast('请选择目标机柜', 'error');
+                    return;
+                }
+
+                if (selectedDevices.length === 0) {
+                    showToast('请选择要上架的设备', 'error');
+                    return;
+                }
+
+                if (selectedDevices.length > selectedRacks.length) {
+                    showToast('设备数量不能超过机柜数量', 'error');
+                    return;
+                }
+
+                try {
+                    // 使用新的多机柜批量上架API，避免并发写入冲突
+                    const mountRequests = [];
+                    const rackArray = Array.from(selectedRacks);
+                    
+                    // 按机柜分组设备
+                    const deviceUpdatesByRack = {};
+                    
+                    for (let i = 0; i < selectedDevices.length; i++) {
+                        const deviceId = selectedDevices[i].value;
+                        const rackId = rackArray[i].value;
+                        
+                        if (!deviceUpdatesByRack[rackId]) {
+                            deviceUpdatesByRack[rackId] = [];
+                        }
+                        
+                        deviceUpdatesByRack[rackId].push({
+                            device_id: deviceId,
+                            rack_u: fixedU
+                        });
+                    }
+                    
+                    // 为每个机柜创建上架请求
+                    for (const [rackId, deviceUpdates] of Object.entries(deviceUpdatesByRack)) {
+                        mountRequests.push({
+                            rack_id: rackId,
+                            device_updates: deviceUpdates
+                        });
+                    }
+
+                    // 使用新的多机柜API，一次性处理所有机柜
+                    const response = await fetch('/multi_rack_batch_mount', {
+                        method: 'POST',
+                        headers: {
+                            'Content-Type': 'application/json'
+                        },
+                        body: JSON.stringify({
+                            mount_requests: mountRequests
+                        })
+                    });
+
+                    const data = await response.json();
+
+                    if (response.ok) {
+                        // 使用统一的响应处理函数
+                        handleMultiRackMountResponse(data);
+                        multiRackSingleDeviceModal.hide();
+                    } else {
+                        showToast(`多机柜批量上架失败：${data.message || '未知错误'}`, 'error');
+                    }
+
+                } catch (error) {
+                    console.error('Error in multi-rack single device mounting:', error);
+                    showToast('多机柜单设备批量上架过程中发生错误', 'error');
+                }
+            });
+
+            // 3. 多机柜多设备批量上架功能
+            const multiRackMultiDeviceModal = new bootstrap.Modal(document.getElementById('multiRackMultiDeviceModal'));
+
+            function populateMultiRackMultiDeviceList() {
+                const container = document.getElementById('multiRackMultiDeviceList');
+                container.innerHTML = '';
+                
+                const unplacedDevices = allDeviceInstances.filter(device => !device.rack_id);
+                
+                if (unplacedDevices.length === 0) {
+                    container.innerHTML = '<p class="text-muted text-center">暂无未放置的设备</p>';
+                    return;
+                }
+
+                unplacedDevices.forEach(device => {
+                    const deviceHeight = getDeviceHeight(device.device_type);
+                    const item = document.createElement('div');
+                    item.className = 'device-checkbox-item';
+                    item.innerHTML = `
+                        <input type="checkbox" id="multi_multi_device_${device.id}" value="${device.id}" data-height="${deviceHeight}">
+                        <div class="device-info-text">
+                            <div class="device-name">${device.instance_name}</div>
+                            <div class="device-type">${device.device_type} - ${deviceHeight}U</div>
+                        </div>
+                    `;
+                    
+                    const checkbox = item.querySelector('input[type="checkbox"]');
+                    checkbox.addEventListener('change', function() {
+                        if (this.checked) {
+                            item.classList.add('selected');
+                        } else {
+                            item.classList.remove('selected');
+                        }
+                        filterDevicesByHeight('multiRackMulti');
+                        updateMultiRackMultiConfig();
+                    });
+                    
+                    container.appendChild(item);
+                });
+            }
+
+            function updateMultiRackMultiConfig() {
+                const selectedDevices = document.querySelectorAll('#multiRackMultiDeviceList input[type="checkbox"]:checked');
+                const container = document.getElementById('multiRackMultiConfigList');
+                const summaryText = document.getElementById('multiRackMultiSummaryText');
+                
+                container.innerHTML = '';
+                
+                // Populate room filter
+                const roomFilter = document.getElementById('multiRackMultiRoomFilter');
+                const currentRoom = roomFilter.value;
+                roomFilter.innerHTML = '<option value="">所有机房</option>';
+                currentRoomsData.forEach(room => {
+                    roomFilter.add(new Option(room.name, room.id));
+                });
+                roomFilter.value = currentRoom;
+
+                if (selectedDevices.length === 0) {
+                    summaryText.textContent = '请先选择要上架的设备';
+                    return;
+                }
+
+                const defaultStartU = parseInt(document.getElementById('multiRackMultiStartU').value) || 1;
+                
+                const selectedRoomId = document.getElementById('multiRackMultiRoomFilter').value;
+                const searchTerm = document.getElementById('multiRackMultiSearchInput').value.toLowerCase();
+
+                let filteredRacks = allRacksData;
+                if (selectedRoomId) {
+                    filteredRacks = filteredRacks.filter(rack => rack.room_id === selectedRoomId);
+                }
+                if (searchTerm) {
+                    filteredRacks = filteredRacks.filter(rack => rack.name.toLowerCase().includes(searchTerm));
+                }
+
+                if (filteredRacks.length === 0) {
+                    container.innerHTML = '<p class="text-muted text-center">没有匹配的机柜</p>';
+                    updateMultiRackMultiSummary();
+                    return;
+                }
+                
+                filteredRacks.forEach(rack => {
+                    const room = currentRoomsData.find(r => r.id === rack.room_id);
+                    const item = document.createElement('div');
+                    item.className = 'rack-config-item';
+                    item.innerHTML = `
+                        <div class="rack-config-info">
+                            <div class="rack-name">${rack.name}</div>
+                            <div class="rack-details">${room ? room.name : '未知机房'} - ${rack.height_u}U</div>
+                        </div>
+                        <div class="rack-config-controls">
+                            <input type="checkbox" id="config_rack_${rack.id}" value="${rack.id}">
+                            <label for="config_start_u_${rack.id}">起始U:</label>
+                            <input type="number" id="config_start_u_${rack.id}" class="form-control" min="1" value="${defaultStartU}">
+                        </div>
+                    `;
+                    
+                    const checkbox = item.querySelector('input[type="checkbox"]');
+                    const startUInput = item.querySelector('input[type="number"]');
+                    
+                    checkbox.addEventListener('change', updateMultiRackMultiSummary);
+                    startUInput.addEventListener('input', updateMultiRackMultiSummary);
+                    
+                    container.appendChild(item);
+                });
+
+                updateMultiRackMultiSummary();
+            }
+
+            function updateMultiRackMultiSummary() {
+                const selectedDevices = document.querySelectorAll('#multiRackMultiDeviceList input[type="checkbox"]:checked');
+                const selectedRacks = document.querySelectorAll('#multiRackMultiConfigList input[type="checkbox"]:checked');
+                const spacing = parseInt(document.getElementById('multiRackMultiSpacing').value) || 1;
+                const summaryText = document.getElementById('multiRackMultiSummaryText');
+                const summaryInfo = document.getElementById('multiRackMultiSummary');
+
+                if (selectedDevices.length === 0 || selectedRacks.length === 0) {
+                    summaryText.textContent = '请选择设备和机柜';
+                    summaryInfo.className = 'alert alert-info';
+                    return;
+                }
+
+                const deviceHeight = parseInt(selectedDevices[0].dataset.height);
+                const devicesPerRack = Math.ceil(selectedDevices.length / selectedRacks.length);
+                const issues = [];
+
+                selectedRacks.forEach(rackCheckbox => {
+                    const rackId = rackCheckbox.value;
+                    const rack = allRacksData.find(r => r.id === rackId);
+                    const startU = parseInt(document.getElementById(`config_start_u_${rackId}`).value) || 1;
+                    
+                    // 计算这个机柜需要的空间
+                    const devicesInThisRack = Math.min(devicesPerRack, selectedDevices.length);
+                    const totalSpacing = (devicesInThisRack - 1) * spacing;
+                    const totalDeviceHeight = devicesInThisRack * deviceHeight;
+                    const totalNeededHeight = totalDeviceHeight + totalSpacing;
+                    const endU = startU + totalNeededHeight - 1;
+
+                    if (endU > rack.height_u) {
+                        issues.push(`${rack.name}: 空间不足`);
+                    }
+
+                    // 检查冲突
+                    for (let i = 0; i < devicesInThisRack; i++) {
+                        const deviceStartU = startU + i * (deviceHeight + spacing);
+                        if (!checkSpaceConflict(rackId, deviceStartU, deviceHeight)) {
+                            issues.push(`${rack.name}: U${deviceStartU} 位置冲突`);
+                            break;
+                        }
+                    }
+                });
+
+                if (issues.length > 0) {
+                    summaryText.innerHTML = `
+                        <strong>发现问题：</strong><br>
+                        ${issues.join('<br>')}
+                    `;
+                    summaryInfo.className = 'alert alert-danger';
+                } else {
+                    summaryText.innerHTML = `
+                        <strong>上架计划：</strong><br>
+                        将在 ${selectedRacks.length} 个机柜中放置 ${selectedDevices.length} 台设备<br>
+                        平均每个机柜 ${devicesPerRack} 台设备，设备间隔 ${spacing}U
+                    `;
+                    summaryInfo.className = 'alert alert-success';
+                }
+            }
+
+            // 多机柜多设备事件监听器
+            document.getElementById('multiRackMultiSpacing').addEventListener('input', updateMultiRackMultiSummary);
+            document.getElementById('multiRackMultiStartU').addEventListener('input', function() {
+                const newStartU = this.value;
+                document.querySelectorAll('#multiRackMultiConfigList input[type="number"]').forEach(input => {
+                    input.value = newStartU;
+                });
+                updateMultiRackMultiSummary();
+            });
+
+            document.getElementById('multiRackMultiRoomFilter').addEventListener('change', updateMultiRackMultiConfig);
+            document.getElementById('multiRackMultiSearchInput').addEventListener('input', updateMultiRackMultiConfig);
+
+            document.getElementById('multiRackMultiDeviceModal').addEventListener('show.bs.modal', async function() {
+                // 先刷新数据，确保获取最新的设备状态
+                await fetchRoomsAndRacks();
+                populateMultiRackMultiDeviceList();
+                updateMultiRackMultiConfig();
+            });
+
+            // 处理多机柜批量上架响应
+            function handleMultiRackMountResponse(data) {
+                console.log('Received response data:', data); // Debug log
+                
+                let messageClass = 'success';
+                let icon = '✅';
+                let title = '批量上架成功';
+
+                if (!data) {
+                    showToast('从服务器接收到空响应', 'error');
+                    console.error("Null response data for handleMultiRackMountResponse");
+                    return;
+                }
+
+                // 确保数据有必要的字段，如果没有则设置默认值
+                const successful_devices = data.successful_devices || 0;
+                const failed_devices = data.failed_devices || 0;
+                const total_devices = data.total_devices || (successful_devices + failed_devices);
+                const total_racks = data.total_racks || 0;
+                const errors = data.errors || [];
+
+                // 判断状态逻辑
+                if (total_devices === 0) {
+                    messageClass = 'warning';
+                    icon = '⚠️';
+                    title = '没有设备需要处理';
+                } else if (successful_devices === 0 && total_devices > 0) {
+                    messageClass = 'error';
+                    icon = '❌';
+                    title = '批量上架失败';
+                } else if (failed_devices > 0) {
+                    messageClass = 'warning';
+                    icon = '⚠️';
+                    title = '批量上架部分成功';
+                }
+
+                let message = `${icon} ${title}<br>`;
+                message += `总计处理 ${total_racks} 个机柜, ${total_devices} 台设备。<br>`;
+                message += `成功: ${successful_devices} 台 (${data.success_rate || Math.round((successful_devices / Math.max(total_devices, 1)) * 100) + '%'}).`;
+
+                if (failed_devices > 0) {
+                    message += `<br>失败: ${failed_devices} 台.`;
+                }
+                if (errors && errors.length > 0) {
+                    message += `<br><strong>错误详情:</strong><br>- ${errors.join('<br>- ')}`;
+                }
+                
+                showToast(message, messageClass);
+
+                // 如果有成功的设备，立即刷新数据
+                if (successful_devices > 0) {
+                    return fetchRoomsAndRacks(); // 返回Promise以便调用者等待
+                }
+                return Promise.resolve(); // 返回已解决的Promise
+            }
+            
+            // 确认批量上架到多个机柜
+            document.getElementById('confirmMultiRackMulti').addEventListener('click', async function() {
+                const mountRequests = [];
+                
+                // 获取所有选中的设备
+                const selectedDevices = [];
+                document.querySelectorAll('#multiRackMultiDeviceList input[type="checkbox"]:checked').forEach(cb => {
+                    selectedDevices.push({
+                        id: cb.value,
+                        height: parseInt(cb.dataset.height)
+                    });
+                });
+
+                const selectedRacksCheckboxes = document.querySelectorAll('#multiRackMultiConfigList input[type="checkbox"]:checked');
+                
+                if (selectedRacksCheckboxes.length === 0 || selectedDevices.length === 0) {
+                    showToast('请选择设备和目标机柜', 'error');
+                    return;
+                }
+                
+                // 将设备均匀分配到选定的机柜中
+                const devicesPerRack = Math.ceil(selectedDevices.length / selectedRacksCheckboxes.length);
+                let deviceIndex = 0;
+
+                for (const rackCheckbox of selectedRacksCheckboxes) {
+                    if (deviceIndex >= selectedDevices.length) break;
+
+                    const rackId = rackCheckbox.value;
+                    const startU = parseInt(document.getElementById(`config_start_u_${rackId}`).value);
+                    const spacing = parseInt(document.getElementById('multiRackMultiSpacing').value) || 0;
+
+                    const deviceUpdates = [];
+                    let currentU = startU;
+                    
+                    const devicesForThisRack = selectedDevices.slice(deviceIndex, deviceIndex + devicesPerRack);
+                    deviceIndex += devicesPerRack;
+
+                    for (const device of devicesForThisRack) {
+                        deviceUpdates.push({
+                            device_id: device.id,
+                            rack_u: currentU
+                        });
+                        currentU += device.height + spacing;
+                    }
+
+                    if (deviceUpdates.length > 0) {
+                        mountRequests.push({
+                            rack_id: rackId,
+                            device_updates: deviceUpdates
+                        });
+                    }
+                }
+                
+                if (mountRequests.length === 0) {
+                    showToast('无法生成有效的上架计划', 'error');
+                    return;
+                }
+                
+                const totalDevicesToMount = mountRequests.reduce((sum, req) => sum + req.device_updates.length, 0);
+                if (!confirm(`确定要在 ${mountRequests.length} 个机柜中上架 ${totalDevicesToMount} 台设备吗？`)) {
+                    return;
+                }
+                
+                try {
+                    const response = await fetch('/multi_rack_batch_mount', {
+                        method: 'POST',
+                        headers: {
+                            'Content-Type': 'application/json'
+                        },
+                        body: JSON.stringify({
+                            mount_requests: mountRequests
+                        })
+                    });
+                    
+                    const data = await response.json();
+                    // 等待响应处理和数据刷新完成
+                    await handleMultiRackMountResponse(data);
+                    
+                    if (data.successful_devices > 0) {
+                        multiRackMultiDeviceModal.hide();
+                    }
+                    
+                } catch (error) {
+                    console.error('Error in multi-rack, multi-device batch mount:', error);
+                    showToast('批量上架过程中发生网络或脚本错误', 'error');
+                }
+            });
+
+            // 数据一致性检查功能
+            document.getElementById('checkDataConsistencyBtn').addEventListener('click', async function() {
+                const btn = this;
+                const originalHtml = btn.innerHTML;
+                const resultDiv = document.getElementById('dataConsistencyResult');
+                
+                btn.disabled = true;
+                btn.innerHTML = '<i class="fas fa-spinner fa-spin me-2"></i>检查中...';
+                
+                try {
+                    const response = await fetch('/check_data_consistency', {
+                        method: 'POST',
+                        headers: {
+                            'Content-Type': 'application/json'
+                        }
+                    });
+                    
+                    const data = await response.json();
+                    
+                    if (response.ok) {
+                        resultDiv.className = 'alert alert-success';
+                        resultDiv.innerHTML = `
+                            <h6><i class="fas fa-check-circle me-2"></i>数据一致性检查完成</h6>
+                            <p><strong>检查结果：</strong></p>
+                            <ul>
+                                <li>检查的机柜数量：${data.total_racks}</li>
+                                <li>检查的设备数量：${data.total_devices}</li>
+                                <li>修复的不一致项：${data.issues_found}</li>
+                                <li>自动修复项：${data.auto_repairs}</li>
+                            </ul>
+                            ${data.details && data.details.length > 0 ? 
+                                `<p><strong>详细信息：</strong></p><ul>${data.details.map(detail => `<li>${detail}</li>`).join('')}</ul>` 
+                                : '<p>数据一致性良好，未发现问题。</p>'
+                            }
+                        `;
+                        resultDiv.classList.remove('d-none');
+                        
+                        if (data.auto_repairs > 0) {
+                            showToast(`数据一致性检查完成，已自动修复 ${data.auto_repairs} 个问题`, 'success');
+                            setTimeout(() => {
+                                location.reload();
+                            }, 2000);
+                        } else {
+                            showToast('数据一致性检查完成，数据状态良好', 'success');
+                        }
+                    } else {
+                        resultDiv.className = 'alert alert-danger';
+                        resultDiv.innerHTML = `
+                            <h6><i class="fas fa-exclamation-circle me-2"></i>检查失败</h6>
+                            <p>${data.error || '未知错误'}</p>
+                        `;
+                        resultDiv.classList.remove('d-none');
+                        showToast('数据一致性检查失败', 'error');
+                    }
+                } catch (error) {
+                    console.error('Error checking data consistency:', error);
+                    resultDiv.className = 'alert alert-danger';
+                    resultDiv.innerHTML = `
+                        <h6><i class="fas fa-exclamation-circle me-2"></i>检查失败</h6>
+                        <p>请求失败，请检查网络连接</p>
+                    `;
+                    resultDiv.classList.remove('d-none');
+                    showToast('数据一致性检查失败', 'error');
+                } finally {
+                    btn.disabled = false;
+                    btn.innerHTML = originalHtml;
+                }
+            });
+
+            // === 批量下架功能 ===
+            
+            const batchUnmountModal = new bootstrap.Modal(document.getElementById('batchUnmountModal'));
+            const rackUnmountModal = new bootstrap.Modal(document.getElementById('rackUnmountModal'));
+            const quickUnmountModal = new bootstrap.Modal(document.getElementById('quickUnmountModal'));
+            
+            // 批量选择下架 - 填充已上架设备列表
+            function populateBatchUnmountDeviceList() {
+                const deviceList = document.getElementById('batchUnmountDeviceList');
+                const mountedDevices = allDeviceInstances.filter(device => device.rack_id);
+                
+                deviceList.innerHTML = '';
+                
+                if (mountedDevices.length === 0) {
+                    deviceList.innerHTML = '<p class="text-muted">暂无已上架设备</p>';
+                    return;
+                }
+                
+                mountedDevices.forEach(device => {
+                    const rack = allRacksData.find(r => r.id === device.rack_id);
+                    const rackName = rack ? rack.name : '未知机柜';
+                    
+                    const checkboxItem = document.createElement('div');
+                    checkboxItem.className = 'device-checkbox-item';
+                    checkboxItem.innerHTML = `
+                        <div class="checkbox-wrapper">
+                            <input type="checkbox" id="unmount_${device.id}" value="${device.id}" class="device-checkbox">
+                            <label for="unmount_${device.id}" class="device-label">
+                                <div class="device-name">${device.instance_name}</div>
+                                <div class="device-details">类型: ${device.device_type} | 机柜: ${rackName} | U位: ${device.rack_u}</div>
+                            </label>
+                        </div>
+                    `;
+                    deviceList.appendChild(checkboxItem);
+                });
+                
+                // 添加全选功能
+                const selectAllDiv = document.createElement('div');
+                selectAllDiv.className = 'device-checkbox-item select-all-item';
+                selectAllDiv.innerHTML = `
+                    <div class="checkbox-wrapper">
+                        <input type="checkbox" id="selectAllUnmount" class="device-checkbox">
+                        <label for="selectAllUnmount" class="device-label">
+                            <div class="device-name">全选 / 全不选</div>
+                        </label>
+                    </div>
+                `;
+                deviceList.insertBefore(selectAllDiv, deviceList.firstChild);
+                
+                // 全选逻辑
+                document.getElementById('selectAllUnmount').addEventListener('change', function() {
+                    const checkboxes = deviceList.querySelectorAll('input[type="checkbox"]:not(#selectAllUnmount)');
+                    checkboxes.forEach(cb => cb.checked = this.checked);
+                    updateBatchUnmountSummary();
+                });
+                
+                // 添加变化监听
+                deviceList.addEventListener('change', updateBatchUnmountSummary);
+            }
+            
+            // 更新批量下架摘要
+            function updateBatchUnmountSummary() {
+                const selectedDevices = document.querySelectorAll('#batchUnmountDeviceList input[type="checkbox"]:checked:not(#selectAllUnmount)');
+                const summaryText = document.getElementById('batchUnmountSummaryText');
+                const summaryDiv = document.getElementById('batchUnmountSummary');
+                
+                if (selectedDevices.length === 0) {
+                    summaryText.textContent = '请选择要下架的设备';
+                    summaryDiv.className = 'alert alert-warning';
+                } else {
+                    summaryText.textContent = `已选择 ${selectedDevices.length} 台设备进行下架`;
+                    summaryDiv.className = 'alert alert-info';
+                }
+            }
+            
+            // 整机柜下架 - 填充机柜列表
+            function populateRackUnmountSelect() {
+                const rackSelect = document.getElementById('rackUnmountSelect');
+                const racksWithDevices = allRacksData.filter(rack => {
+                    return allDeviceInstances.some(device => device.rack_id === rack.id);
+                });
+                
+                rackSelect.innerHTML = '<option value="">请选择要清空的机柜...</option>';
+                
+                racksWithDevices.forEach(rack => {
+                    const deviceCount = allDeviceInstances.filter(device => device.rack_id === rack.id).length;
+                    const option = document.createElement('option');
+                    option.value = rack.id;
+                    option.textContent = `${rack.name} (${deviceCount}台设备)`;
+                    rackSelect.appendChild(option);
+                });
+            }
+            
+            // 快速下架 - 填充设备列表
+            function populateQuickUnmountSelect() {
+                const deviceSelect = document.getElementById('quickUnmountSelect');
+                const mountedDevices = allDeviceInstances.filter(device => device.rack_id);
+                
+                deviceSelect.innerHTML = '<option value="">请选择要下架的设备...</option>';
+                
+                mountedDevices.forEach(device => {
+                    const rack = allRacksData.find(r => r.id === device.rack_id);
+                    const rackName = rack ? rack.name : '未知机柜';
+                    const option = document.createElement('option');
+                    option.value = device.id;
+                    option.textContent = `${device.instance_name} (${rackName} - U${device.rack_u})`;
+                    deviceSelect.appendChild(option);
+                });
+            }
+            
+            // 模态框显示事件
+            document.getElementById('batchUnmountModal').addEventListener('show.bs.modal', function() {
+                populateBatchUnmountDeviceList();
+                updateBatchUnmountSummary();
+            });
+            
+            document.getElementById('rackUnmountModal').addEventListener('show.bs.modal', function() {
+                populateRackUnmountSelect();
+            });
+            
+            document.getElementById('quickUnmountModal').addEventListener('show.bs.modal', function() {
+                populateQuickUnmountSelect();
+            });
+            
+            // 机柜选择变化事件
+            document.getElementById('rackUnmountSelect').addEventListener('change', function() {
+                const rackId = this.value;
+                const infoDiv = document.getElementById('rackUnmountInfo');
+                const infoText = document.getElementById('rackUnmountInfoText');
+                
+                if (rackId) {
+                    const rack = allRacksData.find(r => r.id === rackId);
+                    const devicesInRack = allDeviceInstances.filter(device => device.rack_id === rackId);
+                    
+                    infoText.textContent = `机柜 ${rack.name} 中有 ${devicesInRack.length} 台设备将被下架`;
+                    infoDiv.classList.remove('d-none');
+                } else {
+                    infoDiv.classList.add('d-none');
+                }
+            });
+            
+            // 设备选择变化事件
+            document.getElementById('quickUnmountSelect').addEventListener('change', function() {
+                const deviceId = this.value;
+                const infoDiv = document.getElementById('quickUnmountInfo');
+                const infoText = document.getElementById('quickUnmountInfoText');
+                
+                if (deviceId) {
+                    const device = allDeviceInstances.find(d => d.id === deviceId);
+                    const rack = allRacksData.find(r => r.id === device.rack_id);
+                    
+                    infoText.textContent = `设备 ${device.instance_name} 将从机柜 ${rack.name} 的 U${device.rack_u} 位下架`;
+                    infoDiv.classList.remove('d-none');
+                } else {
+                    infoDiv.classList.add('d-none');
+                }
+            });
+            
+            // 批量选择下架确认
+            document.getElementById('confirmBatchUnmount').addEventListener('click', async function() {
+                const selectedDevices = document.querySelectorAll('#batchUnmountDeviceList input[type="checkbox"]:checked:not(#selectAllUnmount)');
+                
+                if (selectedDevices.length === 0) {
+                    showToast('请选择要下架的设备', 'error');
+                    return;
+                }
+                
+                const deviceIds = Array.from(selectedDevices).map(cb => cb.value);
+                
+                if (!confirm(`确定要下架选中的 ${deviceIds.length} 台设备吗？`)) {
+                    return;
+                }
+                
+                try {
+                    const response = await fetch('/batch_rack_unmount', {
+                        method: 'POST',
+                        headers: {
+                            'Content-Type': 'application/json'
+                        },
+                        body: JSON.stringify({
+                            device_ids: deviceIds,
+                            unmount_type: 'selected'
+                        })
+                    });
+                    
+                    const data = await response.json();
+                    
+                    if (response.ok) {
+                        showToast(`批量下架成功！共下架 ${data.success_count} 台设备`, 'success');
+                        batchUnmountModal.hide();
+                        fetchRoomsAndRacks();
+                    } else {
+                        showToast(data.message || '批量下架失败', 'error');
+                    }
+                } catch (error) {
+                    console.error('Error in batch unmount:', error);
+                    showToast('批量下架过程中发生错误', 'error');
+                }
+            });
+            
+            // 整机柜下架确认
+            document.getElementById('confirmRackUnmount').addEventListener('click', async function() {
+                const rackId = document.getElementById('rackUnmountSelect').value;
+                
+                if (!rackId) {
+                    showToast('请选择要清空的机柜', 'error');
+                    return;
+                }
+                
+                const rack = allRacksData.find(r => r.id === rackId);
+                const devicesInRack = allDeviceInstances.filter(device => device.rack_id === rackId);
+                
+                if (!confirm(`确定要清空机柜 "${rack.name}" 吗？\n这将下架机柜中的所有 ${devicesInRack.length} 台设备！`)) {
+                    return;
+                }
+                
+                try {
+                    const response = await fetch('/batch_rack_unmount', {
+                        method: 'POST',
+                        headers: {
+                            'Content-Type': 'application/json'
+                        },
+                        body: JSON.stringify({
+                            unmount_type: 'rack_all',
+                            rack_id: rackId
+                        })
+                    });
+                    
+                    const data = await response.json();
+                    
+                    if (response.ok) {
+                        showToast(`机柜清空成功！共下架 ${data.success_count} 台设备`, 'success');
+                        rackUnmountModal.hide();
+                        fetchRoomsAndRacks();
+                    } else {
+                        showToast(data.message || '机柜清空失败', 'error');
+                    }
+                } catch (error) {
+                    console.error('Error in rack unmount:', error);
+                    showToast('机柜清空过程中发生错误', 'error');
+                }
+            });
+            
+            // 快速下架确认
+            document.getElementById('confirmQuickUnmount').addEventListener('click', async function() {
+                const deviceId = document.getElementById('quickUnmountSelect').value;
+                
+                if (!deviceId) {
+                    showToast('请选择要下架的设备', 'error');
+                    return;
+                }
+                
+                const device = allDeviceInstances.find(d => d.id === deviceId);
+                
+                if (!confirm(`确定要下架设备 "${device.instance_name}" 吗？`)) {
+                    return;
+                }
+                
+                try {
+                    const response = await fetch('/batch_rack_unmount', {
+                        method: 'POST',
+                        headers: {
+                            'Content-Type': 'application/json'
+                        },
+                        body: JSON.stringify({
+                            device_ids: [deviceId],
+                            unmount_type: 'selected'
+                        })
+                    });
+                    
+                    const data = await response.json();
+                    
+                    if (response.ok) {
+                        showToast(`设备下架成功！`, 'success');
+                        quickUnmountModal.hide();
+                        fetchRoomsAndRacks();
+                    } else {
+                        showToast(data.message || '设备下架失败', 'error');
+                    }
+                } catch (error) {
+                    console.error('Error in quick unmount:', error);
+                    showToast('设备下架过程中发生错误', 'error');
+                }
+            });
+
+            // 批量下架功能
+            
+            // 批量选择下架
+            window.showBatchUnmountModal = function() {
+                console.log('Opening batch unmount modal...');
+                
+                // 获取所有已上架设备
+                fetch('/get_device_instances')
+                    .then(response => response.json())
+                    .then(devices => {
+                        // 过滤出已上架的设备
+                        const mountedDevices = devices.filter(device => device.rack_id && device.rack_id !== null);
+                        
+                        if (mountedDevices.length === 0) {
+                            showAlert('没有已上架的设备', 'warning');
+                            return;
+                        }
+                        
+                        // 清空并填充设备列表
+                        const deviceList = document.getElementById('batchUnmountDeviceList');
+                        deviceList.innerHTML = '';
+                        
+                        mountedDevices.forEach(device => {
+                            const deviceItem = document.createElement('div');
+                            deviceItem.className = 'form-check';
+                            deviceItem.innerHTML = `
+                                <input class="form-check-input" type="checkbox" value="${device.id}" id="device_${device.id}">
+                                <label class="form-check-label" for="device_${device.id}">
+                                    ${device.name} - ${device.device_type} (机柜: ${getRackName(device.rack_id)}, U${device.rack_u})
+                                </label>
+                            `;
+                            deviceList.appendChild(deviceItem);
+                        });
+                        
+                        // 显示模态框
+                        $('#batchUnmountModal').modal('show');
+                    })
+                    .catch(error => {
+                        console.error('Error loading devices:', error);
+                        showAlert('加载设备列表失败', 'danger');
+                    });
+            };
+            
+            // 执行批量下架
+            window.executeBatchUnmount = function() {
+                const selectedDevices = [];
+                const checkboxes = document.querySelectorAll('#batchUnmountDeviceList input[type="checkbox"]:checked');
+                
+                checkboxes.forEach(checkbox => {
+                    selectedDevices.push(checkbox.value);
+                });
+                
+                if (selectedDevices.length === 0) {
+                    showAlert('请选择要下架的设备', 'warning');
+                    return;
+                }
+                
+                // 发送批量下架请求
+                fetch('/batch_rack_unmount', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify({
+                        device_ids: selectedDevices,
+                        unmount_type: 'selected'
+                    })
+                })
+                .then(response => response.json())
+                .then(data => {
+                    if (data.success) {
+                        showAlert(`批量下架成功：${data.unmounted_count} 个设备已下架`, 'success');
+                        $('#batchUnmountModal').modal('hide');
+                        
+                        // 刷新页面数据
+                        loadRacks();
+                        loadDevices();
+                    } else {
+                        showAlert(`批量下架失败：${data.message}`, 'danger');
+                    }
+                })
+                .catch(error => {
+                    console.error('Error during batch unmount:', error);
+                    showAlert('批量下架操作失败', 'danger');
+                });
+            };
+            
+            // 整机柜下架
+            window.showRackUnmountModal = function() {
+                console.log('Opening rack unmount modal...');
+                
+                // 获取所有机柜
+                fetch('/get_racks')
+                    .then(response => response.json())
+                    .then(racks => {
+                        // 过滤出有设备的机柜
+                        const racksWithDevices = racks.filter(rack => rack.devices && rack.devices.length > 0);
+                        
+                        if (racksWithDevices.length === 0) {
+                            showAlert('没有包含设备的机柜', 'warning');
+                            return;
+                        }
+                        
+                        // 填充机柜选择下拉框
+                        const rackSelect = document.getElementById('rackUnmountSelect');
+                        rackSelect.innerHTML = '<option value="">请选择机柜</option>';
+                        
+                        racksWithDevices.forEach(rack => {
+                            const option = document.createElement('option');
+                            option.value = rack.id;
+                            option.textContent = `${rack.name} (${rack.devices.length} 个设备)`;
+                            rackSelect.appendChild(option);
+                        });
+                        
+                        // 显示模态框
+                        $('#rackUnmountModal').modal('show');
+                    })
+                    .catch(error => {
+                        console.error('Error loading racks:', error);
+                        showAlert('加载机柜列表失败', 'danger');
+                    });
+            };
+            
+            // 执行整机柜下架
+            window.executeRackUnmount = function() {
+                const rackId = document.getElementById('rackUnmountSelect').value;
+                
+                if (!rackId) {
+                    showAlert('请选择要下架的机柜', 'warning');
+                    return;
+                }
+                
+                // 发送整机柜下架请求
+                fetch('/batch_rack_unmount', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify({
+                        rack_id: rackId,
+                        unmount_type: 'rack'
+                    })
+                })
+                .then(response => response.json())
+                .then(data => {
+                    if (data.success) {
+                        showAlert(`整机柜下架成功：${data.unmounted_count} 个设备已下架`, 'success');
+                        $('#rackUnmountModal').modal('hide');
+                        
+                        // 刷新页面数据
+                        loadRacks();
+                        loadDevices();
+                    } else {
+                        showAlert(`整机柜下架失败：${data.message}`, 'danger');
+                    }
+                })
+                .catch(error => {
+                    console.error('Error during rack unmount:', error);
+                    showAlert('整机柜下架操作失败', 'danger');
+                });
+            };
+            
+            // 快速下架
+            window.showQuickUnmountModal = function() {
+                console.log('Opening quick unmount modal...');
+                
+                // 获取所有已上架设备
+                fetch('/get_device_instances')
+                    .then(response => response.json())
+                    .then(devices => {
+                        // 过滤出已上架的设备
+                        const mountedDevices = devices.filter(device => device.rack_id && device.rack_id !== null);
+                        
+                        if (mountedDevices.length === 0) {
+                            showAlert('没有已上架的设备', 'warning');
+                            return;
+                        }
+                        
+                        // 填充设备选择下拉框
+                        const deviceSelect = document.getElementById('quickUnmountSelect');
+                        deviceSelect.innerHTML = '<option value="">请选择设备</option>';
+                        
+                        mountedDevices.forEach(device => {
+                            const option = document.createElement('option');
+                            option.value = device.id;
+                            option.textContent = `${device.name} - ${device.device_type} (机柜: ${getRackName(device.rack_id)}, U${device.rack_u})`;
+                            deviceSelect.appendChild(option);
+                        });
+                        
+                        // 显示模态框
+                        $('#quickUnmountModal').modal('show');
+                    })
+                    .catch(error => {
+                        console.error('Error loading devices:', error);
+                        showAlert('加载设备列表失败', 'danger');
+                    });
+            };
+            
+            // 执行快速下架
+            window.executeQuickUnmount = function() {
+                const deviceId = document.getElementById('quickUnmountSelect').value;
+                
+                if (!deviceId) {
+                    showAlert('请选择要下架的设备', 'warning');
+                    return;
+                }
+                
+                // 发送快速下架请求
+                fetch('/batch_rack_unmount', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify({
+                        device_ids: [deviceId],
+                        unmount_type: 'quick'
+                    })
+                })
+                .then(response => response.json())
+                .then(data => {
+                    if (data.success) {
+                        showAlert(`快速下架成功：设备已下架`, 'success');
+                        $('#quickUnmountModal').modal('hide');
+                        
+                        // 刷新页面数据
+                        loadRacks();
+                        loadDevices();
+                    } else {
+                        showAlert(`快速下架失败：${data.message}`, 'danger');
+                    }
+                })
+                .catch(error => {
+                    console.error('Error during quick unmount:', error);
+                    showAlert('快速下架操作失败', 'danger');
+                });
+            };
+            
+            // 获取机柜名称的辅助函数
+            function getRackName(rackId) {
+                const rack = racksData.find(r => r.id === rackId);
+                return rack ? rack.name : '未知机柜';
+            }
+
+            // ==================== 批量添加机柜功能 ====================
+            
+            const batchAddRackModal = new bootstrap.Modal(document.getElementById('batchAddRackModal'));
+            
+            // 填充机房选择下拉框
+            function populateBatchRackRoomSelect() {
+                const roomSelect = document.getElementById('batchRackRoom');
+                roomSelect.innerHTML = '<option value="">请选择机房...</option>';
+                
+                currentRoomsData.forEach(room => {
+                    const option = document.createElement('option');
+                    option.value = room.id;
+                    option.textContent = room.name;
+                    roomSelect.appendChild(option);
+                });
+            }
+            
+            // 更新批量创建预览
+            function updateBatchRackPreview() {
+                const roomId = document.getElementById('batchRackRoom').value;
+                const rackRow = document.getElementById('batchRackRow').value.trim();
+                const startNumber = parseInt(document.getElementById('batchRackStartNumber').value);
+                const endNumber = parseInt(document.getElementById('batchRackEndNumber').value);
+                const height = parseInt(document.getElementById('batchRackHeight').value);
+                
+                const previewText = document.getElementById('batchRackPreviewText');
+                const previewDiv = document.getElementById('batchRackPreview');
+                
+                if (!roomId || !rackRow || !startNumber || !endNumber || !height) {
+                    previewText.textContent = '请填写上述信息以预览将要创建的机柜';
+                    previewDiv.className = 'alert alert-info';
+                    return;
+                }
+                
+                // 验证排名输入
+                if (rackRow.length > 10) {
+                    previewText.textContent = '机柜排名长度不能超过10个字符！';
+                    previewDiv.className = 'alert alert-danger';
+                    return;
+                }
+                
+                if (startNumber > endNumber) {
+                    previewText.textContent = '开始编号不能大于结束编号！';
+                    previewDiv.className = 'alert alert-danger';
+                    return;
+                }
+                
+                const rackCount = endNumber - startNumber + 1;
+                if (rackCount > 100) {
+                    previewText.textContent = '一次最多只能创建100个机柜！';
+                    previewDiv.className = 'alert alert-warning';
+                    return;
+                }
+                
+                const room = currentRoomsData.find(r => r.id === roomId);
+                
+                // 生成机柜名称预览
+                const rackNames = [];
+                for (let i = startNumber; i <= endNumber; i++) {
+                    rackNames.push(`${rackRow}${i.toString().padStart(2, '0')}`);
+                }
+                
+                // 检查是否有重名的机柜（只检查同机房内）
+                const existingNamesInRoom = allRacksData
+                    .filter(rack => rack.room_id === roomId)
+                    .map(rack => rack.name);
+                const duplicates = rackNames.filter(name => existingNamesInRoom.includes(name));
+                
+                if (duplicates.length > 0) {
+                    previewText.innerHTML = `
+                        <strong>发现在该机房中重名的机柜：</strong><br>
+                        ${duplicates.join(', ')}<br>
+                        将跳过重名机柜，创建其余 ${rackCount - duplicates.length} 个机柜
+                    `;
+                    previewDiv.className = 'alert alert-warning';
+                } else {
+                    previewText.innerHTML = `
+                        <strong>预览：</strong><br>
+                        机房：${room ? room.name : '未知机房'}<br>
+                        排名：${rackRow}<br>
+                        将创建 ${rackCount} 个机柜：${rackNames.slice(0, 5).join(', ')}${rackCount > 5 ? '...' : ''}<br>
+                        每个机柜高度：${height}U
+                    `;
+                    previewDiv.className = 'alert alert-success';
+                }
+            }
+            
+            // 绑定事件监听器
+            ['batchRackRoom', 'batchRackRow', 'batchRackStartNumber', 'batchRackEndNumber', 'batchRackHeight'].forEach(id => {
+                document.getElementById(id).addEventListener('change', updateBatchRackPreview);
+                document.getElementById(id).addEventListener('input', updateBatchRackPreview);
+            });
+            
+            // 模态框显示时初始化
+            document.getElementById('batchAddRackModal').addEventListener('show.bs.modal', function() {
+                populateBatchRackRoomSelect();
+                updateBatchRackPreview();
+            });
+            
+            // 确认批量创建机柜
+            document.getElementById('confirmBatchAddRack').addEventListener('click', async function() {
+                const roomId = document.getElementById('batchRackRoom').value;
+                const rackRow = document.getElementById('batchRackRow').value.trim();
+                const startNumber = parseInt(document.getElementById('batchRackStartNumber').value);
+                const endNumber = parseInt(document.getElementById('batchRackEndNumber').value);
+                const height = parseInt(document.getElementById('batchRackHeight').value);
+                
+                // 验证输入
+                if (!roomId || !rackRow || !startNumber || !endNumber || !height) {
+                    showToast('请填写所有必需字段', 'error');
+                    return;
+                }
+                
+                if (rackRow.length > 10) {
+                    showToast('机柜排名长度不能超过10个字符', 'error');
+                    return;
+                }
+                
+                if (startNumber > endNumber) {
+                    showToast('开始编号不能大于结束编号', 'error');
+                    return;
+                }
+                
+                const rackCount = endNumber - startNumber + 1;
+                if (rackCount > 100) {
+                    showToast('一次最多只能创建100个机柜', 'error');
+                    return;
+                }
+                
+                const room = currentRoomsData.find(r => r.id === roomId);
+                
+                // 确认对话框
+                if (!confirm(`确定要在机房"${room.name}"中创建 ${rackCount} 个${rackRow}排机柜吗？\n编号范围：${startNumber} - ${endNumber}`)) {
+                    return;
+                }
+                
+                try {
+                    const response = await fetch('/batch_add_racks', {
+                        method: 'POST',
+                        headers: {
+                            'Content-Type': 'application/json'
+                        },
+                        body: JSON.stringify({
+                            room_id: roomId,
+                            rack_row: rackRow,
+                            start_number: startNumber,
+                            end_number: endNumber,
+                            height_u: height
+                        })
+                    });
+                    
+                    const data = await response.json();
+                    
+                    if (response.ok && data.success) {
+                        let message = `批量创建成功！在机房"${data.room_name}"中共创建了 ${data.created_count} 个机柜`;
+                        
+                        if (data.duplicates && data.duplicates.length > 0) {
+                            message += `\n跳过在该机房中重名的机柜：${data.duplicates.join(', ')}`;
+                        }
+                        
+                        if (data.created_racks && data.created_racks.length > 0) {
+                            message += `\n创建的机柜：${data.created_racks.join(', ')}`;
+                        }
+                        
+                        showToast(message, 'success');
+                        batchAddRackModal.hide();
+                        
+                        // 重置表单
+                        document.getElementById('batchRackRoom').value = '';
+                        document.getElementById('batchRackRow').value = '';
+                        document.getElementById('batchRackStartNumber').value = '1';
+                        document.getElementById('batchRackEndNumber').value = '10';
+                        document.getElementById('batchRackHeight').value = '42';
+                        
+                        // 刷新数据
+                        fetchRoomsAndRacks();
+                    } else {
+                        showToast(data.message || '批量创建机柜失败', 'error');
+                    }
+                    
+                } catch (error) {
+                    console.error('Error in batch add racks:', error);
+                    showToast('批量创建机柜过程中发生错误', 'error');
+                }
+            });
+
+            // 批量添加机柜按钮事件
+            document.getElementById('batchAddRackBtn').addEventListener('click', function() {
+                batchAddRackModal.show();
+            });
+
+            // 设备选择相关函数
+            function initDeviceSelection() {
+                // 添加搜索框和过滤选项
+                const deviceSelectionHeader = `
+                    <div class="mb-3">
+                        <div class="input-group">
+                            <input type="text" class="form-control" id="deviceSearchInput" placeholder="搜索设备名称...">
+                            <select class="form-select" id="deviceTypeFilter" style="max-width: 200px;">
+                                <option value="">所有设备类型</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="device-list-container" style="max-height: 400px; overflow-y: auto;">
+                        <table class="table table-hover">
+                            <thead>
+                                <tr>
+                                    <th><input type="checkbox" id="selectAllDevices"></th>
+                                    <th>设备名称</th>
+                                    <th>设备类型</th>
+                                    <th>高度(U)</th>
+                                </tr>
+                            </thead>
+                            <tbody id="deviceListBody">
+                            </tbody>
+                        </table>
+                    </div>
+                `;
+                
+                $('#deviceSelectionArea').html(deviceSelectionHeader);
+                
+                // 绑定搜索和过滤事件
+                $('#deviceSearchInput').on('input', filterDevices);
+                $('#deviceTypeFilter').on('change', filterDevices);
+                $('#selectAllDevices').on('change', function() {
+                    const checked = $(this).prop('checked');
+                    $('#deviceListBody input[type="checkbox"]').prop('checked', checked);
+                    updateSelectedDevicesCount();
+                });
+            }
+
+            function populateDeviceList(devices, deviceTypes) {
+                // 清空并重新填充设备类型过滤器
+                const typeFilter = $('#deviceTypeFilter');
+                const existingTypes = new Set();
+                devices.forEach(device => {
+                    const deviceType = deviceTypes[device.device_type];
+                    if (deviceType && !existingTypes.has(deviceType.name)) {
+                        existingTypes.add(deviceType.name);
+                        typeFilter.append($('<option>', {
+                            value: deviceType.name,
+                            text: deviceType.name
+                        }));
+                    }
+                });
+                
+                // 渲染设备列表
+                renderFilteredDevices(devices, deviceTypes);
+            }
+
+            function filterDevices() {
+                const searchText = $('#deviceSearchInput').val().toLowerCase();
+                const selectedType = $('#deviceTypeFilter').val();
+                
+                // 获取原始设备列表
+                const devices = window.availableDevices || [];
+                const deviceTypes = window.deviceTypes || {};
+                
+                // 过滤设备
+                const filteredDevices = devices.filter(device => {
+                    const deviceType = deviceTypes[device.device_type];
+                    const matchesSearch = device.instance_name.toLowerCase().includes(searchText);
+                    const matchesType = !selectedType || (deviceType && deviceType.name === selectedType);
+                    return matchesSearch && matchesType;
+                });
+                
+                // 渲染过滤后的设备列表
+                renderFilteredDevices(filteredDevices, deviceTypes);
+            }
+
+            function renderFilteredDevices(devices, deviceTypes) {
+                const tbody = $('#deviceListBody');
+                tbody.empty();
+                
+                devices.forEach(device => {
+                    const deviceType = deviceTypes[device.device_type];
+                    const tr = $('<tr>');
+                    tr.append($('<td>').append($('<input>', {
+                        type: 'checkbox',
+                        class: 'device-checkbox',
+                        'data-device-id': device.instance_name,
+                        'data-device-type': device.device_type
+                    })));
+                    tr.append($('<td>').text(device.instance_name));
+                    tr.append($('<td>').text(deviceType ? deviceType.name : '未知'));
+                    tr.append($('<td>').text(deviceType ? deviceType.height_u : '未知'));
+                    tbody.append(tr);
+                });
+                
+                // 重新绑定复选框事件
+                $('.device-checkbox').on('change', updateSelectedDevicesCount);
+            }
+
+            function updateSelectedDevicesCount() {
+                const selectedCount = $('.device-checkbox:checked').length;
+                $('#selectedDevicesCount').text(`已选择 ${selectedCount} 个设备`);
+                
+                // 更新全选框状态
+                const totalDevices = $('.device-checkbox').length;
+                const allChecked = selectedCount === totalDevices;
+                $('#selectAllDevices').prop('checked', allChecked);
+            }
+
+            // 获取选中的设备
+            function getSelectedDevices() {
+                const selectedDevices = [];
+                $('.device-checkbox:checked').each(function() {
+                    selectedDevices.push({
+                        instance_name: $(this).data('device-id'),
+                        device_type: $(this).data('device-type')
+                    });
+                });
+                return selectedDevices;
+            }
+
+            // 加载设备列表
+            function loadDeviceList() {
+                $.get('/all_device_instances', function(devices) {
+                    $.get('/device_types', function(deviceTypes) {
+                        window.availableDevices = devices;
+                        window.deviceTypes = deviceTypes;
+                        initDeviceSelection();
+                        populateDeviceList(devices, deviceTypes);
+                    });
+                });
+            }
+
+            // 在打开模态框时加载设备列表
+            $('#batchMountModal').on('show.bs.modal', function() {
+                loadDeviceList();
+            });
+
+            // 在确认批量上架时使用选中的设备
+            $('#confirmBatchMount').on('click', function() {
+                const selectedDevices = getSelectedDevices();
+                if (selectedDevices.length === 0) {
+                    showError('请至少选择一个设备');
+                    return;
+                }
+                
+                const selectedRacks = getSelectedRacks();
+                if (selectedRacks.length === 0) {
+                    showError('请至少选择一个机柜');
+                    return;
+                }
+                
+                // 构建挂载请求
+                const mountRequests = selectedRacks.map(rack => ({
+                    rack_id: rack.id,
+                    devices: selectedDevices.map(device => ({
+                        instance_name: device.instance_name,
+                        device_type: device.device_type,
+                        rack_u: rack.startU
+                    }))
+                }));
+                
+                // 发送批量挂载请求
+                $.ajax({
+                    url: '/multi_rack_batch_mount',
+                    type: 'POST',
+                    contentType: 'application/json',
+                    data: JSON.stringify({ mount_requests: mountRequests }),
+                    success: function(response) {
+                        handleMultiRackMountResponse(response);
+                        $('#batchMountModal').modal('hide');
+                        fetchRoomsAndRacks();
+                    },
+                    error: function(xhr) {
+                        showError('批量上架失败：' + (xhr.responseJSON?.message || '未知错误'));
+                    }
+                });
+            });
+
+            // Edit Rack Modal
+            const editRackModal = new bootstrap.Modal(document.getElementById('editRackModal'));
+            
+            function showEditRackModal(rackId, name, height, roomId, department) {
+                document.getElementById('edit-rack-id').value = rackId;
+                document.getElementById('edit-rack-name').value = name;
+                document.getElementById('edit-rack-height').value = height;
+                document.getElementById('edit-rack-room').value = roomId;
+                document.getElementById('edit-rack-department').value = department;
+                editRackModal.show();
+            }
+
+            document.getElementById('saveRackChangesBtn').addEventListener('click', async function() {
+                const rackId = document.getElementById('edit-rack-id').value;
+                const name = document.getElementById('edit-rack-name').value.trim();
+                const roomId = document.getElementById('edit-rack-room').value;
+                const heightU = parseInt(document.getElementById('edit-rack-height').value, 10);
+                const department = document.getElementById('edit-rack-department').value.trim();
+
+                if (!name || !roomId || isNaN(heightU) || heightU <= 0) {
+                    showToast('请填写所有必填字段', 'error');
+                    return;
+                }
+
+                try {
+                    const response = await fetch(`/update_rack/${rackId}`, {
+                        method: 'PUT',
+                        headers: {
+                            'Content-Type': 'application/json'
+                        },
+                        body: JSON.stringify({
+                            name: name,
+                            room_id: roomId,
+                            height_u: heightU,
+                            department: department
+                        })
+                    });
+
+                    const data = await response.json();
+
+                    if (response.ok) {
+                        showToast('机柜更新成功', 'success');
+                        editRackModal.hide();
+                        fetchRoomsAndRacks();
+                    } else {
+                        showToast(data.message || '更新机柜失败', 'error');
+                    }
+                } catch (error) {
+                    console.error('Error updating rack:', error);
+                    showToast('更新机柜失败', 'error');
+                }
+            });
+
+            // --- Edit Rack Modal Logic ---
+            window.showEditRackModal = function(rackId, name, height, roomId, department) {
+                document.getElementById('edit-rack-id').value = rackId;
+                document.getElementById('edit-rack-name').value = name;
+                document.getElementById('edit-rack-height').value = height;
+                
+                // Populate room dropdown for edit modal
+                const roomSelect = document.getElementById('edit-rack-room');
+                roomSelect.innerHTML = '';
+                currentRoomsData.forEach(room => {
+                    const option = document.createElement('option');
+                    option.value = room.id;
+                    option.textContent = room.name;
+                    roomSelect.appendChild(option);
+                });
+
+                roomSelect.value = roomId;
+                document.getElementById('edit-rack-department').value = department || '';
+                
+                editRackModal.show();
+            }
+
+            document.getElementById('saveRackChangesBtn').addEventListener('click', async function() {
+                const rackId = document.getElementById('edit-rack-id').value;
+                const name = document.getElementById('edit-rack-name').value.trim();
+                const roomId = document.getElementById('edit-rack-room').value;
+                const heightU = parseInt(document.getElementById('edit-rack-height').value, 10);
+                const department = document.getElementById('edit-rack-department').value.trim();
+
+                if (!name || !roomId || isNaN(heightU) || heightU <= 0) {
+                    showToast('请填写所有必填字段', 'error');
+                    return;
+                }
+
+                try {
+                    const response = await fetch(`/update_rack/${rackId}`, {
+                        method: 'PUT',
+                        headers: {
+                            'Content-Type': 'application/json'
+                        },
+                        body: JSON.stringify({
+                            name: name,
+                            room_id: roomId,
+                            height_u: heightU,
+                            department: department
+                        })
+                    });
+
+                    const data = await response.json();
+
+                    if (response.ok) {
+                        showToast('机柜更新成功', 'success');
+                        editRackModal.hide();
+                        await fetchRoomsAndRacks();
+                    } else {
+                        showToast(data.message || '更新机柜失败', 'error');
+                    }
+                } catch (error) {
+                    console.error('Error updating rack:', error);
+                    showToast('更新机柜失败', 'error');
+                }
+            });
+
+        });
+    </script>
+</body>
+</html> 

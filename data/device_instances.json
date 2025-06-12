@@ -1,0 +1,741 @@
+{
+  "version": "2.0",
+  "timestamp": "2025-06-12T10:41:49.014114",
+  "device_instances": [
+    {
+      "id": "device_1749047906081_7",
+      "instance_name": "Server08",
+      "device_type": "HP",
+      "interfaces": [
+        {
+          "name": "M-GigabitEthernet0/0/0",
+          "type": "Management",
+          "status": "available"
+        },
+        {
+          "name": "GE1/0/1",
+          "type": "GigabitEthernet",
+          "status": "available"
+        }
+      ],
+      "position": {
+        "x": 400,
+        "y": 200
+      },
+      "rack_id": "rack_1749632196564_1",
+      "rack_u": 30,
+      "power_status": "off"
+    },
+    {
+      "id": "device_1749047906087_8",
+      "instance_name": "Server09",
+      "device_type": "HP",
+      "interfaces": [
+        {
+          "name": "M-GigabitEthernet0/0/0",
+          "type": "Management",
+          "status": "available"
+        },
+        {
+          "name": "GE1/0/1",
+          "type": "GigabitEthernet",
+          "status": "available"
+        }
+      ],
+      "position": {
+        "x": 100,
+        "y": 300
+      },
+      "rack_id": "rack_1749632196566_2",
+      "rack_u": 30,
+      "power_status": "off"
+    },
+    {
+      "id": "device_1749047906092_9",
+      "instance_name": "Server10",
+      "device_type": "HP",
+      "interfaces": [
+        {
+          "name": "M-GigabitEthernet0/0/0",
+          "type": "Management",
+          "status": "available"
+        },
+        {
+          "name": "GE1/0/1",
+          "type": "GigabitEthernet",
+          "status": "available"
+        }
+      ],
+      "position": {
+        "x": 340.4500303129687,
+        "y": 310.0216927410759
+      },
+      "rack_id": "rack_1749632196567_3",
+      "rack_u": 30,
+      "power_status": "off"
+    },
+    {
+      "id": "device_1749087498647_0",
+      "instance_name": "SW01",
+      "device_type": "5130",
+      "interfaces": [
+        {
+          "name": "M-GigabitEthernet0/0/0",
+          "type": "Management",
+          "status": "available"
+        },
+        {
+          "name": "GE1/0/1",
+          "type": "GigabitEthernet",
+          "status": "available"
+        },
+        {
+          "name": "GE1/0/2",
+          "type": "GigabitEthernet",
+          "status": "available"
+        },
+        {
+          "name": "GE1/0/3",
+          "type": "GigabitEthernet",
+          "status": "available"
+        },
+        {
+          "name": "GE1/0/4",
+          "type": "GigabitEthernet",
+          "status": "available"
+        },
+        {
+          "name": "GE1/0/5",
+          "type": "GigabitEthernet",
+          "status": "available"
+        },
+        {
+          "name": "GE1/0/6",
+          "type": "GigabitEthernet",
+          "status": "available"
+        },
+        {
+          "name": "GE1/0/7",
+          "type": "GigabitEthernet",
+          "status": "available"
+        },
+        {
+          "name": "GE1/0/8",
+          "type": "GigabitEthernet",
+          "status": "available"
+        },
+        {
+          "name": "GE1/0/9",
+          "type": "GigabitEthernet",
+          "status": "available"
+        },
+        {
+          "name": "GE1/0/10",
+          "type": "GigabitEthernet",
+          "status": "available"
+        }
+      ],
+      "position": {
+        "x": 656.5735977260617,
+        "y": 195.0770445398066
+      },
+      "rack_id": null,
+      "rack_u": null,
+      "power_status": "off"
+    },
+    {
+      "id": "device_1749087498664_2",
+      "instance_name": "SW03",
+      "device_type": "5130",
+      "interfaces": [
+        {
+          "name": "M-GigabitEthernet0/0/0",
+          "type": "Management",
+          "status": "available"
+        },
+        {
+          "name": "GE1/0/1",
+          "type": "GigabitEthernet",
+          "status": "available"
+        },
+        {
+          "name": "GE1/0/2",
+          "type": "GigabitEthernet",
+          "status": "available"
+        },
+        {
+          "name": "GE1/0/3",
+          "type": "GigabitEthernet",
+          "status": "available"
+        },
+        {
+          "name": "GE1/0/4",
+          "type": "GigabitEthernet",
+          "status": "available"
+        },
+        {
+          "name": "GE1/0/5",
+          "type": "GigabitEthernet",
+          "status": "available"
+        },
+        {
+          "name": "GE1/0/6",
+          "type": "GigabitEthernet",
+          "status": "available"
+        },
+        {
+          "name": "GE1/0/7",
+          "type": "GigabitEthernet",
+          "status": "available"
+        },
+        {
+          "name": "GE1/0/8",
+          "type": "GigabitEthernet",
+          "status": "available"
+        },
+        {
+          "name": "GE1/0/9",
+          "type": "GigabitEthernet",
+          "status": "available"
+        },
+        {
+          "name": "GE1/0/10",
+          "type": "GigabitEthernet",
+          "status": "available"
+        }
+      ],
+      "position": {
+        "x": 549.048071625603,
+        "y": 301.72372427156637
+      },
+      "rack_id": null,
+      "rack_u": null
+    },
+    {
+      "id": "device_1749087498673_3",
+      "instance_name": "SW04",
+      "device_type": "5130",
+      "interfaces": [
+        {
+          "name": "M-GigabitEthernet0/0/0",
+          "type": "Management",
+          "status": "available"
+        },
+        {
+          "name": "GE1/0/1",
+          "type": "GigabitEthernet",
+          "status": "available"
+        },
+        {
+          "name": "GE1/0/2",
+          "type": "GigabitEthernet",
+          "status": "available"
+        },
+        {
+          "name": "GE1/0/3",
+          "type": "GigabitEthernet",
+          "status": "available"
+        },
+        {
+          "name": "GE1/0/4",
+          "type": "GigabitEthernet",
+          "status": "available"
+        },
+        {
+          "name": "GE1/0/5",
+          "type": "GigabitEthernet",
+          "status": "available"
+        },
+        {
+          "name": "GE1/0/6",
+          "type": "GigabitEthernet",
+          "status": "available"
+        },
+        {
+          "name": "GE1/0/7",
+          "type": "GigabitEthernet",
+          "status": "available"
+        },
+        {
+          "name": "GE1/0/8",
+          "type": "GigabitEthernet",
+          "status": "available"
+        },
+        {
+          "name": "GE1/0/9",
+          "type": "GigabitEthernet",
+          "status": "available"
+        },
+        {
+          "name": "GE1/0/10",
+          "type": "GigabitEthernet",
+          "status": "available"
+        }
+      ],
+      "position": {
+        "x": 100,
+        "y": 200
+      },
+      "rack_id": null,
+      "rack_u": null,
+      "power_status": "off"
+    },
+    {
+      "id": "device_1749087498682_4",
+      "instance_name": "SW05",
+      "device_type": "5130",
+      "interfaces": [
+        {
+          "name": "M-GigabitEthernet0/0/0",
+          "type": "Management",
+          "status": "available"
+        },
+        {
+          "name": "GE1/0/1",
+          "type": "GigabitEthernet",
+          "status": "available"
+        },
+        {
+          "name": "GE1/0/2",
+          "type": "GigabitEthernet",
+          "status": "available"
+        },
+        {
+          "name": "GE1/0/3",
+          "type": "GigabitEthernet",
+          "status": "available"
+        },
+        {
+          "name": "GE1/0/4",
+          "type": "GigabitEthernet",
+          "status": "available"
+        },
+        {
+          "name": "GE1/0/5",
+          "type": "GigabitEthernet",
+          "status": "available"
+        },
+        {
+          "name": "GE1/0/6",
+          "type": "GigabitEthernet",
+          "status": "available"
+        },
+        {
+          "name": "GE1/0/7",
+          "type": "GigabitEthernet",
+          "status": "available"
+        },
+        {
+          "name": "GE1/0/8",
+          "type": "GigabitEthernet",
+          "status": "available"
+        },
+        {
+          "name": "GE1/0/9",
+          "type": "GigabitEthernet",
+          "status": "available"
+        },
+        {
+          "name": "GE1/0/10",
+          "type": "GigabitEthernet",
+          "status": "available"
+        }
+      ],
+      "position": {
+        "x": 200,
+        "y": 200
+      },
+      "rack_id": null,
+      "rack_u": null,
+      "power_status": "off"
+    },
+    {
+      "id": "device_1749087498692_5",
+      "instance_name": "SW06",
+      "device_type": "5130",
+      "interfaces": [
+        {
+          "name": "M-GigabitEthernet0/0/0",
+          "type": "Management",
+          "status": "available"
+        },
+        {
+          "name": "GE1/0/1",
+          "type": "GigabitEthernet",
+          "status": "available"
+        },
+        {
+          "name": "GE1/0/2",
+          "type": "GigabitEthernet",
+          "status": "available"
+        },
+        {
+          "name": "GE1/0/3",
+          "type": "GigabitEthernet",
+          "status": "available"
+        },
+        {
+          "name": "GE1/0/4",
+          "type": "GigabitEthernet",
+          "status": "available"
+        },
+        {
+          "name": "GE1/0/5",
+          "type": "GigabitEthernet",
+          "status": "available"
+        },
+        {
+          "name": "GE1/0/6",
+          "type": "GigabitEthernet",
+          "status": "available"
+        },
+        {
+          "name": "GE1/0/7",
+          "type": "GigabitEthernet",
+          "status": "available"
+        },
+        {
+          "name": "GE1/0/8",
+          "type": "GigabitEthernet",
+          "status": "available"
+        },
+        {
+          "name": "GE1/0/9",
+          "type": "GigabitEthernet",
+          "status": "available"
+        },
+        {
+          "name": "GE1/0/10",
+          "type": "GigabitEthernet",
+          "status": "available"
+        }
+      ],
+      "position": {
+        "x": 300,
+        "y": 200
+      },
+      "rack_id": null,
+      "rack_u": null,
+      "power_status": "off"
+    },
+    {
+      "id": "device_1749088483461_6",
+      "instance_name": "SW07",
+      "device_type": "5130",
+      "interfaces": [
+        {
+          "name": "M-GigabitEthernet0/0/0",
+          "type": "Management",
+          "status": "available"
+        },
+        {
+          "name": "GE1/0/1",
+          "type": "GigabitEthernet",
+          "status": "available"
+        },
+        {
+          "name": "GE1/0/2",
+          "type": "GigabitEthernet",
+          "status": "available"
+        },
+        {
+          "name": "GE1/0/3",
+          "type": "GigabitEthernet",
+          "status": "available"
+        },
+        {
+          "name": "GE1/0/4",
+          "type": "GigabitEthernet",
+          "status": "available"
+        },
+        {
+          "name": "GE1/0/5",
+          "type": "GigabitEthernet",
+          "status": "available"
+        },
+        {
+          "name": "GE1/0/6",
+          "type": "GigabitEthernet",
+          "status": "available"
+        },
+        {
+          "name": "GE1/0/7",
+          "type": "GigabitEthernet",
+          "status": "available"
+        },
+        {
+          "name": "GE1/0/8",
+          "type": "GigabitEthernet",
+          "status": "available"
+        },
+        {
+          "name": "GE1/0/9",
+          "type": "GigabitEthernet",
+          "status": "available"
+        },
+        {
+          "name": "GE1/0/10",
+          "type": "GigabitEthernet",
+          "status": "available"
+        }
+      ],
+      "position": {
+        "x": 300,
+        "y": 200
+      },
+      "rack_id": null,
+      "rack_u": null,
+      "power_status": "off"
+    },
+    {
+      "id": "device_1749088483473_7",
+      "instance_name": "SW08",
+      "device_type": "5130",
+      "interfaces": [
+        {
+          "name": "M-GigabitEthernet0/0/0",
+          "type": "Management",
+          "status": "available"
+        },
+        {
+          "name": "GE1/0/1",
+          "type": "GigabitEthernet",
+          "status": "available"
+        },
+        {
+          "name": "GE1/0/2",
+          "type": "GigabitEthernet",
+          "status": "available"
+        },
+        {
+          "name": "GE1/0/3",
+          "type": "GigabitEthernet",
+          "status": "available"
+        },
+        {
+          "name": "GE1/0/4",
+          "type": "GigabitEthernet",
+          "status": "available"
+        },
+        {
+          "name": "GE1/0/5",
+          "type": "GigabitEthernet",
+          "status": "available"
+        },
+        {
+          "name": "GE1/0/6",
+          "type": "GigabitEthernet",
+          "status": "available"
+        },
+        {
+          "name": "GE1/0/7",
+          "type": "GigabitEthernet",
+          "status": "available"
+        },
+        {
+          "name": "GE1/0/8",
+          "type": "GigabitEthernet",
+          "status": "available"
+        },
+        {
+          "name": "GE1/0/9",
+          "type": "GigabitEthernet",
+          "status": "available"
+        },
+        {
+          "name": "GE1/0/10",
+          "type": "GigabitEthernet",
+          "status": "available"
+        }
+      ],
+      "position": {
+        "x": 400,
+        "y": 200
+      },
+      "rack_id": null,
+      "rack_u": null
+    },
+    {
+      "id": "device_1749088483483_8",
+      "instance_name": "SW09",
+      "device_type": "5130",
+      "interfaces": [
+        {
+          "name": "M-GigabitEthernet0/0/0",
+          "type": "Management",
+          "status": "available"
+        },
+        {
+          "name": "GE1/0/1",
+          "type": "GigabitEthernet",
+          "status": "available"
+        },
+        {
+          "name": "GE1/0/2",
+          "type": "GigabitEthernet",
+          "status": "available"
+        },
+        {
+          "name": "GE1/0/3",
+          "type": "GigabitEthernet",
+          "status": "available"
+        },
+        {
+          "name": "GE1/0/4",
+          "type": "GigabitEthernet",
+          "status": "available"
+        },
+        {
+          "name": "GE1/0/5",
+          "type": "GigabitEthernet",
+          "status": "available"
+        },
+        {
+          "name": "GE1/0/6",
+          "type": "GigabitEthernet",
+          "status": "available"
+        },
+        {
+          "name": "GE1/0/7",
+          "type": "GigabitEthernet",
+          "status": "available"
+        },
+        {
+          "name": "GE1/0/8",
+          "type": "GigabitEthernet",
+          "status": "available"
+        },
+        {
+          "name": "GE1/0/9",
+          "type": "GigabitEthernet",
+          "status": "available"
+        },
+        {
+          "name": "GE1/0/10",
+          "type": "GigabitEthernet",
+          "status": "available"
+        }
+      ],
+      "position": {
+        "x": 100,
+        "y": 300
+      },
+      "rack_id": null,
+      "rack_u": null
+    },
+    {
+      "id": "test_server_01",
+      "instance_name": "TestServer01",
+      "device_type": "TestServer",
+      "interfaces": [
+        {
+          "name": "M-GigabitEthernet0/0/0",
+          "type": "Management",
+          "status": "available"
+        },
+        {
+          "name": "GigabitEthernet0/0/1",
+          "type": "Ethernet",
+          "status": "available"
+        },
+        {
+          "name": "GigabitEthernet0/0/2",
+          "type": "Ethernet",
+          "status": "available"
+        },
+        {
+          "name": "GigabitEthernet0/0/3",
+          "type": "Ethernet",
+          "status": "available"
+        },
+        {
+          "name": "GigabitEthernet0/0/4",
+          "type": "Ethernet",
+          "status": "available"
+        }
+      ],
+      "position": {
+        "x": 916.5057747378152,
+        "y": 111.7099781027308
+      },
+      "rack_id": null,
+      "rack_u": null
+    },
+    {
+      "id": "test_server_04",
+      "instance_name": "TestServer04",
+      "device_type": "TestServer",
+      "interfaces": [
+        {
+          "name": "M-GigabitEthernet0/0/0",
+          "type": "Management",
+          "status": "available"
+        },
+        {
+          "name": "GigabitEthernet0/0/1",
+          "type": "Ethernet",
+          "status": "available"
+        },
+        {
+          "name": "GigabitEthernet0/0/2",
+          "type": "Ethernet",
+          "status": "available"
+        },
+        {
+          "name": "GigabitEthernet0/0/3",
+          "type": "Ethernet",
+          "status": "available"
+        },
+        {
+          "name": "GigabitEthernet0/0/4",
+          "type": "Ethernet",
+          "status": "available"
+        }
+      ],
+      "position": {
+        "x": 1053.959239300575,
+        "y": 286.50570656382644
+      },
+      "rack_id": null,
+      "rack_u": null
+    },
+    {
+      "id": "test_server_05",
+      "instance_name": "TestServer05",
+      "device_type": "TestServer",
+      "interfaces": [
+        {
+          "name": "M-GigabitEthernet0/0/0",
+          "type": "Management",
+          "status": "available"
+        },
+        {
+          "name": "GigabitEthernet0/0/1",
+          "type": "Ethernet",
+          "status": "available"
+        },
+        {
+          "name": "GigabitEthernet0/0/2",
+          "type": "Ethernet",
+          "status": "available"
+        },
+        {
+          "name": "GigabitEthernet0/0/3",
+          "type": "Ethernet",
+          "status": "available"
+        },
+        {
+          "name": "GigabitEthernet0/0/4",
+          "type": "Ethernet",
+          "status": "available"
+        }
+      ],
+      "position": {
+        "x": 1104.9512909312336,
+        "y": 212.1018342644276
+      },
+      "rack_id": null,
+      "rack_u": null
+    }
+  ]
+}

@@ -1,0 +1,710 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>机柜面板图 - {{ rack.name }} - 数据中心管理系统</title>
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Font Awesome 图标 -->
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    
+    <style>
+        :root {
+            --primary-color: #2563eb;
+            --secondary-color: #64748b;
+            --success-color: #10b981;
+            --warning-color: #f59e0b;
+            --danger-color: #ef4444;
+            --light-bg: #f8fafc;
+            --dark-text: #1e293b;
+            --border-color: #e2e8f0;
+            --shadow: 0 1px 3px 0 rgb(0 0 0 / 0.1), 0 1px 2px -1px rgb(0 0 0 / 0.1);
+            --shadow-lg: 0 10px 15px -3px rgb(0 0 0 / 0.1), 0 4px 6px -4px rgb(0 0 0 / 0.1);
+        }
+
+        body {
+            background-color: var(--light-bg);
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+            color: var(--dark-text);
+            line-height: 1.6;
+        }
+
+        .navbar-custom {
+            background: linear-gradient(135deg, var(--primary-color) 0%, #1d4ed8 100%);
+            box-shadow: var(--shadow-lg);
+        }
+
+        .navbar-brand {
+            font-weight: 700;
+            font-size: 1.5rem;
+        }
+
+        .card {
+            border: none;
+            border-radius: 12px;
+            box-shadow: var(--shadow);
+            transition: all 0.3s ease;
+            background: white;
+        }
+
+        .card:hover {
+            transform: translateY(-2px);
+            box-shadow: var(--shadow-lg);
+        }
+
+        .card-header {
+            background: linear-gradient(135deg, #f8fafc 0%, #e2e8f0 100%);
+            border-radius: 12px 12px 0 0 !important;
+            border-bottom: 2px solid var(--border-color);
+            padding: 1.25rem;
+        }
+
+        .card-title {
+            margin: 0;
+            font-weight: 600;
+            color: var(--dark-text);
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+        }
+
+        .card-body {
+            padding: 2rem;
+        }
+
+        .nav-links {
+            background: white;
+            padding: 1rem;
+            border-radius: 8px;
+            margin-bottom: 2rem;
+            box-shadow: var(--shadow);
+        }
+
+        .nav-links a {
+            color: var(--primary-color);
+            text-decoration: none;
+            font-weight: 500;
+            transition: color 0.2s ease;
+        }
+
+        .nav-links a:hover {
+            color: #1d4ed8;
+        }
+
+        .rack-info-card {
+            background: linear-gradient(135deg, var(--primary-color) 0%, #1d4ed8 100%);
+            color: white;
+            border-radius: 12px;
+            padding: 1.5rem;
+            margin-bottom: 2rem;
+            text-align: center;
+        }
+
+        .rack-info-stats {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+            gap: 1rem;
+            margin-top: 1rem;
+        }
+
+        .rack-stat {
+            text-align: center;
+        }
+
+        .rack-stat-number {
+            font-size: 1.5rem;
+            font-weight: 700;
+            margin-bottom: 0.25rem;
+        }
+
+        .rack-stat-label {
+            font-size: 0.875rem;
+            opacity: 0.9;
+        }
+
+        .panel-container {
+            background: white;
+            border-radius: 12px;
+            padding: 2rem;
+            box-shadow: var(--shadow);
+            margin-bottom: 2rem;
+        }
+
+        .panel-header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            margin-bottom: 2rem;
+            padding-bottom: 1rem;
+            border-bottom: 2px solid var(--border-color);
+        }
+
+        .panel-title {
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+            font-weight: 600;
+            font-size: 1.25rem;
+            color: var(--dark-text);
+        }
+
+        .panel-controls {
+            display: flex;
+            gap: 0.5rem;
+        }
+
+        .btn-control {
+            padding: 0.5rem 1rem;
+            border-radius: 6px;
+            border: none;
+            font-size: 0.875rem;
+            font-weight: 500;
+            cursor: pointer;
+            transition: all 0.2s ease;
+        }
+
+        .btn-zoom-in {
+            background: var(--success-color);
+            color: white;
+        }
+
+        .btn-zoom-out {
+            background: var(--warning-color);
+            color: white;
+        }
+
+        .btn-reset {
+            background: var(--secondary-color);
+            color: white;
+        }
+
+        .btn-control:hover {
+            transform: translateY(-1px);
+            opacity: 0.9;
+        }
+
+        .single-rack-panel-container {
+            display: flex;
+            align-items: flex-start;
+            justify-content: center;
+            padding: 1.5rem;
+            background: linear-gradient(135deg, #f8fafc 0%, #e2e8f0 100%);
+            border-radius: 12px;
+            border: 2px solid var(--border-color);
+            transform-origin: center;
+            transition: transform 0.3s ease;
+        }
+
+        .u-numbers-area {
+            width: 50px;
+            margin-right: 10px;
+            font-size: 12px;
+            text-align: right;
+            color: var(--secondary-color);
+            font-weight: 500;
+        }
+
+        .rack-panel {
+            border: 3px solid var(--primary-color);
+            width: 200px;
+            position: relative;
+            box-sizing: border-box;
+            background: white;
+            border-radius: 6px;
+            box-shadow: var(--shadow);
+        }
+
+        .rack-device {
+            border: 1px solid var(--success-color);
+            background: linear-gradient(135deg, #d1fae5 0%, #a7f3d0 100%);
+            position: absolute;
+            left: 0;
+            width: calc(100% - 2px);
+            font-size: 10px;
+            text-align: center;
+            overflow: hidden;
+            box-sizing: border-box;
+            white-space: nowrap;
+            text-overflow: ellipsis;
+            color: var(--dark-text);
+            font-weight: 500;
+            border-radius: 3px;
+            line-height: 1.3;
+            padding: 2px 4px;
+            transition: all 0.2s ease;
+        }
+
+        .rack-device:hover {
+            background: linear-gradient(135deg, #a7f3d0 0%, #6ee7b7 100%);
+            transform: scale(1.02);
+            z-index: 10;
+            box-shadow: var(--shadow);
+        }
+
+        .device-details-card {
+            background: white;
+            border-radius: 12px;
+            padding: 1.5rem;
+            box-shadow: var(--shadow);
+            margin-bottom: 2rem;
+        }
+
+        .device-list {
+            display: grid;
+            gap: 0.75rem;
+        }
+
+        .device-item {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 0.75rem 1rem;
+            background: linear-gradient(135deg, #f8fafc 0%, #e2e8f0 100%);
+            border-radius: 8px;
+            border: 1px solid var(--border-color);
+            transition: all 0.2s ease;
+        }
+
+        .device-item:hover {
+            transform: translateY(-1px);
+            box-shadow: var(--shadow);
+            border-color: var(--primary-color);
+        }
+
+        .device-info {
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+        }
+
+        .device-icon {
+            width: 32px;
+            height: 32px;
+            background: var(--success-color);
+            border-radius: 6px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 0.875rem;
+        }
+
+        .device-name {
+            font-weight: 600;
+            color: var(--dark-text);
+        }
+
+        .device-type {
+            font-size: 0.875rem;
+            color: var(--secondary-color);
+        }
+
+        .device-position {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            font-size: 0.875rem;
+            color: var(--secondary-color);
+            font-weight: 500;
+        }
+
+        .position-badge {
+            background: var(--primary-color);
+            color: white;
+            padding: 0.25rem 0.5rem;
+            border-radius: 4px;
+            font-size: 0.75rem;
+            font-weight: 600;
+        }
+
+        .empty-rack {
+            text-align: center;
+            padding: 3rem 2rem;
+            color: var(--secondary-color);
+        }
+
+        .empty-rack i {
+            font-size: 3rem;
+            margin-bottom: 1rem;
+            opacity: 0.5;
+        }
+
+        .empty-rack h4 {
+            font-size: 1.125rem;
+            margin-bottom: 0.5rem;
+            color: var(--dark-text);
+        }
+
+        .scale-controls {
+            position: fixed;
+            bottom: 2rem;
+            right: 2rem;
+            background: white;
+            border-radius: 12px;
+            padding: 0.75rem;
+            box-shadow: var(--shadow-lg);
+            display: flex;
+            flex-direction: column;
+            gap: 0.5rem;
+            z-index: 1000;
+        }
+
+        @media (max-width: 768px) {
+            .rack-info-stats {
+                grid-template-columns: 1fr 1fr;
+            }
+            
+            .panel-header {
+                flex-direction: column;
+                align-items: flex-start;
+                gap: 1rem;
+            }
+            
+            .device-item {
+                flex-direction: column;
+                align-items: flex-start;
+                gap: 0.5rem;
+            }
+            
+            .scale-controls {
+                flex-direction: row;
+                bottom: 1rem;
+                right: 1rem;
+                left: 1rem;
+                justify-content: center;
+            }
+        }
+
+        .fade-in {
+            animation: fadeIn 0.5s ease-in;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .zoom-1 { transform: scale(1); }
+        .zoom-1-2 { transform: scale(1.2); }
+        .zoom-1-5 { transform: scale(1.5); }
+        .zoom-2 { transform: scale(2); }
+    </style>
+</head>
+<body>
+    <!-- 导航栏 -->
+    <nav class="navbar navbar-expand-lg navbar-dark navbar-custom">
+        <div class="container-fluid">
+            <a class="navbar-brand" href="/">
+                <i class="fas fa-th-large me-2"></i>
+                数据中心管理系统
+            </a>
+            <div class="navbar-nav ms-auto">
+                <a class="nav-link" href="/">
+                    <i class="fas fa-project-diagram me-1"></i>
+                    网络拓扑
+                </a>
+                <a class="nav-link" href="/rack_management">
+                    <i class="fas fa-server me-1"></i>
+                    机柜管理
+                </a>
+                <a class="nav-link" href="/all_rack_panels">
+                    <i class="fas fa-th-large me-1"></i>
+                    所有机柜面板
+                </a>
+            </div>
+        </div>
+    </nav>
+
+    <div class="container-fluid py-4">
+        <!-- 页面标题 -->
+        <div class="row mb-4">
+            <div class="col-12">
+                <h1 class="display-5 fw-bold text-center mb-0">
+                    <i class="fas fa-server text-primary me-3"></i>
+                    机柜面板图 - {{ rack.name }}
+                </h1>
+                <p class="text-center text-muted mt-2">查看机柜内设备的详细布局和位置信息</p>
+            </div>
+        </div>
+
+        <!-- 导航链接 -->
+        <div class="nav-links">
+            <div class="d-flex justify-content-center gap-3 flex-wrap">
+                <a href="/">
+                    <i class="fas fa-arrow-left me-2"></i>
+                    返回拓扑图
+                </a>
+                <span class="text-muted">|</span>
+                <a href="/rack_management">
+                    <i class="fas fa-cogs me-2"></i>
+                    机柜管理
+                </a>
+                <span class="text-muted">|</span>
+                <a href="/all_rack_panels">
+                    <i class="fas fa-th-large me-2"></i>
+                    查看所有机柜面板图
+                </a>
+            </div>
+        </div>
+
+        <!-- 机柜信息卡片 -->
+        <div class="rack-info-card fade-in">
+            <h3 class="mb-0">
+                <i class="fas fa-server me-2"></i>
+                {{ rack.name }}
+            </h3>
+            <div class="rack-info-stats">
+                <div class="rack-stat">
+                    <div class="rack-stat-number">{{ rack.height_u }}U</div>
+                    <div class="rack-stat-label">机柜高度</div>
+                </div>
+                <div class="rack-stat">
+                    <div class="rack-stat-number" id="device-count">{{ devices_in_rack|length }}</div>
+                    <div class="rack-stat-label">设备数量</div>
+                </div>
+                <div class="rack-stat">
+                    <div class="rack-stat-number" id="utilization-rate">0%</div>
+                    <div class="rack-stat-label">空间利用率</div>
+                </div>
+                <div class="rack-stat">
+                    <div class="rack-stat-number" id="available-u">{{ rack.height_u }}U</div>
+                    <div class="rack-stat-label">可用空间</div>
+                </div>
+            </div>
+        </div>
+
+        <div class="row">
+            <!-- 机柜面板图 -->
+            <div class="col-lg-8">
+                <div class="panel-container fade-in">
+                    <div class="panel-header">
+                        <div class="panel-title">
+                            <i class="fas fa-grip-vertical text-primary"></i>
+                            机柜面板图
+                        </div>
+                        <div class="panel-controls">
+                            <button class="btn-control btn-zoom-out" onclick="zoomOut()">
+                                <i class="fas fa-search-minus me-1"></i>
+                                缩小
+                            </button>
+                            <button class="btn-control btn-zoom-in" onclick="zoomIn()">
+                                <i class="fas fa-search-plus me-1"></i>
+                                放大
+                            </button>
+                            <button class="btn-control btn-reset" onclick="resetZoom()">
+                                <i class="fas fa-undo me-1"></i>
+                                重置
+                            </button>
+                        </div>
+                    </div>
+                    
+                    <div id="single-rack-panel-view" class="single-rack-panel-container zoom-1">
+                        <!-- 面板将通过JavaScript渲染 -->
+                    </div>
+                </div>
+            </div>
+
+            <!-- 设备列表 -->
+            <div class="col-lg-4">
+                <div class="device-details-card fade-in">
+                    <h5 class="mb-3">
+                        <i class="fas fa-list text-primary me-2"></i>
+                        设备详情列表
+                    </h5>
+                    <div id="device-list" class="device-list">
+                        <!-- 设备列表将通过JavaScript渲染 -->
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Bootstrap JS -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script>
+
+    <script>
+        let currentZoom = 1;
+        const zoomLevels = [0.8, 1, 1.2, 1.5, 2];
+        let currentZoomIndex = 1;
+
+        // 缩放控制函数
+        function zoomIn() {
+            if (currentZoomIndex < zoomLevels.length - 1) {
+                currentZoomIndex++;
+                updateZoom();
+            }
+        }
+
+        function zoomOut() {
+            if (currentZoomIndex > 0) {
+                currentZoomIndex--;
+                updateZoom();
+            }
+        }
+
+        function resetZoom() {
+            currentZoomIndex = 1;
+            updateZoom();
+        }
+
+        function updateZoom() {
+            currentZoom = zoomLevels[currentZoomIndex];
+            const container = document.getElementById('single-rack-panel-view');
+            container.style.transform = `scale(${currentZoom})`;
+        }
+
+        document.addEventListener('DOMContentLoaded', function() {
+            // 数据从Flask后端传入
+            const rackData = JSON.parse('{{ rack | tojson | safe }}');
+            const devicesInRack = JSON.parse('{{ devices_in_rack | tojson | safe }}');
+            const allDeviceTypes = JSON.parse('{{ all_device_types | tojson | safe }}');
+
+            // 计算并显示统计信息
+            function updateStatistics() {
+                const totalDevices = devicesInRack.length;
+                let usedU = 0;
+                
+                devicesInRack.forEach(device => {
+                    const deviceType = allDeviceTypes.find(type => type.name.trim() === device.device_type.trim());
+                    usedU += deviceType ? deviceType.height_u : 1;
+                });
+
+                const utilizationRate = Math.round((usedU / rackData.height_u) * 100);
+                const availableU = rackData.height_u - usedU;
+
+                document.getElementById('utilization-rate').textContent = utilizationRate + '%';
+                document.getElementById('available-u').textContent = availableU + 'U';
+            }
+
+            // 渲染设备列表
+            function renderDeviceList() {
+                const deviceListContainer = document.getElementById('device-list');
+                
+                if (devicesInRack.length === 0) {
+                    deviceListContainer.innerHTML = `
+                        <div class="empty-rack">
+                            <i class="fas fa-server"></i>
+                            <h4>机柜为空</h4>
+                            <p>此机柜中暂未安装任何设备</p>
+                        </div>
+                    `;
+                    return;
+                }
+
+                // 按U位排序设备（从上到下）
+                const sortedDevices = [...devicesInRack].sort((a, b) => {
+                    const aType = allDeviceTypes.find(type => type.name.trim() === a.device_type.trim());
+                    const bType = allDeviceTypes.find(type => type.name.trim() === b.device_type.trim());
+                    const aTopU = a.rack_u + (aType ? aType.height_u : 1) - 1;
+                    const bTopU = b.rack_u + (bType ? bType.height_u : 1) - 1;
+                    return bTopU - aTopU; // 从高U位到低U位
+                });
+
+                deviceListContainer.innerHTML = sortedDevices.map(device => {
+                    const deviceType = allDeviceTypes.find(type => type.name.trim() === device.device_type.trim());
+                    const deviceHeightU = deviceType ? deviceType.height_u : 1;
+                    const topU = device.rack_u + deviceHeightU - 1;
+                    
+                    return `
+                        <div class="device-item">
+                            <div class="device-info">
+                                <div class="device-icon">
+                                    <i class="fas fa-microchip"></i>
+                                </div>
+                                <div>
+                                    <div class="device-name">${device.instance_name}</div>
+                                    <div class="device-type">${device.device_type}</div>
+                                </div>
+                            </div>
+                            <div class="device-position">
+                                <span class="position-badge">U${device.rack_u}${deviceHeightU > 1 ? '-U' + topU : ''}</span>
+                                <span>${deviceHeightU}U</span>
+                            </div>
+                        </div>
+                    `;
+                }).join('');
+            }
+
+            // 渲染机柜面板
+            function renderRackPanel(rack, devicesInRack, allDeviceTypes) {
+                const uHeightPx = 24; // 增大U高度以提供更好的视觉效果
+                const rackPanelLayout = document.createElement('div');
+                rackPanelLayout.style.display = 'flex';
+                rackPanelLayout.style.alignItems = 'flex-start';
+
+                // U号区域
+                const uNumbersArea = document.createElement('div');
+                uNumbersArea.className = 'u-numbers-area';
+
+                // 添加U号标识
+                for (let u = rack.height_u; u >= 1; u--) {
+                    const uLabel = document.createElement('div');
+                    uLabel.textContent = 'U' + u;
+                    const topMargin = (rack.height_u - u) * uHeightPx;
+                    uLabel.style.marginTop = topMargin + 'px';
+                    uLabel.style.lineHeight = uHeightPx + 'px';
+                    uLabel.style.margin = '0';
+                    uNumbersArea.appendChild(uLabel);
+                }
+
+                // 机柜面板
+                const rackPanelDiv = document.createElement('div');
+                rackPanelDiv.className = 'rack-panel';
+                rackPanelDiv.style.height = (rack.height_u * uHeightPx) + 'px';
+
+                // 渲染设备
+                devicesInRack.forEach(device => {
+                    const deviceElement = document.createElement('div');
+                    deviceElement.className = 'rack-device';
+
+                    // 获取设备类型信息
+                    const deviceType = allDeviceTypes.find(type => type.name.trim() === device.device_type.trim());
+                    const deviceHeightU = deviceType ? deviceType.height_u : 1;
+
+                    deviceElement.style.height = (deviceHeightU * uHeightPx) + 'px';
+
+                    // 计算位置
+                    const bottomU = device.rack_u;
+                    const topU = bottomU + deviceHeightU - 1;
+                    const positionFromTop = (rack.height_u - topU) * uHeightPx;
+                    deviceElement.style.top = positionFromTop + 'px';
+
+                    // 设置设备内容和工具提示
+                    deviceElement.textContent = `${device.instance_name}`;
+                    deviceElement.title = `${device.instance_name}\n${device.device_type}\nU${device.rack_u}${deviceHeightU > 1 ? '-U' + topU : ''} (${deviceHeightU}U)`;
+
+                    // 添加鼠标悬停事件
+                    deviceElement.addEventListener('mouseenter', function() {
+                        // 可以在这里添加更多交互效果
+                    });
+
+                    rackPanelDiv.appendChild(deviceElement);
+                });
+
+                rackPanelLayout.appendChild(uNumbersArea);
+                rackPanelLayout.appendChild(rackPanelDiv);
+
+                return rackPanelLayout;
+            }
+
+            // 初始化页面
+            function initializePage() {
+                // 渲染机柜面板
+                const singleRackPanelView = document.getElementById('single-rack-panel-view');
+                const renderedPanel = renderRackPanel(rackData, devicesInRack, allDeviceTypes);
+                singleRackPanelView.appendChild(renderedPanel);
+
+                // 渲染设备列表
+                renderDeviceList();
+
+                // 更新统计信息
+                updateStatistics();
+            }
+
+            // 初始化
+            initializePage();
+        });
+    </script>
+</body>
+</html> 
