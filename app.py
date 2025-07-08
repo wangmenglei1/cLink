@@ -463,7 +463,8 @@ def perform_delete_device_instance(instance_id):
 
 @app.route('/')
 def index():
-    return render_template('index.html')
+    """重定向到设备管理页面"""
+    return redirect('/device_management')
 
 @app.route('/rack_management')
 def rack_management():
