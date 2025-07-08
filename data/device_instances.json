@@ -1,6 +1,6 @@
 {
   "version": "2.0",
-  "timestamp": "2025-07-08T10:43:22.712436",
+  "timestamp": "2025-07-08T13:55:56.708058",
   "device_instances": [
     {
       "id": "device_50b9a0ce0dca",
@@ -282,9 +282,12 @@
           "status": "available"
         }
       ],
-      "position": null,
-      "rack_id": null,
-      "rack_u": null,
+      "position": {
+        "x": 405.04043934098854,
+        "y": 92.00918622066901
+      },
+      "rack_id": "rack_1749632196564_1",
+      "rack_u": 3,
       "power_status": "off"
     },
     {
@@ -565,9 +568,12 @@
           "status": "available"
         }
       ],
-      "position": null,
-      "rack_id": null,
-      "rack_u": null,
+      "position": {
+        "x": 326.0325511732401,
+        "y": 25.002496255616578
+      },
+      "rack_id": "rack_1749632196564_1",
+      "rack_u": 5,
       "power_status": "off"
     },
     {
@@ -846,9 +852,12 @@
           "status": "available"
         }
       ],
-      "position": null,
-      "rack_id": null,
-      "rack_u": null,
+      "position": {
+        "x": 403.04023964053914,
+        "y": 44.004393409885175
+      },
+      "rack_id": "rack_1749632196564_1",
+      "rack_u": 7,
       "power_status": "off"
     },
     {
@@ -1128,7 +1137,10 @@
           "status": "available"
         }
       ],
-      "position": null,
+      "position": {
+        "x": 255.02546180728905,
+        "y": 48.004792810783826
+      },
       "rack_id": null,
       "rack_u": null,
       "power_status": "off"
@@ -1409,7 +1421,10 @@
           "status": "available"
         }
       ],
-      "position": null,
+      "position": {
+        "x": 154.0153769345981,
+        "y": 57.00569146280579
+      },
       "rack_id": null,
       "rack_u": null,
       "power_status": "off"
@@ -1690,7 +1705,10 @@
           "status": "available"
         }
       ],
-      "position": null,
+      "position": {
+        "x": 94.00938592111832,
+        "y": 60.00599101347978
+      },
       "rack_id": null,
       "rack_u": null,
       "power_status": "off"
@@ -1971,7 +1989,10 @@
           "status": "available"
         }
       ],
-      "position": null,
+      "position": {
+        "x": 100.0099850224663,
+        "y": 53.00529206190714
+      },
       "rack_id": null,
       "rack_u": null,
       "power_status": "off"
@@ -2252,7 +2273,10 @@
           "status": "available"
         }
       ],
-      "position": null,
+      "position": {
+        "x": 134.01337993010486,
+        "y": 33.00329505741388
+      },
       "rack_id": null,
       "rack_u": null,
       "power_status": "off"
@@ -2533,7 +2557,10 @@
           "status": "available"
         }
       ],
-      "position": null,
+      "position": {
+        "x": 143.01427858212682,
+        "y": 17.001697453819272
+      },
       "rack_id": null,
       "rack_u": null,
       "power_status": "off"
@@ -2814,7 +2841,10 @@
           "status": "available"
         }
       ],
-      "position": null,
+      "position": {
+        "x": 329.0328507239141,
+        "y": 49.00489266100849
+      },
       "rack_id": null,
       "rack_u": null,
       "power_status": "off"
@@ -3095,7 +3125,10 @@
           "status": "available"
         }
       ],
-      "position": null,
+      "position": {
+        "x": 277.02765851223165,
+        "y": 54.005391912131806
+      },
       "rack_id": null,
       "rack_u": null,
       "power_status": "off"
@@ -3376,7 +3409,10 @@
           "status": "available"
         }
       ],
-      "position": null,
+      "position": {
+        "x": 316.0315526709935,
+        "y": 62.00619071392911
+      },
       "rack_id": null,
       "rack_u": null,
       "power_status": "off"
@@ -3657,7 +3693,10 @@
           "status": "available"
         }
       ],
-      "position": null,
+      "position": {
+        "x": 292.0291562656016,
+        "y": 58.00579131303046
+      },
       "rack_id": null,
       "rack_u": null,
       "power_status": "off"
@@ -3938,7 +3977,10 @@
           "status": "available"
         }
       ],
-      "position": null,
+      "position": {
+        "x": 227.02266600099853,
+        "y": 72.00718921617573
+      },
       "rack_id": null,
       "rack_u": null,
       "power_status": "off"
@@ -4219,7 +4261,10 @@
           "status": "available"
         }
       ],
-      "position": null,
+      "position": {
+        "x": 195.0194707938093,
+        "y": 77.00768846729905
+      },
       "rack_id": null,
       "rack_u": null,
       "power_status": "off"
@@ -4500,7 +4545,10 @@
           "status": "available"
         }
       ],
-      "position": null,
+      "position": {
+        "x": 539.0538192710934,
+        "y": 128.0127808287569
+      },
       "rack_id": null,
       "rack_u": null,
       "power_status": "off"

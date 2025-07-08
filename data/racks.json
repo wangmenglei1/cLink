@@ -1,6 +1,6 @@
 {
   "version": "2.0",
-  "timestamp": "2025-07-07T22:23:14.181170",
+  "timestamp": "2025-07-08T13:55:56.718025",
   "racks": [
     {
       "id": "rack_1749632196564_1",
@@ -8,7 +8,20 @@
       "room_id": "room_1749092010312",
       "height_u": 42,
       "department": "跳纤柜",
-      "devices": []
+      "devices": [
+        {
+          "instance_id": "device_50b9a0ce0dca",
+          "rack_u": 3
+        },
+        {
+          "instance_id": "device_86a51df0a471",
+          "rack_u": 5
+        },
+        {
+          "instance_id": "device_a984d477ccd9",
+          "rack_u": 7
+        }
+      ]
     },
     {
       "id": "rack_1749632196566_2",

@@ -14,6 +14,9 @@ from datetime import datetime
 from openpyxl import Workbook
 from openpyxl.styles import PatternFill, Border, Side, Alignment
 from openpyxl.utils import get_column_letter
+from werkzeug.utils import secure_filename
+import openpyxl
+from config import *  # 导入所有配置项
 
 app = Flask(__name__)
 
@@ -2984,4 +2987,4 @@ def save_device_groups(groups_data):
         return False
 
 if __name__ == '__main__':
-    app.run(host='172.31.60.204', port=58000, debug=True)
+    app.run(host=SERVER_HOST, port=SERVER_PORT, debug=DEBUG_MODE)
