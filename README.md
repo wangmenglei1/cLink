@@ -167,15 +167,21 @@ DEFAULT_ENCODING=utf-8   # 默认文件编码
 
 主要依赖包括：
 
+```ini
+Flask==2.0.1          # Web框架
+Werkzeug==2.0.1       # WSGI工具库
+numpy==1.24.3         # 数值计算库
+pandas==2.0.3         # 数据分析库
+openpyxl==3.0.7      # Excel文件处理
+python-dotenv==0.19.0 # 环境变量管理
+requests==2.26.0      # HTTP客户端
+python-uuid==1.30     # UUID生成
 ```
-Flask==2.0.1
-Werkzeug==2.0.1
-openpyxl==3.0.7
-pandas==1.3.0
-python-dotenv==0.19.0
-requests==2.26.0
-uuid==1.30
-```
+
+### 版本说明
+- NumPy 和 Pandas 版本经过兼容性测试，建议不要随意更改版本
+- 如果需要更新版本，请确保进行充分的测试
+- 建议在虚拟环境中安装依赖，避免与系统包冲突
 
 ## 安装和运行
 
