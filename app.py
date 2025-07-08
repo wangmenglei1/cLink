@@ -360,8 +360,8 @@ def get_occupied_slots(rack_id):
             continue
 
         device_type = find_type_by_name(instance.get('device_type'))
-        height = device_type.get('height_u', 1) if device_type else 1
-        
+            height = device_type.get('height_u', 1) if device_type else 1
+            
         for u in range(rack_u, rack_u + height):
             occupied[u] = instance.get('instance_name', 'Unknown Device')
     
