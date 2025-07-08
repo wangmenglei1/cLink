@@ -382,16 +382,6 @@
         <!-- 导航链接 -->
         <div class="nav-links">
             <div class="d-flex justify-content-center gap-3 flex-wrap">
-                <a href="/">
-                    <i class="fas fa-arrow-left me-2"></i>
-                    返回拓扑图
-                </a>
-                <span class="text-muted">|</span>
-                <a href="/rack_management">
-                    <i class="fas fa-cogs me-2"></i>
-                    机柜管理
-                </a>
-                <span class="text-muted">|</span>
                 <button id="export-excel-btn" class="btn btn-warning btn-sm">
                     <i class="fas fa-file-excel me-2"></i>
                     导出Excel
@@ -462,11 +452,7 @@
         <div id="empty-state" class="empty-state fade-in" style="display: none;">
             <i class="fas fa-server"></i>
             <h3>暂无机柜数据</h3>
-            <p>请先在机柜管理页面添加机柜，然后返回查看面板图。</p>
-            <a href="/rack_management" class="btn btn-primary">
-                <i class="fas fa-plus me-2"></i>
-                添加机柜
-            </a>
+            <p>当前系统中没有机柜数据，请先添加机柜后查看。</p>
         </div>
     </div>
 
