@@ -1,0 +1,66 @@
+{
+  "version": "1.0",
+  "timestamp": "2025-07-08T10:42:07.071442",
+  "templates": [
+    {
+      "id": "3eb8da89-7f1c-497a-b866-ce48a65f0697",
+      "name": "S6805-54 MLAG Template",
+      "group_type": "mlag",
+      "device_type": "S6805-54",
+      "peer_link_ports": [
+        "HundredGigE1/0/25",
+        "HundredGigE1/0/26"
+      ],
+      "keepalive_ports": [
+        "TwentyFiveGigE1/0/54"
+      ],
+      "uplink_ports": [
+        "TwentyFiveGigE1/0/48",
+        "TwentyFiveGigE1/0/49",
+        "TwentyFiveGigE1/0/50",
+        "TwentyFiveGigE1/0/51",
+        "TwentyFiveGigE1/0/52",
+        "TwentyFiveGigE1/0/53"
+      ],
+      "downlink_ports": [
+        "TwentyFiveGigE1/0/1",
+        "TwentyFiveGigE1/0/2",
+        "TwentyFiveGigE1/0/3",
+        "TwentyFiveGigE1/0/4",
+        "TwentyFiveGigE1/0/5"
+      ],
+      "created_at": "2025-07-08T10:15:54.207294",
+      "updated_at": "2025-07-08T10:15:54.207294"
+    },
+    {
+      "name": "S6805-54 STACK Template",
+      "group_type": "stack",
+      "device_type": "S6805-54",
+      "peer_link_ports": [
+        "HundredGigE1/0/25",
+        "HundredGigE1/0/26"
+      ],
+      "keepalive_ports": [
+        "TwentyFiveGigE1/0/54"
+      ],
+      "uplink_ports": [
+        "TwentyFiveGigE1/0/48",
+        "TwentyFiveGigE1/0/49",
+        "TwentyFiveGigE1/0/50",
+        "TwentyFiveGigE1/0/51",
+        "TwentyFiveGigE1/0/52",
+        "TwentyFiveGigE1/0/53"
+      ],
+      "downlink_ports": [
+        "TwentyFiveGigE1/0/1",
+        "TwentyFiveGigE1/0/2",
+        "TwentyFiveGigE1/0/3",
+        "TwentyFiveGigE1/0/4",
+        "TwentyFiveGigE1/0/5"
+      ],
+      "id": "bbc1bb79-1705-4e8a-bc53-adb2ac881b0e",
+      "created_at": "2025-07-08T10:42:07.071442",
+      "updated_at": "2025-07-08T10:42:07.071442"
+    }
+  ]
+}

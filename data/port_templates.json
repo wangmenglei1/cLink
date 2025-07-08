@@ -1,0 +1,90 @@
+{
+  "version": "1.0",
+  "last_updated": "2025-07-07",
+  "templates": {
+    "S6805-54": {
+      "port_groups": {
+        "stack": {
+          "device_links": {
+            "peer_link": {
+              "ports": [
+                "HundredGigE1/0/25",
+                "HundredGigE1/0/26"
+              ],
+              "speed": 10
+            },
+            "heartbeat": {
+              "ports": [
+                "TwentyFiveGigE1/0/54"
+              ],
+              "speed": 1
+            }
+          },
+          "service_ports": {
+            "uplink": {
+              "ports": [
+                "TwentyFiveGigE1/0/48",
+                "TwentyFiveGigE1/0/49",
+                "TwentyFiveGigE1/0/50",
+                "TwentyFiveGigE1/0/51",
+                "TwentyFiveGigE1/0/52",
+                "TwentyFiveGigE1/0/53"
+              ],
+              "speed": 10
+            },
+            "downlink": {
+              "ports": [
+                "TwentyFiveGigE1/0/1",
+                "TwentyFiveGigE1/0/2",
+                "TwentyFiveGigE1/0/3",
+                "TwentyFiveGigE1/0/4",
+                "TwentyFiveGigE1/0/5"
+              ],
+              "speed": 1
+            }
+          }
+        },
+        "mlag": {
+          "device_links": {
+            "peer_link": {
+              "ports": [
+                "HundredGigE1/0/25",
+                "HundredGigE1/0/26"
+              ],
+              "speed": 10
+            },
+            "heartbeat": {
+              "ports": [
+                "TwentyFiveGigE1/0/54"
+              ],
+              "speed": 1
+            }
+          },
+          "service_ports": {
+            "uplink": {
+              "ports": [
+                "TwentyFiveGigE1/0/48",
+                "TwentyFiveGigE1/0/49",
+                "TwentyFiveGigE1/0/50",
+                "TwentyFiveGigE1/0/51",
+                "TwentyFiveGigE1/0/52",
+                "TwentyFiveGigE1/0/53"
+              ],
+              "speed": 10
+            },
+            "downlink": {
+              "ports": [
+                "TwentyFiveGigE1/0/1",
+                "TwentyFiveGigE1/0/2",
+                "TwentyFiveGigE1/0/3",
+                "TwentyFiveGigE1/0/4",
+                "TwentyFiveGigE1/0/5"
+              ],
+              "speed": 1
+            }
+          }
+        }
+      }
+    }
+  }
+}

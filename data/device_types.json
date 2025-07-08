@@ -1,6 +1,6 @@
 {
   "version": "2.0",
-  "timestamp": "2025-06-12T13:24:04.751877",
+  "timestamp": "2025-07-07T22:23:42.149625",
   "device_types": [
     {
       "name": "5130",
@@ -840,6 +840,580 @@
           "end": 48
         }
       ]
+    },
+    {
+      "name": "S6805-54",
+      "height_u": 1,
+      "interfaces": [
+        {
+          "name": "TwentyFiveGigE1/0/1",
+          "type": "optical",
+          "connected_to": null
+        },
+        {
+          "name": "TwentyFiveGigE1/0/2",
+          "type": "optical",
+          "connected_to": null
+        },
+        {
+          "name": "TwentyFiveGigE1/0/3",
+          "type": "optical",
+          "connected_to": null
+        },
+        {
+          "name": "TwentyFiveGigE1/0/4",
+          "type": "optical",
+          "connected_to": null
+        },
+        {
+          "name": "TwentyFiveGigE1/0/5",
+          "type": "optical",
+          "connected_to": null
+        },
+        {
+          "name": "TwentyFiveGigE1/0/6",
+          "type": "optical",
+          "connected_to": null
+        },
+        {
+          "name": "TwentyFiveGigE1/0/7",
+          "type": "optical",
+          "connected_to": null
+        },
+        {
+          "name": "TwentyFiveGigE1/0/8",
+          "type": "optical",
+          "connected_to": null
+        },
+        {
+          "name": "TwentyFiveGigE1/0/9",
+          "type": "optical",
+          "connected_to": null
+        },
+        {
+          "name": "TwentyFiveGigE1/0/10",
+          "type": "optical",
+          "connected_to": null
+        },
+        {
+          "name": "TwentyFiveGigE1/0/11",
+          "type": "optical",
+          "connected_to": null
+        },
+        {
+          "name": "TwentyFiveGigE1/0/12",
+          "type": "optical",
+          "connected_to": null
+        },
+        {
+          "name": "TwentyFiveGigE1/0/13",
+          "type": "optical",
+          "connected_to": null
+        },
+        {
+          "name": "TwentyFiveGigE1/0/14",
+          "type": "optical",
+          "connected_to": null
+        },
+        {
+          "name": "TwentyFiveGigE1/0/15",
+          "type": "optical",
+          "connected_to": null
+        },
+        {
+          "name": "TwentyFiveGigE1/0/16",
+          "type": "optical",
+          "connected_to": null
+        },
+        {
+          "name": "TwentyFiveGigE1/0/17",
+          "type": "optical",
+          "connected_to": null
+        },
+        {
+          "name": "TwentyFiveGigE1/0/18",
+          "type": "optical",
+          "connected_to": null
+        },
+        {
+          "name": "TwentyFiveGigE1/0/19",
+          "type": "optical",
+          "connected_to": null
+        },
+        {
+          "name": "TwentyFiveGigE1/0/20",
+          "type": "optical",
+          "connected_to": null
+        },
+        {
+          "name": "TwentyFiveGigE1/0/21",
+          "type": "optical",
+          "connected_to": null
+        },
+        {
+          "name": "TwentyFiveGigE1/0/22",
+          "type": "optical",
+          "connected_to": null
+        },
+        {
+          "name": "TwentyFiveGigE1/0/23",
+          "type": "optical",
+          "connected_to": null
+        },
+        {
+          "name": "TwentyFiveGigE1/0/24",
+          "type": "optical",
+          "connected_to": null
+        },
+        {
+          "name": "HundredGigE1/0/25",
+          "type": "optical",
+          "connected_to": null
+        },
+        {
+          "name": "HundredGigE1/0/26",
+          "type": "optical",
+          "connected_to": null
+        },
+        {
+          "name": "HundredGigE1/0/27",
+          "type": "optical",
+          "connected_to": null
+        },
+        {
+          "name": "HundredGigE1/0/28",
+          "type": "optical",
+          "connected_to": null
+        },
+        {
+          "name": "HundredGigE1/0/29",
+          "type": "optical",
+          "connected_to": null
+        },
+        {
+          "name": "HundredGigE1/0/30",
+          "type": "optical",
+          "connected_to": null
+        },
+        {
+          "name": "TwentyFiveGigE1/0/31",
+          "type": "optical",
+          "connected_to": null
+        },
+        {
+          "name": "TwentyFiveGigE1/0/32",
+          "type": "optical",
+          "connected_to": null
+        },
+        {
+          "name": "TwentyFiveGigE1/0/33",
+          "type": "optical",
+          "connected_to": null
+        },
+        {
+          "name": "TwentyFiveGigE1/0/34",
+          "type": "optical",
+          "connected_to": null
+        },
+        {
+          "name": "TwentyFiveGigE1/0/35",
+          "type": "optical",
+          "connected_to": null
+        },
+        {
+          "name": "TwentyFiveGigE1/0/36",
+          "type": "optical",
+          "connected_to": null
+        },
+        {
+          "name": "TwentyFiveGigE1/0/37",
+          "type": "optical",
+          "connected_to": null
+        },
+        {
+          "name": "TwentyFiveGigE1/0/38",
+          "type": "optical",
+          "connected_to": null
+        },
+        {
+          "name": "TwentyFiveGigE1/0/39",
+          "type": "optical",
+          "connected_to": null
+        },
+        {
+          "name": "TwentyFiveGigE1/0/40",
+          "type": "optical",
+          "connected_to": null
+        },
+        {
+          "name": "TwentyFiveGigE1/0/41",
+          "type": "optical",
+          "connected_to": null
+        },
+        {
+          "name": "TwentyFiveGigE1/0/42",
+          "type": "optical",
+          "connected_to": null
+        },
+        {
+          "name": "TwentyFiveGigE1/0/43",
+          "type": "optical",
+          "connected_to": null
+        },
+        {
+          "name": "TwentyFiveGigE1/0/44",
+          "type": "optical",
+          "connected_to": null
+        },
+        {
+          "name": "TwentyFiveGigE1/0/45",
+          "type": "optical",
+          "connected_to": null
+        },
+        {
+          "name": "TwentyFiveGigE1/0/46",
+          "type": "optical",
+          "connected_to": null
+        },
+        {
+          "name": "TwentyFiveGigE1/0/47",
+          "type": "optical",
+          "connected_to": null
+        },
+        {
+          "name": "TwentyFiveGigE1/0/48",
+          "type": "optical",
+          "connected_to": null
+        },
+        {
+          "name": "TwentyFiveGigE1/0/49",
+          "type": "optical",
+          "connected_to": null
+        },
+        {
+          "name": "TwentyFiveGigE1/0/50",
+          "type": "optical",
+          "connected_to": null
+        },
+        {
+          "name": "TwentyFiveGigE1/0/51",
+          "type": "optical",
+          "connected_to": null
+        },
+        {
+          "name": "TwentyFiveGigE1/0/52",
+          "type": "optical",
+          "connected_to": null
+        },
+        {
+          "name": "TwentyFiveGigE1/0/53",
+          "type": "optical",
+          "connected_to": null
+        },
+        {
+          "name": "TwentyFiveGigE1/0/54",
+          "type": "optical",
+          "connected_to": null
+        }
+      ],
+      "definitions": [
+        {
+          "rate": "25G",
+          "interface_type": "Optical",
+          "naming_prefix": "1/0/",
+          "start": 1,
+          "end": 24
+        },
+        {
+          "rate": "100G",
+          "interface_type": "Optical",
+          "naming_prefix": "1/0/",
+          "start": 25,
+          "end": 30
+        },
+        {
+          "rate": "25G",
+          "interface_type": "Optical",
+          "naming_prefix": "1/0/",
+          "start": 31,
+          "end": 54
+        }
+      ]
+    },
+    {
+      "id": "S6730-H48X6C",
+      "manufacturer": "Huawei",
+      "model": "S6730-H48X6C",
+      "type": "switch",
+      "height": 1,
+      "interfaces": [
+        {
+          "name": "XGE1/0/1",
+          "type": "10GE",
+          "usage": [
+            "uplink",
+            "peer-link"
+          ]
+        },
+        {
+          "name": "XGE1/0/2",
+          "type": "10GE",
+          "usage": [
+            "uplink",
+            "peer-link"
+          ]
+        },
+        {
+          "name": "XGE1/0/3",
+          "type": "10GE",
+          "usage": [
+            "uplink",
+            "peer-link"
+          ]
+        },
+        {
+          "name": "XGE1/0/4",
+          "type": "10GE",
+          "usage": [
+            "uplink",
+            "peer-link"
+          ]
+        },
+        {
+          "name": "XGE1/0/5",
+          "type": "10GE",
+          "usage": [
+            "uplink",
+            "downlink"
+          ]
+        },
+        {
+          "name": "XGE1/0/6",
+          "type": "10GE",
+          "usage": [
+            "uplink",
+            "downlink"
+          ]
+        },
+        {
+          "name": "XGE1/0/7",
+          "type": "10GE",
+          "usage": [
+            "uplink",
+            "downlink"
+          ]
+        },
+        {
+          "name": "XGE1/0/8",
+          "type": "10GE",
+          "usage": [
+            "uplink",
+            "downlink"
+          ]
+        },
+        {
+          "name": "MGE0/0/0",
+          "type": "GE",
+          "usage": [
+            "management",
+            "heartbeat"
+          ]
+        },
+        {
+          "name": "100GE1/0/1",
+          "type": "100GE",
+          "usage": [
+            "uplink"
+          ]
+        },
+        {
+          "name": "100GE1/0/2",
+          "type": "100GE",
+          "usage": [
+            "uplink"
+          ]
+        },
+        {
+          "name": "100GE1/0/3",
+          "type": "100GE",
+          "usage": [
+            "uplink"
+          ]
+        },
+        {
+          "name": "100GE1/0/4",
+          "type": "100GE",
+          "usage": [
+            "uplink"
+          ]
+        },
+        {
+          "name": "100GE1/0/5",
+          "type": "100GE",
+          "usage": [
+            "uplink"
+          ]
+        },
+        {
+          "name": "100GE1/0/6",
+          "type": "100GE",
+          "usage": [
+            "uplink"
+          ]
+        }
+      ],
+      "stack_config": {
+        "peer_link_ports": [
+          "XGE1/0/1",
+          "XGE1/0/2"
+        ],
+        "heartbeat_ports": [
+          "MGE0/0/0"
+        ],
+        "uplink_ports": [
+          "100GE1/0/1",
+          "100GE1/0/2",
+          "100GE1/0/3"
+        ],
+        "downlink_ports": [
+          "XGE1/0/5",
+          "XGE1/0/6",
+          "XGE1/0/7",
+          "XGE1/0/8"
+        ]
+      },
+      "mlag_config": {
+        "peer_link_ports": [
+          "100GE1/0/1",
+          "100GE1/0/2"
+        ],
+        "heartbeat_ports": [
+          "MGE0/0/0"
+        ],
+        "uplink_ports": [
+          "100GE1/0/3",
+          "100GE1/0/4",
+          "100GE1/0/5",
+          "100GE1/0/6"
+        ],
+        "downlink_ports": [
+          "XGE1/0/5",
+          "XGE1/0/6",
+          "XGE1/0/7",
+          "XGE1/0/8"
+        ]
+      }
+    },
+    {
+      "id": "CE6865-48S8CQ-EI",
+      "manufacturer": "Huawei",
+      "model": "CE6865-48S8CQ-EI",
+      "type": "switch",
+      "height": 1,
+      "interfaces": [
+        {
+          "name": "25GE1/0/1",
+          "type": "25GE",
+          "usage": [
+            "uplink",
+            "peer-link"
+          ]
+        },
+        {
+          "name": "25GE1/0/2",
+          "type": "25GE",
+          "usage": [
+            "uplink",
+            "peer-link"
+          ]
+        },
+        {
+          "name": "25GE1/0/3",
+          "type": "25GE",
+          "usage": [
+            "uplink",
+            "downlink"
+          ]
+        },
+        {
+          "name": "25GE1/0/4",
+          "type": "25GE",
+          "usage": [
+            "uplink",
+            "downlink"
+          ]
+        },
+        {
+          "name": "MGE0/0/0",
+          "type": "GE",
+          "usage": [
+            "management",
+            "heartbeat"
+          ]
+        },
+        {
+          "name": "100GE1/0/1",
+          "type": "100GE",
+          "usage": [
+            "uplink"
+          ]
+        },
+        {
+          "name": "100GE1/0/2",
+          "type": "100GE",
+          "usage": [
+            "uplink"
+          ]
+        },
+        {
+          "name": "100GE1/0/3",
+          "type": "100GE",
+          "usage": [
+            "uplink"
+          ]
+        },
+        {
+          "name": "100GE1/0/4",
+          "type": "100GE",
+          "usage": [
+            "uplink"
+          ]
+        }
+      ],
+      "stack_config": {
+        "peer_link_ports": [
+          "25GE1/0/1",
+          "25GE1/0/2"
+        ],
+        "heartbeat_ports": [
+          "MGE0/0/0"
+        ],
+        "uplink_ports": [
+          "100GE1/0/1",
+          "100GE1/0/2"
+        ],
+        "downlink_ports": [
+          "25GE1/0/3",
+          "25GE1/0/4"
+        ]
+      },
+      "mlag_config": {
+        "peer_link_ports": [
+          "100GE1/0/1",
+          "100GE1/0/2"
+        ],
+        "heartbeat_ports": [
+          "MGE0/0/0"
+        ],
+        "uplink_ports": [
+          "100GE1/0/3",
+          "100GE1/0/4"
+        ],
+        "downlink_ports": [
+          "25GE1/0/3",
+          "25GE1/0/4"
+        ]
+      }
     }
   ]
 }

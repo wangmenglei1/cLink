@@ -414,13 +414,17 @@
             </a>
             <div class="collapse navbar-collapse" id="navbarNav">
                 <div class="navbar-nav ms-auto">
+                    <a class="nav-link" href="/connection_tool">
+                        <i class="fas fa-link me-1"></i>
+                        连线工具
+                    </a>
                     <a class="nav-link" href="/device_management">
-                        <i class="fas fa-desktop me-1"></i>
+                        <i class="fas fa-server me-1"></i>
                         设备管理
                     </a>
                     <a class="nav-link" href="/rack_management">
-                        <i class="fas fa-server me-1"></i>
-                        机房机柜管理
+                        <i class="fas fa-building me-1"></i>
+                        机柜管理
                     </a>
                     <a class="nav-link" href="/all_rack_panels">
                         <i class="fas fa-th-large me-1"></i>
@@ -493,20 +497,26 @@
                         <div class="section-divider"></div>
 
                         <div class="row">
-                            <div class="col-md-4 mb-2">
+                            <div class="col-md-3 mb-2">
                                 <button id="addDeviceInstanceBtn" class="btn btn-success w-100">
                                     <i class="fas fa-plus me-2"></i>
                                     添加设备实例
                                 </button>
                             </div>
-                            <div class="col-md-4 mb-2">
+                            <div class="col-md-3 mb-2">
                                 <button id="batchAddDevicesBtn" class="btn btn-info w-100" data-bs-toggle="modal" data-bs-target="#batchAddModal">
                                     <i class="fas fa-layer-group me-2"></i>
                                     批量添加设备
                                 </button>
                             </div>
-                            <div class="col-md-4 mb-2">
-                                <button id="exportConnectionsBtn" class="btn btn-warning w-100">
+                            <div class="col-md-3 mb-2">
+                                <button id="manageGroupsBtn" class="btn btn-warning w-100" data-bs-toggle="modal" data-bs-target="#manageGroupsModal">
+                                    <i class="fas fa-object-group me-2"></i>
+                                    管理分组
+                                </button>
+                            </div>
+                            <div class="col-md-3 mb-2">
+                                <button id="exportConnectionsBtn" class="btn btn-secondary w-100">
                                     <i class="fas fa-download me-2"></i>
                                     导出链路
                                 </button>
@@ -708,6 +718,149 @@
                         <i class="fas fa-plus me-1"></i>
                         批量创建
                     </button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- 管理设备分组模态框 -->
+    <div class="modal fade" id="manageGroupsModal" tabindex="-1">
+        <div class="modal-dialog modal-lg">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">
+                        <i class="fas fa-object-group me-2"></i>
+                        管理设备分组
+                    </h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+                </div>
+                <div class="modal-body">
+                    <div class="row mb-3">
+                        <div class="col-md-6">
+                            <button class="btn btn-primary w-100" id="createStackGroupBtn">
+                                <i class="fas fa-layer-group me-2"></i>
+                                创建堆叠组
+                            </button>
+                        </div>
+                        <div class="col-md-6">
+                            <button class="btn btn-success w-100" id="createMLAGGroupBtn">
+                                <i class="fas fa-network-wired me-2"></i>
+                                创建MLAG组
+                            </button>
+                        </div>
+                    </div>
+                    
+                    <div class="alert alert-info">
+                        <i class="fas fa-info-circle me-2"></i>
+                        <strong>说明：</strong>
+                        <ul class="mb-0 mt-2">
+                            <li><strong>堆叠组：</strong>多台设备逻辑上组成一台设备，需要预留堆叠接口</li>
+                            <li><strong>MLAG组：</strong>两台设备形成双活链路聚合，需要预留Peer-Link和Keepalive接口</li>
+                        </ul>
+                    </div>
+                    
+                    <div id="groupsList" class="mt-4">
+                        <h6>已创建的分组：</h6>
+                        <div id="existingGroups">
+                            <!-- 现有分组将在这里显示 -->
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">
+                        <i class="fas fa-times me-1"></i>
+                        关闭
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- 创建堆叠组模态框 -->
+    <div class="modal fade" id="createStackModal" tabindex="-1">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">
+                        <i class="fas fa-layer-group me-2"></i>
+                        创建堆叠组
+                    </h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+                </div>
+                <div class="modal-body">
+                    <div class="mb-3">
+                        <label for="stackGroupName" class="form-label">堆叠组名称</label>
+                        <input type="text" class="form-control" id="stackGroupName" placeholder="例如：Stack-SW01">
+                    </div>
+                    <div class="mb-3">
+                        <label for="stackDeviceSelect" class="form-label">选择设备</label>
+                        <select multiple class="form-select" id="stackDeviceSelect" size="6">
+                            <!-- 设备选项将在这里填充 -->
+                        </select>
+                        <small class="form-text text-muted">按住Ctrl键可选择多个设备</small>
+                    </div>
+                    <div class="mb-3">
+                        <label for="stackInterfacePattern" class="form-label">堆叠接口模式</label>
+                        <select class="form-select" id="stackInterfacePattern">
+                            <option value="last_two">使用最后两个接口作为堆叠接口</option>
+                            <option value="first_two">使用前两个接口作为堆叠接口</option>
+                            <option value="custom">自定义接口选择</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">取消</button>
+                    <button type="button" class="btn btn-primary" id="confirmCreateStack">创建堆叠组</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- 创建MLAG组模态框 -->
+    <div class="modal fade" id="createMLAGModal" tabindex="-1">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">
+                        <i class="fas fa-network-wired me-2"></i>
+                        创建MLAG组
+                    </h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+                </div>
+                <div class="modal-body">
+                    <div class="mb-3">
+                        <label for="mlagGroupName" class="form-label">MLAG组名称</label>
+                        <input type="text" class="form-control" id="mlagGroupName" placeholder="例如：MLAG-SW01-02">
+                    </div>
+                    <div class="mb-3">
+                        <label for="mlagDevice1Select" class="form-label">主设备</label>
+                        <select class="form-select" id="mlagDevice1Select">
+                            <option value="">选择主设备...</option>
+                        </select>
+                    </div>
+                    <div class="mb-3">
+                        <label for="mlagDevice2Select" class="form-label">备设备</label>
+                        <select class="form-select" id="mlagDevice2Select">
+                            <option value="">选择备设备...</option>
+                        </select>
+                    </div>
+                    <div class="mb-3">
+                        <label for="peerLinkInterfaces" class="form-label">Peer-Link接口数量</label>
+                        <select class="form-select" id="peerLinkInterfaces">
+                            <option value="2">2个接口</option>
+                            <option value="4">4个接口</option>
+                        </select>
+                    </div>
+                    <div class="form-check mb-3">
+                        <input class="form-check-input" type="checkbox" id="enableKeepalive" checked>
+                        <label class="form-check-label" for="enableKeepalive">
+                            启用Keepalive检测（预留1个接口）
+                        </label>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">取消</button>
+                    <button type="button" class="btn btn-success" id="confirmCreateMLAG">创建MLAG组</button>
                 </div>
             </div>
         </div>
@@ -1922,6 +2075,341 @@
                 showToast('添加设备型号失败', 'error');
             });
         });
+
+        // 设备分组管理功能
+        let deviceGroups = [];
+        
+        // 创建堆叠组按钮事件
+        document.getElementById('createStackGroupBtn').addEventListener('click', function() {
+            populateDeviceSelects();
+            const createStackModal = new bootstrap.Modal(document.getElementById('createStackModal'));
+            createStackModal.show();
+        });
+        
+        // 创建MLAG组按钮事件
+        document.getElementById('createMLAGGroupBtn').addEventListener('click', function() {
+            populateMLAGDeviceSelects();
+            const createMLAGModal = new bootstrap.Modal(document.getElementById('createMLAGModal'));
+            createMLAGModal.show();
+        });
+        
+        // 填充设备选择下拉框（用于堆叠组）
+        function populateDeviceSelects() {
+            fetch('/get_device_instances')
+                .then(response => response.json())
+                .then(data => {
+                    const stackDeviceSelect = document.getElementById('stackDeviceSelect');
+                    stackDeviceSelect.innerHTML = '';
+                    
+                    if (data.device_instances && data.device_instances.length > 0) {
+                        data.device_instances.forEach(device => {
+                            const option = document.createElement('option');
+                            option.value = device.id;
+                            option.textContent = `${device.instance_name} (${device.device_type})`;
+                            stackDeviceSelect.appendChild(option);
+                        });
+                    }
+                })
+                .catch(error => {
+                    console.error('Error fetching devices:', error);
+                });
+        }
+        
+        // 填充MLAG设备选择下拉框
+        function populateMLAGDeviceSelects() {
+            fetch('/get_device_instances')
+                .then(response => response.json())
+                .then(data => {
+                    const device1Select = document.getElementById('mlagDevice1Select');
+                    const device2Select = document.getElementById('mlagDevice2Select');
+                    
+                    device1Select.innerHTML = '<option value="">选择主设备...</option>';
+                    device2Select.innerHTML = '<option value="">选择备设备...</option>';
+                    
+                    if (data.device_instances && data.device_instances.length > 0) {
+                        data.device_instances.forEach(device => {
+                            const option1 = document.createElement('option');
+                            option1.value = device.id;
+                            option1.textContent = `${device.instance_name} (${device.device_type})`;
+                            device1Select.appendChild(option1);
+                            
+                            const option2 = document.createElement('option');
+                            option2.value = device.id;
+                            option2.textContent = `${device.instance_name} (${device.device_type})`;
+                            device2Select.appendChild(option2);
+                        });
+                    }
+                })
+                .catch(error => {
+                    console.error('Error fetching devices:', error);
+                });
+        }
+        
+        // 确认创建堆叠组
+        document.getElementById('confirmCreateStack').addEventListener('click', function() {
+            const groupName = document.getElementById('stackGroupName').value;
+            const selectedDevices = Array.from(document.getElementById('stackDeviceSelect').selectedOptions).map(option => option.value);
+            const interfacePattern = document.getElementById('stackInterfacePattern').value;
+            
+            if (!groupName) {
+                showToast('请输入堆叠组名称', 'error');
+                return;
+            }
+            
+            if (selectedDevices.length < 2) {
+                showToast('请至少选择2个设备', 'error');
+                return;
+            }
+            
+            // 创建堆叠组
+            const stackGroup = {
+                id: `stack_${Date.now()}`,
+                name: groupName,
+                type: 'stack',
+                devices: selectedDevices,
+                interfacePattern: interfacePattern,
+                createdAt: new Date().toISOString()
+            };
+            
+            // 发送到后端
+            fetch('/create_device_group', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify(stackGroup)
+            })
+            .then(response => response.json())
+            .then(data => {
+                if (data.success) {
+                    deviceGroups.push(stackGroup);
+                    showToast('堆叠组创建成功', 'success');
+                    updateGroupsList();
+                    bootstrap.Modal.getInstance(document.getElementById('createStackModal')).hide();
+                    
+                    // 在拓扑图中标记堆叠组
+                    markStackGroupInTopology(stackGroup);
+                } else {
+                    showToast(data.message || '创建堆叠组失败', 'error');
+                }
+            })
+            .catch(error => {
+                console.error('Error creating stack group:', error);
+                showToast('创建堆叠组失败', 'error');
+            });
+        });
+        
+        // 确认创建MLAG组
+        document.getElementById('confirmCreateMLAG').addEventListener('click', function() {
+            const groupName = document.getElementById('mlagGroupName').value;
+            const device1 = document.getElementById('mlagDevice1Select').value;
+            const device2 = document.getElementById('mlagDevice2Select').value;
+            const peerLinkInterfaces = document.getElementById('peerLinkInterfaces').value;
+            const enableKeepalive = document.getElementById('enableKeepalive').checked;
+            
+            if (!groupName) {
+                showToast('请输入MLAG组名称', 'error');
+                return;
+            }
+            
+            if (!device1 || !device2) {
+                showToast('请选择两个设备', 'error');
+                return;
+            }
+            
+            if (device1 === device2) {
+                showToast('不能选择相同的设备', 'error');
+                return;
+            }
+            
+            // 创建MLAG组
+            const mlagGroup = {
+                id: `mlag_${Date.now()}`,
+                name: groupName,
+                type: 'mlag',
+                devices: [device1, device2],
+                peerLinkInterfaces: parseInt(peerLinkInterfaces),
+                enableKeepalive: enableKeepalive,
+                createdAt: new Date().toISOString()
+            };
+            
+            // 发送到后端
+            fetch('/create_device_group', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify(mlagGroup)
+            })
+            .then(response => response.json())
+            .then(data => {
+                if (data.success) {
+                    deviceGroups.push(mlagGroup);
+                    showToast('MLAG组创建成功', 'success');
+                    updateGroupsList();
+                    bootstrap.Modal.getInstance(document.getElementById('createMLAGModal')).hide();
+                    
+                    // 在拓扑图中标记MLAG组
+                    markMLAGGroupInTopology(mlagGroup);
+                } else {
+                    showToast(data.message || '创建MLAG组失败', 'error');
+                }
+            })
+            .catch(error => {
+                console.error('Error creating MLAG group:', error);
+                showToast('创建MLAG组失败', 'error');
+            });
+        });
+        
+        // 更新分组列表显示
+        function updateGroupsList() {
+            const existingGroups = document.getElementById('existingGroups');
+            existingGroups.innerHTML = '';
+            
+            if (deviceGroups.length === 0) {
+                existingGroups.innerHTML = '<p class="text-muted">暂无分组</p>';
+                return;
+            }
+            
+            deviceGroups.forEach(group => {
+                const groupElement = document.createElement('div');
+                groupElement.className = 'card mb-2';
+                groupElement.innerHTML = `
+                    <div class="card-body">
+                        <div class="d-flex justify-content-between align-items-center">
+                            <div>
+                                <h6 class="card-title mb-1">
+                                    <i class="fas fa-${group.type === 'stack' ? 'layer-group' : 'network-wired'} me-2"></i>
+                                    ${group.name}
+                                </h6>
+                                <small class="text-muted">
+                                    ${group.type === 'stack' ? '堆叠组' : 'MLAG组'} - ${group.devices.length} 个设备
+                                </small>
+                            </div>
+                            <button class="btn btn-sm btn-outline-danger" onclick="deleteGroup('${group.id}')">
+                                <i class="fas fa-trash"></i>
+                            </button>
+                        </div>
+                    </div>
+                `;
+                existingGroups.appendChild(groupElement);
+            });
+        }
+        
+        // 删除分组
+        window.deleteGroup = function(groupId) {
+            if (!confirm('确定要删除这个分组吗？')) return;
+            
+            fetch(`/delete_device_group/${groupId}`, {
+                method: 'DELETE'
+            })
+            .then(response => response.json())
+            .then(data => {
+                if (data.success) {
+                    deviceGroups = deviceGroups.filter(group => group.id !== groupId);
+                    updateGroupsList();
+                    showToast('分组删除成功', 'success');
+                } else {
+                    showToast(data.message || '删除分组失败', 'error');
+                }
+            })
+            .catch(error => {
+                console.error('Error deleting group:', error);
+                showToast('删除分组失败', 'error');
+            });
+        };
+        
+        // 在拓扑图中标记堆叠组
+        function markStackGroupInTopology(stackGroup) {
+            if (!cy) return;
+            
+            // 为堆叠组中的设备添加特殊样式
+            stackGroup.devices.forEach(deviceId => {
+                const node = cy.getElementById(deviceId);
+                if (node.length > 0) {
+                    node.addClass('stack-group-device');
+                    node.data('stackGroup', stackGroup.id);
+                }
+            });
+            
+            // 添加堆叠组连接线
+            for (let i = 0; i < stackGroup.devices.length - 1; i++) {
+                const sourceId = stackGroup.devices[i];
+                const targetId = stackGroup.devices[i + 1];
+                
+                cy.add({
+                    group: 'edges',
+                    data: {
+                        id: `stack_${stackGroup.id}_${i}`,
+                        source: sourceId,
+                        target: targetId,
+                        type: 'stack',
+                        label: '堆叠'
+                    }
+                });
+            }
+        }
+        
+        // 在拓扑图中标记MLAG组
+        function markMLAGGroupInTopology(mlagGroup) {
+            if (!cy) return;
+            
+            // 为MLAG组中的设备添加特殊样式
+            mlagGroup.devices.forEach(deviceId => {
+                const node = cy.getElementById(deviceId);
+                if (node.length > 0) {
+                    node.addClass('mlag-group-device');
+                    node.data('mlagGroup', mlagGroup.id);
+                }
+            });
+            
+            // 添加Peer-Link连接
+            cy.add({
+                group: 'edges',
+                data: {
+                    id: `mlag_${mlagGroup.id}_peerlink`,
+                    source: mlagGroup.devices[0],
+                    target: mlagGroup.devices[1],
+                    type: 'peer-link',
+                    label: 'Peer-Link'
+                }
+            });
+            
+            // 如果启用了Keepalive，添加Keepalive连接
+            if (mlagGroup.enableKeepalive) {
+                cy.add({
+                    group: 'edges',
+                    data: {
+                        id: `mlag_${mlagGroup.id}_keepalive`,
+                        source: mlagGroup.devices[0],
+                        target: mlagGroup.devices[1],
+                        type: 'keepalive',
+                        label: 'Keepalive'
+                    }
+                });
+            }
+        }
+        
+        // 加载现有分组
+        function loadExistingGroups() {
+            fetch('/get_device_groups')
+                .then(response => response.json())
+                .then(data => {
+                    if (data.success && data.groups) {
+                        deviceGroups = data.groups;
+                        updateGroupsList();
+                    }
+                })
+                .catch(error => {
+                    console.error('Error loading groups:', error);
+                });
+        }
+        
+        // 当管理分组模态框显示时加载现有分组
+        document.getElementById('manageGroupsModal').addEventListener('show.bs.modal', function() {
+            loadExistingGroups();
+        });
+
     </script>
 
 </body>

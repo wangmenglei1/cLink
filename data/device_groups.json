@@ -1,0 +1,33 @@
+{
+  "version": "2.0",
+  "timestamp": "2025-07-08T10:56:49.394629",
+  "groups": [
+    {
+      "id": "5b1f0b0a-2612-478e-9a7f-b92f13c8d491",
+      "name": "MLAG_SW01_SW02",
+      "template_id": "3eb8da89-7f1c-497a-b866-ce48a65f0697",
+      "primary_device_id": "device_50b9a0ce0dca",
+      "secondary_device_id": "device_86a51df0a471",
+      "created_at": "2025-07-08T10:56:49.352022",
+      "updated_at": "2025-07-08T10:56:49.352022"
+    },
+    {
+      "id": "60f2a447-1d28-4c2a-aa4f-25c80fed44b0",
+      "name": "MLAG_SW03_SW04",
+      "template_id": "3eb8da89-7f1c-497a-b866-ce48a65f0697",
+      "primary_device_id": "device_a984d477ccd9",
+      "secondary_device_id": "device_9edddbdb2dd9",
+      "created_at": "2025-07-08T10:56:49.378278",
+      "updated_at": "2025-07-08T10:56:49.378278"
+    },
+    {
+      "id": "cf37b5c1-23f0-4c6d-bf3b-424646ee2624",
+      "name": "MLAG_SW05_SW06",
+      "template_id": "3eb8da89-7f1c-497a-b866-ce48a65f0697",
+      "primary_device_id": "device_95fbb5bbc396",
+      "secondary_device_id": "device_4088d8150edc",
+      "created_at": "2025-07-08T10:56:49.394629",
+      "updated_at": "2025-07-08T10:56:49.394629"
+    }
+  ]
+}

@@ -59,6 +59,9 @@
                     <button id="add-instance-btn" class="btn btn-primary"><i class="fas fa-plus me-1"></i> 添加设备实例</button>
                 </div>
                 <div class="col-md-auto">
+                    <button id="import-devices-btn" class="btn btn-success"><i class="fas fa-file-import me-1"></i> 导入设备</button>
+                </div>
+                <div class="col-md-auto">
                     <button id="manage-types-btn" class="btn btn-info"><i class="fas fa-cogs me-1"></i> 管理设备型号</button>
                 </div>
                 <div class="col"></div> <!-- Spacer -->
@@ -251,6 +254,96 @@
         </div>
     </div>
 
+    <!-- Import Devices Modal -->
+    <div class="modal fade" id="import-devices-modal" tabindex="-1">
+        <div class="modal-dialog modal-lg">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">导入设备</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+                </div>
+                <div class="modal-body">
+                    <!-- File Upload Section -->
+                    <div class="mb-4">
+                        <h6>选择文件</h6>
+                        <div class="input-group">
+                            <input type="file" class="form-control" id="device-import-file" accept=".csv,.xlsx,.xls" />
+                            <button class="btn btn-outline-secondary" type="button" id="parse-file-btn">解析文件</button>
+                        </div>
+                        <div class="form-text">
+                            支持CSV和Excel格式。文件应包含两列：设备名称、设备型号
+                        </div>
+                    </div>
+
+                    <!-- Template Download -->
+                    <div class="mb-4">
+                        <h6>模板下载</h6>
+                        <button class="btn btn-outline-info btn-sm" id="download-template-btn">
+                            <i class="fas fa-download me-1"></i> 下载导入模板
+                        </button>
+                        <div class="form-text">
+                            下载标准模板，填写设备信息后导入
+                        </div>
+                    </div>
+
+                    <!-- Preview Section -->
+                    <div id="import-preview-section" style="display: none;">
+                        <h6>导入预览</h6>
+                        <div class="alert alert-info">
+                            <strong>注意：</strong> 只有已定义的设备型号才能导入。未定义的型号将被跳过。
+                        </div>
+                        <div class="table-responsive" style="max-height: 300px; overflow-y: auto;">
+                            <table class="table table-sm table-striped">
+                                <thead>
+                                    <tr>
+                                        <th>状态</th>
+                                        <th>设备名称</th>
+                                        <th>设备型号</th>
+                                        <th>备注</th>
+                                    </tr>
+                                </thead>
+                                <tbody id="import-preview-tbody">
+                                </tbody>
+                            </table>
+                        </div>
+                        <div class="mt-3">
+                            <div class="row">
+                                <div class="col-md-3">
+                                    <div class="text-center">
+                                        <span class="badge bg-success fs-6" id="valid-count">0</span>
+                                        <div class="small text-muted">有效设备</div>
+                                    </div>
+                                </div>
+                                <div class="col-md-3">
+                                    <div class="text-center">
+                                        <span class="badge bg-warning fs-6" id="duplicate-count">0</span>
+                                        <div class="small text-muted">重复名称</div>
+                                    </div>
+                                </div>
+                                <div class="col-md-3">
+                                    <div class="text-center">
+                                        <span class="badge bg-danger fs-6" id="invalid-count">0</span>
+                                        <div class="small text-muted">无效型号</div>
+                                    </div>
+                                </div>
+                                <div class="col-md-3">
+                                    <div class="text-center">
+                                        <span class="badge bg-secondary fs-6" id="total-count">0</span>
+                                        <div class="small text-muted">总计</div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">取消</button>
+                    <button type="button" id="confirm-import-btn" class="btn btn-primary" disabled>确认导入</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
     <!-- Batch Mount Modal -->
     <div class="modal fade" id="batch-mount-modal" tabindex="-1">
         <div class="modal-dialog">
@@ -278,8 +371,13 @@
                         <label for="batch-mount-start-u" class="form-label">起始U位</label>
                         <input type="number" id="batch-mount-start-u" class="form-control" min="1" value="1">
                     </div>
+                    <div class="mb-3">
+                        <label for="batch-mount-spacing-u" class="form-label">设备间隔U位</label>
+                        <input type="number" id="batch-mount-spacing-u" class="form-control" min="0" value="1">
+                        <small class="form-text text-muted">在每台设备之间插入的空白U位数。</small>
+                    </div>
                     <div class="alert alert-info" role="alert">
-                        设备将从起始U位开始，根据各自的高度依次向上堆叠放置。
+                        设备将从起始U位开始，根据各自的高度和间隔依次向上堆叠放置。
                     </div>
                 </div>
                 <div class="modal-footer">
@@ -303,6 +401,7 @@
         const addInstanceModal = new bootstrap.Modal(document.getElementById('add-instance-modal'));
         const manageTypesModal = new bootstrap.Modal(document.getElementById('manage-types-modal'));
         const batchMountModal = new bootstrap.Modal(document.getElementById('batch-mount-modal'));
+        const importDevicesModal = new bootstrap.Modal(document.getElementById('import-devices-modal'));
 
         // Fetch all necessary data
         async function fetchAllData() {
@@ -345,15 +444,29 @@
             allTypes.forEach(type => typeFilter.add(new Option(type.name, type.name)));
         }
 
+        // 填充设备类型下拉列表
         function populateAddInstanceDeviceTypes() {
             const singleSelect = document.getElementById('add-instance-type-single');
             const batchSelect = document.getElementById('add-instance-type-batch');
-            singleSelect.innerHTML = '<option value="">请选择型号...</option>';
-            batchSelect.innerHTML = '<option value="">请选择型号...</option>';
+            if (!singleSelect || !batchSelect) return;
+
+            // 清空现有选项
+            singleSelect.innerHTML = '<option value="">选择设备型号...</option>';
+            batchSelect.innerHTML = '<option value="">选择设备型号...</option>';
+
+            // 添加设备类型选项
             allTypes.forEach(type => {
-                const option = new Option(type.name, type.name);
-                singleSelect.add(option.cloneNode(true));
-                batchSelect.add(option);
+                // 为单台添加创建选项
+                const singleOption = document.createElement('option');
+                singleOption.value = type.name;
+                singleOption.textContent = type.name;
+                singleSelect.appendChild(singleOption);
+
+                // 为批量添加创建选项
+                const batchOption = document.createElement('option');
+                batchOption.value = type.name;
+                batchOption.textContent = type.name;
+                batchSelect.appendChild(batchOption);
             });
         }
 
@@ -572,6 +685,7 @@
             const selectedIds = getSelectedDeviceIds();
             const rack_id = document.getElementById('batch-mount-rack-select').value;
             const start_u_val = document.getElementById('batch-mount-start-u').value;
+            const spacing_u_val = document.getElementById('batch-mount-spacing-u').value;
 
             if (!rack_id) {
                 alert('请选择目标机柜。');
@@ -582,31 +696,16 @@
                 return;
             }
 
-            let current_u = parseInt(start_u_val, 10);
-            const device_updates = [];
-
-            for (const deviceId of selectedIds) {
-                const device = allDevices.find(d => d.id === deviceId);
-                const deviceType = allTypes.find(t => t.name === device.device_type);
-                if (!device || !deviceType) {
-                    alert(`无法找到设备 ${deviceId} 或其型号的详细信息。`);
-                    return;
-                }
-                const deviceHeight = deviceType.height_u || 1;
-                
-                device_updates.push({
-                    device_id: deviceId,
-                    rack_u: current_u
-                });
-
-                current_u += deviceHeight;
-            }
-
             try {
                 const response = await fetch('/batch_rack_mount', {
                     method: 'POST',
                     headers: { 'Content-Type': 'application/json' },
-                    body: JSON.stringify({ rack_id, device_updates })
+                    body: JSON.stringify({ 
+                        rack_id: rack_id,
+                        device_ids: selectedIds,
+                        start_u: parseInt(start_u_val, 10),
+                        spacing_u: parseInt(spacing_u_val, 10)
+                    })
                 });
 
                 const result = await response.json();
@@ -615,9 +714,6 @@
                 if (response.ok) {
                     batchMountModal.hide();
                     await fetchAllData();
-                } else if (result.errors) {
-                    // Provide more detailed error feedback if available
-                    alert('上架失败，详情: \n' + result.errors.join('\n'));
                 }
             } catch (error) {
                 console.error('Batch mount failed:', error);
@@ -689,36 +785,49 @@
         // Checkbox logic
         document.getElementById('select-all-checkbox').addEventListener('change', (e) => {
             document.querySelectorAll('.device-checkbox').forEach(cb => cb.checked = e.target.checked);
-            updateBatchDeleteButtonState();
+            updateBatchActionButtonsState();
         });
         document.getElementById('devices-table-body').addEventListener('change', (e) => {
             if (e.target.classList.contains('device-checkbox')) {
-                updateBatchDeleteButtonState();
+                updateBatchActionButtonsState();
             }
         });
-        function updateBatchDeleteButtonState() {
-             const selectedCheckboxes = document.querySelectorAll('.device-checkbox:checked');
-             const anyChecked = selectedCheckboxes.length > 0;
-             let allSelectedAreUnmounted = true;
-             
-             if (anyChecked) {
-                const selectedIds = [...selectedCheckboxes].map(cb => cb.value);
-                for (const id of selectedIds) {
-                    const device = allDevices.find(d => d.id === id);
-                    if (!device || device.rack_id) {
-                        allSelectedAreUnmounted = false;
-                        break;
+        function updateBatchActionButtonsState() {
+            const selectedCheckboxes = document.querySelectorAll('.device-checkbox:checked');
+            const selectedIds = [...selectedCheckboxes].map(cb => cb.value);
+            const anyChecked = selectedIds.length > 0;
+
+            // Default states
+            let mountEnabled = false;
+            let unmountEnabled = false;
+            let powerOnEnabled = false;
+            let powerOffEnabled = false;
+            let deleteEnabled = false;
+
+            if (anyChecked) {
+                const selectedDevices = selectedIds.map(id => allDevices.find(d => d.id === id)).filter(Boolean);
+
+                if (selectedDevices.length === selectedIds.length) { // Check if all devices are found
+                    const isAllUnmounted = selectedDevices.every(d => !d.rack_id);
+                    const isAllMounted = selectedDevices.every(d => d.rack_id);
+
+                    if (isAllUnmounted) {
+                        mountEnabled = true;
+                        deleteEnabled = true;
+                    } else if (isAllMounted) {
+                        unmountEnabled = true;
+                        powerOnEnabled = true;
+                        powerOffEnabled = true;
                     }
+                    // If it's a mix of mounted/unmounted, all buttons remain disabled, which is correct.
                 }
-             } else {
-                allSelectedAreUnmounted = false;
-             }
-             
-             document.getElementById('batch-delete-btn').disabled = !anyChecked;
-             document.getElementById('batch-power-on-btn').disabled = !anyChecked;
-             document.getElementById('batch-power-off-btn').disabled = !anyChecked;
-             document.getElementById('batch-unmount-btn').disabled = !anyChecked;
-             document.getElementById('batch-mount-btn').disabled = !allSelectedAreUnmounted;
+            }
+
+            document.getElementById('batch-mount-btn').disabled = !mountEnabled;
+            document.getElementById('batch-unmount-btn').disabled = !unmountEnabled;
+            document.getElementById('batch-power-on-btn').disabled = !powerOnEnabled;
+            document.getElementById('batch-power-off-btn').disabled = !powerOffEnabled;
+            document.getElementById('batch-delete-btn').disabled = !deleteEnabled;
         }
 
         // Top-level buttons
@@ -822,6 +931,240 @@
 
         // --- End of New Add Instance Logic ---
 
+        // Import Devices Logic
+        let importData = [];
+        let existingDeviceNames = new Set();
+
+        document.getElementById('import-devices-btn').addEventListener('click', () => {
+            // Update existing device names for duplicate check
+            existingDeviceNames = new Set(allDevices.map(d => d.instance_name.toLowerCase()));
+            importDevicesModal.show();
+        });
+
+        document.getElementById('download-template-btn').addEventListener('click', () => {
+            downloadImportTemplate();
+        });
+
+        document.getElementById('parse-file-btn').addEventListener('click', () => {
+            parseImportFile();
+        });
+
+        document.getElementById('confirm-import-btn').addEventListener('click', () => {
+            confirmImport();
+        });
+
+        function downloadImportTemplate() {
+            const csvContent = "设备名称,设备型号\n" +
+                              "Server01,5130\n" +
+                              "Server02,HP\n" +
+                              "Switch01,CE6851-48S6Q-HI";
+            
+            const blob = new Blob([csvContent], { type: 'text/csv;charset=utf-8;' });
+            const link = document.createElement('a');
+            const url = URL.createObjectURL(blob);
+            link.setAttribute('href', url);
+            link.setAttribute('download', '设备导入模板.csv');
+            link.style.visibility = 'hidden';
+            document.body.appendChild(link);
+            link.click();
+            document.body.removeChild(link);
+        }
+
+        function parseImportFile() {
+            const fileInput = document.getElementById('device-import-file');
+            const file = fileInput.files[0];
+            
+            if (!file) {
+                alert('请选择文件');
+                return;
+            }
+
+            const reader = new FileReader();
+            reader.onload = function(e) {
+                const data = e.target.result;
+                
+                if (file.name.endsWith('.csv')) {
+                    parseCSV(data);
+                } else if (file.name.endsWith('.xlsx') || file.name.endsWith('.xls')) {
+                    parseExcel(data);
+                }
+            };
+            
+            if (file.name.endsWith('.csv')) {
+                reader.readAsText(file, 'UTF-8');
+            } else {
+                reader.readAsArrayBuffer(file);
+            }
+        }
+
+        function parseCSV(csvData) {
+            const lines = csvData.split('\n');
+            const devices = [];
+            
+            // Skip header row
+            for (let i = 1; i < lines.length; i++) {
+                const line = lines[i].trim();
+                if (line) {
+                    const columns = line.split(',');
+                    if (columns.length >= 2) {
+                        devices.push({
+                            name: columns[0].trim(),
+                            type: columns[1].trim()
+                        });
+                    }
+                }
+            }
+            
+            processImportData(devices);
+        }
+
+        function parseExcel(arrayBuffer) {
+            // For Excel parsing, we'll need a library like SheetJS
+            // For now, show a message that Excel support requires additional setup
+            alert('Excel文件解析需要额外的库支持。请使用CSV格式或联系管理员添加Excel支持。');
+        }
+
+        function processImportData(devices) {
+            importData = [];
+            let validCount = 0;
+            let duplicateCount = 0;
+            let invalidCount = 0;
+            
+            const validTypeNames = new Set(allTypes.map(t => t.name));
+            
+            devices.forEach(device => {
+                const status = getDeviceStatus(device.name, device.type, validTypeNames);
+                
+                importData.push({
+                    name: device.name,
+                    type: device.type,
+                    status: status.status,
+                    message: status.message
+                });
+                
+                switch (status.status) {
+                    case 'valid':
+                        validCount++;
+                        break;
+                    case 'duplicate':
+                        duplicateCount++;
+                        break;
+                    case 'invalid':
+                        invalidCount++;
+                        break;
+                }
+            });
+            
+            updateImportPreview(validCount, duplicateCount, invalidCount, devices.length);
+        }
+
+        function getDeviceStatus(deviceName, deviceType, validTypeNames) {
+            if (!deviceName || !deviceType) {
+                return { status: 'invalid', message: '设备名称或型号为空' };
+            }
+            
+            if (existingDeviceNames.has(deviceName.toLowerCase())) {
+                return { status: 'duplicate', message: '设备名称已存在' };
+            }
+            
+            if (!validTypeNames.has(deviceType)) {
+                return { status: 'invalid', message: '设备型号未定义' };
+            }
+            
+            return { status: 'valid', message: '可以导入' };
+        }
+
+        function updateImportPreview(validCount, duplicateCount, invalidCount, totalCount) {
+            // Update counters
+            document.getElementById('valid-count').textContent = validCount;
+            document.getElementById('duplicate-count').textContent = duplicateCount;
+            document.getElementById('invalid-count').textContent = invalidCount;
+            document.getElementById('total-count').textContent = totalCount;
+            
+            // Update preview table
+            const tbody = document.getElementById('import-preview-tbody');
+            tbody.innerHTML = '';
+            
+            importData.forEach(device => {
+                const row = document.createElement('tr');
+                const statusBadge = getStatusBadge(device.status);
+                
+                row.innerHTML = `
+                    <td>${statusBadge}</td>
+                    <td>${device.name}</td>
+                    <td>${device.type}</td>
+                    <td>${device.message}</td>
+                `;
+                
+                tbody.appendChild(row);
+            });
+            
+            // Show preview section
+            document.getElementById('import-preview-section').style.display = 'block';
+            
+            // Enable/disable import button
+            document.getElementById('confirm-import-btn').disabled = validCount === 0;
+        }
+
+        function getStatusBadge(status) {
+            switch (status) {
+                case 'valid':
+                    return '<span class="badge bg-success">有效</span>';
+                case 'duplicate':
+                    return '<span class="badge bg-warning">重复</span>';
+                case 'invalid':
+                    return '<span class="badge bg-danger">无效</span>';
+                default:
+                    return '<span class="badge bg-secondary">未知</span>';
+            }
+        }
+
+        async function confirmImport() {
+            const validDevices = importData.filter(d => d.status === 'valid');
+            
+            if (validDevices.length === 0) {
+                alert('没有有效的设备可以导入');
+                return;
+            }
+            
+            if (!confirm(`确定要导入 ${validDevices.length} 个设备吗？`)) {
+                return;
+            }
+            
+            const importBtn = document.getElementById('confirm-import-btn');
+            importBtn.disabled = true;
+            importBtn.textContent = '导入中...';
+            
+            try {
+                const response = await fetch('/import_device_instances', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ devices: validDevices })
+                });
+                
+                const result = await response.json();
+                
+                if (response.ok) {
+                    alert(result.message);
+                    importDevicesModal.hide();
+                    await fetchAllData();
+                    // Reset form
+                    document.getElementById('device-import-file').value = '';
+                    document.getElementById('import-preview-section').style.display = 'none';
+                } else {
+                    alert('导入失败: ' + result.message);
+                }
+            } catch (error) {
+                console.error('Import failed:', error);
+                alert('导入失败，请查看控制台日志');
+            } finally {
+                importBtn.disabled = false;
+                importBtn.textContent = '确认导入';
+            }
+        }
+
+        // --- End of Import Devices Logic ---
+
         // Manage Device Types Modal Logic
         function renderDefinedTypesList() {
             const container = document.getElementById('defined-types-accordion');
@@ -841,8 +1184,8 @@
                 let definitionsHtml = '';
                 if (type.definitions && type.definitions.length > 0) {
                     definitionsHtml = type.definitions.map(def => {
-                        const prefix = interfaceConfig[def.rate]?.media_types[def.media_type]?.prefix || '?';
-                        return `<li class="list-group-item">${def.rate} ${def.media_type}: ${prefix}${def.naming_prefix}${def.start} - ${def.end}</li>`;
+                        const prefix = interfaceConfig[def.rate]?.interface_types[def.interface_type]?.prefix || '?';
+                        return `<li class="list-group-item">${def.rate} ${def.interface_type}: ${prefix}${def.naming_prefix}${def.start} - ${def.end}</li>`;
                     }).join('');
                 } else {
                     definitionsHtml = '<li class="list-group-item">无详细接口定义</li>';
@@ -888,11 +1231,11 @@
                 `<option value="${rate}" ${definition.rate === rate ? 'selected' : ''}>${rate}</option>`
             ).join('');
 
-            // Determine the initial rate to populate the media type dropdown
+            // Determine the initial rate to populate the interface type dropdown
             const initialRate = definition.rate || Object.keys(interfaceConfig)[0];
-            const mediaTypeConfig = interfaceConfig[initialRate]?.media_types || {};
-            const mediaTypeOptions = Object.keys(mediaTypeConfig).map(media => 
-                `<option value="${media}" ${definition.media_type === media ? 'selected' : ''}>${media}</option>`
+            const interfaceTypeConfig = interfaceConfig[initialRate]?.interface_types || {};
+            const interfaceTypeOptions = Object.keys(interfaceTypeConfig).map(interfaceType => 
+                `<option value="${interfaceType}" ${definition.interface_type === interfaceType ? 'selected' : ''}>${interfaceType}</option>`
             ).join('');
 
             row.innerHTML = `
@@ -901,8 +1244,8 @@
                     <select class="form-select form-select-sm rate-select">${rateOptions}</select>
                 </div>
                 <div class="col-md-2">
-                    <label class="form-label-sm">介质类型</label>
-                    <select class="form-select form-select-sm media-type-select">${mediaTypeOptions}</select>
+                    <label class="form-label-sm">接口类型</label>
+                    <select class="form-select form-select-sm interface-type-select">${interfaceTypeOptions}</select>
                 </div>
                 <div class="col-md-3">
                     <label class="form-label-sm">端口编号前缀</label>
@@ -925,27 +1268,27 @@
             
             // --- Add Interactivity ---
             const rateSelect = row.querySelector('.rate-select');
-            const mediaSelect = row.querySelector('.media-type-select');
+            const interfaceTypeSelect = row.querySelector('.interface-type-select');
             
             rateSelect.addEventListener('change', (event) => {
                 const selectedRate = event.target.value;
-                const newMediaConfig = interfaceConfig[selectedRate];
-                if (!newMediaConfig) return;
+                const newInterfaceConfig = interfaceConfig[selectedRate];
+                if (!newInterfaceConfig) return;
 
-                // Update media type options based on the new rate
-                mediaSelect.innerHTML = Object.keys(newMediaConfig.media_types).map(media => 
-                    `<option value="${media}">${media}</option>`
+                // Update interface type options based on the new rate
+                interfaceTypeSelect.innerHTML = Object.keys(newInterfaceConfig.interface_types).map(interfaceType => 
+                    `<option value="${interfaceType}">${interfaceType}</option>`
                 ).join('');
 
-                // Set the default media type for the selected rate
-                mediaSelect.value = newMediaConfig.default_media;
+                // Set the default interface type for the selected rate
+                interfaceTypeSelect.value = newInterfaceConfig.default_interface;
             });
             
-            // Set the initial media type default value when the row is first created
+            // Set the initial interface type default value when the row is first created
             if (initialRate) {
-                const initialMediaDefault = definition.media_type || interfaceConfig[initialRate]?.default_media;
-                if (initialMediaDefault) {
-                    mediaSelect.value = initialMediaDefault;
+                const initialInterfaceDefault = definition.interface_type || interfaceConfig[initialRate]?.default_interface;
+                if (initialInterfaceDefault) {
+                    interfaceTypeSelect.value = initialInterfaceDefault;
                 }
             }
 
@@ -1013,7 +1356,7 @@
 
                 interfaces.push({
                     rate: row.querySelector('.rate-select').value,
-                    media_type: row.querySelector('.media-type-select').value,
+                    interface_type: row.querySelector('.interface-type-select').value,
                     naming_prefix: row.querySelector('.naming-prefix').value.trim(),
                     start: start,
                     end: end,

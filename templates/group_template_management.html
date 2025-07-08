@@ -1,0 +1,383 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>组模板管理 - 数据中心管理系统</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <style>
+        :root {
+            --primary-color: #2563eb;
+            --secondary-color: #64748b;
+            --success-color: #10b981;
+            --warning-color: #f59e0b;
+            --danger-color: #ef4444;
+            --light-bg: #f8fafc;
+            --dark-text: #1e293b;
+            --border-color: #e2e8f0;
+        }
+        body {
+            background-color: var(--light-bg);
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+        }
+        .template-card {
+            background: white;
+            border-radius: 8px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+            margin-bottom: 1rem;
+        }
+        .interface-config {
+            background: #f8f9fa;
+            border-radius: 4px;
+            padding: 1rem;
+            margin: 0.5rem 0;
+        }
+    </style>
+</head>
+<body>
+    <div class="container-fluid py-4">
+        <h1 class="text-center mb-4">组模板管理</h1>
+
+        <!-- Actions -->
+        <div class="card p-3 mb-4">
+            <div class="row g-3 align-items-center">
+                <div class="col-md-auto">
+                    <button id="add-template-btn" class="btn btn-primary">
+                        <i class="fas fa-plus me-1"></i> 添加组模板
+                    </button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Templates List -->
+        <div id="templates-container">
+            <!-- Templates will be dynamically added here -->
+        </div>
+    </div>
+
+    <!-- Add/Edit Template Modal -->
+    <div class="modal fade" id="template-modal" tabindex="-1">
+        <div class="modal-dialog modal-lg">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">组模板配置</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+                </div>
+                <div class="modal-body">
+                    <form id="template-form">
+                        <input type="hidden" id="template-id">
+                        <div class="mb-3">
+                            <label for="template-name" class="form-label">模板名称</label>
+                            <input type="text" class="form-control" id="template-name" required>
+                        </div>
+                        <div class="mb-3">
+                            <label for="group-type" class="form-label">组类型</label>
+                            <select class="form-select" id="group-type" required>
+                                <option value="stack">Stack</option>
+                                <option value="mlag">MLAG</option>
+                            </select>
+                        </div>
+                        <div class="mb-3">
+                            <label for="device-type" class="form-label">设备型号</label>
+                            <select class="form-select" id="device-type" required>
+                                <!-- Device types will be populated dynamically -->
+                            </select>
+                        </div>
+
+                        <div class="interface-config">
+                            <h6>Peer-Link 接口配置</h6>
+                            <div class="mb-3">
+                                <label class="form-label">选择接口</label>
+                                <div id="peer-link-ports" class="row g-2">
+                                    <!-- Ports will be populated based on device type -->
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="interface-config">
+                            <h6>Keepalive 接口配置</h6>
+                            <div class="mb-3">
+                                <label class="form-label">选择接口</label>
+                                <div id="keepalive-ports" class="row g-2">
+                                    <!-- Ports will be populated based on device type -->
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="interface-config">
+                            <h6>业务接口配置</h6>
+                            <div class="mb-3">
+                                <label class="form-label">上行接口</label>
+                                <div id="uplink-ports" class="row g-2">
+                                    <!-- Ports will be populated based on device type -->
+                                </div>
+                            </div>
+                            <div class="mb-3">
+                                <label class="form-label">下行接口</label>
+                                <div id="downlink-ports" class="row g-2">
+                                    <!-- Ports will be populated based on device type -->
+                                </div>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">取消</button>
+                    <button type="button" id="save-template-btn" class="btn btn-primary">保存模板</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script>
+    <script>
+    document.addEventListener('DOMContentLoaded', function() {
+        let allDeviceTypes = [];
+        let allTemplates = [];
+        const templateModal = new bootstrap.Modal(document.getElementById('template-modal'));
+
+        // 初始化加载
+        async function initialize() {
+            try {
+                const [deviceTypesRes, templatesRes] = await Promise.all([
+                    fetch('/get_device_types'),
+                    fetch('/get_group_templates')
+                ]);
+
+                if (!deviceTypesRes.ok || !templatesRes.ok) {
+                    throw new Error('Failed to fetch data');
+                }
+
+                const deviceTypesData = await deviceTypesRes.json();
+                const templatesData = await templatesRes.json();
+
+                allDeviceTypes = deviceTypesData.device_types || [];
+                allTemplates = templatesData.templates || [];
+
+                populateDeviceTypes();
+                renderTemplates();
+            } catch (error) {
+                console.error('Failed to initialize:', error);
+                alert('加载数据失败，请刷新页面重试');
+            }
+        }
+
+        // 填充设备类型下拉列表
+        function populateDeviceTypes() {
+            const select = document.getElementById('device-type');
+            select.innerHTML = '<option value="">选择设备型号...</option>';
+            allDeviceTypes.forEach(type => {
+                const option = document.createElement('option');
+                option.value = type.name;
+                option.textContent = type.name;
+                select.appendChild(option);
+            });
+        }
+
+        // 渲染接口选择
+        function renderPortSelection(deviceType, containerId, selectedPorts = []) {
+            const container = document.getElementById(containerId);
+            container.innerHTML = '';
+
+            const type = allDeviceTypes.find(t => t.name === deviceType);
+            if (!type || !type.interfaces) return;
+
+            type.interfaces.forEach(port => {
+                const div = document.createElement('div');
+                div.className = 'col-md-3';
+                div.innerHTML = `
+                    <div class="form-check">
+                        <input class="form-check-input" type="checkbox" 
+                               value="${port.name}" 
+                               id="${containerId}_${port.name}"
+                               ${selectedPorts.includes(port.name) ? 'checked' : ''}>
+                        <label class="form-check-label" for="${containerId}_${port.name}">
+                            ${port.name}
+                        </label>
+                    </div>
+                `;
+                container.appendChild(div);
+            });
+        }
+
+        // 当设备类型改变时更新接口选择
+        document.getElementById('device-type').addEventListener('change', function() {
+            const deviceType = this.value;
+            renderPortSelection(deviceType, 'peer-link-ports');
+            renderPortSelection(deviceType, 'keepalive-ports');
+            renderPortSelection(deviceType, 'uplink-ports');
+            renderPortSelection(deviceType, 'downlink-ports');
+        });
+
+        // 渲染模板列表
+        function renderTemplates() {
+            const container = document.getElementById('templates-container');
+            container.innerHTML = '';
+
+            if (allTemplates.length === 0) {
+                container.innerHTML = '<div class="alert alert-info">暂无组模板，请点击"添加组模板"按钮创建。</div>';
+                return;
+            }
+
+            allTemplates.forEach(template => {
+                const card = document.createElement('div');
+                card.className = 'template-card p-3';
+                card.innerHTML = `
+                    <div class="d-flex justify-content-between align-items-start">
+                        <div>
+                            <h5>${template.name}</h5>
+                            <div class="text-muted">
+                                <small>组类型: ${template.group_type}</small><br>
+                                <small>设备型号: ${template.device_type}</small>
+                            </div>
+                        </div>
+                        <div>
+                            <button class="btn btn-sm btn-primary edit-template-btn" data-id="${template.id}">
+                                <i class="fas fa-edit"></i> 编辑
+                            </button>
+                            <button class="btn btn-sm btn-danger delete-template-btn" data-id="${template.id}">
+                                <i class="fas fa-trash"></i> 删除
+                            </button>
+                        </div>
+                    </div>
+                    <div class="mt-3">
+                        <div class="row">
+                            <div class="col-md-6">
+                                <h6>Peer-Link 接口</h6>
+                                <small>${template.peer_link_ports.join(', ')}</small>
+                            </div>
+                            <div class="col-md-6">
+                                <h6>Keepalive 接口</h6>
+                                <small>${template.keepalive_ports.join(', ')}</small>
+                            </div>
+                        </div>
+                        <div class="row mt-2">
+                            <div class="col-md-6">
+                                <h6>上行接口</h6>
+                                <small>${template.uplink_ports.join(', ')}</small>
+                            </div>
+                            <div class="col-md-6">
+                                <h6>下行接口</h6>
+                                <small>${template.downlink_ports.join(', ')}</small>
+                            </div>
+                        </div>
+                    </div>
+                `;
+                container.appendChild(card);
+            });
+        }
+
+        // 获取选中的接口
+        function getSelectedPorts(containerId) {
+            return Array.from(document.querySelectorAll(`#${containerId} input:checked`))
+                       .map(input => input.value);
+        }
+
+        // 保存模板
+        async function saveTemplate() {
+            const templateId = document.getElementById('template-id').value;
+            const templateData = {
+                name: document.getElementById('template-name').value,
+                group_type: document.getElementById('group-type').value,
+                device_type: document.getElementById('device-type').value,
+                peer_link_ports: getSelectedPorts('peer-link-ports'),
+                keepalive_ports: getSelectedPorts('keepalive-ports'),
+                uplink_ports: getSelectedPorts('uplink-ports'),
+                downlink_ports: getSelectedPorts('downlink-ports')
+            };
+
+            try {
+                const url = templateId ? `/update_group_template/${templateId}` : '/create_group_template';
+                const method = templateId ? 'PUT' : 'POST';
+                
+                const response = await fetch(url, {
+                    method: method,
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify(templateData)
+                });
+
+                if (!response.ok) {
+                    throw new Error('Failed to save template');
+                }
+
+                const result = await response.json();
+                alert(result.message);
+                templateModal.hide();
+                await initialize(); // 重新加载数据
+            } catch (error) {
+                console.error('Failed to save template:', error);
+                alert('保存模板失败，请重试');
+            }
+        }
+
+        // 删除模板
+        async function deleteTemplate(templateId) {
+            if (!confirm('确定要删除此模板吗？')) return;
+
+            try {
+                const response = await fetch(`/delete_group_template/${templateId}`, {
+                    method: 'DELETE'
+                });
+
+                if (!response.ok) {
+                    throw new Error('Failed to delete template');
+                }
+
+                const result = await response.json();
+                alert(result.message);
+                await initialize(); // 重新加载数据
+            } catch (error) {
+                console.error('Failed to delete template:', error);
+                alert('删除模板失败，请重试');
+            }
+        }
+
+        // 编辑模板
+        function editTemplate(templateId) {
+            const template = allTemplates.find(t => t.id === templateId);
+            if (!template) return;
+
+            document.getElementById('template-id').value = template.id;
+            document.getElementById('template-name').value = template.name;
+            document.getElementById('group-type').value = template.group_type;
+            document.getElementById('device-type').value = template.device_type;
+
+            // 渲染接口选择并设置选中状态
+            renderPortSelection(template.device_type, 'peer-link-ports', template.peer_link_ports);
+            renderPortSelection(template.device_type, 'keepalive-ports', template.keepalive_ports);
+            renderPortSelection(template.device_type, 'uplink-ports', template.uplink_ports);
+            renderPortSelection(template.device_type, 'downlink-ports', template.downlink_ports);
+
+            templateModal.show();
+        }
+
+        // 事件监听器
+        document.getElementById('add-template-btn').addEventListener('click', () => {
+            document.getElementById('template-id').value = '';
+            document.getElementById('template-form').reset();
+            templateModal.show();
+        });
+
+        document.getElementById('save-template-btn').addEventListener('click', saveTemplate);
+
+        document.getElementById('templates-container').addEventListener('click', e => {
+            const target = e.target;
+            if (target.classList.contains('edit-template-btn') || 
+                target.parentElement.classList.contains('edit-template-btn')) {
+                const templateId = target.closest('.edit-template-btn').dataset.id;
+                editTemplate(templateId);
+            }
+            if (target.classList.contains('delete-template-btn') || 
+                target.parentElement.classList.contains('delete-template-btn')) {
+                const templateId = target.closest('.delete-template-btn').dataset.id;
+                deleteTemplate(templateId);
+            }
+        });
+
+        // 初始化加载
+        initialize();
+    });
+    </script>
+</body>
+</html> 

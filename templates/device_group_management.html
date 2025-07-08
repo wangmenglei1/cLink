@@ -1,0 +1,446 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>设备组管理 - 数据中心管理系统</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <style>
+        :root {
+            --primary-color: #2563eb;
+            --secondary-color: #64748b;
+            --success-color: #10b981;
+            --warning-color: #f59e0b;
+            --danger-color: #ef4444;
+            --light-bg: #f8fafc;
+            --dark-text: #1e293b;
+            --border-color: #e2e8f0;
+        }
+        body {
+            background-color: var(--light-bg);
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+        }
+        .group-card {
+            background: white;
+            border-radius: 8px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+            margin-bottom: 1rem;
+        }
+        .device-list {
+            max-height: 300px;
+            overflow-y: auto;
+        }
+        .device-item {
+            cursor: pointer;
+            padding: 0.5rem;
+            border-radius: 4px;
+            margin-bottom: 0.25rem;
+        }
+        .device-item:hover {
+            background-color: #f8f9fa;
+        }
+        .device-item.selected {
+            background-color: #e9ecef;
+            border: 1px solid var(--primary-color);
+        }
+    </style>
+</head>
+<body>
+    <div class="container-fluid py-4">
+        <h1 class="text-center mb-4">设备组管理</h1>
+
+        <!-- Actions -->
+        <div class="card p-3 mb-4">
+            <div class="row g-3 align-items-center">
+                <div class="col-md-auto">
+                    <button id="create-group-btn" class="btn btn-primary">
+                        <i class="fas fa-plus me-1"></i> 创建设备组
+                    </button>
+                </div>
+                <div class="col-md-auto">
+                    <button id="manage-templates-btn" class="btn btn-info">
+                        <i class="fas fa-cogs me-1"></i> 管理组模板
+                    </button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Groups List -->
+        <div id="groups-container">
+            <!-- Groups will be dynamically added here -->
+        </div>
+    </div>
+
+    <!-- Create/Edit Group Modal -->
+    <div class="modal fade" id="group-modal" tabindex="-1">
+        <div class="modal-dialog modal-xl">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">创建设备组</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+                </div>
+                <div class="modal-body">
+                    <form id="group-form">
+                        <input type="hidden" id="group-id">
+                        <div class="row mb-3">
+                            <div class="col-md-6">
+                                <label for="group-name" class="form-label">组名称</label>
+                                <input type="text" class="form-control" id="group-name" required>
+                            </div>
+                            <div class="col-md-6">
+                                <label for="template-select" class="form-label">选择组模板</label>
+                                <select class="form-select" id="template-select" required>
+                                    <option value="">选择模板...</option>
+                                </select>
+                            </div>
+                        </div>
+
+                        <div class="row">
+                            <div class="col-md-6">
+                                <div class="card">
+                                    <div class="card-header">
+                                        <h6 class="mb-0">主设备</h6>
+                                    </div>
+                                    <div class="card-body">
+                                        <div class="mb-3">
+                                            <input type="text" class="form-control" id="primary-device-search" placeholder="搜索设备...">
+                                        </div>
+                                        <div class="device-list" id="primary-device-list">
+                                            <!-- Available devices will be listed here -->
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="card">
+                                    <div class="card-header">
+                                        <h6 class="mb-0">从设备</h6>
+                                    </div>
+                                    <div class="card-body">
+                                        <div class="mb-3">
+                                            <input type="text" class="form-control" id="secondary-device-search" placeholder="搜索设备...">
+                                        </div>
+                                        <div class="device-list" id="secondary-device-list">
+                                            <!-- Available devices will be listed here -->
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="mt-3">
+                            <div class="alert alert-info">
+                                <h6>模板配置预览</h6>
+                                <div id="template-preview">
+                                    <!-- Template details will be shown here -->
+                                </div>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">取消</button>
+                    <button type="button" id="save-group-btn" class="btn btn-primary">保存设备组</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script>
+    <script>
+    document.addEventListener('DOMContentLoaded', function() {
+        let allDevices = [];
+        let allTemplates = [];
+        let allGroups = [];
+        const groupModal = new bootstrap.Modal(document.getElementById('group-modal'));
+
+        // 初始化加载
+        async function initialize() {
+            try {
+                const [devicesRes, templatesRes, groupsRes] = await Promise.all([
+                    fetch('/get_device_instances'),
+                    fetch('/get_group_templates'),
+                    fetch('/get_device_groups')
+                ]);
+
+                if (!devicesRes.ok || !templatesRes.ok || !groupsRes.ok) {
+                    throw new Error('Failed to fetch data');
+                }
+
+                const devicesData = await devicesRes.json();
+                const templatesData = await templatesRes.json();
+                const groupsData = await groupsRes.json();
+
+                allDevices = devicesData.device_instances || [];
+                allTemplates = templatesData.templates || [];
+                allGroups = groupsData.groups || [];
+
+                populateTemplateSelect();
+                renderGroups();
+                renderAvailableDevices();
+            } catch (error) {
+                console.error('Failed to initialize:', error);
+                alert('加载数据失败，请刷新页面重试');
+            }
+        }
+
+        // 填充模板选择下拉列表
+        function populateTemplateSelect() {
+            const select = document.getElementById('template-select');
+            select.innerHTML = '<option value="">选择模板...</option>';
+            allTemplates.forEach(template => {
+                const option = document.createElement('option');
+                option.value = template.id;
+                option.textContent = `${template.name} (${template.group_type} - ${template.device_type})`;
+                select.appendChild(option);
+            });
+        }
+
+        // 渲染可用设备列表
+        function renderAvailableDevices(searchTerm = '') {
+            const primaryList = document.getElementById('primary-device-list');
+            const secondaryList = document.getElementById('secondary-device-list');
+            
+            // 过滤未分组且未上架的设备
+            const availableDevices = allDevices.filter(device => {
+                const isInGroup = allGroups.some(group => 
+                    group.primary_device_id === device.id || 
+                    group.secondary_device_id === device.id
+                );
+                return !isInGroup && !device.rack_id;
+            });
+
+            // 根据搜索词过滤
+            const filteredDevices = availableDevices.filter(device =>
+                device.instance_name.toLowerCase().includes(searchTerm.toLowerCase())
+            );
+
+            // 渲染设备列表
+            const renderDeviceList = (container, devices) => {
+                container.innerHTML = '';
+                if (devices.length === 0) {
+                    container.innerHTML = '<div class="text-muted">无可用设备</div>';
+                    return;
+                }
+                devices.forEach(device => {
+                    const div = document.createElement('div');
+                    div.className = 'device-item';
+                    div.dataset.deviceId = device.id;
+                    div.innerHTML = `
+                        <div class="d-flex justify-content-between align-items-center">
+                            <div>
+                                <strong>${device.instance_name}</strong>
+                                <small class="text-muted d-block">型号: ${device.device_type}</small>
+                            </div>
+                        </div>
+                    `;
+                    container.appendChild(div);
+                });
+            };
+
+            renderDeviceList(primaryList, filteredDevices);
+            renderDeviceList(secondaryList, filteredDevices);
+        }
+
+        // 渲染组列表
+        function renderGroups() {
+            const container = document.getElementById('groups-container');
+            container.innerHTML = '';
+
+            if (allGroups.length === 0) {
+                container.innerHTML = '<div class="alert alert-info">暂无设备组，请点击"创建设备组"按钮创建。</div>';
+                return;
+            }
+
+            allGroups.forEach(group => {
+                const primaryDevice = allDevices.find(d => d.id === group.primary_device_id);
+                const secondaryDevice = allDevices.find(d => d.id === group.secondary_device_id);
+                const template = allTemplates.find(t => t.id === group.template_id);
+
+                const card = document.createElement('div');
+                card.className = 'group-card p-3';
+                card.innerHTML = `
+                    <div class="d-flex justify-content-between align-items-start">
+                        <div>
+                            <h5>${group.name}</h5>
+                            <div class="text-muted">
+                                <small>模板: ${template ? template.name : 'N/A'}</small><br>
+                                <small>类型: ${template ? template.group_type : 'N/A'}</small>
+                            </div>
+                        </div>
+                        <div>
+                            <button class="btn btn-sm btn-danger delete-group-btn" data-id="${group.id}">
+                                <i class="fas fa-trash"></i> 删除
+                            </button>
+                        </div>
+                    </div>
+                    <div class="mt-3">
+                        <div class="row">
+                            <div class="col-md-6">
+                                <h6>主设备</h6>
+                                <small>${primaryDevice ? primaryDevice.instance_name : 'N/A'}</small>
+                            </div>
+                            <div class="col-md-6">
+                                <h6>从设备</h6>
+                                <small>${secondaryDevice ? secondaryDevice.instance_name : 'N/A'}</small>
+                            </div>
+                        </div>
+                    </div>
+                `;
+                container.appendChild(card);
+            });
+        }
+
+        // 更新模板预览
+        function updateTemplatePreview() {
+            const templateId = document.getElementById('template-select').value;
+            const previewDiv = document.getElementById('template-preview');
+            
+            if (!templateId) {
+                previewDiv.innerHTML = '<div class="text-muted">请选择组模板</div>';
+                return;
+            }
+
+            const template = allTemplates.find(t => t.id === templateId);
+            if (!template) return;
+
+            previewDiv.innerHTML = `
+                <div class="row">
+                    <div class="col-md-6">
+                        <strong>Peer-Link 接口:</strong>
+                        <div class="small">${template.peer_link_ports.join(', ') || 'N/A'}</div>
+                    </div>
+                    <div class="col-md-6">
+                        <strong>Keepalive 接口:</strong>
+                        <div class="small">${template.keepalive_ports.join(', ') || 'N/A'}</div>
+                    </div>
+                </div>
+                <div class="row mt-2">
+                    <div class="col-md-6">
+                        <strong>上行接口:</strong>
+                        <div class="small">${template.uplink_ports.join(', ') || 'N/A'}</div>
+                    </div>
+                    <div class="col-md-6">
+                        <strong>下行接口:</strong>
+                        <div class="small">${template.downlink_ports.join(', ') || 'N/A'}</div>
+                    </div>
+                </div>
+            `;
+        }
+
+        // 保存设备组
+        async function saveGroup() {
+            const groupData = {
+                name: document.getElementById('group-name').value,
+                template_id: document.getElementById('template-select').value,
+                primary_device_id: document.querySelector('#primary-device-list .device-item.selected')?.dataset.deviceId,
+                secondary_device_id: document.querySelector('#secondary-device-list .device-item.selected')?.dataset.deviceId
+            };
+
+            if (!groupData.name || !groupData.template_id || !groupData.primary_device_id || !groupData.secondary_device_id) {
+                alert('请填写所有必填字段');
+                return;
+            }
+
+            try {
+                const response = await fetch('/create_device_group', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify(groupData)
+                });
+
+                if (!response.ok) {
+                    throw new Error('Failed to create group');
+                }
+
+                const result = await response.json();
+                alert(result.message);
+                groupModal.hide();
+                await initialize(); // 重新加载数据
+            } catch (error) {
+                console.error('Failed to save group:', error);
+                alert('保存设备组失败，请重试');
+            }
+        }
+
+        // 删除设备组
+        async function deleteGroup(groupId) {
+            if (!confirm('确定要删除此设备组吗？')) return;
+
+            try {
+                const response = await fetch(`/delete_device_group/${groupId}`, {
+                    method: 'DELETE'
+                });
+
+                if (!response.ok) {
+                    throw new Error('Failed to delete group');
+                }
+
+                const result = await response.json();
+                alert(result.message);
+                await initialize(); // 重新加载数据
+            } catch (error) {
+                console.error('Failed to delete group:', error);
+                alert('删除设备组失败，请重试');
+            }
+        }
+
+        // 事件监听器
+        document.getElementById('create-group-btn').addEventListener('click', () => {
+            document.getElementById('group-form').reset();
+            renderAvailableDevices();
+            updateTemplatePreview();
+            groupModal.show();
+        });
+
+        document.getElementById('manage-templates-btn').addEventListener('click', () => {
+            window.location.href = '/group_templates';
+        });
+
+        document.getElementById('template-select').addEventListener('change', updateTemplatePreview);
+
+        document.getElementById('primary-device-search').addEventListener('input', e => {
+            renderAvailableDevices(e.target.value);
+        });
+
+        document.getElementById('secondary-device-search').addEventListener('input', e => {
+            renderAvailableDevices(e.target.value);
+        });
+
+        document.getElementById('primary-device-list').addEventListener('click', e => {
+            const item = e.target.closest('.device-item');
+            if (!item) return;
+            
+            document.querySelectorAll('#primary-device-list .device-item').forEach(i => {
+                i.classList.remove('selected');
+            });
+            item.classList.add('selected');
+        });
+
+        document.getElementById('secondary-device-list').addEventListener('click', e => {
+            const item = e.target.closest('.device-item');
+            if (!item) return;
+            
+            document.querySelectorAll('#secondary-device-list .device-item').forEach(i => {
+                i.classList.remove('selected');
+            });
+            item.classList.add('selected');
+        });
+
+        document.getElementById('save-group-btn').addEventListener('click', saveGroup);
+
+        document.getElementById('groups-container').addEventListener('click', e => {
+            if (e.target.classList.contains('delete-group-btn') || 
+                e.target.parentElement.classList.contains('delete-group-btn')) {
+                const groupId = e.target.closest('.delete-group-btn').dataset.id;
+                deleteGroup(groupId);
+            }
+        });
+
+        // 初始化加载
+        initialize();
+    });
+    </script>
+</body>
+</html> 

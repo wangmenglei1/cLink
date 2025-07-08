@@ -1,5 +1,101 @@
-{
-  "version": "2.0",
-  "timestamp": "2025-06-12T14:10:22.565817",
-  "connections": []
-}
+[
+  {
+    "id": "c21964c3-6316-4018-9f50-a5794d84b90e",
+    "source_device": "device_50b9a0ce0dca",
+    "target_device": "device_86a51df0a471",
+    "source_port": "HundredGigE1/0/25",
+    "target_port": "HundredGigE1/0/25",
+    "type": "peer-link",
+    "group_id": "5b1f0b0a-2612-478e-9a7f-b92f13c8d491",
+    "speed": "100G",
+    "created_at": "2025-07-08T10:56:49.352022"
+  },
+  {
+    "id": "1d11d065-5985-4846-9615-fe02645082f6",
+    "source_device": "device_50b9a0ce0dca",
+    "target_device": "device_86a51df0a471",
+    "source_port": "HundredGigE1/0/26",
+    "target_port": "HundredGigE1/0/26",
+    "type": "peer-link",
+    "group_id": "5b1f0b0a-2612-478e-9a7f-b92f13c8d491",
+    "speed": "100G",
+    "created_at": "2025-07-08T10:56:49.352022"
+  },
+  {
+    "id": "ce4fd762-fb29-4c58-b0aa-733478ff9a64",
+    "source_device": "device_50b9a0ce0dca",
+    "target_device": "device_86a51df0a471",
+    "source_port": "TwentyFiveGigE1/0/54",
+    "target_port": "TwentyFiveGigE1/0/54",
+    "type": "keepalive",
+    "group_id": "5b1f0b0a-2612-478e-9a7f-b92f13c8d491",
+    "speed": "25G",
+    "created_at": "2025-07-08T10:56:49.352022"
+  },
+  {
+    "id": "302b9a8f-8cde-4379-800b-3bfe1a599393",
+    "source_device": "device_a984d477ccd9",
+    "target_device": "device_9edddbdb2dd9",
+    "source_port": "HundredGigE1/0/25",
+    "target_port": "HundredGigE1/0/25",
+    "type": "peer-link",
+    "group_id": "60f2a447-1d28-4c2a-aa4f-25c80fed44b0",
+    "speed": "100G",
+    "created_at": "2025-07-08T10:56:49.378278"
+  },
+  {
+    "id": "0bd79f97-10d1-4158-964c-481b6facd0ff",
+    "source_device": "device_a984d477ccd9",
+    "target_device": "device_9edddbdb2dd9",
+    "source_port": "HundredGigE1/0/26",
+    "target_port": "HundredGigE1/0/26",
+    "type": "peer-link",
+    "group_id": "60f2a447-1d28-4c2a-aa4f-25c80fed44b0",
+    "speed": "100G",
+    "created_at": "2025-07-08T10:56:49.378278"
+  },
+  {
+    "id": "39da0c0e-9362-4aea-8530-295ed2ccf4b8",
+    "source_device": "device_a984d477ccd9",
+    "target_device": "device_9edddbdb2dd9",
+    "source_port": "TwentyFiveGigE1/0/54",
+    "target_port": "TwentyFiveGigE1/0/54",
+    "type": "keepalive",
+    "group_id": "60f2a447-1d28-4c2a-aa4f-25c80fed44b0",
+    "speed": "25G",
+    "created_at": "2025-07-08T10:56:49.378278"
+  },
+  {
+    "id": "ba1983bc-4742-4b02-91dc-bc266771743e",
+    "source_device": "device_95fbb5bbc396",
+    "target_device": "device_4088d8150edc",
+    "source_port": "HundredGigE1/0/25",
+    "target_port": "HundredGigE1/0/25",
+    "type": "peer-link",
+    "group_id": "cf37b5c1-23f0-4c6d-bf3b-424646ee2624",
+    "speed": "100G",
+    "created_at": "2025-07-08T10:56:49.394629"
+  },
+  {
+    "id": "bdfc1172-33e3-47da-838d-ac3baad17bee",
+    "source_device": "device_95fbb5bbc396",
+    "target_device": "device_4088d8150edc",
+    "source_port": "HundredGigE1/0/26",
+    "target_port": "HundredGigE1/0/26",
+    "type": "peer-link",
+    "group_id": "cf37b5c1-23f0-4c6d-bf3b-424646ee2624",
+    "speed": "100G",
+    "created_at": "2025-07-08T10:56:49.394629"
+  },
+  {
+    "id": "8bc021d8-a196-4cf3-ad39-f3d899f7493f",
+    "source_device": "device_95fbb5bbc396",
+    "target_device": "device_4088d8150edc",
+    "source_port": "TwentyFiveGigE1/0/54",
+    "target_port": "TwentyFiveGigE1/0/54",
+    "type": "keepalive",
+    "group_id": "cf37b5c1-23f0-4c6d-bf3b-424646ee2624",
+    "speed": "25G",
+    "created_at": "2025-07-08T10:56:49.394629"
+  }
+]

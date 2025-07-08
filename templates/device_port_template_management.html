@@ -1,0 +1,465 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>设备端口模板管理 - 数据中心管理系统</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <style>
+        :root {
+            --primary-color: #2563eb;
+            --secondary-color: #64748b;
+            --success-color: #10b981;
+            --warning-color: #f59e0b;
+            --danger-color: #ef4444;
+            --light-bg: #f8fafc;
+            --dark-text: #1e293b;
+            --border-color: #e2e8f0;
+        }
+        body {
+            background-color: var(--light-bg);
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+        }
+        .template-card {
+            background: white;
+            border-radius: 8px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+            margin-bottom: 1rem;
+        }
+        .port-group {
+            background: #f8f9fa;
+            border-radius: 4px;
+            padding: 1rem;
+            margin: 0.5rem 0;
+        }
+    </style>
+</head>
+<body>
+    <div class="container-fluid py-4">
+        <h1 class="text-center mb-4">设备端口模板管理</h1>
+
+        <!-- Actions -->
+        <div class="card p-3 mb-4">
+            <div class="row g-3 align-items-center">
+                <div class="col-md-auto">
+                    <button id="add-template-btn" class="btn btn-primary">
+                        <i class="fas fa-plus me-1"></i> 添加端口模板
+                    </button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Templates List -->
+        <div id="templates-container">
+            <!-- Templates will be dynamically added here -->
+        </div>
+    </div>
+
+    <!-- Add/Edit Template Modal -->
+    <div class="modal fade" id="template-modal" tabindex="-1">
+        <div class="modal-dialog modal-lg">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">端口模板配置</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+                </div>
+                <div class="modal-body">
+                    <form id="template-form">
+                        <div class="mb-3">
+                            <label for="device-type" class="form-label">设备型号</label>
+                            <input type="text" class="form-control" id="device-type" required>
+                        </div>
+
+                        <div class="port-group">
+                            <h6>Peer-Link 端口组</h6>
+                            <div class="mb-3">
+                                <label class="form-label">端口列表</label>
+                                <div class="input-group">
+                                    <input type="text" class="form-control" id="peer-link-ports" placeholder="例如: XGE1/0/53,XGE1/0/54">
+                                    <button type="button" class="btn btn-outline-secondary" onclick="addPortGroup('peer-link')">添加</button>
+                                </div>
+                                <div id="peer-link-ports-list" class="mt-2">
+                                    <!-- Port list will be added here -->
+                                </div>
+                            </div>
+                            <div class="mb-3">
+                                <label class="form-label">速率 (Gbps)</label>
+                                <input type="number" class="form-control" id="peer-link-speed" value="10">
+                            </div>
+                        </div>
+
+                        <div class="port-group">
+                            <h6>Keepalive 端口组</h6>
+                            <div class="mb-3">
+                                <label class="form-label">端口列表</label>
+                                <div class="input-group">
+                                    <input type="text" class="form-control" id="keepalive-ports" placeholder="例如: GE1/0/51">
+                                    <button type="button" class="btn btn-outline-secondary" onclick="addPortGroup('keepalive')">添加</button>
+                                </div>
+                                <div id="keepalive-ports-list" class="mt-2">
+                                    <!-- Port list will be added here -->
+                                </div>
+                            </div>
+                            <div class="mb-3">
+                                <label class="form-label">速率 (Gbps)</label>
+                                <input type="number" class="form-control" id="keepalive-speed" value="1">
+                            </div>
+                        </div>
+
+                        <div class="port-group">
+                            <h6>业务端口组</h6>
+                            <div class="mb-3">
+                                <label class="form-label">上行端口</label>
+                                <div class="input-group">
+                                    <input type="text" class="form-control" id="uplink-ports" placeholder="例如: XGE1/0/49,XGE1/0/50">
+                                    <button type="button" class="btn btn-outline-secondary" onclick="addPortGroup('uplink')">添加</button>
+                                </div>
+                                <div id="uplink-ports-list" class="mt-2">
+                                    <!-- Port list will be added here -->
+                                </div>
+                            </div>
+                            <div class="mb-3">
+                                <label class="form-label">上行端口速率 (Gbps)</label>
+                                <input type="number" class="form-control" id="uplink-speed" value="10">
+                            </div>
+                            <div class="mb-3">
+                                <label class="form-label">下行端口</label>
+                                <div class="input-group">
+                                    <input type="text" class="form-control" id="downlink-ports" placeholder="例如: GE1/0/1-48">
+                                    <button type="button" class="btn btn-outline-secondary" onclick="addPortGroup('downlink')">添加</button>
+                                </div>
+                                <div id="downlink-ports-list" class="mt-2">
+                                    <!-- Port list will be added here -->
+                                </div>
+                            </div>
+                            <div class="mb-3">
+                                <label class="form-label">下行端口速率 (Gbps)</label>
+                                <input type="number" class="form-control" id="downlink-speed" value="1">
+                            </div>
+                        </div>
+                    </form>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">取消</button>
+                    <button type="button" id="save-template-btn" class="btn btn-primary">保存模板</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script>
+    <script>
+    document.addEventListener('DOMContentLoaded', function() {
+        let portTemplates = {};
+        const templateModal = new bootstrap.Modal(document.getElementById('template-modal'));
+
+        // 初始化加载
+        async function initialize() {
+            try {
+                const response = await fetch('/get_device_port_templates');
+                if (!response.ok) {
+                    throw new Error('Failed to fetch templates');
+                }
+                const data = await response.json();
+                portTemplates = data.templates || {};
+                renderTemplates();
+            } catch (error) {
+                console.error('Failed to initialize:', error);
+                alert('加载数据失败，请刷新页面重试');
+            }
+        }
+
+        // 渲染模板列表
+        function renderTemplates() {
+            const container = document.getElementById('templates-container');
+            container.innerHTML = '';
+
+            if (Object.keys(portTemplates).length === 0) {
+                container.innerHTML = '<div class="alert alert-info">暂无端口模板，请点击"添加端口模板"按钮创建。</div>';
+                return;
+            }
+
+            for (const [deviceType, template] of Object.entries(portTemplates)) {
+                const card = document.createElement('div');
+                card.className = 'template-card p-3';
+                card.innerHTML = `
+                    <div class="d-flex justify-content-between align-items-start">
+                        <div>
+                            <h5>${deviceType}</h5>
+                        </div>
+                        <div>
+                            <button class="btn btn-sm btn-primary edit-template-btn" data-type="${deviceType}">
+                                <i class="fas fa-edit"></i> 编辑
+                            </button>
+                            <button class="btn btn-sm btn-danger delete-template-btn" data-type="${deviceType}">
+                                <i class="fas fa-trash"></i> 删除
+                            </button>
+                        </div>
+                    </div>
+                    <div class="mt-3">
+                        <div class="row">
+                            <div class="col-md-6">
+                                <h6>Peer-Link 端口</h6>
+                                <small>${template.port_groups.stack.device_links.peer_link.ports.join(', ')}</small>
+                                <small class="d-block">速率: ${template.port_groups.stack.device_links.peer_link.speed} Gbps</small>
+                            </div>
+                            <div class="col-md-6">
+                                <h6>Keepalive 端口</h6>
+                                <small>${template.port_groups.stack.device_links.heartbeat.ports.join(', ')}</small>
+                                <small class="d-block">速率: ${template.port_groups.stack.device_links.heartbeat.speed} Gbps</small>
+                            </div>
+                        </div>
+                        <div class="row mt-2">
+                            <div class="col-md-6">
+                                <h6>上行端口</h6>
+                                <small>${template.port_groups.stack.service_ports.uplink.ports.join(', ')}</small>
+                                <small class="d-block">速率: ${template.port_groups.stack.service_ports.uplink.speed} Gbps</small>
+                            </div>
+                            <div class="col-md-6">
+                                <h6>下行端口</h6>
+                                <small>${template.port_groups.stack.service_ports.downlink.ports.join(', ')}</small>
+                                <small class="d-block">速率: ${template.port_groups.stack.service_ports.downlink.speed} Gbps</small>
+                            </div>
+                        </div>
+                    </div>
+                `;
+                container.appendChild(card);
+            }
+        }
+
+        // 解析端口列表字符串
+        function parsePortList(portStr) {
+            if (!portStr) return [];
+            const ports = [];
+            const parts = portStr.split(',').map(p => p.trim());
+            
+            for (const part of parts) {
+                if (part.includes('-')) {
+                    const [start, end] = part.split('-').map(p => p.trim());
+                    const prefix = start.match(/[A-Za-z0-9/]+\//)[0];
+                    const startNum = parseInt(start.split('/').pop());
+                    const endNum = parseInt(end);
+                    
+                    for (let i = startNum; i <= endNum; i++) {
+                        ports.push(`${prefix}${i}`);
+                    }
+                } else {
+                    ports.push(part);
+                }
+            }
+            
+            return ports;
+        }
+
+        // 添加端口组
+        function addPortGroup(type) {
+            const input = document.getElementById(`${type}-ports`);
+            const listContainer = document.getElementById(`${type}-ports-list`);
+            const ports = parsePortList(input.value);
+            
+            if (ports.length === 0) {
+                alert('请输入有效的端口列表');
+                return;
+            }
+            
+            const div = document.createElement('div');
+            div.className = 'alert alert-info alert-dismissible fade show';
+            div.innerHTML = `
+                ${ports.join(', ')}
+                <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+            `;
+            listContainer.appendChild(div);
+            input.value = '';
+        }
+        window.addPortGroup = addPortGroup;
+
+        // 获取端口组数据
+        function getPortGroupData(type) {
+            const listContainer = document.getElementById(`${type}-ports-list`);
+            const ports = [];
+            listContainer.querySelectorAll('.alert').forEach(alert => {
+                const portList = alert.textContent.trim().split(',').map(p => p.trim());
+                ports.push(...portList);
+            });
+            const speed = parseFloat(document.getElementById(`${type}-speed`).value) || 1;
+            return { ports, speed };
+        }
+
+        // 保存模板
+        async function saveTemplate() {
+            const deviceType = document.getElementById('device-type').value;
+            if (!deviceType) {
+                alert('请输入设备型号');
+                return;
+            }
+
+            const templateData = {
+                port_groups: {
+                    stack: {
+                        device_links: {
+                            peer_link: getPortGroupData('peer-link'),
+                            heartbeat: getPortGroupData('keepalive')
+                        },
+                        service_ports: {
+                            uplink: getPortGroupData('uplink'),
+                            downlink: getPortGroupData('downlink')
+                        }
+                    },
+                    mlag: {
+                        device_links: {
+                            peer_link: getPortGroupData('peer-link'),
+                            heartbeat: getPortGroupData('keepalive')
+                        },
+                        service_ports: {
+                            uplink: getPortGroupData('uplink'),
+                            downlink: getPortGroupData('downlink')
+                        }
+                    }
+                }
+            };
+
+            try {
+                const response = await fetch('/update_device_port_template', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({
+                        device_type: deviceType,
+                        template: templateData
+                    })
+                });
+
+                if (!response.ok) {
+                    throw new Error('Failed to save template');
+                }
+
+                const result = await response.json();
+                alert(result.message);
+                templateModal.hide();
+                await initialize(); // 重新加载数据
+            } catch (error) {
+                console.error('Failed to save template:', error);
+                alert('保存模板失败，请重试');
+            }
+        }
+
+        // 编辑模板
+        function editTemplate(deviceType) {
+            const template = portTemplates[deviceType];
+            if (!template) return;
+
+            document.getElementById('device-type').value = deviceType;
+            
+            // 清空所有端口列表
+            ['peer-link', 'keepalive', 'uplink', 'downlink'].forEach(type => {
+                document.getElementById(`${type}-ports-list`).innerHTML = '';
+            });
+
+            // 设置 Peer-Link 端口
+            const peerLinkPorts = template.port_groups.stack.device_links.peer_link.ports;
+            document.getElementById('peer-link-speed').value = template.port_groups.stack.device_links.peer_link.speed;
+            if (peerLinkPorts.length > 0) {
+                const div = document.createElement('div');
+                div.className = 'alert alert-info alert-dismissible fade show';
+                div.innerHTML = `
+                    ${peerLinkPorts.join(', ')}
+                    <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+                `;
+                document.getElementById('peer-link-ports-list').appendChild(div);
+            }
+
+            // 设置 Keepalive 端口
+            const keepalivePorts = template.port_groups.stack.device_links.heartbeat.ports;
+            document.getElementById('keepalive-speed').value = template.port_groups.stack.device_links.heartbeat.speed;
+            if (keepalivePorts.length > 0) {
+                const div = document.createElement('div');
+                div.className = 'alert alert-info alert-dismissible fade show';
+                div.innerHTML = `
+                    ${keepalivePorts.join(', ')}
+                    <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+                `;
+                document.getElementById('keepalive-ports-list').appendChild(div);
+            }
+
+            // 设置上行端口
+            const uplinkPorts = template.port_groups.stack.service_ports.uplink.ports;
+            document.getElementById('uplink-speed').value = template.port_groups.stack.service_ports.uplink.speed;
+            if (uplinkPorts.length > 0) {
+                const div = document.createElement('div');
+                div.className = 'alert alert-info alert-dismissible fade show';
+                div.innerHTML = `
+                    ${uplinkPorts.join(', ')}
+                    <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+                `;
+                document.getElementById('uplink-ports-list').appendChild(div);
+            }
+
+            // 设置下行端口
+            const downlinkPorts = template.port_groups.stack.service_ports.downlink.ports;
+            document.getElementById('downlink-speed').value = template.port_groups.stack.service_ports.downlink.speed;
+            if (downlinkPorts.length > 0) {
+                const div = document.createElement('div');
+                div.className = 'alert alert-info alert-dismissible fade show';
+                div.innerHTML = `
+                    ${downlinkPorts.join(', ')}
+                    <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+                `;
+                document.getElementById('downlink-ports-list').appendChild(div);
+            }
+
+            templateModal.show();
+        }
+
+        // 删除模板
+        async function deleteTemplate(deviceType) {
+            if (!confirm(`确定要删除 ${deviceType} 的端口模板吗？`)) return;
+
+            try {
+                const response = await fetch(`/delete_device_port_template/${deviceType}`, {
+                    method: 'DELETE'
+                });
+
+                if (!response.ok) {
+                    throw new Error('Failed to delete template');
+                }
+
+                const result = await response.json();
+                alert(result.message);
+                await initialize(); // 重新加载数据
+            } catch (error) {
+                console.error('Failed to delete template:', error);
+                alert('删除模板失败，请重试');
+            }
+        }
+
+        // 事件监听器
+        document.getElementById('add-template-btn').addEventListener('click', () => {
+            document.getElementById('device-type').value = '';
+            document.getElementById('template-form').reset();
+            ['peer-link', 'keepalive', 'uplink', 'downlink'].forEach(type => {
+                document.getElementById(`${type}-ports-list`).innerHTML = '';
+            });
+            templateModal.show();
+        });
+
+        document.getElementById('save-template-btn').addEventListener('click', saveTemplate);
+
+        document.getElementById('templates-container').addEventListener('click', e => {
+            if (e.target.classList.contains('edit-template-btn') || 
+                e.target.parentElement.classList.contains('edit-template-btn')) {
+                const deviceType = e.target.closest('.edit-template-btn').dataset.type;
+                editTemplate(deviceType);
+            }
+            if (e.target.classList.contains('delete-template-btn') || 
+                e.target.parentElement.classList.contains('delete-template-btn')) {
+                const deviceType = e.target.closest('.delete-template-btn').dataset.type;
+                deleteTemplate(deviceType);
+            }
+        });
+
+        // 初始化加载
+        initialize();
+    });
+    </script>
+</body>
+</html> 

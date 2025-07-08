@@ -1199,13 +1199,93 @@
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 
     <script>
+        // Global variables for modals
+        let addToRackModal;
+        let editRackModal;
+
+        // Global variables for data storage
+        let currentRoomsData = [];
+        let allRacksData = [];
+        let allDeviceInstances = [];
+        let allDeviceTypes = [];
+
+        // Functions that need to be globally accessible
+        window.showAddToRackModalForRack = function(rackId) {
+            if (!addToRackModal) {
+                console.error('addToRackModal not initialized yet');
+                return;
+            }
+            
+            const rack = allRacksData.find(r => r.id === rackId);
+            if (!rack) {
+                alert('机柜未找到');
+                return;
+            }
+
+            // Populate device selection for the specific rack
+            const deviceSelect = document.getElementById('device-to-rack-select');
+            deviceSelect.innerHTML = '<option value="">--请选择设备--</option>';
+
+            // Filter to show only unracked devices
+            const unrackedDevices = allDeviceInstances.filter(device => !device.rack_id);
+            
+            if (unrackedDevices.length === 0) {
+                deviceSelect.innerHTML = '<option value="">没有可上架的设备</option>';
+                deviceSelect.disabled = true;
+            } else {
+                deviceSelect.disabled = false;
+                unrackedDevices.forEach(device => {
+                    const option = document.createElement('option');
+                    option.value = device.id;
+                    option.textContent = `${device.instance_name} (${device.device_type})`;
+                    deviceSelect.appendChild(option);
+                });
+            }
+
+            // Set rack info in modal
+            document.getElementById('selected-rack-id').value = rackId;
+            document.getElementById('selected-rack-name').textContent = rack.name;
+            
+            addToRackModal.show();
+        };
+
+        window.showEditRackModal = function(rackId, name, height, roomId, department) {
+            if (!editRackModal) {
+                console.error('editRackModal not initialized yet');
+                return;
+            }
+            
+            document.getElementById('edit-rack-id').value = rackId;
+            document.getElementById('edit-rack-name').value = name;
+            document.getElementById('edit-rack-height').value = height;
+            
+            // Populate room dropdown for edit modal
+            const roomSelect = document.getElementById('edit-rack-room');
+            roomSelect.innerHTML = '';
+            currentRoomsData.forEach(room => {
+                const option = document.createElement('option');
+                option.value = room.id;
+                option.textContent = room.name;
+                roomSelect.appendChild(option);
+            });
+
+            roomSelect.value = roomId;
+            document.getElementById('edit-rack-department').value = department || '';
+            
+            editRackModal.show();
+        };
+
         document.addEventListener('DOMContentLoaded', function() {
             console.log('DOMContentLoaded fired.');
 
-            let currentRoomsData = [];
-            let allRacksData = [];
-            let allDeviceTypes = [];
-            let allDeviceInstances = [];
+            // 初始化模态框对象 - 在这里初始化，确保DOM元素已存在
+            try {
+                addToRackModal = new bootstrap.Modal(document.getElementById('add-to-rack-modal'));
+                editRackModal = new bootstrap.Modal(document.getElementById('editRackModal'));
+                console.log('Modals initialized successfully');
+            } catch (error) {
+                console.error('Error initializing modals:', error);
+            }
 
             // Function to show toast notifications
             function showToast(message, type = 'success') {
@@ -1589,33 +1669,10 @@
             });
 
             // --- Modal Logic for Add to Rack ---
-            const addToRackModal = new bootstrap.Modal(document.getElementById('add-to-rack-modal'));
             const modalDeviceSelect = document.getElementById('modal-device-select');
             const modalRackUInput = document.getElementById('modal-rack-u');
             const modalInstanceIdInput = document.getElementById('modal-instance-id');
             const saveRackPositionBtn = document.getElementById('saveRackPositionBtn');
-
-            // Function to show the modal
-            function showAddToRackModal(instanceId) {
-                document.getElementById('modal-instance-id').value = instanceId || '';
-                populateModalDeviceSelect();
-                document.getElementById('rack-info-text').textContent = '';
-                document.getElementById('modal-rack-id').value = '';
-                document.getElementById('modal-room-id').value = '';
-                addToRackModal.show();
-            }
-
-            // Function to populate the device select dropdown in the modal
-            function populateModalDeviceSelect() {
-                const deviceSelect = document.getElementById('modal-device-select');
-                deviceSelect.innerHTML = '<option value="">--请选择未放置设备--</option>';
-                allDeviceInstances.filter(device => !device.rack_id).forEach(device => {
-                    const option = document.createElement('option');
-                    option.value = device.id;
-                    option.textContent = `${device.instance_name} (ID: ${device.id}) - 类型: ${device.device_type}`;
-                    deviceSelect.appendChild(option);
-                });
-            }
 
             // Event listener for the Save button in the modal
             saveRackPositionBtn.addEventListener('click', async function() {
@@ -1672,19 +1729,6 @@
                     showToast('更新机柜位置失败', 'error');
                 }
             });
-
-            // Function to show modal for specific rack
-            function showAddToRackModalForRack(rackId) {
-                showAddToRackModal('');
-                populateModalDeviceSelect();
-                const rack = allRacksData.find(r => r.id === rackId);
-                if (rack) {
-                    const room = currentRoomsData.find(rm => rm.id === rack.room_id);
-                    document.getElementById('rack-info-text').textContent = `目标机柜：${rack.name}（所属机房：${room ? room.name : '未知机房'}）`;
-                    document.getElementById('modal-rack-id').value = rack.id;
-                    document.getElementById('modal-room-id').value = rack.room_id;
-                }
-            }
 
             // ==================== 批量上架功能 ====================
 
@@ -3529,15 +3573,6 @@
             // Edit Rack Modal
             const editRackModal = new bootstrap.Modal(document.getElementById('editRackModal'));
             
-            function showEditRackModal(rackId, name, height, roomId, department) {
-                document.getElementById('edit-rack-id').value = rackId;
-                document.getElementById('edit-rack-name').value = name;
-                document.getElementById('edit-rack-height').value = height;
-                document.getElementById('edit-rack-room').value = roomId;
-                document.getElementById('edit-rack-department').value = department;
-                editRackModal.show();
-            }
-
             document.getElementById('saveRackChangesBtn').addEventListener('click', async function() {
                 const rackId = document.getElementById('edit-rack-id').value;
                 const name = document.getElementById('edit-rack-name').value.trim();
@@ -3600,47 +3635,6 @@
                 
                 editRackModal.show();
             }
-
-            document.getElementById('saveRackChangesBtn').addEventListener('click', async function() {
-                const rackId = document.getElementById('edit-rack-id').value;
-                const name = document.getElementById('edit-rack-name').value.trim();
-                const roomId = document.getElementById('edit-rack-room').value;
-                const heightU = parseInt(document.getElementById('edit-rack-height').value, 10);
-                const department = document.getElementById('edit-rack-department').value.trim();
-
-                if (!name || !roomId || isNaN(heightU) || heightU <= 0) {
-                    showToast('请填写所有必填字段', 'error');
-                    return;
-                }
-
-                try {
-                    const response = await fetch(`/update_rack/${rackId}`, {
-                        method: 'PUT',
-                        headers: {
-                            'Content-Type': 'application/json'
-                        },
-                        body: JSON.stringify({
-                            name: name,
-                            room_id: roomId,
-                            height_u: heightU,
-                            department: department
-                        })
-                    });
-
-                    const data = await response.json();
-
-                    if (response.ok) {
-                        showToast('机柜更新成功', 'success');
-                        editRackModal.hide();
-                        await fetchRoomsAndRacks();
-                    } else {
-                        showToast(data.message || '更新机柜失败', 'error');
-                    }
-                } catch (error) {
-                    console.error('Error updating rack:', error);
-                    showToast('更新机柜失败', 'error');
-                }
-            });
 
         });
     </script>
