@@ -17,6 +17,7 @@ from openpyxl.utils import get_column_letter
 from werkzeug.utils import secure_filename
 import openpyxl
 from config import *  # 导入所有配置项
+import ipaddress
 
 app = Flask(__name__)
 
@@ -39,6 +40,9 @@ RACKS_FILE = os.path.join(DATA_DIR, 'racks.json')
 DEVICE_GROUPS_FILE = os.path.join(DATA_DIR, 'device_groups.json')
 GROUP_TEMPLATES_FILE = os.path.join(DATA_DIR, 'group_templates.json')
 PORT_TEMPLATES_FILE = os.path.join(DATA_DIR, 'port_templates.json')
+IP_POOLS_FILE = os.path.join(DATA_DIR, 'ip_pools.json')
+IP_ADDRESSES_FILE = os.path.join(DATA_DIR, 'ip_addresses.json')
+ASSIGNED_SUBNETS_FILE = os.path.join(DATA_DIR, 'assigned_subnets.json')
 
 # File lock objects
 file_lock = threading.Lock()
@@ -372,7 +376,12 @@ def get_occupied_slots(rack_id):
 
 # Function to find a device instance by its ID
 def find_instance_by_id(instance_id):
-    return next((inst for inst in device_instances if inst['id'] == instance_id), None)
+    for instance in device_instances:
+        if instance.get('id') == instance_id:
+            device_type = find_type_by_name(instance.get('device_type'))
+            height = device_type.get('height_u', 1) if device_type else 1
+            return instance
+    return None
 
 # Function to find a connection by its details
 def find_connection(source_id, target_id, source_port, target_port):
@@ -2986,6 +2995,358 @@ def save_device_groups(groups_data):
     except Exception as e:
         print(f"Error saving device groups: {e}")
         return False
+
+@app.route('/ip_management')
+def ip_management():
+    """IP网段管理页面"""
+    return render_template('ip_management.html')
+
+@app.route('/api/ip_pools', methods=['GET'])
+def get_ip_pools():
+    """获取所有IP网段"""
+    pools = load_data(IP_POOLS_FILE)
+    return jsonify(pools)
+
+@app.route('/api/ip_pools', methods=['POST'])
+def add_ip_pool():
+    """添加新的IP网段"""
+    data = request.get_json()
+    
+    # 验证必填字段
+    required_fields = ['name', 'network', 'subnet_mask']
+    for field in required_fields:
+        if not data.get(field):
+            return jsonify({'error': f'缺少必填字段: {field}'}), 400
+    
+    # 验证网段格式
+    try:
+        network = ipaddress.ip_network(data['network'] + data['subnet_mask'])
+    except ValueError as e:
+        return jsonify({'error': f'无效的网段格式: {str(e)}'}), 400
+    
+    # 加载现有网段
+    pools = load_data(IP_POOLS_FILE)
+    
+    # 检查网段名称是否已存在
+    if any(p['name'] == data['name'] for p in pools):
+        return jsonify({'error': '网段名称已存在'}), 400
+    
+    # 检查网段是否重叠
+    new_network = ipaddress.ip_network(data['network'] + data['subnet_mask'])
+    for pool in pools:
+        existing_network = ipaddress.ip_network(pool['network'] + pool['subnet_mask'])
+        if new_network.overlaps(existing_network):
+            return jsonify({'error': f'网段与现有网段 {pool["name"]} 重叠'}), 400
+    
+    # 创建新网段
+    new_pool = {
+        'id': str(uuid.uuid4()),
+        'name': data['name'],
+        'network': data['network'],
+        'subnet_mask': data['subnet_mask'],
+        'description': data.get('description', ''),
+        'created_at': datetime.now().isoformat()
+    }
+    
+    pools.append(new_pool)
+    save_data(IP_POOLS_FILE, pools)
+    
+    return jsonify(new_pool), 201
+
+@app.route('/api/ip_pools/<pool_id>', methods=['DELETE'])
+def delete_ip_pool(pool_id):
+    """删除IP网段"""
+    # 加载数据
+    pools = load_data(IP_POOLS_FILE)
+    assigned_subnets = load_data(ASSIGNED_SUBNETS_FILE)
+    
+    # 检查网段是否存在
+    pool = next((p for p in pools if p['id'] == pool_id), None)
+    if not pool:
+        return jsonify({'error': '网段不存在'}), 404
+    
+    # 检查是否有已分配的子网
+    if any(s['pool_id'] == pool_id for s in assigned_subnets):
+        return jsonify({'error': '无法删除：该网段下有已分配的子网'}), 400
+    
+    # 删除网段
+    pools = [p for p in pools if p['id'] != pool_id]
+    save_data(IP_POOLS_FILE, pools)
+    
+    return '', 204
+
+@app.route('/api/ip_addresses', methods=['GET'])
+def get_ip_addresses():
+    """获取所有IP地址"""
+    addresses = load_data(IP_ADDRESSES_FILE).get('ip_addresses', [])
+    return jsonify(addresses)
+
+@app.route('/api/ip_addresses/<ip_id>/release', methods=['POST'])
+def release_ip(ip_id):
+    """释放IP地址"""
+    try:
+        # 加载数据
+        addresses_data = load_data(IP_ADDRESSES_FILE)
+        
+        # 查找并更新IP地址状态
+        for address in addresses_data['ip_addresses']:
+            if address['id'] == ip_id:
+                if address['status'] != 'used':
+                    return jsonify({'error': 'IP地址未被使用'}), 400
+                
+                address['status'] = 'available'
+                address['assigned_to'] = None
+                address['assigned_time'] = None
+                
+                # 更新IP池使用计数
+                pools_data = load_data(IP_POOLS_FILE)
+                for pool in pools_data['ip_pools']:
+                    if pool['id'] == address['pool_id']:
+                        pool['used_count'] -= 1
+                        break
+                save_data(IP_POOLS_FILE, pools_data)
+                break
+        else:
+            return jsonify({'error': 'IP地址不存在'}), 404
+
+        # 保存更新后的数据
+        save_data(IP_ADDRESSES_FILE, addresses_data)
+        return '', 204
+
+    except Exception as e:
+        return jsonify({'error': str(e)}), 500
+
+@app.route('/api/ip_addresses/<ip_id>/assign', methods=['POST'])
+def assign_ip(ip_id):
+    """分配IP地址"""
+    try:
+        data = request.get_json()
+        if 'assigned_to' not in data:
+            return jsonify({'error': '缺少分配目标信息'}), 400
+
+        # 加载数据
+        addresses_data = load_data(IP_ADDRESSES_FILE)
+        
+        # 查找并更新IP地址状态
+        for address in addresses_data['ip_addresses']:
+            if address['id'] == ip_id:
+                if address['status'] != 'available':
+                    return jsonify({'error': 'IP地址已被使用'}), 400
+                
+                address['status'] = 'used'
+                address['assigned_to'] = data['assigned_to']
+                address['assigned_time'] = datetime.now().isoformat()
+                address['description'] = data.get('description', '')
+                
+                # 更新IP池使用计数
+                pools_data = load_data(IP_POOLS_FILE)
+                for pool in pools_data['ip_pools']:
+                    if pool['id'] == address['pool_id']:
+                        pool['used_count'] += 1
+                        break
+                save_data(IP_POOLS_FILE, pools_data)
+                break
+        else:
+            return jsonify({'error': 'IP地址不存在'}), 404
+
+        # 保存更新后的数据
+        save_data(IP_ADDRESSES_FILE, addresses_data)
+        return '', 204
+
+    except Exception as e:
+        return jsonify({'error': str(e)}), 500
+
+@app.route('/api/export_ip_data')
+def export_ip_data():
+    """导出IP地址数据为Excel文件"""
+    try:
+        # 加载数据
+        pools_data = load_data(IP_POOLS_FILE)['ip_pools']
+        addresses_data = load_data(IP_ADDRESSES_FILE)['ip_addresses']
+
+        # 创建Excel文件
+        wb = openpyxl.Workbook()
+        
+        # 创建IP地址池工作表
+        ws_pools = wb.active
+        ws_pools.title = 'IP地址池'
+        ws_pools.append(['名称', '网段', '子网掩码', '已用数量', '总数量', '描述'])
+        for pool in pools_data:
+            ws_pools.append([
+                pool['name'],
+                pool['network'],
+                pool['subnet_mask'],
+                pool['used_count'],
+                pool['total_count'],
+                pool.get('description', '')
+            ])
+
+        # 创建IP地址工作表
+        ws_addresses = wb.create_sheet('IP地址')
+        ws_addresses.append(['IP地址', '所属网段', '状态', '分配给', '分配时间', '备注'])
+        for address in addresses_data:
+            ws_addresses.append([
+                address['address'],
+                address['network'],
+                '已使用' if address['status'] == 'used' else '可用',
+                address.get('assigned_to', ''),
+                address.get('assigned_time', ''),
+                address.get('description', '')
+            ])
+
+        # 保存Excel文件
+        filename = f'ip_data_{datetime.now().strftime("%Y%m%d_%H%M%S")}.xlsx'
+        filepath = os.path.join(app.root_path, 'static', 'exports', filename)
+        os.makedirs(os.path.dirname(filepath), exist_ok=True)
+        wb.save(filepath)
+
+        return send_file(
+            filepath,
+            as_attachment=True,
+            download_name=filename,
+            mimetype='application/vnd.openxmlformats-officedocument.spreadsheetml.sheet'
+        )
+
+    except Exception as e:
+        return jsonify({'error': str(e)}), 500
+
+@app.route('/api/import_ip_data', methods=['POST'])
+def import_ip_data():
+    """从Excel文件导入IP数据"""
+    try:
+        if 'file' not in request.files:
+            return jsonify({'error': '没有上传文件'}), 400
+        
+        file = request.files['file']
+        if file.filename == '':
+            return jsonify({'error': '没有选择文件'}), 400
+        
+        if not file.filename.endswith(('.xlsx', '.xls')):
+            return jsonify({'error': '不支持的文件格式'}), 400
+
+        # 读取Excel文件
+        df_pools = pd.read_excel(file, sheet_name='IP地址池')
+        df_addresses = pd.read_excel(file, sheet_name='IP地址')
+
+        # 处理IP地址池数据
+        pools_data = load_data(IP_POOLS_FILE)
+        for _, row in df_pools.iterrows():
+            try:
+                network = ipaddress.ip_network(f"{row['网段']}/{row['子网掩码']}")
+                new_pool = {
+                    'id': str(uuid.uuid4()),
+                    'name': row['名称'],
+                    'network': row['网段'],
+                    'subnet_mask': row['子网掩码'],
+                    'description': row.get('描述', ''),
+                    'created_at': datetime.now().isoformat(),
+                    'total_count': network.num_addresses,
+                    'used_count': 0
+                }
+                pools_data['ip_pools'].append(new_pool)
+            except Exception as e:
+                continue
+
+        # 处理IP地址数据
+        addresses_data = load_data(IP_ADDRESSES_FILE)
+        for _, row in df_addresses.iterrows():
+            try:
+                # 查找对应的地址池
+                pool_id = None
+                for pool in pools_data['ip_pools']:
+                    if pool['network'] == row['所属网段']:
+                        pool_id = pool['id']
+                        break
+
+                if pool_id:
+                    new_address = {
+                        'id': str(uuid.uuid4()),
+                        'address': row['IP地址'],
+                        'pool_id': pool_id,
+                        'network': row['所属网段'],
+                        'status': 'used' if row['状态'] == '已使用' else 'available',
+                        'assigned_to': row.get('分配给', None),
+                        'assigned_time': row.get('分配时间', None),
+                        'description': row.get('备注', '')
+                    }
+                    addresses_data['ip_addresses'].append(new_address)
+            except Exception as e:
+                continue
+
+        # 保存更新后的数据
+        save_data(IP_POOLS_FILE, pools_data)
+        save_data(IP_ADDRESSES_FILE, addresses_data)
+
+        return jsonify({'message': '导入成功'}), 200
+
+    except Exception as e:
+        return jsonify({'error': str(e)}), 500
+
+def load_ip_pools():
+    """加载IP网段数据"""
+    return load_data(IP_POOLS_FILE)
+
+def save_ip_pools(data):
+    """保存IP网段数据"""
+    save_data(IP_POOLS_FILE, data)
+
+def load_assigned_subnets():
+    """加载已分配的子网数据"""
+    return load_data(ASSIGNED_SUBNETS_FILE)
+
+def save_assigned_subnets(data):
+    """保存已分配的子网数据"""
+    save_data(ASSIGNED_SUBNETS_FILE, data)
+
+
+# 获取已分配的子网
+@app.route('/api/assigned_subnets', methods=['GET'])
+def get_assigned_subnets():
+    data = load_assigned_subnets()
+    return jsonify(data["assigned_subnets"])
+
+# 分配新的子网
+@app.route('/api/assign_subnet', methods=['POST'])
+def assign_subnet():
+    try:
+        data = load_assigned_subnets()
+        new_subnet = request.json
+        
+        # 验证必要字段
+        required_fields = ['pool_id', 'network', 'subnet_mask', 'department']
+        for field in required_fields:
+            if field not in new_subnet:
+                return jsonify({"error": f"Missing required field: {field}"}), 400
+        
+        # 获取地址池信息
+        pools_data = load_ip_pools()
+        pool = next((p for p in pools_data["pools"] if p["id"] == new_subnet["pool_id"]), None)
+        if not pool:
+            return jsonify({"error": "Invalid pool_id"}), 400
+        
+        # 添加额外信息
+        new_subnet['id'] = f"subnet-{str(uuid.uuid4())[:8]}"
+        new_subnet['pool_name'] = pool["name"]
+        new_subnet['assigned_time'] = datetime.now().isoformat()
+        
+        # 添加到数据中
+        data["assigned_subnets"].append(new_subnet)
+        save_assigned_subnets(data)
+        
+        return jsonify(new_subnet), 201
+    except Exception as e:
+        return jsonify({"error": str(e)}), 400
+
+# 释放子网
+@app.route('/api/release_subnet/<subnet_id>', methods=['POST'])
+def release_subnet(subnet_id):
+    try:
+        data = load_assigned_subnets()
+        data["assigned_subnets"] = [s for s in data["assigned_subnets"] if s["id"] != subnet_id]
+        save_assigned_subnets(data)
+        return jsonify({"message": "Subnet released successfully"}), 200
+    except Exception as e:
+        return jsonify({"error": str(e)}), 400
 
 if __name__ == '__main__':
     app.run(host=SERVER_HOST, port=SERVER_PORT, debug=DEBUG_MODE)

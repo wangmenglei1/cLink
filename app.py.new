@@ -1,0 +1,288 @@
+from flask import Flask, render_template, request, jsonify, send_file
+from datetime import datetime
+import uuid
+import json
+import os
+import ipaddress
+import pandas as pd
+from openpyxl import Workbook
+from werkzeug.utils import secure_filename
+
+app = Flask(__name__)
+
+# 数据文件路径
+DATA_DIR = 'data'
+DEVICE_TYPES_FILE = os.path.join(DATA_DIR, 'device_types.json')
+DEVICE_INSTANCES_FILE = os.path.join(DATA_DIR, 'device_instances.json')
+CONNECTIONS_FILE = os.path.join(DATA_DIR, 'connections.json')
+ROOMS_FILE = os.path.join(DATA_DIR, 'rooms.json')
+RACKS_FILE = os.path.join(DATA_DIR, 'racks.json')
+DEVICE_GROUPS_FILE = os.path.join(DATA_DIR, 'device_groups.json')
+GROUP_TEMPLATES_FILE = os.path.join(DATA_DIR, 'group_templates.json')
+DEVICE_PORT_TEMPLATES_FILE = os.path.join(DATA_DIR, 'device_port_templates.json')
+IP_POOLS_FILE = os.path.join(DATA_DIR, 'ip_pools.json')
+ASSIGNED_SUBNETS_FILE = os.path.join(DATA_DIR, 'assigned_subnets.json')
+
+# 全局变量
+device_types = []
+device_instances = []
+connections = []
+rooms = []
+racks = []
+device_groups = []
+group_templates = []
+device_port_templates = []
+
+def ensure_data_dir():
+    """确保数据目录存在"""
+    if not os.path.exists(DATA_DIR):
+        os.makedirs(DATA_DIR)
+
+def load_data(filepath):
+    """从JSON文件加载数据"""
+    if os.path.exists(filepath):
+        with open(filepath, 'r', encoding='utf-8') as f:
+            return json.load(f)
+    return get_default_data_structure(filepath)
+
+def get_default_data_structure(filepath):
+    """根据文件类型返回默认的数据结构"""
+    filename = os.path.basename(filepath)
+    base_structure = {
+        "version": "1.0",
+        "last_updated": datetime.now().isoformat()
+    }
+    
+    if filename == 'device_types.json':
+        base_structure["device_types"] = []
+    elif filename == 'device_instances.json':
+        base_structure["device_instances"] = []
+    elif filename == 'connections.json':
+        base_structure["connections"] = []
+    elif filename == 'rooms.json':
+        base_structure["rooms"] = []
+    elif filename == 'racks.json':
+        base_structure["racks"] = []
+    elif filename == 'device_groups.json':
+        base_structure["groups"] = []
+    elif filename == 'group_templates.json':
+        base_structure["templates"] = []
+    elif filename == 'device_port_templates.json':
+        base_structure["templates"] = []
+    elif filename == 'ip_pools.json':
+        base_structure["pools"] = []
+    elif filename == 'assigned_subnets.json':
+        base_structure["subnets"] = []
+    
+    return base_structure
+
+def save_data(filepath, data):
+    """保存数据到JSON文件"""
+    data["last_updated"] = datetime.now().isoformat()
+    with open(filepath, 'w', encoding='utf-8') as f:
+        json.dump(data, f, indent=4, ensure_ascii=False)
+
+@app.before_request
+def load_all_data_before_request():
+    """在每个请求之前加载所有数据"""
+    global device_types, device_instances, connections, rooms, racks, device_groups
+    global group_templates, device_port_templates
+    
+    device_types = load_data(DEVICE_TYPES_FILE).get('device_types', [])
+    device_instances = load_data(DEVICE_INSTANCES_FILE).get('device_instances', [])
+    connections = load_data(CONNECTIONS_FILE).get('connections', [])
+    rooms = load_data(ROOMS_FILE).get('rooms', [])
+    racks = load_data(RACKS_FILE).get('racks', [])
+    device_groups = load_data(DEVICE_GROUPS_FILE).get('groups', [])
+    group_templates = load_data(GROUP_TEMPLATES_FILE).get('templates', [])
+    device_port_templates = load_data(DEVICE_PORT_TEMPLATES_FILE).get('templates', [])
+
+[... 保留中间的所有函数和路由 ...]
+
+@app.route('/ip_management')
+def ip_management():
+    """IP网段管理页面"""
+    return render_template('ip_management.html')
+
+@app.route('/api/ip_pools', methods=['GET'])
+def get_ip_pools():
+    """获取所有IP网段"""
+    pools = load_data(IP_POOLS_FILE)
+    return jsonify(pools.get('pools', []))
+
+@app.route('/api/ip_pools', methods=['POST'])
+def add_ip_pool():
+    """添加新的IP网段"""
+    data = request.get_json()
+    
+    # 验证必填字段
+    required_fields = ['name', 'network', 'subnet_mask']
+    for field in required_fields:
+        if not data.get(field):
+            return jsonify({'error': f'缺少必填字段: {field}'}), 400
+    
+    # 验证网段格式
+    try:
+        network = ipaddress.ip_network(data['network'] + data['subnet_mask'])
+    except ValueError as e:
+        return jsonify({'error': f'无效的网段格式: {str(e)}'}), 400
+    
+    # 加载现有网段
+    pools = load_data(IP_POOLS_FILE)
+    
+    # 检查网段名称是否已存在
+    if any(p['name'] == data['name'] for p in pools.get('pools', [])):
+        return jsonify({'error': '网段名称已存在'}), 400
+    
+    # 检查网段是否重叠
+    new_network = ipaddress.ip_network(data['network'] + data['subnet_mask'])
+    for pool in pools.get('pools', []):
+        existing_network = ipaddress.ip_network(pool['network'] + pool['subnet_mask'])
+        if new_network.overlaps(existing_network):
+            return jsonify({'error': f'网段与现有网段 {pool["name"]} 重叠'}), 400
+    
+    # 创建新网段
+    new_pool = {
+        'id': str(uuid.uuid4()),
+        'name': data['name'],
+        'network': data['network'],
+        'subnet_mask': data['subnet_mask'],
+        'description': data.get('description', ''),
+        'created_at': datetime.now().isoformat()
+    }
+    
+    if 'pools' not in pools:
+        pools['pools'] = []
+    pools['pools'].append(new_pool)
+    save_data(IP_POOLS_FILE, pools)
+    
+    return jsonify(new_pool), 201
+
+@app.route('/api/ip_pools/<pool_id>', methods=['DELETE'])
+def delete_ip_pool(pool_id):
+    """删除IP网段"""
+    # 加载数据
+    pools = load_data(IP_POOLS_FILE)
+    assigned_subnets = load_data(ASSIGNED_SUBNETS_FILE)
+    
+    # 检查网段是否存在
+    pool = next((p for p in pools.get('pools', []) if p['id'] == pool_id), None)
+    if not pool:
+        return jsonify({'error': '网段不存在'}), 404
+    
+    # 检查是否有已分配的子网
+    if any(s['pool_id'] == pool_id for s in assigned_subnets.get('subnets', [])):
+        return jsonify({'error': '无法删除：该网段下有已分配的子网'}), 400
+    
+    # 删除网段
+    pools['pools'] = [p for p in pools.get('pools', []) if p['id'] != pool_id]
+    save_data(IP_POOLS_FILE, pools)
+    
+    return '', 204
+
+@app.route('/api/assigned_subnets', methods=['GET'])
+def get_assigned_subnets():
+    """获取所有已分配的子网"""
+    subnets = load_data(ASSIGNED_SUBNETS_FILE)
+    pools = {p['id']: p['name'] for p in load_data(IP_POOLS_FILE).get('pools', [])}
+    
+    # 添加网段名称到子网数据中
+    for subnet in subnets.get('subnets', []):
+        subnet['pool_name'] = pools.get(subnet['pool_id'], '未知网段')
+    
+    return jsonify(subnets.get('subnets', []))
+
+@app.route('/api/assign_subnet', methods=['POST'])
+def assign_subnet():
+    """分配新的子网"""
+    data = request.get_json()
+    
+    # 验证必填字段
+    required_fields = ['pool_id', 'network', 'subnet_mask', 'department']
+    for field in required_fields:
+        if not data.get(field):
+            return jsonify({'error': f'缺少必填字段: {field}'}), 400
+    
+    # 加载数据
+    pools = load_data(IP_POOLS_FILE)
+    assigned_subnets = load_data(ASSIGNED_SUBNETS_FILE)
+    
+    # 检查网段是否存在
+    pool = next((p for p in pools.get('pools', []) if p['id'] == data['pool_id']), None)
+    if not pool:
+        return jsonify({'error': '所选网段不存在'}), 404
+    
+    try:
+        # 验证子网格式
+        subnet = ipaddress.ip_network(data['network'] + data['subnet_mask'])
+        parent = ipaddress.ip_network(pool['network'] + pool['subnet_mask'])
+        
+        # 验证子网是否在父网段内
+        if not subnet.subnet_of(parent):
+            return jsonify({'error': '子网必须在所选网段范围内'}), 400
+        
+        # 检查子网是否与已分配的子网重叠
+        for assigned in assigned_subnets.get('subnets', []):
+            existing = ipaddress.ip_network(assigned['network'] + assigned['subnet_mask'])
+            if subnet.overlaps(existing):
+                return jsonify({'error': '子网与已分配的子网重叠'}), 400
+    except ValueError as e:
+        return jsonify({'error': f'无效的子网格式: {str(e)}'}), 400
+    
+    # 创建新的子网分配记录
+    new_subnet = {
+        'id': str(uuid.uuid4()),
+        'pool_id': data['pool_id'],
+        'network': data['network'],
+        'subnet_mask': data['subnet_mask'],
+        'department': data['department'],
+        'description': data.get('description', ''),
+        'assigned_time': datetime.now().isoformat()
+    }
+    
+    if 'subnets' not in assigned_subnets:
+        assigned_subnets['subnets'] = []
+    assigned_subnets['subnets'].append(new_subnet)
+    save_data(ASSIGNED_SUBNETS_FILE, assigned_subnets)
+    
+    # 添加网段名称到返回数据中
+    new_subnet['pool_name'] = pool['name']
+    
+    return jsonify(new_subnet), 201
+
+@app.route('/api/release_subnet/<subnet_id>', methods=['POST'])
+def release_subnet(subnet_id):
+    """释放已分配的子网"""
+    # 加载数据
+    assigned_subnets = load_data(ASSIGNED_SUBNETS_FILE)
+    
+    # 检查子网是否存在
+    subnet = next((s for s in assigned_subnets.get('subnets', []) if s['id'] == subnet_id), None)
+    if not subnet:
+        return jsonify({'error': '子网不存在'}), 404
+    
+    # 释放子网
+    assigned_subnets['subnets'] = [s for s in assigned_subnets.get('subnets', []) if s['id'] != subnet_id]
+    save_data(ASSIGNED_SUBNETS_FILE, assigned_subnets)
+    
+    return '', 204
+
+def load_ip_pools():
+    """加载IP网段数据"""
+    return load_data(IP_POOLS_FILE)
+
+def save_ip_pools(data):
+    """保存IP网段数据"""
+    save_data(IP_POOLS_FILE, data)
+
+def load_assigned_subnets():
+    """加载已分配的子网数据"""
+    return load_data(ASSIGNED_SUBNETS_FILE)
+
+def save_assigned_subnets(data):
+    """保存已分配的子网数据"""
+    save_data(ASSIGNED_SUBNETS_FILE, data)
+
+if __name__ == '__main__':
+    ensure_data_dir()
+    app.run(debug=True, host='0.0.0.0', port=5000) 
