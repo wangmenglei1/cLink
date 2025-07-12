@@ -1,268 +1,408 @@
 {
   "version": "2.0",
-  "timestamp": "2025-07-12T23:27:04.649835",
+  "timestamp": "2025-07-12T10:19:00.245113",
   "device_types": [
     {
-      "id": "30d15571-88b9-42b2-8cb8-8cd1168d830c",
-      "model": "TestServer",
-      "manufacturer": "Generic",
+      "name": "5130",
+      "height_u": 1,
+      "interfaces_definition": [
+        {
+          "type": "GigabitEthernet",
+          "prefix": "GE",
+          "naming": "1/0/",
+          "start_num": 1,
+          "end_num": 10
+        }
+      ],
+      "full_interfaces_list": [
+        {
+          "name": "GE1/0/1",
+          "type": "GigabitEthernet"
+        },
+        {
+          "name": "GE1/0/2",
+          "type": "GigabitEthernet"
+        },
+        {
+          "name": "GE1/0/3",
+          "type": "GigabitEthernet"
+        },
+        {
+          "name": "GE1/0/4",
+          "type": "GigabitEthernet"
+        },
+        {
+          "name": "GE1/0/5",
+          "type": "GigabitEthernet"
+        },
+        {
+          "name": "GE1/0/6",
+          "type": "GigabitEthernet"
+        },
+        {
+          "name": "GE1/0/7",
+          "type": "GigabitEthernet"
+        },
+        {
+          "name": "GE1/0/8",
+          "type": "GigabitEthernet"
+        },
+        {
+          "name": "GE1/0/9",
+          "type": "GigabitEthernet"
+        },
+        {
+          "name": "GE1/0/10",
+          "type": "GigabitEthernet"
+        }
+      ],
+      "interfaces": [],
+      "definitions": []
+    },
+    {
+      "name": "HP",
+      "height_u": 2,
+      "interfaces_definition": [
+        {
+          "type": "GigabitEthernet",
+          "prefix": "GE",
+          "naming": "1/0/",
+          "start_num": 1,
+          "end_num": 1
+        }
+      ],
+      "full_interfaces_list": [
+        {
+          "name": "GE1/0/1",
+          "type": "GigabitEthernet"
+        }
+      ]
+    },
+    {
+      "name": "TestServer",
+      "height_u": 1,
+      "interfaces_definition": [
+        {
+          "type": "Ethernet",
+          "prefix": "GigabitEthernet",
+          "naming": "0/0/",
+          "start_num": 1,
+          "end_num": 4
+        }
+      ],
+      "full_interfaces_list": [
+        {
+          "name": "GigabitEthernet0/0/1",
+          "type": "Ethernet"
+        },
+        {
+          "name": "GigabitEthernet0/0/2",
+          "type": "Ethernet"
+        },
+        {
+          "name": "GigabitEthernet0/0/3",
+          "type": "Ethernet"
+        },
+        {
+          "name": "GigabitEthernet0/0/4",
+          "type": "Ethernet"
+        }
+      ]
+    },
+    {
+      "name": "S6805",
       "height_u": 1,
       "interfaces": [
         {
-          "name": "HundredGigE1/0/1",
-          "type": "optical",
+          "name": "XGE1/0/1",
+          "type": "optic",
           "connected_to": null
         },
         {
-          "name": "HundredGigE1/0/2",
-          "type": "optical",
+          "name": "XGE1/0/2",
+          "type": "optic",
           "connected_to": null
         },
         {
-          "name": "HundredGigE1/0/3",
-          "type": "optical",
+          "name": "XGE1/0/3",
+          "type": "optic",
           "connected_to": null
         },
         {
-          "name": "HundredGigE1/0/4",
-          "type": "optical",
+          "name": "XGE1/0/4",
+          "type": "optic",
           "connected_to": null
         },
         {
-          "name": "HundredGigE1/0/5",
-          "type": "optical",
+          "name": "XGE1/0/5",
+          "type": "optic",
           "connected_to": null
         },
         {
-          "name": "HundredGigE1/0/6",
-          "type": "optical",
+          "name": "XGE1/0/6",
+          "type": "optic",
           "connected_to": null
         },
         {
-          "name": "HundredGigE1/0/7",
-          "type": "optical",
+          "name": "XGE1/0/7",
+          "type": "optic",
           "connected_to": null
         },
         {
-          "name": "HundredGigE1/0/8",
-          "type": "optical",
+          "name": "XGE1/0/8",
+          "type": "optic",
           "connected_to": null
         },
         {
-          "name": "HundredGigE1/0/9",
-          "type": "optical",
+          "name": "XGE1/0/9",
+          "type": "optic",
           "connected_to": null
         },
         {
-          "name": "HundredGigE1/0/10",
-          "type": "optical",
+          "name": "XGE1/0/10",
+          "type": "optic",
           "connected_to": null
         },
         {
-          "name": "HundredGigE1/0/11",
-          "type": "optical",
+          "name": "XGE1/0/11",
+          "type": "optic",
           "connected_to": null
         },
         {
-          "name": "HundredGigE1/0/12",
-          "type": "optical",
+          "name": "XGE1/0/12",
+          "type": "optic",
           "connected_to": null
         },
         {
-          "name": "HundredGigE1/0/13",
-          "type": "optical",
+          "name": "XGE1/0/13",
+          "type": "optic",
           "connected_to": null
         },
         {
-          "name": "HundredGigE1/0/14",
-          "type": "optical",
+          "name": "XGE1/0/14",
+          "type": "optic",
           "connected_to": null
         },
         {
-          "name": "HundredGigE1/0/15",
-          "type": "optical",
+          "name": "XGE1/0/15",
+          "type": "optic",
           "connected_to": null
         },
         {
-          "name": "HundredGigE1/0/16",
-          "type": "optical",
+          "name": "XGE1/0/16",
+          "type": "optic",
           "connected_to": null
         },
         {
-          "name": "HundredGigE1/0/17",
-          "type": "optical",
+          "name": "XGE1/0/17",
+          "type": "optic",
           "connected_to": null
         },
         {
-          "name": "HundredGigE1/0/18",
-          "type": "optical",
+          "name": "XGE1/0/18",
+          "type": "optic",
           "connected_to": null
         },
         {
-          "name": "HundredGigE1/0/19",
-          "type": "optical",
+          "name": "XGE1/0/19",
+          "type": "optic",
           "connected_to": null
         },
         {
-          "name": "HundredGigE1/0/20",
-          "type": "optical",
+          "name": "XGE1/0/20",
+          "type": "optic",
           "connected_to": null
         },
         {
-          "name": "HundredGigE1/0/21",
-          "type": "optical",
+          "name": "XGE1/0/21",
+          "type": "optic",
           "connected_to": null
         },
         {
-          "name": "HundredGigE1/0/22",
-          "type": "optical",
+          "name": "XGE1/0/22",
+          "type": "optic",
           "connected_to": null
         },
         {
-          "name": "HundredGigE1/0/23",
-          "type": "optical",
+          "name": "XGE1/0/23",
+          "type": "optic",
           "connected_to": null
         },
         {
-          "name": "HundredGigE1/0/24",
-          "type": "optical",
+          "name": "XGE1/0/24",
+          "type": "optic",
           "connected_to": null
         },
         {
-          "name": "HundredGigE1/0/25",
-          "type": "optical",
+          "name": "XGE1/0/25",
+          "type": "optic",
           "connected_to": null
         },
         {
-          "name": "HundredGigE1/0/26",
-          "type": "optical",
+          "name": "XGE1/0/26",
+          "type": "optic",
           "connected_to": null
         },
         {
-          "name": "HundredGigE1/0/27",
-          "type": "optical",
+          "name": "XGE1/0/27",
+          "type": "optic",
           "connected_to": null
         },
         {
-          "name": "HundredGigE1/0/28",
-          "type": "optical",
+          "name": "XGE1/0/28",
+          "type": "optic",
           "connected_to": null
         },
         {
-          "name": "HundredGigE1/0/29",
-          "type": "optical",
+          "name": "XGE1/0/29",
+          "type": "optic",
           "connected_to": null
         },
         {
-          "name": "HundredGigE1/0/30",
-          "type": "optical",
+          "name": "XGE1/0/30",
+          "type": "optic",
           "connected_to": null
         },
         {
-          "name": "HundredGigE1/0/31",
-          "type": "optical",
+          "name": "XGE1/0/31",
+          "type": "optic",
           "connected_to": null
         },
         {
-          "name": "HundredGigE1/0/32",
-          "type": "optical",
+          "name": "XGE1/0/32",
+          "type": "optic",
           "connected_to": null
         },
         {
-          "name": "HundredGigE1/0/33",
-          "type": "optical",
+          "name": "XGE1/0/33",
+          "type": "optic",
           "connected_to": null
         },
         {
-          "name": "HundredGigE1/0/34",
-          "type": "optical",
+          "name": "XGE1/0/34",
+          "type": "optic",
           "connected_to": null
         },
         {
-          "name": "HundredGigE1/0/35",
-          "type": "optical",
+          "name": "XGE1/0/35",
+          "type": "optic",
           "connected_to": null
         },
         {
-          "name": "HundredGigE1/0/36",
-          "type": "optical",
+          "name": "XGE1/0/36",
+          "type": "optic",
           "connected_to": null
         },
         {
-          "name": "HundredGigE1/0/37",
-          "type": "optical",
+          "name": "XGE1/0/37",
+          "type": "optic",
           "connected_to": null
         },
         {
-          "name": "HundredGigE1/0/38",
-          "type": "optical",
+          "name": "XGE1/0/38",
+          "type": "optic",
           "connected_to": null
         },
         {
-          "name": "HundredGigE1/0/39",
-          "type": "optical",
+          "name": "XGE1/0/39",
+          "type": "optic",
           "connected_to": null
         },
         {
-          "name": "HundredGigE1/0/40",
-          "type": "optical",
+          "name": "XGE1/0/40",
+          "type": "optic",
           "connected_to": null
         },
         {
-          "name": "HundredGigE1/0/41",
-          "type": "optical",
+          "name": "XGE1/0/41",
+          "type": "optic",
           "connected_to": null
         },
         {
-          "name": "HundredGigE1/0/42",
-          "type": "optical",
+          "name": "XGE1/0/42",
+          "type": "optic",
           "connected_to": null
         },
         {
-          "name": "HundredGigE1/0/43",
-          "type": "optical",
+          "name": "XGE1/0/43",
+          "type": "optic",
           "connected_to": null
         },
         {
-          "name": "HundredGigE1/0/44",
-          "type": "optical",
+          "name": "XGE1/0/44",
+          "type": "optic",
           "connected_to": null
         },
         {
-          "name": "HundredGigE1/0/45",
-          "type": "optical",
+          "name": "XGE1/0/45",
+          "type": "optic",
           "connected_to": null
         },
         {
-          "name": "HundredGigE1/0/46",
-          "type": "optical",
+          "name": "XGE1/0/46",
+          "type": "optic",
           "connected_to": null
         },
         {
-          "name": "HundredGigE1/0/47",
-          "type": "optical",
+          "name": "XGE1/0/47",
+          "type": "optic",
           "connected_to": null
         },
         {
-          "name": "HundredGigE1/0/48",
-          "type": "optical",
+          "name": "XGE1/0/48",
+          "type": "optic",
+          "connected_to": null
+        },
+        {
+          "name": "HGE1/0/49",
+          "type": "optic",
+          "connected_to": null
+        },
+        {
+          "name": "HGE1/0/50",
+          "type": "optic",
+          "connected_to": null
+        },
+        {
+          "name": "HGE1/0/51",
+          "type": "optic",
+          "connected_to": null
+        },
+        {
+          "name": "HGE1/0/52",
+          "type": "optic",
+          "connected_to": null
+        },
+        {
+          "name": "HGE1/0/53",
+          "type": "optic",
+          "connected_to": null
+        },
+        {
+          "name": "HGE1/0/54",
+          "type": "optic",
           "connected_to": null
         }
       ],
       "definitions": [
         {
-          "rate": "100G",
-          "interface_type": "Optical",
+          "rate": "10G",
+          "media_type": "光口",
           "naming_prefix": "1/0/",
           "start": 1,
           "end": 48
+        },
+        {
+          "rate": "100G",
+          "media_type": "光口",
+          "naming_prefix": "1/0/",
+          "start": 49,
+          "end": 54
         }
       ]
     },
     {
-      "id": "2d15621e-ff7c-4f4f-aaff-3c676c3ce01f",
-      "model": "S12504",
-      "manufacturer": "H3C",
+      "name": "S12504",
       "height_u": 6,
       "interfaces": [
         {
@@ -517,9 +657,7 @@
       ]
     },
     {
-      "id": "a1d29218-672e-48fe-913f-2b1c28fd67b1",
-      "model": "S6805-54",
-      "manufacturer": "Huawei",
+      "name": "S6805-54",
       "height_u": 1,
       "interfaces": [
         {
@@ -818,10 +956,175 @@
       ]
     },
     {
-      "id": "CE6865-48S8CQ-EI",
-      "model": "CE6865-48S8CQ-EI",
+      "id": "S6730-H48X6C",
       "manufacturer": "Huawei",
-      "height_u": 1,
+      "model": "S6730-H48X6C",
+      "type": "switch",
+      "height": 1,
+      "interfaces": [
+        {
+          "name": "XGE1/0/1",
+          "type": "10GE",
+          "usage": [
+            "uplink",
+            "peer-link"
+          ]
+        },
+        {
+          "name": "XGE1/0/2",
+          "type": "10GE",
+          "usage": [
+            "uplink",
+            "peer-link"
+          ]
+        },
+        {
+          "name": "XGE1/0/3",
+          "type": "10GE",
+          "usage": [
+            "uplink",
+            "peer-link"
+          ]
+        },
+        {
+          "name": "XGE1/0/4",
+          "type": "10GE",
+          "usage": [
+            "uplink",
+            "peer-link"
+          ]
+        },
+        {
+          "name": "XGE1/0/5",
+          "type": "10GE",
+          "usage": [
+            "uplink",
+            "downlink"
+          ]
+        },
+        {
+          "name": "XGE1/0/6",
+          "type": "10GE",
+          "usage": [
+            "uplink",
+            "downlink"
+          ]
+        },
+        {
+          "name": "XGE1/0/7",
+          "type": "10GE",
+          "usage": [
+            "uplink",
+            "downlink"
+          ]
+        },
+        {
+          "name": "XGE1/0/8",
+          "type": "10GE",
+          "usage": [
+            "uplink",
+            "downlink"
+          ]
+        },
+        {
+          "name": "MGE0/0/0",
+          "type": "GE",
+          "usage": [
+            "management",
+            "heartbeat"
+          ]
+        },
+        {
+          "name": "100GE1/0/1",
+          "type": "100GE",
+          "usage": [
+            "uplink"
+          ]
+        },
+        {
+          "name": "100GE1/0/2",
+          "type": "100GE",
+          "usage": [
+            "uplink"
+          ]
+        },
+        {
+          "name": "100GE1/0/3",
+          "type": "100GE",
+          "usage": [
+            "uplink"
+          ]
+        },
+        {
+          "name": "100GE1/0/4",
+          "type": "100GE",
+          "usage": [
+            "uplink"
+          ]
+        },
+        {
+          "name": "100GE1/0/5",
+          "type": "100GE",
+          "usage": [
+            "uplink"
+          ]
+        },
+        {
+          "name": "100GE1/0/6",
+          "type": "100GE",
+          "usage": [
+            "uplink"
+          ]
+        }
+      ],
+      "stack_config": {
+        "peer_link_ports": [
+          "XGE1/0/1",
+          "XGE1/0/2"
+        ],
+        "heartbeat_ports": [
+          "MGE0/0/0"
+        ],
+        "uplink_ports": [
+          "100GE1/0/1",
+          "100GE1/0/2",
+          "100GE1/0/3"
+        ],
+        "downlink_ports": [
+          "XGE1/0/5",
+          "XGE1/0/6",
+          "XGE1/0/7",
+          "XGE1/0/8"
+        ]
+      },
+      "mlag_config": {
+        "peer_link_ports": [
+          "100GE1/0/1",
+          "100GE1/0/2"
+        ],
+        "heartbeat_ports": [
+          "MGE0/0/0"
+        ],
+        "uplink_ports": [
+          "100GE1/0/3",
+          "100GE1/0/4",
+          "100GE1/0/5",
+          "100GE1/0/6"
+        ],
+        "downlink_ports": [
+          "XGE1/0/5",
+          "XGE1/0/6",
+          "XGE1/0/7",
+          "XGE1/0/8"
+        ]
+      }
+    },
+    {
+      "id": "CE6865-48S8CQ-EI",
+      "manufacturer": "Huawei",
+      "model": "CE6865-48S8CQ-EI",
+      "type": "switch",
+      "height": 1,
       "interfaces": [
         {
           "name": "25GE1/0/1",
@@ -892,472 +1195,40 @@
           ]
         }
       ],
-      "definitions": []
-    },
-    {
-      "id": "d4136c50-d21e-44e0-a1d8-2c787a8ba8b5",
-      "model": "S6805-54HF",
-      "manufacturer": "H3C",
-      "height_u": 1,
-      "interfaces": [
-        {
-          "name": "Te1/0/1",
-          "type": "optical",
-          "connected_to": null
-        },
-        {
-          "name": "Te1/0/2",
-          "type": "optical",
-          "connected_to": null
-        },
-        {
-          "name": "Te1/0/3",
-          "type": "optical",
-          "connected_to": null
-        },
-        {
-          "name": "Te1/0/4",
-          "type": "optical",
-          "connected_to": null
-        },
-        {
-          "name": "Te1/0/5",
-          "type": "optical",
-          "connected_to": null
-        },
-        {
-          "name": "Te1/0/6",
-          "type": "optical",
-          "connected_to": null
-        },
-        {
-          "name": "Te1/0/7",
-          "type": "optical",
-          "connected_to": null
-        },
-        {
-          "name": "Te1/0/8",
-          "type": "optical",
-          "connected_to": null
-        },
-        {
-          "name": "Te1/0/9",
-          "type": "optical",
-          "connected_to": null
-        },
-        {
-          "name": "Te1/0/10",
-          "type": "optical",
-          "connected_to": null
-        },
-        {
-          "name": "Te1/0/11",
-          "type": "optical",
-          "connected_to": null
-        },
-        {
-          "name": "Te1/0/12",
-          "type": "optical",
-          "connected_to": null
-        },
-        {
-          "name": "Te1/0/13",
-          "type": "optical",
-          "connected_to": null
-        },
-        {
-          "name": "Te1/0/14",
-          "type": "optical",
-          "connected_to": null
-        },
-        {
-          "name": "Te1/0/15",
-          "type": "optical",
-          "connected_to": null
-        },
-        {
-          "name": "Te1/0/16",
-          "type": "optical",
-          "connected_to": null
-        },
-        {
-          "name": "Te1/0/17",
-          "type": "optical",
-          "connected_to": null
-        },
-        {
-          "name": "Te1/0/18",
-          "type": "optical",
-          "connected_to": null
-        },
-        {
-          "name": "Te1/0/19",
-          "type": "optical",
-          "connected_to": null
-        },
-        {
-          "name": "Te1/0/20",
-          "type": "optical",
-          "connected_to": null
-        },
-        {
-          "name": "Te1/0/21",
-          "type": "optical",
-          "connected_to": null
-        },
-        {
-          "name": "Te1/0/22",
-          "type": "optical",
-          "connected_to": null
-        },
-        {
-          "name": "Te1/0/23",
-          "type": "optical",
-          "connected_to": null
-        },
-        {
-          "name": "Te1/0/24",
-          "type": "optical",
-          "connected_to": null
-        },
-        {
-          "name": "HundredGigE1/0/25",
-          "type": "optical",
-          "connected_to": null
-        },
-        {
-          "name": "HundredGigE1/0/26",
-          "type": "optical",
-          "connected_to": null
-        },
-        {
-          "name": "HundredGigE1/0/27",
-          "type": "optical",
-          "connected_to": null
-        },
-        {
-          "name": "HundredGigE1/0/28",
-          "type": "optical",
-          "connected_to": null
-        },
-        {
-          "name": "HundredGigE1/0/29",
-          "type": "optical",
-          "connected_to": null
-        },
-        {
-          "name": "HundredGigE1/0/30",
-          "type": "optical",
-          "connected_to": null
-        },
-        {
-          "name": "Te1/0/31",
-          "type": "optical",
-          "connected_to": null
-        },
-        {
-          "name": "Te1/0/32",
-          "type": "optical",
-          "connected_to": null
-        },
-        {
-          "name": "Te1/0/33",
-          "type": "optical",
-          "connected_to": null
-        },
-        {
-          "name": "Te1/0/34",
-          "type": "optical",
-          "connected_to": null
-        },
-        {
-          "name": "Te1/0/35",
-          "type": "optical",
-          "connected_to": null
-        },
-        {
-          "name": "Te1/0/36",
-          "type": "optical",
-          "connected_to": null
-        },
-        {
-          "name": "Te1/0/37",
-          "type": "optical",
-          "connected_to": null
-        },
-        {
-          "name": "Te1/0/38",
-          "type": "optical",
-          "connected_to": null
-        },
-        {
-          "name": "Te1/0/39",
-          "type": "optical",
-          "connected_to": null
-        },
-        {
-          "name": "Te1/0/40",
-          "type": "optical",
-          "connected_to": null
-        },
-        {
-          "name": "Te1/0/41",
-          "type": "optical",
-          "connected_to": null
-        },
-        {
-          "name": "Te1/0/42",
-          "type": "optical",
-          "connected_to": null
-        },
-        {
-          "name": "Te1/0/43",
-          "type": "optical",
-          "connected_to": null
-        },
-        {
-          "name": "Te1/0/44",
-          "type": "optical",
-          "connected_to": null
-        },
-        {
-          "name": "Te1/0/45",
-          "type": "optical",
-          "connected_to": null
-        },
-        {
-          "name": "Te1/0/46",
-          "type": "optical",
-          "connected_to": null
-        },
-        {
-          "name": "Te1/0/47",
-          "type": "optical",
-          "connected_to": null
-        },
-        {
-          "name": "Te1/0/48",
-          "type": "optical",
-          "connected_to": null
-        },
-        {
-          "name": "Te1/0/49",
-          "type": "optical",
-          "connected_to": null
-        },
-        {
-          "name": "Te1/0/50",
-          "type": "optical",
-          "connected_to": null
-        },
-        {
-          "name": "Te1/0/51",
-          "type": "optical",
-          "connected_to": null
-        },
-        {
-          "name": "Te1/0/52",
-          "type": "optical",
-          "connected_to": null
-        },
-        {
-          "name": "Te1/0/53",
-          "type": "optical",
-          "connected_to": null
-        },
-        {
-          "name": "Te1/0/54",
-          "type": "optical",
-          "connected_to": null
-        }
-      ],
-      "definitions": [
-        {
-          "rate": "10G",
-          "interface_type": "Optical",
-          "naming_prefix": "1/0/",
-          "start": 1,
-          "end": 24
-        },
-        {
-          "rate": "100G",
-          "interface_type": "Optical",
-          "naming_prefix": "1/0/",
-          "start": 25,
-          "end": 30
-        },
-        {
-          "rate": "10G",
-          "interface_type": "Optical",
-          "naming_prefix": "1/0/",
-          "start": 31,
-          "end": 54
-        }
-      ]
-    },
-    {
-      "id": "7f0b5b26-ef65-4284-999c-2120abebd9c7",
-      "model": "S5130",
-      "manufacturer": "H3C",
-      "height_u": 1,
-      "interfaces": [
-        {
-          "name": "GE1/0/1",
-          "type": "electrical",
-          "connected_to": null
-        },
-        {
-          "name": "GE1/0/2",
-          "type": "electrical",
-          "connected_to": null
-        },
-        {
-          "name": "GE1/0/3",
-          "type": "electrical",
-          "connected_to": null
-        },
-        {
-          "name": "GE1/0/4",
-          "type": "electrical",
-          "connected_to": null
-        },
-        {
-          "name": "GE1/0/5",
-          "type": "electrical",
-          "connected_to": null
-        },
-        {
-          "name": "GE1/0/6",
-          "type": "electrical",
-          "connected_to": null
-        },
-        {
-          "name": "GE1/0/7",
-          "type": "electrical",
-          "connected_to": null
-        },
-        {
-          "name": "GE1/0/8",
-          "type": "electrical",
-          "connected_to": null
-        },
-        {
-          "name": "GE1/0/9",
-          "type": "electrical",
-          "connected_to": null
-        },
-        {
-          "name": "GE1/0/10",
-          "type": "electrical",
-          "connected_to": null
-        },
-        {
-          "name": "GE1/0/11",
-          "type": "electrical",
-          "connected_to": null
-        },
-        {
-          "name": "GE1/0/12",
-          "type": "electrical",
-          "connected_to": null
-        },
-        {
-          "name": "GE1/0/13",
-          "type": "electrical",
-          "connected_to": null
-        },
-        {
-          "name": "GE1/0/14",
-          "type": "electrical",
-          "connected_to": null
-        },
-        {
-          "name": "GE1/0/15",
-          "type": "electrical",
-          "connected_to": null
-        },
-        {
-          "name": "GE1/0/16",
-          "type": "electrical",
-          "connected_to": null
-        },
-        {
-          "name": "GE1/0/17",
-          "type": "electrical",
-          "connected_to": null
-        },
-        {
-          "name": "GE1/0/18",
-          "type": "electrical",
-          "connected_to": null
-        },
-        {
-          "name": "GE1/0/19",
-          "type": "electrical",
-          "connected_to": null
-        },
-        {
-          "name": "GE1/0/20",
-          "type": "electrical",
-          "connected_to": null
-        },
-        {
-          "name": "GE1/0/21",
-          "type": "electrical",
-          "connected_to": null
-        },
-        {
-          "name": "GE1/0/22",
-          "type": "electrical",
-          "connected_to": null
-        },
-        {
-          "name": "GE1/0/23",
-          "type": "electrical",
-          "connected_to": null
-        },
-        {
-          "name": "GE1/0/24",
-          "type": "electrical",
-          "connected_to": null
-        },
-        {
-          "name": "XGE1/0/25",
-          "type": "optical",
-          "connected_to": null
-        },
-        {
-          "name": "XGE1/0/26",
-          "type": "optical",
-          "connected_to": null
-        },
-        {
-          "name": "XGE1/0/27",
-          "type": "optical",
-          "connected_to": null
-        },
-        {
-          "name": "XGE1/0/28",
-          "type": "optical",
-          "connected_to": null
-        }
-      ],
-      "definitions": [
-        {
-          "rate": "1G",
-          "interface_type": "Electrical",
-          "naming_prefix": "1/0/",
-          "start": 1,
-          "end": 24
-        },
-        {
-          "rate": "10G",
-          "interface_type": "Optical",
-          "naming_prefix": "1/0/",
-          "start": 25,
-          "end": 28
-        }
-      ]
+      "stack_config": {
+        "peer_link_ports": [
+          "25GE1/0/1",
+          "25GE1/0/2"
+        ],
+        "heartbeat_ports": [
+          "MGE0/0/0"
+        ],
+        "uplink_ports": [
+          "100GE1/0/1",
+          "100GE1/0/2"
+        ],
+        "downlink_ports": [
+          "25GE1/0/3",
+          "25GE1/0/4"
+        ]
+      },
+      "mlag_config": {
+        "peer_link_ports": [
+          "100GE1/0/1",
+          "100GE1/0/2"
+        ],
+        "heartbeat_ports": [
+          "MGE0/0/0"
+        ],
+        "uplink_ports": [
+          "100GE1/0/3",
+          "100GE1/0/4"
+        ],
+        "downlink_ports": [
+          "25GE1/0/3",
+          "25GE1/0/4"
+        ]
+      }
     }
   ]
 }

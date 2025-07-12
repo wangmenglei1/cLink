@@ -1,0 +1,281 @@
+{
+  "version": "1.0",
+  "last_updated": "2025-07-12T11:20:00.000Z",
+  "description": "网络设备接口配置 - 支持多厂商端口命名规范",
+  "manufacturers": {
+    "H3C": {
+      "name": "华三",
+      "description": "H3C Technologies Co., Ltd.",
+      "interface_config": {
+        "1G": {
+          "interface_types": {
+            "Optical": {
+              "prefix": "GE",
+              "full_name": "GigabitEthernet",
+              "type": "optical"
+            },
+            "Electrical": {
+              "prefix": "GE",
+              "full_name": "GigabitEthernet",
+              "type": "electrical"
+            }
+          },
+          "default_interface": "Optical"
+        },
+        "10G": {
+          "interface_types": {
+            "Optical": {
+              "prefix": "XGE",
+              "full_name": "Ten-GigabitEthernet",
+              "type": "optical"
+            },
+            "Electrical": {
+              "prefix": "XGE",
+              "full_name": "Ten-GigabitEthernet",
+              "type": "electrical"
+            }
+          },
+          "default_interface": "Optical"
+        },
+        "25G": {
+          "interface_types": {
+            "Optical": {
+              "prefix": "WGE",
+              "full_name": "Twenty-FiveGigE",
+              "type": "optical"
+            },
+            "Electrical": {
+              "prefix": "WGE",
+              "full_name": "Twenty-FiveGigE",
+              "type": "electrical"
+            }
+          },
+          "default_interface": "Optical"
+        },
+        "40G": {
+          "interface_types": {
+            "Optical": {
+              "prefix": "FGE",
+              "full_name": "FortyGigE",
+              "type": "optical"
+            },
+            "Electrical": {
+              "prefix": "FGE",
+              "full_name": "FortyGigE",
+              "type": "electrical"
+            }
+          },
+          "default_interface": "Optical"
+        },
+        "100G": {
+          "interface_types": {
+            "Optical": {
+              "prefix": "HGE",
+              "full_name": "HundredGigE",
+              "type": "optical"
+            },
+            "Electrical": {
+              "prefix": "HGE",
+              "full_name": "HundredGigE",
+              "type": "electrical"
+            }
+          },
+          "default_interface": "Optical"
+        },
+        "Management": {
+          "interface_types": {
+            "Electrical": {
+              "prefix": "MGE",
+              "full_name": "M-GigabitEthernet",
+              "type": "management"
+            }
+          },
+          "default_interface": "Electrical"
+        }
+      }
+    },
+    "Huawei": {
+      "name": "华为",
+      "description": "Huawei Technologies Co., Ltd.",
+      "interface_config": {
+        "1G": {
+          "interface_types": {
+            "Optical": {
+              "prefix": "GE",
+              "full_name": "GigabitEthernet",
+              "type": "optical"
+            },
+            "Electrical": {
+              "prefix": "GE",
+              "full_name": "GigabitEthernet",
+              "type": "electrical"
+            }
+          },
+          "default_interface": "Optical"
+        },
+        "10G": {
+          "interface_types": {
+            "Optical": {
+              "prefix": "XGE",
+              "full_name": "XGigabitEthernet",
+              "type": "optical"
+            },
+            "Electrical": {
+              "prefix": "XGE",
+              "full_name": "XGigabitEthernet",
+              "type": "electrical"
+            }
+          },
+          "default_interface": "Optical"
+        },
+        "25G": {
+          "interface_types": {
+            "Optical": {
+              "prefix": "25GE",
+              "full_name": "25GE",
+              "type": "optical"
+            },
+            "Electrical": {
+              "prefix": "25GE",
+              "full_name": "25GE",
+              "type": "electrical"
+            }
+          },
+          "default_interface": "Optical"
+        },
+        "40G": {
+          "interface_types": {
+            "Optical": {
+              "prefix": "40GE",
+              "full_name": "40GE",
+              "type": "optical"
+            },
+            "Electrical": {
+              "prefix": "40GE",
+              "full_name": "40GE",
+              "type": "electrical"
+            }
+          },
+          "default_interface": "Optical"
+        },
+        "100G": {
+          "interface_types": {
+            "Optical": {
+              "prefix": "100GE",
+              "full_name": "100GE",
+              "type": "optical"
+            },
+            "Electrical": {
+              "prefix": "100GE",
+              "full_name": "100GE",
+              "type": "electrical"
+            }
+          },
+          "default_interface": "Optical"
+        },
+        "Management": {
+          "interface_types": {
+            "Electrical": {
+              "prefix": "MEth",
+              "full_name": "MEth",
+              "type": "management"
+            }
+          },
+          "default_interface": "Electrical"
+        }
+      }
+    },
+    "Cisco": {
+      "name": "思科",
+      "description": "Cisco Systems, Inc.",
+      "interface_config": {
+        "1G": {
+          "interface_types": {
+            "Optical": {
+              "prefix": "Gi",
+              "full_name": "GigabitEthernet",
+              "type": "optical"
+            },
+            "Electrical": {
+              "prefix": "Gi",
+              "full_name": "GigabitEthernet",
+              "type": "electrical"
+            }
+          },
+          "default_interface": "Optical"
+        },
+        "10G": {
+          "interface_types": {
+            "Optical": {
+              "prefix": "Te",
+              "full_name": "TenGigabitEthernet",
+              "type": "optical"
+            },
+            "Electrical": {
+              "prefix": "Te",
+              "full_name": "TenGigabitEthernet",
+              "type": "electrical"
+            }
+          },
+          "default_interface": "Optical"
+        },
+        "25G": {
+          "interface_types": {
+            "Optical": {
+              "prefix": "TwentyFiveGigE",
+              "full_name": "TwentyFiveGigE",
+              "type": "optical"
+            },
+            "Electrical": {
+              "prefix": "TwentyFiveGigE",
+              "full_name": "TwentyFiveGigE",
+              "type": "electrical"
+            }
+          },
+          "default_interface": "Optical"
+        },
+        "40G": {
+          "interface_types": {
+            "Optical": {
+              "prefix": "Fo",
+              "full_name": "FortyGigabitEthernet",
+              "type": "optical"
+            },
+            "Electrical": {
+              "prefix": "Fo",
+              "full_name": "FortyGigabitEthernet",
+              "type": "electrical"
+            }
+          },
+          "default_interface": "Optical"
+        },
+        "100G": {
+          "interface_types": {
+            "Optical": {
+              "prefix": "HundredGigE",
+              "full_name": "HundredGigE",
+              "type": "optical"
+            },
+            "Electrical": {
+              "prefix": "HundredGigE",
+              "full_name": "HundredGigE",
+              "type": "electrical"
+            }
+          },
+          "default_interface": "Optical"
+        },
+        "Management": {
+          "interface_types": {
+            "Electrical": {
+              "prefix": "Mgmt",
+              "full_name": "Management",
+              "type": "management"
+            }
+          },
+          "default_interface": "Electrical"
+        }
+      }
+    }
+  },
+  "default_manufacturer": "H3C"
+} 

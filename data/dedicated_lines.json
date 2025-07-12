@@ -1,0 +1,57 @@
+{
+  "version": "1.0",
+  "timestamp": "2025-07-12T21:12:09.868163",
+  "dedicated_lines": [
+    {
+      "id": "line_001",
+      "internal_number": "DL001",
+      "line_number": "CU-BJ-001",
+      "business_department": "技术部",
+      "applicant": "张三",
+      "usage_description": "总部与分公司数据传输专线",
+      "line_type": "长途专线",
+      "fiber_type": "非裸光纤",
+      "bandwidth": "100M",
+      "a_end_address": "北京市朝阳区xxx大厦12层",
+      "b_end_address": "上海市浦东新区xxx中心8层",
+      "status": "active",
+      "current_contract_id": "contract_1752325833097",
+      "created_date": "2024-01-15T09:30:00.000000",
+      "updated_date": "2025-07-12T21:10:33.097832"
+    },
+    {
+      "id": "line_002",
+      "internal_number": "DL002",
+      "line_number": "CT-SH-002",
+      "business_department": "财务部",
+      "applicant": "李四",
+      "usage_description": "财务系统数据同步专线",
+      "line_type": "本地专线",
+      "fiber_type": "裸光纤",
+      "bandwidth": "50M",
+      "a_end_address": "上海市黄浦区xxx广场15层",
+      "b_end_address": "上海市徐汇区xxx大厦3层",
+      "status": "active",
+      "current_contract_id": "contract_1752325929865",
+      "created_date": "2024-02-20T14:20:00.000000",
+      "updated_date": "2025-07-12T21:12:09.865240"
+    },
+    {
+      "id": "line_1752322208833",
+      "internal_number": "TEST001",
+      "line_number": "TEST-LINE-001",
+      "business_department": "测试部门",
+      "applicant": "测试用户",
+      "usage_description": "测试专线",
+      "line_type": "本地专线",
+      "fiber_type": "非裸光纤",
+      "bandwidth": "100M",
+      "a_end_address": "测试A端地址",
+      "b_end_address": "测试B端地址",
+      "status": "active",
+      "current_contract_id": null,
+      "created_date": "2025-07-12T20:10:08.833038",
+      "updated_date": "2025-07-12T20:10:08.833038"
+    }
+  ]
+}

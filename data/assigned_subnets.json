@@ -1,24 +1,46 @@
 {
-    "version": "1.0",
-    "last_updated": "2024-01-10T10:00:00",
-    "subnets": [
-        {
-            "id": "550e8400-e29b-41d4-a716-446655440002",
-            "pool_id": "550e8400-e29b-41d4-a716-446655440000",
-            "network": "192.168.1.0",
-            "subnet_mask": "/24",
-            "department": "研发部",
-            "description": "研发部办公网段",
-            "assigned_time": "2024-01-10T10:00:00"
-        },
-        {
-            "id": "550e8400-e29b-41d4-a716-446655440003",
-            "pool_id": "550e8400-e29b-41d4-a716-446655440001",
-            "network": "10.0.1.0",
-            "subnet_mask": "/24",
-            "department": "运维部",
-            "description": "Web服务器网段",
-            "assigned_time": "2024-01-10T10:00:00"
-        }
-    ]
-} 
+  "version": "1.0",
+  "last_updated": "2024-01-10T10:00:00",
+  "assigned_subnets": [
+    {
+      "id": "ff622bc1-130f-4310-bb37-a03444b8d9e8",
+      "pool_id": "c7b55dbc-b343-44b4-8d93-a24134ad4449",
+      "network": "192.168.1.0",
+      "subnet_mask": "/26",
+      "department": "技术部",
+      "subnet_type": "general",
+      "gateway": "192.168.1.1",
+      "vlan_id": "100",
+      "vlan_name": "VLAN_TECH",
+      "description": "技术部办公网络",
+      "assigned_time": "2025-07-12T17:40:40.852639"
+    },
+    {
+      "id": "2236ce7c-e861-41d0-ad77-e05583cd4f84",
+      "pool_id": "c7b55dbc-b343-44b4-8d93-a24134ad4449",
+      "network": "192.168.1.64",
+      "subnet_mask": "/26",
+      "department": "销售部",
+      "subnet_type": "general",
+      "gateway": "192.168.1.65",
+      "vlan_id": "101",
+      "vlan_name": "VLAN_SALES",
+      "description": "销售部办公网络",
+      "assigned_time": "2025-07-12T17:40:40.852639"
+    },
+    {
+      "id": "9a7393ad-0284-40cd-a0c8-29533a04c448",
+      "pool_id": "c7b55dbc-b343-44b4-8d93-a24134ad4449",
+      "pool_name": "办公网段",
+      "network": "192.168.1.128",
+      "subnet_mask": "/27",
+      "department": "test",
+      "description": "",
+      "subnet_type": "general",
+      "gateway": "192.168.1.129",
+      "vlan_id": "",
+      "vlan_name": "",
+      "assigned_time": "2025-07-12T19:43:46.468705"
+    }
+  ]
+}

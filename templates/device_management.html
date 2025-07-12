@@ -4,8 +4,8 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>设备管理 - 数据中心管理系统</title>
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet">
-    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <link href="/static/css/bootstrap.min.css" rel="stylesheet">
+    <link href="/static/css/font-awesome.min.css" rel="stylesheet">
     <style>
         :root {
             --primary-color: #2563eb;
@@ -160,6 +160,9 @@
                     </li>
                     <li class="nav-item">
                         <a class="nav-link" href="/ip_management"><i class="fas fa-network-wired"></i> IP管理</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="/dedicated_lines"><i class="fas fa-route"></i> 专线管理</a>
                     </li>
                 </ul>
             </div>
@@ -345,11 +348,18 @@
                     <div class="p-3 border rounded bg-light">
                         <input type="hidden" id="device-type-edit-mode" value="">
                         <div class="row g-3">
-                            <div class="col-md-6">
-                                <label for="device-type-name" class="form-label">设备型号名称</label>
-                                <input type="text" id="device-type-name" class="form-control">
+                            <div class="col-md-4">
+                                <label for="device-manufacturer" class="form-label">厂商</label>
+                                <select id="device-manufacturer" class="form-select">
+                                    <option value="">请选择厂商</option>
+                                    <!-- Options will be populated by JavaScript -->
+                                </select>
                             </div>
-                            <div class="col-md-6">
+                            <div class="col-md-4">
+                                <label for="device-type-name" class="form-label">设备型号</label>
+                                <input type="text" id="device-type-name" class="form-control" placeholder="如：S6805、CE6865等">
+                            </div>
+                            <div class="col-md-4">
                                 <label for="device-height" class="form-label">设备高度 (U)</label>
                                 <input type="number" id="device-height" class="form-control" min="1" value="1">
                             </div>
@@ -522,6 +532,8 @@
         let allRacks = [];
         let allTypes = [];
         let interfaceConfig = {}; // To store the configuration from the backend
+        let manufacturers = []; // To store available manufacturers
+        let currentManufacturer = 'H3C'; // Default manufacturer
 
         const editDeviceModal = new bootstrap.Modal(document.getElementById('edit-device-modal'));
         const addInstanceModal = new bootstrap.Modal(document.getElementById('add-instance-modal'));
@@ -529,31 +541,107 @@
         const batchMountModal = new bootstrap.Modal(document.getElementById('batch-mount-modal'));
         const importDevicesModal = new bootstrap.Modal(document.getElementById('import-devices-modal'));
 
+        // Load interface configuration for a specific manufacturer
+        async function loadInterfaceConfig(manufacturer) {
+            try {
+                const response = await fetch(`/api/interface_config?manufacturer=${encodeURIComponent(manufacturer)}`);
+                const configData = await response.json();
+                interfaceConfig = configData || {};
+                console.log(`Interface config loaded for ${manufacturer}:`, interfaceConfig);
+            } catch (error) {
+                console.error('Failed to load interface config:', error);
+                interfaceConfig = {};
+            }
+        }
+
+        // Populate manufacturers dropdown
+        function populateManufacturers() {
+            const select = document.getElementById('device-manufacturer');
+            select.innerHTML = '<option value="">请选择厂商</option>';
+            
+            manufacturers.forEach(manufacturer => {
+                const option = document.createElement('option');
+                option.value = manufacturer.key;
+                option.textContent = `${manufacturer.name} (${manufacturer.key})`;
+                if (manufacturer.key === currentManufacturer) {
+                    option.selected = true;
+                }
+                select.appendChild(option);
+            });
+        }
+
+        // Handle manufacturer change
+        document.getElementById('device-manufacturer').addEventListener('change', async function() {
+            const selectedManufacturer = this.value;
+            if (selectedManufacturer && selectedManufacturer !== currentManufacturer) {
+                currentManufacturer = selectedManufacturer;
+                await loadInterfaceConfig(currentManufacturer);
+                
+                // Clear existing interface groups and add a new one with updated config
+                const container = document.getElementById('interfaceGroupsContainer');
+                container.innerHTML = '';
+                addInterfaceGroupRow();
+            }
+        });
+
         // Fetch all necessary data
         async function fetchAllData() {
             try {
-                const [devicesRes, roomsRes, racksRes, typesRes, configRes] = await Promise.all([
+                console.log('开始获取数据...');
+                const [devicesRes, roomsRes, racksRes, typesRes, manufacturersRes] = await Promise.all([
                     fetch('/get_device_instances'),
                     fetch('/get_rooms'),
                     fetch('/get_racks'),
                     fetch('/get_device_types'),
-                    fetch('/api/interface_config') // Fetch the new interface config
+                    fetch('/api/manufacturers') // Fetch manufacturers
                 ]);
+                
+                console.log('API响应状态:', {
+                    devices: devicesRes.status,
+                    rooms: roomsRes.status,
+                    racks: racksRes.status,
+                    types: typesRes.status,
+                    manufacturers: manufacturersRes.status
+                });
+                
                 const devicesData = await devicesRes.json();
                 const roomsData = await roomsRes.json();
                 const racksData = await racksRes.json();
                 const typesData = await typesRes.json();
-                const configData = await configRes.json();
+                const manufacturersData = await manufacturersRes.json();
+
+                console.log('获取到的数据:', {
+                    devices: devicesData,
+                    rooms: roomsData,
+                    racks: racksData,
+                    types: typesData,
+                    manufacturers: manufacturersData
+                });
 
                 allDevices = devicesData.device_instances || [];
                 allRooms = roomsData.rooms || [];
                 allRacks = racksData.racks || [];
                 allTypes = typesData.device_types || [];
-                interfaceConfig = configData || {}; // Store the config
+                manufacturers = manufacturersData.manufacturers || [];
+                currentManufacturer = manufacturersData.default_manufacturer || 'H3C';
 
+                console.log('解析后的数据:', {
+                    allDevices: allDevices.length,
+                    allRooms: allRooms.length,
+                    allRacks: allRacks.length,
+                    allTypes: allTypes.length,
+                    manufacturers: manufacturers.length
+                });
+
+                // Load interface config for default manufacturer
+                await loadInterfaceConfig(currentManufacturer);
+                
+                populateManufacturers();
                 populateFilters();
                 renderTable();
                 populateAddInstanceDeviceTypes();
+                
+                console.log('数据加载完成');
             } catch (error) {
                 console.error("Failed to fetch initial data:", error);
             }
@@ -567,33 +655,50 @@
             typeFilter.innerHTML = '<option value="">所有型号</option>';
             
             allRooms.forEach(room => roomFilter.add(new Option(room.name, room.id)));
-            allTypes.forEach(type => typeFilter.add(new Option(type.name, type.name)));
+            allTypes.forEach(type => typeFilter.add(new Option(type.model, type.model)));
         }
 
         // 填充设备类型下拉列表
         function populateAddInstanceDeviceTypes() {
+            console.log('populateAddInstanceDeviceTypes called');
+            console.log('allTypes:', allTypes);
+            
             const singleSelect = document.getElementById('add-instance-type-single');
             const batchSelect = document.getElementById('add-instance-type-batch');
-            if (!singleSelect || !batchSelect) return;
+            
+            console.log('singleSelect:', singleSelect);
+            console.log('batchSelect:', batchSelect);
+            
+            if (!singleSelect || !batchSelect) {
+                console.error('设备型号选择框未找到');
+                return;
+            }
 
             // 清空现有选项
             singleSelect.innerHTML = '<option value="">选择设备型号...</option>';
             batchSelect.innerHTML = '<option value="">选择设备型号...</option>';
 
             // 添加设备类型选项
-            allTypes.forEach(type => {
-                // 为单台添加创建选项
-                const singleOption = document.createElement('option');
-                singleOption.value = type.name;
-                singleOption.textContent = type.name;
-                singleSelect.appendChild(singleOption);
+            if (allTypes && allTypes.length > 0) {
+                console.log(`添加 ${allTypes.length} 个设备类型到选择框`);
+                allTypes.forEach(type => {
+                    console.log('添加设备类型:', type.model);
+                    // 为单台添加创建选项
+                    const singleOption = document.createElement('option');
+                    singleOption.value = type.model;
+                    singleOption.textContent = type.model;
+                    singleSelect.appendChild(singleOption);
 
-                // 为批量添加创建选项
-                const batchOption = document.createElement('option');
-                batchOption.value = type.name;
-                batchOption.textContent = type.name;
-                batchSelect.appendChild(batchOption);
-            });
+                    // 为批量添加创建选项
+                    const batchOption = document.createElement('option');
+                    batchOption.value = type.model;
+                    batchOption.textContent = type.model;
+                    batchSelect.appendChild(batchOption);
+                });
+                console.log('设备类型选择框填充完成');
+            } else {
+                console.warn('没有可用的设备类型数据');
+            }
         }
 
         // Render table
@@ -1295,20 +1400,22 @@
                 accordionItem.innerHTML = `
                     <h2 class="accordion-header" id="heading-${index}">
                         <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapse-${index}">
-                            <strong>${type.name}</strong>&nbsp;(${type.height_u}U) &nbsp; ${statusBadge}
+                            <strong>${type.manufacturer} ${type.model}</strong>&nbsp;(${type.height_u}U) &nbsp; ${statusBadge}
                         </button>
                     </h2>
                     <div id="collapse-${index}" class="accordion-collapse collapse" data-bs-parent="#defined-types-accordion">
                         <div class="accordion-body">
+                            <strong>厂商:</strong> ${type.manufacturer}<br>
+                            <strong>型号:</strong> ${type.model}<br>
                             <strong>接口定义:</strong>
                             <ul class="list-group mt-2">
                                 ${definitionsHtml}
                             </ul>
                             <div class="mt-3">
-                                <button class="btn btn-sm btn-primary edit-type-btn" data-type-name="${type.name}" ${isInUse ? 'disabled' : ''}>
+                                <button class="btn btn-sm btn-primary edit-type-btn" data-type-model="${type.model}" ${isInUse ? 'disabled' : ''}>
                                     <i class="fas fa-edit"></i> 编辑
                                 </button>
-                                <button class="btn btn-sm btn-danger delete-type-btn" data-type-name="${type.name}" ${isInUse ? 'disabled' : ''}>
+                                <button class="btn btn-sm btn-danger delete-type-btn" data-type-model="${type.model}" ${isInUse ? 'disabled' : ''}>
                                     <i class="fas fa-trash"></i> 删除
                                 </button>
                                 ${isInUse ? '<small class="text-muted ms-2">提示：使用中的型号无法编辑或删除。</small>' : ''}
@@ -1397,17 +1504,41 @@
         document.getElementById('defined-types-accordion').addEventListener('click', async e => {
             const target = e.target;
             if (target.classList.contains('edit-type-btn')) {
-                const typeName = target.dataset.typeName;
-                const typeData = allTypes.find(t => t.name === typeName);
+                const typeModel = target.dataset.typeModel;
+                const typeData = allTypes.find(t => t.model === typeModel);
                 if (typeData) {
                     populateTypeFormForEdit(typeData);
+                }
+            }
+            if (target.classList.contains('delete-type-btn')) {
+                const typeModel = target.dataset.typeModel;
+                if (confirm(`确定要删除设备型号 "${typeModel}" 吗？此操作不可撤销。`)) {
+                    try {
+                        const response = await fetch(`/delete_device_type/${encodeURIComponent(typeModel)}`, {
+                            method: 'DELETE',
+                            headers: { 'Content-Type': 'application/json' }
+                        });
+                        const result = await response.json();
+                        
+                        if (response.ok) {
+                            alert(result.message || '设备型号删除成功');
+                            await fetchAllData(); // 刷新数据
+                            renderDefinedTypesList(); // 重新渲染列表
+                        } else {
+                            alert('删除失败：' + (result.message || '未知错误'));
+                        }
+                    } catch (error) {
+                        console.error('Failed to delete device type:', error);
+                        alert('删除设备型号时发生错误，请查看控制台日志。');
+                    }
                 }
             }
         });
         
         function populateTypeFormForEdit(typeData) {
-            document.getElementById('device-type-edit-mode').value = typeData.name; // Store original name
-            document.getElementById('device-type-name').value = typeData.name;
+            document.getElementById('device-type-edit-mode').value = typeData.model; // Store original model
+            document.getElementById('device-manufacturer').value = typeData.manufacturer;
+            document.getElementById('device-type-name').value = typeData.model;
             document.getElementById('device-height').value = typeData.height_u;
 
             const container = document.getElementById('interfaceGroupsContainer');
@@ -1425,6 +1556,7 @@
 
         function clearTypeForm() {
             document.getElementById('device-type-edit-mode').value = '';
+            document.getElementById('device-manufacturer').value = '';
             document.getElementById('device-type-name').value = '';
             document.getElementById('device-height').value = '1';
             const container = document.getElementById('interfaceGroupsContainer');
@@ -1437,58 +1569,98 @@
         document.getElementById('add-interface-group-btn').addEventListener('click', addInterfaceGroupRow);
 
         document.getElementById('save-device-type-btn').addEventListener('click', async () => {
-            const originalTypeName = document.getElementById('device-type-edit-mode').value;
-            const isEditMode = !!originalTypeName;
+            const originalTypeModel = document.getElementById('device-type-edit-mode').value;
+            const isEditMode = !!originalTypeModel;
 
-            const deviceModelName = document.getElementById('device-type-name').value.trim();
+            const deviceModel = document.getElementById('device-type-name').value.trim();
+            const manufacturer = document.getElementById('device-manufacturer').value.trim();
             const height_u = parseInt(document.getElementById('device-height').value, 10);
             const interfaces = [];
             let formIsValid = true;
-            document.querySelectorAll('.interface-group-row').forEach(row => {
-                const start = parseInt(row.querySelector('.start-number').value, 10);
-                const end = parseInt(row.querySelector('.end-number').value, 10);
-                
-                if (isNaN(start) || isNaN(end) || start < 0 || end < 0 || start > end) {
-                    alert('接口组的起止编号无效');
-                    formIsValid = false;
-                }
+            
+            // 获取所有接口组行
+            const interfaceRows = document.querySelectorAll('.interface-group-row');
+            
+            if (interfaceRows.length === 0) {
+                // 没有接口组，这是允许的
+                console.log('Creating device type without interface definitions');
+            } else {
+                // 验证每个接口组
+                interfaceRows.forEach((row, index) => {
+                    const rate = row.querySelector('.rate-select').value;
+                    const interface_type = row.querySelector('.interface-type-select').value;
+                    const naming_prefix = row.querySelector('.naming-prefix').value.trim();
+                    const start = parseInt(row.querySelector('.start-number').value, 10);
+                    const end = parseInt(row.querySelector('.end-number').value, 10);
+                    
+                    if (!rate || !interface_type) {
+                        alert(`接口组 ${index + 1} 缺少速率或接口类型`);
+                        formIsValid = false;
+                        return;
+                    }
+                    
+                    if (isNaN(start) || isNaN(end) || start < 0 || end < 0 || start > end) {
+                        alert(`接口组 ${index + 1} 的起止编号无效`);
+                        formIsValid = false;
+                        return;
+                    }
 
-                interfaces.push({
-                    rate: row.querySelector('.rate-select').value,
-                    interface_type: row.querySelector('.interface-type-select').value,
-                    naming_prefix: row.querySelector('.naming-prefix').value.trim(),
-                    start: start,
-                    end: end,
+                    interfaces.push({
+                        rate: rate,
+                        interface_type: interface_type,
+                        naming_prefix: naming_prefix || '1/0/',
+                        start: start,
+                        end: end,
+                    });
                 });
-            });
+            }
 
-            if (!deviceModelName || isNaN(height_u) || height_u < 1 || !formIsValid) {
-                alert('请输入有效的设备型号名称、高度和接口定义。');
+            if (!deviceModel) {
+                alert('请输入设备型号');
                 return;
             }
 
-            const url = isEditMode ? `/update_device_type/${originalTypeName}` : '/add_device_type';
+            if (!manufacturer) {
+                alert('请输入厂商');
+                return;
+            }
+            
+            if (isNaN(height_u) || height_u < 1) {
+                alert('请输入有效的设备高度（大于0的整数）');
+                return;
+            }
+            
+            if (!formIsValid) {
+                return;
+            }
+
+            const url = isEditMode ? `/update_device_type/${encodeURIComponent(originalTypeModel)}` : '/add_device_type';
             const method = isEditMode ? 'PUT' : 'POST';
+
+            console.log('Sending device type data:', { deviceModel, manufacturer, height_u, interfaces });
 
             try {
                 const response = await fetch(url, {
                     method: method,
                     headers: { 'Content-Type': 'application/json' },
-                    body: JSON.stringify({ deviceModelName, height_u, interfaces })
+                    body: JSON.stringify({ deviceModel, manufacturer, height_u, interfaces })
                 });
                 const result = await response.json();
-                alert(result.message);
                 
                 if (response.ok) {
+                    alert(result.message || '操作成功');
                     await fetchAllData();
                     renderDefinedTypesList();
                     // Don't clear the form automatically, let the user decide.
                     if (!isEditMode) { // Clear only if it was a new creation
                        clearTypeForm();
                     }
+                } else {
+                    alert('操作失败：' + (result.message || '未知错误'));
                 }
             } catch (error) {
                 console.error('Failed to save device type:', error);
+                alert('保存设备型号时发生网络错误，请检查控制台日志');
             }
         });
 

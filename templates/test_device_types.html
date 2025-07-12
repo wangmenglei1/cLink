@@ -1,0 +1,177 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>设备型号加载测试</title>
+    <style>
+        body { font-family: Arial, sans-serif; margin: 20px; }
+        .container { max-width: 600px; margin: 0 auto; }
+        .form-group { margin-bottom: 15px; }
+        label { display: block; margin-bottom: 5px; font-weight: bold; }
+        select, input { width: 100%; padding: 8px; border: 1px solid #ccc; border-radius: 4px; }
+        button { background-color: #007bff; color: white; padding: 10px 20px; border: none; border-radius: 4px; cursor: pointer; }
+        button:hover { background-color: #0056b3; }
+        .debug-info { background-color: #f8f9fa; padding: 15px; border-radius: 4px; margin-top: 20px; }
+        .debug-info h3 { margin-top: 0; }
+        .debug-info pre { background-color: #e9ecef; padding: 10px; border-radius: 4px; overflow-x: auto; }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>设备型号加载测试</h1>
+        
+        <div class="form-group">
+            <label for="device-type-select">设备型号：</label>
+            <select id="device-type-select">
+                <option value="">加载中...</option>
+            </select>
+        </div>
+        
+        <div class="form-group">
+            <label for="device-name-input">设备名称：</label>
+            <input type="text" id="device-name-input" placeholder="输入设备名称">
+        </div>
+        
+        <button onclick="testCreateDevice()">测试创建设备</button>
+        <button onclick="refreshDeviceTypes()">刷新设备型号</button>
+        
+        <div class="debug-info">
+            <h3>调试信息</h3>
+            <div id="debug-output">
+                <p>等待加载...</p>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        let allDeviceTypes = [];
+        let debugLog = [];
+        
+        function addDebugLog(message) {
+            const timestamp = new Date().toLocaleTimeString();
+            debugLog.push(`[${timestamp}] ${message}`);
+            updateDebugOutput();
+        }
+        
+        function updateDebugOutput() {
+            const output = document.getElementById('debug-output');
+            output.innerHTML = `
+                <h4>日志记录:</h4>
+                <pre>${debugLog.join('\n')}</pre>
+                <h4>设备类型数据:</h4>
+                <pre>${JSON.stringify(allDeviceTypes, null, 2)}</pre>
+            `;
+        }
+        
+        async function loadDeviceTypes() {
+            addDebugLog('开始加载设备类型...');
+            
+            try {
+                const response = await fetch('/get_device_types');
+                addDebugLog(`API响应状态: ${response.status}`);
+                
+                if (!response.ok) {
+                    throw new Error(`HTTP ${response.status}: ${response.statusText}`);
+                }
+                
+                const data = await response.json();
+                addDebugLog(`获取到的原始数据: ${JSON.stringify(data)}`);
+                
+                allDeviceTypes = data.device_types || [];
+                addDebugLog(`解析后的设备类型数量: ${allDeviceTypes.length}`);
+                
+                populateDeviceTypeSelect();
+                
+            } catch (error) {
+                addDebugLog(`加载失败: ${error.message}`);
+                console.error('Failed to load device types:', error);
+            }
+        }
+        
+        function populateDeviceTypeSelect() {
+            addDebugLog('开始填充设备类型选择框...');
+            
+            const select = document.getElementById('device-type-select');
+            
+            if (!select) {
+                addDebugLog('错误: 未找到设备类型选择框');
+                return;
+            }
+            
+            // 清空现有选项
+            select.innerHTML = '<option value="">请选择设备型号...</option>';
+            
+            if (allDeviceTypes.length === 0) {
+                addDebugLog('警告: 没有可用的设备类型');
+                select.innerHTML = '<option value="">没有可用的设备型号</option>';
+                return;
+            }
+            
+            // 添加设备类型选项
+            allDeviceTypes.forEach((type, index) => {
+                addDebugLog(`添加设备类型 ${index + 1}: ${type.model}`);
+                const option = document.createElement('option');
+                option.value = type.model;
+                option.textContent = type.model;
+                select.appendChild(option);
+            });
+            
+            addDebugLog(`设备类型选择框填充完成，共添加 ${allDeviceTypes.length} 个选项`);
+        }
+        
+        async function testCreateDevice() {
+            const deviceType = document.getElementById('device-type-select').value;
+            const deviceName = document.getElementById('device-name-input').value.trim();
+            
+            addDebugLog(`测试创建设备: 类型=${deviceType}, 名称=${deviceName}`);
+            
+            if (!deviceType || !deviceName) {
+                addDebugLog('错误: 请选择设备型号并填写设备名称');
+                alert('请选择设备型号并填写设备名称');
+                return;
+            }
+            
+            try {
+                const response = await fetch('/add_device_instance', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ 
+                        deviceType: deviceType, 
+                        instanceName: deviceName 
+                    })
+                });
+                
+                addDebugLog(`创建设备API响应状态: ${response.status}`);
+                
+                const result = await response.json();
+                addDebugLog(`创建设备API响应: ${JSON.stringify(result)}`);
+                
+                if (response.ok) {
+                    addDebugLog('设备创建成功');
+                    alert('设备创建成功: ' + result.message);
+                    document.getElementById('device-name-input').value = '';
+                } else {
+                    addDebugLog(`设备创建失败: ${result.message}`);
+                    alert('设备创建失败: ' + result.message);
+                }
+                
+            } catch (error) {
+                addDebugLog(`创建设备时发生错误: ${error.message}`);
+                alert('创建设备时发生错误: ' + error.message);
+            }
+        }
+        
+        function refreshDeviceTypes() {
+            addDebugLog('手动刷新设备类型...');
+            loadDeviceTypes();
+        }
+        
+        // 页面加载完成后自动加载设备类型
+        document.addEventListener('DOMContentLoaded', function() {
+            addDebugLog('页面加载完成，开始初始化...');
+            loadDeviceTypes();
+        });
+    </script>
+</body>
+</html> 

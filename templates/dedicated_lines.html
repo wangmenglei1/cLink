@@ -1,0 +1,3033 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>专线管理 - 数据中心管理系统</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <style>
+        :root {
+            --primary-color: #2563eb;
+            --secondary-color: #64748b;
+            --success-color: #10b981;
+            --warning-color: #f59e0b;
+            --danger-color: #ef4444;
+            --dark-text: #1e293b;
+            --light-bg: #f8fafc;
+            --border-color: #e2e8f0;
+        }
+
+        body {
+            background-color: var(--light-bg);
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        .navbar-custom {
+            background: linear-gradient(135deg, var(--primary-color), #1d4ed8);
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
+
+        .page-header {
+            background: white;
+            padding: 2rem 0;
+            margin-bottom: 2rem;
+            border-bottom: 1px solid var(--border-color);
+        }
+
+        .card {
+            border: none;
+            border-radius: 12px;
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+            transition: all 0.3s ease;
+        }
+
+        .card:hover {
+            box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1);
+        }
+
+        .btn-primary {
+            background: var(--primary-color);
+            border-color: var(--primary-color);
+            border-radius: 8px;
+            padding: 0.5rem 1.5rem;
+            font-weight: 500;
+            transition: all 0.3s ease;
+        }
+
+        .btn-primary:hover {
+            background: #1d4ed8;
+            border-color: #1d4ed8;
+            transform: translateY(-1px);
+        }
+
+        .table {
+            border-radius: 12px;
+            overflow: hidden;
+        }
+
+        .table th {
+            background: var(--light-bg);
+            border: none;
+            font-weight: 600;
+            color: var(--dark-text);
+            padding: 1rem 0.75rem;
+        }
+
+        .table td {
+            border: none;
+            padding: 1rem 0.75rem;
+            vertical-align: middle;
+        }
+
+        .table tbody tr {
+            border-bottom: 1px solid var(--border-color);
+            transition: background-color 0.2s ease;
+        }
+
+        .table tbody tr:hover {
+            background-color: #f1f5f9;
+        }
+
+        .status-badge {
+            padding: 0.25rem 0.75rem;
+            border-radius: 20px;
+            font-size: 0.875rem;
+            font-weight: 500;
+        }
+
+        .status-active {
+            background: #dcfce7;
+            color: #166534;
+        }
+
+        .status-inactive {
+            background: #fee2e2;
+            color: #991b1b;
+        }
+
+        .status-pending {
+            background: #fef3c7;
+            color: #92400e;
+        }
+
+        .status-expired {
+            background: #f3f4f6;
+            color: #6b7280;
+        }
+
+        .status-warning {
+            background: #fef3c7;
+            color: #92400e;
+        }
+
+        .search-box {
+            border-radius: 8px;
+            border: 1px solid var(--border-color);
+            padding: 0.75rem 1rem;
+            transition: all 0.3s ease;
+        }
+
+        .search-box:focus {
+            border-color: var(--primary-color);
+            box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.1);
+        }
+
+        .filter-card {
+            background: white;
+            border-radius: 12px;
+            padding: 1.5rem;
+            margin-bottom: 1.5rem;
+            border: 1px solid var(--border-color);
+        }
+
+        .contract-info {
+            background: #f8fafc;
+            border-radius: 8px;
+            padding: 0.75rem;
+            margin-top: 0.5rem;
+        }
+
+        .contract-info small {
+            color: var(--secondary-color);
+        }
+
+        .address-info {
+            font-size: 0.875rem;
+            color: var(--secondary-color);
+        }
+
+        .modal-header {
+            background: var(--primary-color);
+            color: white;
+            border-radius: 12px 12px 0 0;
+        }
+
+        .modal-content {
+            border-radius: 12px;
+            border: none;
+        }
+
+        .form-control, .form-select {
+            border-radius: 8px;
+            border: 1px solid var(--border-color);
+            padding: 0.75rem;
+            transition: all 0.3s ease;
+        }
+
+        .form-control:focus, .form-select:focus {
+            border-color: var(--primary-color);
+            box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.1);
+        }
+
+        .toast-container {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            z-index: 1050;
+        }
+
+        .line-type-badge {
+            padding: 0.25rem 0.5rem;
+            border-radius: 6px;
+            font-size: 0.75rem;
+            font-weight: 500;
+        }
+
+        .line-type-local {
+            background: #dbeafe;
+            color: #1e40af;
+        }
+
+        .line-type-long {
+            background: #fef3c7;
+            color: #92400e;
+        }
+
+        .contract-expired {
+            background: #fef2f2;
+            border-left: 4px solid #ef4444;
+        }
+
+        .contract-expiring {
+            background: #fefbf2;
+            border-left: 4px solid #f59e0b;
+        }
+
+        .contract-current {
+            background: #f0fdf4;
+            border-left: 4px solid #10b981;
+        }
+
+        .contract-item {
+            padding: 1rem;
+            margin-bottom: 1rem;
+            border-radius: 8px;
+            border: 1px solid #e5e7eb;
+        }
+
+        .fiber-type-badge {
+            padding: 0.25rem 0.5rem;
+            border-radius: 6px;
+            font-size: 0.75rem;
+            font-weight: 500;
+        }
+
+        .fiber-bare {
+            background: #f3e8ff;
+            color: #7c3aed;
+        }
+
+        .fiber-non-bare {
+            background: #ecfdf5;
+            color: #059669;
+        }
+
+        .empty-state {
+            text-align: center;
+            padding: 3rem;
+            color: var(--secondary-color);
+        }
+
+        .empty-state i {
+            font-size: 3rem;
+            margin-bottom: 1rem;
+            opacity: 0.5;
+        }
+
+        .loading-spinner {
+            display: inline-block;
+            width: 1rem;
+            height: 1rem;
+            border: 2px solid #f3f3f3;
+            border-top: 2px solid var(--primary-color);
+            border-radius: 50%;
+            animation: spin 1s linear infinite;
+        }
+
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+
+        .tabs-container {
+            background: white;
+            border-radius: 12px;
+            overflow: hidden;
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+        }
+
+        .nav-tabs {
+            border-bottom: 1px solid var(--border-color);
+            background: #f8fafc;
+        }
+
+        .nav-tabs .nav-link {
+            border: none;
+            color: var(--secondary-color);
+            font-weight: 500;
+            padding: 1rem 1.5rem;
+            transition: all 0.3s ease;
+        }
+
+        .nav-tabs .nav-link.active {
+            background: white;
+            color: var(--primary-color);
+            border-bottom: 2px solid var(--primary-color);
+        }
+
+        .nav-tabs .nav-link:hover {
+            background: #e2e8f0;
+            color: var(--dark-text);
+        }
+
+        .contract-history {
+            max-height: 400px;
+            overflow-y: auto;
+        }
+
+        .contract-item {
+            border: 1px solid var(--border-color);
+            border-radius: 8px;
+            padding: 1rem;
+            margin-bottom: 1rem;
+            transition: all 0.3s ease;
+        }
+
+        .contract-item:hover {
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        }
+
+        .contract-current {
+            border-color: var(--success-color);
+            background: #f0fdf4;
+        }
+
+        .contract-expired {
+            opacity: 0.7;
+            background: #f9fafb;
+        }
+
+        @media (max-width: 768px) {
+            .table-responsive {
+                border-radius: 12px;
+            }
+            
+            .card {
+                margin-bottom: 1rem;
+            }
+            
+            .btn {
+                margin-bottom: 0.5rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- 导航栏 -->
+    <nav class="navbar navbar-expand-lg navbar-dark navbar-custom">
+        <div class="container-fluid">
+            <a class="navbar-brand" href="/">
+                <i class="fas fa-network-wired me-2"></i>
+                数据中心管理系统
+            </a>
+            <div class="navbar-nav ms-auto">
+                <a class="nav-link" href="/device_management">
+                    <i class="fas fa-server me-1"></i>
+                    设备管理
+                </a>
+                <a class="nav-link" href="/rack_management">
+                    <i class="fas fa-th-large me-1"></i>
+                    机柜管理
+                </a>
+                <a class="nav-link" href="/connection_tool">
+                    <i class="fas fa-project-diagram me-1"></i>
+                    连线工具
+                </a>
+                <a class="nav-link" href="/ip_management">
+                    <i class="fas fa-network-wired me-1"></i>
+                    IP管理
+                </a>
+                <a class="nav-link active" href="/dedicated_lines">
+                    <i class="fas fa-route me-1"></i>
+                    专线管理
+                </a>
+                <a class="nav-link" href="/dedicated_lines_comprehensive">
+                    <i class="fas fa-chart-line me-1"></i>
+                    专线综合管理
+                </a>
+            </div>
+        </div>
+    </nav>
+
+    <!-- 页面标题 -->
+    <div class="page-header">
+        <div class="container-fluid">
+            <div class="row align-items-center">
+                <div class="col-md-6">
+                    <h1 class="h3 mb-0">
+                        <i class="fas fa-route text-primary me-2"></i>
+                        专线管理
+                    </h1>
+                    <p class="text-muted mt-1">管理企业专线信息和合同</p>
+                </div>
+                <div class="col-md-6 text-end">
+                    <div class="btn-group me-2">
+                                            <button class="btn btn-outline-info" onclick="showFeeManagement()">
+                        <i class="fas fa-money-bill-wave me-1"></i>
+                        费用管理
+                    </button>
+                    <button class="btn btn-outline-warning" onclick="showContractManagement()">
+                        <i class="fas fa-file-contract me-1"></i>
+                        合同管理
+                    </button>
+                    <button class="btn btn-outline-success" onclick="showBillingHistory()">
+                        <i class="fas fa-history me-1"></i>
+                        历史账单
+                    </button>
+                    </div>
+                    <button class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#addLineModal">
+                        <i class="fas fa-plus me-2"></i>
+                        添加专线
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- 主要内容 -->
+    <div class="container-fluid">
+        <!-- 合同到期提醒 -->
+        <div id="contractAlerts" class="mb-4">
+            <!-- 动态生成的提醒将在这里显示 -->
+        </div>
+        
+        <!-- 筛选和搜索 -->
+        <div class="filter-card">
+            <div class="row g-3">
+                <div class="col-md-3">
+                    <input type="text" class="form-control search-box" id="searchInput" placeholder="搜索专线...">
+                </div>
+                <div class="col-md-2">
+                    <select class="form-select" id="departmentFilter">
+                        <option value="">所有部门</option>
+                    </select>
+                </div>
+                <div class="col-md-2">
+                    <select class="form-select" id="lineTypeFilter">
+                        <option value="">所有类型</option>
+                        <option value="本地专线">本地专线</option>
+                        <option value="长途专线">长途专线</option>
+                    </select>
+                </div>
+                <div class="col-md-2">
+                    <select class="form-select" id="statusFilter">
+                        <option value="">所有状态</option>
+                        <option value="active">活跃</option>
+                        <option value="inactive">停用</option>
+                        <option value="pending">待定</option>
+                    </select>
+                </div>
+                <div class="col-md-2">
+                    <select class="form-select" id="contractStatusFilter">
+                        <option value="">合同状态</option>
+                        <option value="active">合同有效</option>
+                        <option value="expired">合同到期</option>
+                        <option value="expiring">即将到期</option>
+                    </select>
+                </div>
+                <div class="col-md-1">
+                    <div class="d-flex gap-2">
+                        <button class="btn btn-outline-primary" onclick="resetFilters()">
+                            <i class="fas fa-undo me-1"></i>
+                            重置
+                        </button>
+                        <button class="btn btn-outline-success" onclick="exportData()">
+                            <i class="fas fa-download me-1"></i>
+                            导出
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- 专线列表 -->
+        <div class="card">
+            <div class="card-body">
+                <div class="d-flex justify-content-between align-items-center mb-3">
+                    <h5 class="card-title mb-0">专线列表</h5>
+                    <span class="badge bg-primary" id="totalCount">0</span>
+                </div>
+                
+                <div class="table-responsive">
+                    <table class="table table-hover">
+                        <thead>
+                            <tr>
+                                <th>内部编号</th>
+                                <th>线路编号</th>
+                                <th>业务部门</th>
+                                <th>申请人</th>
+                                <th>线路类型</th>
+                                <th>宽带</th>
+                                <th>A端地址</th>
+                                <th>B端地址</th>
+                                <th>运营商</th>
+                                <th>月费</th>
+                                <th>合同状态</th>
+                                <th>合同到期</th>
+                                <th>专线状态</th>
+                                <th>操作</th>
+                            </tr>
+                        </thead>
+                        <tbody id="linesTableBody">
+                            <!-- 数据将通过JavaScript动态加载 -->
+                        </tbody>
+                    </table>
+                </div>
+
+                <!-- 空状态 -->
+                <div class="empty-state d-none" id="emptyState">
+                    <i class="fas fa-route"></i>
+                    <h5>暂无专线数据</h5>
+                    <p>点击上方"添加专线"按钮开始添加专线信息</p>
+                </div>
+
+                <!-- 加载状态 -->
+                <div class="text-center py-4 d-none" id="loadingState">
+                    <div class="loading-spinner me-2"></div>
+                    加载中...
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- 添加专线模态框 -->
+    <div class="modal fade" id="addLineModal" tabindex="-1">
+        <div class="modal-dialog modal-lg">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">
+                        <i class="fas fa-plus me-2"></i>
+                        添加专线
+                    </h5>
+                    <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal"></button>
+                </div>
+                <div class="modal-body">
+                    <form id="addLineForm">
+                        <div class="row g-3">
+                            <div class="col-md-6">
+                                <label class="form-label">内部编号 <span class="text-danger">*</span></label>
+                                <input type="text" class="form-control" name="internal_number" required>
+                            </div>
+                            <div class="col-md-6">
+                                <label class="form-label">线路编号 <span class="text-danger">*</span></label>
+                                <input type="text" class="form-control" name="line_number" required>
+                            </div>
+                            <div class="col-md-6">
+                                <label class="form-label">业务部门 <span class="text-danger">*</span></label>
+                                <input type="text" class="form-control" name="business_department" required>
+                            </div>
+                            <div class="col-md-6">
+                                <label class="form-label">申请人 <span class="text-danger">*</span></label>
+                                <input type="text" class="form-control" name="applicant" required>
+                            </div>
+                            <div class="col-md-4">
+                                <label class="form-label">线路类型 <span class="text-danger">*</span></label>
+                                <select class="form-select" name="line_type" required>
+                                    <option value="">请选择</option>
+                                    <option value="本地专线">本地专线</option>
+                                    <option value="长途专线">长途专线</option>
+                                </select>
+                            </div>
+                            <div class="col-md-4">
+                                <label class="form-label">光纤类型 <span class="text-danger">*</span></label>
+                                <select class="form-select" name="fiber_type" required>
+                                    <option value="">请选择</option>
+                                    <option value="裸光纤">裸光纤</option>
+                                    <option value="非裸光纤">非裸光纤</option>
+                                </select>
+                            </div>
+                            <div class="col-md-4">
+                                <label class="form-label">宽带 <span class="text-danger">*</span></label>
+                                <input type="text" class="form-control" name="bandwidth" required placeholder="如: 100M">
+                            </div>
+                            <div class="col-12">
+                                <label class="form-label">A端地址 <span class="text-danger">*</span></label>
+                                <input type="text" class="form-control" name="a_end_address" required>
+                            </div>
+                            <div class="col-12">
+                                <label class="form-label">B端地址 <span class="text-danger">*</span></label>
+                                <input type="text" class="form-control" name="b_end_address" required>
+                            </div>
+                            <div class="col-12">
+                                <label class="form-label">使用说明</label>
+                                <textarea class="form-control" name="usage_description" rows="3"></textarea>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">取消</button>
+                    <button type="button" class="btn btn-primary" onclick="submitAddLine()">
+                        <i class="fas fa-save me-1"></i>
+                        保存
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- 专线详情模态框 -->
+    <div class="modal fade" id="lineDetailModal" tabindex="-1">
+        <div class="modal-dialog modal-xl">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">
+                        <i class="fas fa-info-circle me-2"></i>
+                        专线详情
+                    </h5>
+                    <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal"></button>
+                </div>
+                <div class="modal-body">
+                    <div class="tabs-container">
+                        <ul class="nav nav-tabs" role="tablist">
+                            <li class="nav-item">
+                                <button class="nav-link active" data-bs-toggle="tab" data-bs-target="#basicInfo">
+                                    <i class="fas fa-info-circle me-1"></i>
+                                    基本信息
+                                </button>
+                            </li>
+                            <li class="nav-item">
+                                <button class="nav-link" data-bs-toggle="tab" data-bs-target="#contractInfo">
+                                    <i class="fas fa-file-contract me-1"></i>
+                                    合同信息
+                                </button>
+                            </li>
+                            <li class="nav-item">
+                                <button class="nav-link" data-bs-toggle="tab" data-bs-target="#contractHistory">
+                                    <i class="fas fa-history me-1"></i>
+                                    合同历史
+                                </button>
+                            </li>
+                        </ul>
+                        <div class="tab-content p-4">
+                            <div class="tab-pane fade show active" id="basicInfo">
+                                <div id="basicInfoContent">
+                                    <!-- 基本信息内容将通过JavaScript动态填充 -->
+                                </div>
+                            </div>
+                            <div class="tab-pane fade" id="contractInfo">
+                                <div id="contractInfoContent">
+                                    <!-- 合同信息内容将通过JavaScript动态填充 -->
+                                </div>
+                            </div>
+                            <div class="tab-pane fade" id="contractHistory">
+                                <div id="contractHistoryContent">
+                                    <!-- 合同历史内容将通过JavaScript动态填充 -->
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">关闭</button>
+                    <button type="button" class="btn btn-primary" onclick="editCurrentLine()">
+                        <i class="fas fa-edit me-1"></i>
+                        编辑
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- 编辑专线模态框 -->
+    <div class="modal fade" id="editLineModal" tabindex="-1">
+        <div class="modal-dialog modal-lg">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">
+                        <i class="fas fa-edit me-2"></i>
+                        编辑专线
+                    </h5>
+                    <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal"></button>
+                </div>
+                <div class="modal-body">
+                    <form id="editLineForm">
+                        <input type="hidden" name="line_id">
+                        <div class="row g-3">
+                            <div class="col-md-6">
+                                <label class="form-label">内部编号 <span class="text-danger">*</span></label>
+                                <input type="text" class="form-control" name="internal_number" required>
+                            </div>
+                            <div class="col-md-6">
+                                <label class="form-label">线路编号 <span class="text-danger">*</span></label>
+                                <input type="text" class="form-control" name="line_number" required>
+                            </div>
+                            <div class="col-md-6">
+                                <label class="form-label">业务部门 <span class="text-danger">*</span></label>
+                                <input type="text" class="form-control" name="business_department" required>
+                            </div>
+                            <div class="col-md-6">
+                                <label class="form-label">申请人 <span class="text-danger">*</span></label>
+                                <input type="text" class="form-control" name="applicant" required>
+                            </div>
+                            <div class="col-md-4">
+                                <label class="form-label">线路类型 <span class="text-danger">*</span></label>
+                                <select class="form-select" name="line_type" required>
+                                    <option value="">请选择</option>
+                                    <option value="本地专线">本地专线</option>
+                                    <option value="长途专线">长途专线</option>
+                                </select>
+                            </div>
+                            <div class="col-md-4">
+                                <label class="form-label">光纤类型 <span class="text-danger">*</span></label>
+                                <select class="form-select" name="fiber_type" required>
+                                    <option value="">请选择</option>
+                                    <option value="裸光纤">裸光纤</option>
+                                    <option value="非裸光纤">非裸光纤</option>
+                                </select>
+                            </div>
+                            <div class="col-md-4">
+                                <label class="form-label">宽带 <span class="text-danger">*</span></label>
+                                <input type="text" class="form-control" name="bandwidth" required>
+                            </div>
+                            <div class="col-md-4">
+                                <label class="form-label">状态</label>
+                                <select class="form-select" name="status">
+                                    <option value="active">活跃</option>
+                                    <option value="inactive">停用</option>
+                                    <option value="pending">待定</option>
+                                </select>
+                            </div>
+                            <div class="col-12">
+                                <label class="form-label">A端地址 <span class="text-danger">*</span></label>
+                                <input type="text" class="form-control" name="a_end_address" required>
+                            </div>
+                            <div class="col-12">
+                                <label class="form-label">B端地址 <span class="text-danger">*</span></label>
+                                <input type="text" class="form-control" name="b_end_address" required>
+                            </div>
+                            <div class="col-12">
+                                <label class="form-label">使用说明</label>
+                                <textarea class="form-control" name="usage_description" rows="3"></textarea>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">取消</button>
+                    <button type="button" class="btn btn-primary" onclick="submitEditLine()">
+                        <i class="fas fa-save me-1"></i>
+                        保存
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- 添加合同模态框 -->
+    <div class="modal fade" id="addContractModal" tabindex="-1">
+        <div class="modal-dialog modal-lg">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">
+                        <i class="fas fa-file-contract me-2"></i>
+                        添加合同
+                    </h5>
+                    <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal"></button>
+                </div>
+                <div class="modal-body">
+                    <form id="addContractForm">
+                        <input type="hidden" name="line_id">
+                        <div id="lineSelectContainer" class="mb-3" style="display: none;">
+                            <label class="form-label">选择专线 <span class="text-danger">*</span></label>
+                            <select class="form-select" id="lineSelect" onchange="onLineSelectChange()">
+                                <option value="">请选择专线...</option>
+                            </select>
+                        </div>
+                        <div class="row g-3">
+                            <div class="col-md-6">
+                                <label class="form-label">OA流程号 <span class="text-danger">*</span></label>
+                                <input type="text" class="form-control" name="oa_process_number" required>
+                            </div>
+                            <div class="col-md-6">
+                                <label class="form-label">月费 <span class="text-danger">*</span></label>
+                                <input type="number" class="form-control" name="monthly_fee" required min="0" step="0.01">
+                            </div>
+                            <div class="col-md-6">
+                                <label class="form-label">合同开始日期 <span class="text-danger">*</span></label>
+                                <input type="date" class="form-control" name="contract_start_date" required>
+                            </div>
+                            <div class="col-md-6">
+                                <label class="form-label">合同结束日期 <span class="text-danger">*</span></label>
+                                <input type="date" class="form-control" name="contract_end_date" required>
+                            </div>
+                            <div class="col-md-6">
+                                <label class="form-label">付款方 <span class="text-danger">*</span></label>
+                                <input type="text" class="form-control" name="payer" required>
+                            </div>
+                            <div class="col-md-6">
+                                <label class="form-label">收款方 <span class="text-danger">*</span></label>
+                                <input type="text" class="form-control" name="payee" required>
+                            </div>
+                            <div class="col-md-6">
+                                <label class="form-label">运营商 <span class="text-danger">*</span></label>
+                                <input type="text" class="form-control" name="operator_name" required>
+                            </div>
+                            <div class="col-md-6">
+                                <label class="form-label">客户经理 <span class="text-danger">*</span></label>
+                                <input type="text" class="form-control" name="account_manager" required>
+                            </div>
+                            <div class="col-md-6">
+                                <label class="form-label">经理联系方式</label>
+                                <input type="text" class="form-control" name="manager_contact">
+                            </div>
+                            <div class="col-md-6">
+                                <label class="form-label">货币类型</label>
+                                <select class="form-select" name="currency">
+                                    <option value="CNY">人民币 (CNY)</option>
+                                    <option value="USD">美元 (USD)</option>
+                                    <option value="EUR">欧元 (EUR)</option>
+                                </select>
+                            </div>
+                            <div class="col-12">
+                                <div class="form-check">
+                                    <input class="form-check-input" type="checkbox" name="is_current" id="isCurrentContract">
+                                    <label class="form-check-label" for="isCurrentContract">
+                                        设为当前合同
+                                    </label>
+                                </div>
+                            </div>
+                            <div class="col-12">
+                                <label class="form-label">备注</label>
+                                <textarea class="form-control" name="notes" rows="3"></textarea>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">取消</button>
+                    <button type="button" class="btn btn-primary" onclick="submitAddContract()">
+                        <i class="fas fa-save me-1"></i>
+                        保存
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Toast 通知容器 -->
+    <div class="toast-container">
+        <div class="toast" id="successToast" role="alert">
+            <div class="toast-header bg-success text-white">
+                <i class="fas fa-check-circle me-2"></i>
+                <strong class="me-auto">成功</strong>
+                <button type="button" class="btn-close btn-close-white" data-bs-dismiss="toast"></button>
+            </div>
+            <div class="toast-body" id="successMessage"></div>
+        </div>
+        
+        <div class="toast" id="errorToast" role="alert">
+            <div class="toast-header bg-danger text-white">
+                <i class="fas fa-exclamation-circle me-2"></i>
+                <strong class="me-auto">错误</strong>
+                <button type="button" class="btn-close btn-close-white" data-bs-dismiss="toast"></button>
+            </div>
+            <div class="toast-body" id="errorMessage"></div>
+        </div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script>
+    <script>
+        // 全局变量
+        let allLines = [];
+        let filteredLines = [];
+        let currentLineId = null;
+
+        // 页面加载完成后初始化
+        document.addEventListener('DOMContentLoaded', function() {
+            loadDedicatedLines();
+            initializeFilters();
+        });
+
+        // 加载专线数据
+        async function loadDedicatedLines() {
+            try {
+                showLoading(true);
+                const response = await fetch('/api/dedicated_lines');
+                const data = await response.json();
+                
+                if (response.ok) {
+                    allLines = data.dedicated_lines || [];
+                    // 为每个专线添加合同信息
+                    allLines.forEach(line => {
+                        if (!line.contracts) {
+                            line.contracts = [];
+                        }
+                    });
+                    filteredLines = [...allLines];
+                    renderLinesTable();
+                    updateFilters();
+                    showContractAlerts();
+                } else {
+                    showError(data.error || '加载数据失败');
+                }
+            } catch (error) {
+                showError('网络错误: ' + error.message);
+            } finally {
+                showLoading(false);
+            }
+        }
+
+        // 渲染专线表格
+        function renderLinesTable() {
+            const tbody = document.getElementById('linesTableBody');
+            const emptyState = document.getElementById('emptyState');
+            const totalCount = document.getElementById('totalCount');
+            
+            totalCount.textContent = filteredLines.length;
+            
+            if (filteredLines.length === 0) {
+                tbody.innerHTML = '';
+                emptyState.classList.remove('d-none');
+                return;
+            }
+            
+            emptyState.classList.add('d-none');
+            
+            tbody.innerHTML = filteredLines.map(line => {
+                const currentContract = line.contracts?.find(c => c.is_current);
+                const monthlyFee = currentContract?.monthly_fee || 0;
+                const contractStatus = getContractStatusText(currentContract);
+                const contractStatusClass = getContractStatusClass(currentContract);
+                
+                // 计算合同到期时间
+                let expiryInfo = '-';
+                let expiryClass = '';
+                if (currentContract) {
+                    const endDate = new Date(currentContract.contract_end_date);
+                    const today = new Date();
+                    const daysUntilExpiry = Math.ceil((endDate - today) / (1000 * 60 * 60 * 24));
+                    
+                    if (daysUntilExpiry < 0) {
+                        expiryInfo = `已过期 ${Math.abs(daysUntilExpiry)} 天`;
+                        expiryClass = 'text-danger';
+                    } else if (daysUntilExpiry <= 30) {
+                        expiryInfo = `${daysUntilExpiry} 天后到期`;
+                        expiryClass = 'text-warning';
+                    } else if (daysUntilExpiry <= 90) {
+                        expiryInfo = `${daysUntilExpiry} 天后到期`;
+                        expiryClass = 'text-info';
+                    } else {
+                        expiryInfo = `${daysUntilExpiry} 天后到期`;
+                        expiryClass = 'text-success';
+                    }
+                }
+                
+                return `
+                <tr>
+                    <td><strong>${line.internal_number}</strong></td>
+                    <td>${line.line_number}</td>
+                    <td>${line.business_department}</td>
+                    <td>${line.applicant}</td>
+                    <td>
+                        <span class="line-type-badge ${line.line_type === '本地专线' ? 'line-type-local' : 'line-type-long'}">
+                            ${line.line_type}
+                        </span>
+                    </td>
+                    <td>${line.bandwidth}</td>
+                    <td class="address-info">${line.a_end_address}</td>
+                    <td class="address-info">${line.b_end_address}</td>
+                    <td>${currentContract?.operator_name || '未知'}</td>
+                    <td class="text-end">
+                        ${monthlyFee ? `¥${monthlyFee.toLocaleString()}` : '未设置'}
+                    </td>
+                    <td>
+                        <span class="status-badge ${contractStatusClass}">
+                            ${contractStatus}
+                        </span>
+                    </td>
+                    <td class="${expiryClass}">
+                        ${expiryInfo}
+                    </td>
+                    <td>
+                        <span class="status-badge ${getStatusClass(line.status)}">
+                            ${getStatusText(line.status)}
+                        </span>
+                    </td>
+                    <td>
+                        <div class="btn-group btn-group-sm">
+                            <button class="btn btn-outline-primary" onclick="viewLineDetail('${line.id}')" title="查看详情">
+                                <i class="fas fa-eye"></i>
+                            </button>
+                            <button class="btn btn-outline-success" onclick="editLine('${line.id}')" title="编辑">
+                                <i class="fas fa-edit"></i>
+                            </button>
+                            ${!currentContract || getContractStatusText(currentContract) === '已过期' ? 
+                                `<button class="btn btn-outline-warning" onclick="addContractForLine('${line.id}')" title="添加合同">
+                                    <i class="fas fa-file-contract"></i>
+                                </button>` : ''}
+                            <button class="btn btn-outline-danger" onclick="deleteLine('${line.id}')" title="删除">
+                                <i class="fas fa-trash"></i>
+                            </button>
+                        </div>
+                    </td>
+                </tr>
+                `;
+            }).join('');
+        }
+
+        // 获取状态文本
+        function getStatusText(status) {
+            const statusMap = {
+                'active': '活跃',
+                'inactive': '停用',
+                'pending': '待定',
+                'expired': '过期'
+            };
+            return statusMap[status] || '未知';
+        }
+
+        // 获取状态样式类
+        function getStatusClass(status) {
+            const statusClassMap = {
+                'active': 'status-active',
+                'inactive': 'status-inactive',
+                'pending': 'status-pending',
+                'expired': 'status-expired'
+            };
+            return statusClassMap[status] || 'status-inactive';
+        }
+
+        // 初始化筛选器
+        function initializeFilters() {
+            const searchInput = document.getElementById('searchInput');
+            const departmentFilter = document.getElementById('departmentFilter');
+            const lineTypeFilter = document.getElementById('lineTypeFilter');
+            const statusFilter = document.getElementById('statusFilter');
+            const contractStatusFilter = document.getElementById('contractStatusFilter');
+
+            // 搜索输入
+            searchInput.addEventListener('input', applyFilters);
+            
+            // 筛选器
+            departmentFilter.addEventListener('change', applyFilters);
+            lineTypeFilter.addEventListener('change', applyFilters);
+            statusFilter.addEventListener('change', applyFilters);
+            contractStatusFilter.addEventListener('change', applyFilters);
+        }
+
+        // 更新筛选器选项
+        function updateFilters() {
+            const departmentFilter = document.getElementById('departmentFilter');
+            const departments = [...new Set(allLines.map(line => line.business_department))];
+            
+            departmentFilter.innerHTML = '<option value="">所有部门</option>' + 
+                departments.map(dept => `<option value="${dept}">${dept}</option>`).join('');
+        }
+
+        // 应用筛选
+        function applyFilters() {
+            const searchTerm = document.getElementById('searchInput').value.toLowerCase();
+            const departmentFilter = document.getElementById('departmentFilter').value;
+            const lineTypeFilter = document.getElementById('lineTypeFilter').value;
+            const statusFilter = document.getElementById('statusFilter').value;
+            const contractStatusFilter = document.getElementById('contractStatusFilter').value;
+
+            filteredLines = allLines.filter(line => {
+                const matchesSearch = !searchTerm || 
+                    line.internal_number.toLowerCase().includes(searchTerm) ||
+                    line.line_number.toLowerCase().includes(searchTerm) ||
+                    line.business_department.toLowerCase().includes(searchTerm) ||
+                    line.applicant.toLowerCase().includes(searchTerm) ||
+                    line.a_end_address.toLowerCase().includes(searchTerm) ||
+                    line.b_end_address.toLowerCase().includes(searchTerm);
+
+                const matchesDepartment = !departmentFilter || line.business_department === departmentFilter;
+                const matchesLineType = !lineTypeFilter || line.line_type === lineTypeFilter;
+                const matchesStatus = !statusFilter || line.status === statusFilter;
+                
+                // 合同状态筛选
+                let matchesContractStatus = true;
+                if (contractStatusFilter) {
+                    const currentContract = line.contracts?.find(c => c.is_current);
+                    if (contractStatusFilter === 'active') {
+                        matchesContractStatus = currentContract && getContractStatusText(currentContract) === '有效';
+                    } else if (contractStatusFilter === 'expired') {
+                        matchesContractStatus = currentContract && getContractStatusText(currentContract) === '已过期';
+                    } else if (contractStatusFilter === 'expiring') {
+                        matchesContractStatus = currentContract && getContractStatusText(currentContract) === '即将到期';
+                    }
+                }
+
+                return matchesSearch && matchesDepartment && matchesLineType && matchesStatus && matchesContractStatus;
+            });
+
+            renderLinesTable();
+        }
+
+        // 重置筛选器
+        function resetFilters() {
+            document.getElementById('searchInput').value = '';
+            document.getElementById('departmentFilter').value = '';
+            document.getElementById('lineTypeFilter').value = '';
+            document.getElementById('statusFilter').value = '';
+            document.getElementById('contractStatusFilter').value = '';
+            applyFilters();
+        }
+
+        // 显示加载状态
+        function showLoading(show) {
+            const loadingState = document.getElementById('loadingState');
+            const tableBody = document.getElementById('linesTableBody');
+            
+            if (show) {
+                loadingState.classList.remove('d-none');
+                tableBody.innerHTML = '';
+            } else {
+                loadingState.classList.add('d-none');
+            }
+        }
+
+        // 显示成功消息
+        function showSuccess(message) {
+            document.getElementById('successMessage').textContent = message;
+            const toast = new bootstrap.Toast(document.getElementById('successToast'));
+            toast.show();
+        }
+
+        // 显示错误消息
+        function showError(message) {
+            document.getElementById('errorMessage').textContent = message;
+            const toast = new bootstrap.Toast(document.getElementById('errorToast'));
+            toast.show();
+        }
+
+        // 提交添加专线
+        async function submitAddLine() {
+            const form = document.getElementById('addLineForm');
+            const formData = new FormData(form);
+            const data = Object.fromEntries(formData);
+
+            try {
+                const response = await fetch('/api/dedicated_lines', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify(data)
+                });
+
+                const result = await response.json();
+
+                if (response.ok) {
+                    showSuccess('专线添加成功');
+                    bootstrap.Modal.getInstance(document.getElementById('addLineModal')).hide();
+                    form.reset();
+                    loadDedicatedLines();
+                } else {
+                    showError(result.error || '添加失败');
+                }
+            } catch (error) {
+                showError('网络错误: ' + error.message);
+            }
+        }
+
+        // 查看专线详情
+        async function viewLineDetail(lineId) {
+            try {
+                const response = await fetch(`/api/dedicated_lines/${lineId}`);
+                const data = await response.json();
+
+                if (response.ok) {
+                    currentLineId = lineId;
+                    showLineDetail(data);
+                } else {
+                    showError(data.error || '获取详情失败');
+                }
+            } catch (error) {
+                showError('网络错误: ' + error.message);
+            }
+        }
+
+        // 显示专线详情
+        function showLineDetail(line) {
+            // 基本信息
+            document.getElementById('basicInfoContent').innerHTML = `
+                <div class="row g-3">
+                    <div class="col-md-6">
+                        <label class="form-label">内部编号</label>
+                        <div class="form-control-plaintext">${line.internal_number}</div>
+                    </div>
+                    <div class="col-md-6">
+                        <label class="form-label">线路编号</label>
+                        <div class="form-control-plaintext">${line.line_number}</div>
+                    </div>
+                    <div class="col-md-6">
+                        <label class="form-label">业务部门</label>
+                        <div class="form-control-plaintext">${line.business_department}</div>
+                    </div>
+                    <div class="col-md-6">
+                        <label class="form-label">申请人</label>
+                        <div class="form-control-plaintext">${line.applicant}</div>
+                    </div>
+                    <div class="col-md-4">
+                        <label class="form-label">线路类型</label>
+                        <div class="form-control-plaintext">
+                            <span class="line-type-badge ${line.line_type === '本地专线' ? 'line-type-local' : 'line-type-long'}">
+                                ${line.line_type}
+                            </span>
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <label class="form-label">光纤类型</label>
+                        <div class="form-control-plaintext">
+                            <span class="fiber-type-badge ${line.fiber_type === '裸光纤' ? 'fiber-bare' : 'fiber-non-bare'}">
+                                ${line.fiber_type}
+                            </span>
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <label class="form-label">宽带</label>
+                        <div class="form-control-plaintext">${line.bandwidth}</div>
+                    </div>
+                    <div class="col-12">
+                        <label class="form-label">A端地址</label>
+                        <div class="form-control-plaintext">${line.a_end_address}</div>
+                    </div>
+                    <div class="col-12">
+                        <label class="form-label">B端地址</label>
+                        <div class="form-control-plaintext">${line.b_end_address}</div>
+                    </div>
+                    <div class="col-12">
+                        <label class="form-label">使用说明</label>
+                        <div class="form-control-plaintext">${line.usage_description || '无'}</div>
+                    </div>
+                </div>
+            `;
+
+            // 当前合同信息
+            const currentContract = line.contracts?.find(c => c.is_current);
+            document.getElementById('contractInfoContent').innerHTML = currentContract ? `
+                <div class="row g-3">
+                    <div class="col-md-6">
+                        <label class="form-label">OA流程号</label>
+                        <div class="form-control-plaintext">${currentContract.oa_process_number}</div>
+                    </div>
+                    <div class="col-md-6">
+                        <label class="form-label">月费</label>
+                        <div class="form-control-plaintext">¥${currentContract.monthly_fee.toLocaleString()}</div>
+                    </div>
+                    <div class="col-md-6">
+                        <label class="form-label">合同开始日期</label>
+                        <div class="form-control-plaintext">${currentContract.contract_start_date}</div>
+                    </div>
+                    <div class="col-md-6">
+                        <label class="form-label">合同结束日期</label>
+                        <div class="form-control-plaintext">${currentContract.contract_end_date}</div>
+                    </div>
+                    <div class="col-md-6">
+                        <label class="form-label">付款方</label>
+                        <div class="form-control-plaintext">${currentContract.payer}</div>
+                    </div>
+                    <div class="col-md-6">
+                        <label class="form-label">收款方</label>
+                        <div class="form-control-plaintext">${currentContract.payee}</div>
+                    </div>
+                    <div class="col-md-6">
+                        <label class="form-label">运营商</label>
+                        <div class="form-control-plaintext">${currentContract.operator_name}</div>
+                    </div>
+                    <div class="col-md-6">
+                        <label class="form-label">客户经理</label>
+                        <div class="form-control-plaintext">${currentContract.account_manager}</div>
+                    </div>
+                    <div class="col-12">
+                        <label class="form-label">备注</label>
+                        <div class="form-control-plaintext">${currentContract.notes || '无'}</div>
+                    </div>
+                </div>
+                <div class="mt-3">
+                    <button class="btn btn-outline-primary" onclick="addContract('${line.id}')">
+                        <i class="fas fa-plus me-1"></i>
+                        添加新合同
+                    </button>
+                </div>
+            ` : `
+                <div class="text-center py-4">
+                    <i class="fas fa-file-contract fa-3x text-muted mb-3"></i>
+                    <h5>暂无合同信息</h5>
+                    <p class="text-muted">点击下方按钮添加合同</p>
+                    <button class="btn btn-primary" onclick="addContract('${line.id}')">
+                        <i class="fas fa-plus me-1"></i>
+                        添加合同
+                    </button>
+                </div>
+            `;
+
+            // 合同历史
+            document.getElementById('contractHistoryContent').innerHTML = line.contracts?.length > 0 ? `
+                <div class="contract-history">
+                    ${line.contracts.map(contract => `
+                        <div class="contract-item ${contract.is_current ? 'contract-current' : (() => {
+                            const endDate = new Date(contract.contract_end_date);
+                            const today = new Date();
+                            const daysUntilExpiry = Math.ceil((endDate - today) / (1000 * 60 * 60 * 24));
+                            if (daysUntilExpiry < 0) return 'contract-expired';
+                            if (daysUntilExpiry <= 30) return 'contract-expiring';
+                            return '';
+                        })()}">
+                            <div class="d-flex justify-content-between align-items-start mb-2">
+                                <h6 class="mb-0">
+                                    ${contract.oa_process_number}
+                                    ${contract.is_current ? '<span class="badge bg-success ms-2">当前</span>' : ''}
+                                </h6>
+                                <span class="status-badge status-${contract.contract_status}">
+                                    ${getStatusText(contract.contract_status)}
+                                </span>
+                            </div>
+                            <div class="row g-2">
+                                <div class="col-md-3">
+                                    <small class="text-muted">合同期限</small>
+                                    <div>${contract.contract_start_date} ~ ${contract.contract_end_date}</div>
+                                </div>
+                                <div class="col-md-3">
+                                    <small class="text-muted">月费</small>
+                                    <div>¥${contract.monthly_fee.toLocaleString()}</div>
+                                </div>
+                                <div class="col-md-3">
+                                    <small class="text-muted">运营商</small>
+                                    <div>${contract.operator_name}</div>
+                                </div>
+                                <div class="col-md-3">
+                                    <small class="text-muted">客户经理</small>
+                                    <div>${contract.account_manager}</div>
+                                </div>
+                            </div>
+                            ${!contract.is_current ? `
+                                <div class="mt-2">
+                                    <button class="btn btn-sm btn-outline-primary" onclick="setCurrentContract('${contract.id}')">
+                                        设为当前合同
+                                    </button>
+                                </div>
+                            ` : ''}
+                        </div>
+                    `).join('')}
+                    <div class="mt-3 text-center">
+                        <button class="btn btn-outline-primary" onclick="addContract('${line.id}')">
+                            <i class="fas fa-plus me-1"></i>
+                            添加新合同
+                        </button>
+                    </div>
+                </div>
+            ` : `
+                <div class="text-center py-4">
+                    <i class="fas fa-history fa-3x text-muted mb-3"></i>
+                    <h5>暂无历史记录</h5>
+                    <p class="text-muted">添加合同后将显示历史记录</p>
+                    <button class="btn btn-primary" onclick="addContract('${line.id}')">
+                        <i class="fas fa-plus me-1"></i>
+                        添加合同
+                    </button>
+                </div>
+            `;
+
+            // 显示模态框
+            const modal = new bootstrap.Modal(document.getElementById('lineDetailModal'));
+            modal.show();
+        }
+
+        // 编辑专线
+        function editLine(lineId) {
+            const line = allLines.find(l => l.id === lineId);
+            if (!line) return;
+
+            // 填充表单
+            const form = document.getElementById('editLineForm');
+            form.line_id.value = line.id;
+            form.internal_number.value = line.internal_number;
+            form.line_number.value = line.line_number;
+            form.business_department.value = line.business_department;
+            form.applicant.value = line.applicant;
+            form.line_type.value = line.line_type;
+            form.fiber_type.value = line.fiber_type;
+            form.bandwidth.value = line.bandwidth;
+            form.status.value = line.status;
+            form.a_end_address.value = line.a_end_address;
+            form.b_end_address.value = line.b_end_address;
+            form.usage_description.value = line.usage_description || '';
+
+            // 显示模态框
+            const modal = new bootstrap.Modal(document.getElementById('editLineModal'));
+            modal.show();
+        }
+
+        // 编辑当前专线
+        function editCurrentLine() {
+            if (currentLineId) {
+                // 关闭详情模态框
+                bootstrap.Modal.getInstance(document.getElementById('lineDetailModal')).hide();
+                // 打开编辑模态框
+                setTimeout(() => editLine(currentLineId), 300);
+            }
+        }
+
+        // 提交编辑专线
+        async function submitEditLine() {
+            const form = document.getElementById('editLineForm');
+            const formData = new FormData(form);
+            const data = Object.fromEntries(formData);
+            const lineId = data.line_id;
+            delete data.line_id;
+
+            try {
+                const response = await fetch(`/api/dedicated_lines/${lineId}`, {
+                    method: 'PUT',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify(data)
+                });
+
+                const result = await response.json();
+
+                if (response.ok) {
+                    showSuccess('专线更新成功');
+                    bootstrap.Modal.getInstance(document.getElementById('editLineModal')).hide();
+                    loadDedicatedLines();
+                } else {
+                    showError(result.error || '更新失败');
+                }
+            } catch (error) {
+                showError('网络错误: ' + error.message);
+            }
+        }
+
+        // 删除专线
+        async function deleteLine(lineId) {
+            const line = allLines.find(l => l.id === lineId);
+            if (!line) return;
+
+            if (!confirm(`确定要删除专线 "${line.internal_number}" 吗？\n此操作将同时删除相关的所有合同记录，且无法恢复。`)) {
+                return;
+            }
+
+            try {
+                const response = await fetch(`/api/dedicated_lines/${lineId}`, {
+                    method: 'DELETE'
+                });
+
+                const result = await response.json();
+
+                if (response.ok) {
+                    showSuccess('专线删除成功');
+                    loadDedicatedLines();
+                } else {
+                    showError(result.error || '删除失败');
+                }
+            } catch (error) {
+                showError('网络错误: ' + error.message);
+            }
+        }
+
+        // 添加合同
+        function addContract(lineId) {
+            document.getElementById('addContractForm').line_id.value = lineId;
+            
+            // 隐藏专线选择下拉框（因为专线已经确定）
+            document.getElementById('lineSelectContainer').style.display = 'none';
+            
+            // 关闭详情模态框
+            const detailModal = bootstrap.Modal.getInstance(document.getElementById('lineDetailModal'));
+            if (detailModal) {
+                detailModal.hide();
+            }
+            
+            // 显示添加合同模态框
+            setTimeout(() => {
+                const modal = new bootstrap.Modal(document.getElementById('addContractModal'));
+                modal.show();
+            }, 300);
+        }
+
+        // 从专线列表直接添加合同
+        function addContractForLine(lineId) {
+            document.getElementById('addContractForm').line_id.value = lineId;
+            
+            // 隐藏专线选择下拉框（因为专线已经确定）
+            document.getElementById('lineSelectContainer').style.display = 'none';
+            
+            // 显示添加合同模态框
+            const modal = new bootstrap.Modal(document.getElementById('addContractModal'));
+            modal.show();
+        }
+
+        // 提交添加合同
+        async function submitAddContract() {
+            const form = document.getElementById('addContractForm');
+            const formData = new FormData(form);
+            const data = Object.fromEntries(formData);
+            
+            // 处理复选框
+            data.is_current = form.is_current.checked;
+
+            try {
+                const response = await fetch('/api/line_contracts', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify(data)
+                });
+
+                const result = await response.json();
+
+                if (response.ok) {
+                    showSuccess('合同添加成功');
+                    bootstrap.Modal.getInstance(document.getElementById('addContractModal')).hide();
+                    form.reset();
+                    loadDedicatedLines();
+                } else {
+                    showError(result.error || '添加失败');
+                }
+            } catch (error) {
+                showError('网络错误: ' + error.message);
+            }
+        }
+
+        // 设置当前合同
+        async function setCurrentContract(contractId) {
+            try {
+                const response = await fetch(`/api/line_contracts/${contractId}/set_current`, {
+                    method: 'POST'
+                });
+
+                const result = await response.json();
+
+                if (response.ok) {
+                    showSuccess('当前合同设置成功');
+                    loadDedicatedLines();
+                    if (currentLineId) {
+                        // 刷新详情页面
+                        setTimeout(() => viewLineDetail(currentLineId), 500);
+                    }
+                } else {
+                    showError(result.error || '设置失败');
+                }
+            } catch (error) {
+                showError('网络错误: ' + error.message);
+            }
+        }
+
+        // 导出数据
+        function exportData() {
+            // 创建CSV内容
+            const headers = ['内部编号', '线路编号', '业务部门', '申请人', '线路类型', '光纤类型', '宽带', 'A端地址', 'B端地址', '运营商', '月费', '合同状态'];
+            const csvContent = [
+                headers.join(','),
+                ...filteredLines.map(line => [
+                    line.internal_number,
+                    line.line_number,
+                    line.business_department,
+                    line.applicant,
+                    line.line_type,
+                    line.fiber_type,
+                    line.bandwidth,
+                    `"${line.a_end_address}"`,
+                    `"${line.b_end_address}"`,
+                    line.operator_name || '',
+                    line.monthly_fee || '',
+                    getStatusText(line.contract_status)
+                ].join(','))
+            ].join('\n');
+
+            // 创建下载链接
+            const blob = new Blob(['\ufeff' + csvContent], { type: 'text/csv;charset=utf-8;' });
+            const link = document.createElement('a');
+            link.href = URL.createObjectURL(blob);
+            link.download = `专线数据_${new Date().toISOString().split('T')[0]}.csv`;
+            link.click();
+        }
+
+        // 显示费用管理
+        function showFeeManagement() {
+            const modal = new bootstrap.Modal(document.getElementById('feeManagementModal'));
+            modal.show();
+            loadFeeData();
+        }
+
+        // 显示合同管理
+        function showContractManagement() {
+            const modal = new bootstrap.Modal(document.getElementById('contractManagementModal'));
+            modal.show();
+            loadContractData();
+        }
+
+        // 显示历史账单
+        function showBillingHistory() {
+            const modal = new bootstrap.Modal(document.getElementById('billingHistoryModal'));
+            modal.show();
+            // 默认显示当前年度的账单
+            const currentYear = new Date().getFullYear();
+            loadBillingHistory(currentYear);
+        }
+
+        // 加载费用数据
+        async function loadFeeData() {
+            try {
+                const response = await fetch('/api/dedicated_lines');
+                const result = await response.json();
+                
+                if (response.ok) {
+                    renderFeeData(result.dedicated_lines || []);
+                } else {
+                    showError('加载费用数据失败');
+                }
+            } catch (error) {
+                showError('网络错误: ' + error.message);
+            }
+        }
+
+        // 渲染费用数据
+        function renderFeeData(lines) {
+            const tbody = document.getElementById('feeTableBody');
+            tbody.innerHTML = '';
+            
+            let totalFee = 0;
+            let activeFee = 0;
+            let expiredContractFee = 0;
+            let expiredContractCount = 0;
+            
+            lines.forEach(line => {
+                const currentContract = line.contracts?.find(c => c.is_current);
+                const monthlyFee = parseFloat(currentContract?.monthly_fee || 0);
+                
+                if (line.status === 'active') {
+                    activeFee += monthlyFee;
+                }
+                totalFee += monthlyFee;
+                
+                // 检查合同是否过期
+                if (currentContract) {
+                    const endDate = new Date(currentContract.contract_end_date);
+                    const today = new Date();
+                    const daysUntilExpiry = Math.ceil((endDate - today) / (1000 * 60 * 60 * 24));
+                    
+                    if (daysUntilExpiry < 0) {
+                        expiredContractFee += monthlyFee;
+                        expiredContractCount++;
+                    }
+                }
+                
+                const row = document.createElement('tr');
+                row.innerHTML = `
+                    <td>${line.internal_number}</td>
+                    <td>${line.line_number}</td>
+                    <td>${line.business_department}</td>
+                    <td>${line.line_type}</td>
+                    <td>${currentContract?.operator_name || '-'}</td>
+                    <td class="text-end">¥${monthlyFee.toFixed(2)}</td>
+                    <td>
+                        <span class="status-badge ${getStatusClass(line.status)}">
+                            ${getStatusText(line.status)}
+                        </span>
+                    </td>
+                    <td>
+                        <span class="status-badge ${getContractStatusClass(currentContract)}">
+                            ${getContractStatusText(currentContract)}
+                        </span>
+                    </td>
+                `;
+                tbody.appendChild(row);
+            });
+            
+            // 更新统计信息
+            document.getElementById('totalMonthlyFee').textContent = `¥${totalFee.toFixed(2)}`;
+            document.getElementById('activeMonthlyFee').textContent = `¥${activeFee.toFixed(2)}`;
+            document.getElementById('expiredContractFee').textContent = `¥${expiredContractFee.toFixed(2)}`;
+            document.getElementById('totalLines').textContent = lines.length;
+            document.getElementById('activeLines').textContent = lines.filter(l => l.status === 'active').length;
+            document.getElementById('expiredLines').textContent = expiredContractCount;
+        }
+
+        // 加载合同数据
+        async function loadContractData() {
+            try {
+                const response = await fetch('/api/dedicated_lines');
+                const result = await response.json();
+                
+                if (response.ok) {
+                    renderContractData(result.dedicated_lines || []);
+                } else {
+                    showError('加载合同数据失败');
+                }
+            } catch (error) {
+                showError('网络错误: ' + error.message);
+            }
+        }
+
+        // 渲染合同数据
+        function renderContractData(lines) {
+            const tbody = document.getElementById('contractTableBody');
+            tbody.innerHTML = '';
+            
+            let allContracts = [];
+            
+            lines.forEach(line => {
+                if (line.contracts) {
+                    line.contracts.forEach(contract => {
+                        allContracts.push({
+                            ...contract,
+                            line_internal_number: line.internal_number,
+                            line_number: line.line_number,
+                            business_department: line.business_department,
+                            line_status: line.status
+                        });
+                    });
+                }
+            });
+            
+            // 按合同结束日期排序
+            allContracts.sort((a, b) => new Date(a.contract_end_date) - new Date(b.contract_end_date));
+            
+            allContracts.forEach(contract => {
+                const endDate = new Date(contract.contract_end_date);
+                const today = new Date();
+                const daysUntilExpiry = Math.ceil((endDate - today) / (1000 * 60 * 60 * 24));
+                
+                let expiryStatus = '';
+                let expiryClass = '';
+                
+                if (daysUntilExpiry < 0) {
+                    expiryStatus = `已过期 ${Math.abs(daysUntilExpiry)} 天`;
+                    expiryClass = 'text-danger';
+                } else if (daysUntilExpiry <= 30) {
+                    expiryStatus = `${daysUntilExpiry} 天后到期`;
+                    expiryClass = 'text-warning';
+                } else if (daysUntilExpiry <= 90) {
+                    expiryStatus = `${daysUntilExpiry} 天后到期`;
+                    expiryClass = 'text-info';
+                } else {
+                    expiryStatus = `${daysUntilExpiry} 天后到期`;
+                    expiryClass = 'text-success';
+                }
+                
+                const row = document.createElement('tr');
+                row.innerHTML = `
+                    <td>${contract.line_internal_number}</td>
+                    <td>${contract.line_number}</td>
+                    <td>${contract.business_department}</td>
+                    <td>${contract.oa_process_number}</td>
+                    <td>${contract.contract_start_date}</td>
+                    <td>${contract.contract_end_date}</td>
+                    <td class="${expiryClass}">${expiryStatus}</td>
+                    <td class="text-end">¥${parseFloat(contract.monthly_fee || 0).toFixed(2)}</td>
+                    <td>${contract.operator_name}</td>
+                    <td>
+                        <span class="status-badge ${contract.is_current ? 'status-active' : 'status-inactive'}">
+                            ${contract.is_current ? '当前' : '历史'}
+                        </span>
+                    </td>
+                    <td>
+                        <span class="status-badge ${getStatusClass(contract.line_status)}">
+                            ${getStatusText(contract.line_status)}
+                        </span>
+                    </td>
+                `;
+                tbody.appendChild(row);
+            });
+        }
+
+        // 获取合同状态类
+        function getContractStatusClass(contract) {
+            if (!contract) return 'status-inactive';
+            
+            const endDate = new Date(contract.contract_end_date);
+            const today = new Date();
+            const daysUntilExpiry = Math.ceil((endDate - today) / (1000 * 60 * 60 * 24));
+            
+            if (daysUntilExpiry < 0) return 'status-expired';
+            if (daysUntilExpiry <= 30) return 'status-warning';
+            return 'status-active';
+        }
+
+        // 获取合同状态文本
+        function getContractStatusText(contract) {
+            if (!contract) return '无合同';
+            
+            const endDate = new Date(contract.contract_end_date);
+            const today = new Date();
+            const daysUntilExpiry = Math.ceil((endDate - today) / (1000 * 60 * 60 * 24));
+            
+            if (daysUntilExpiry < 0) return '已过期';
+            if (daysUntilExpiry <= 30) return '即将到期';
+            return '有效';
+        }
+
+        // 导出费用报表
+        function exportFeeData() {
+            const headers = ['内部编号', '线路编号', '业务部门', '线路类型', '运营商', '月费', '专线状态', '合同状态'];
+            const rows = [];
+            
+            allLines.forEach(line => {
+                const currentContract = line.contracts?.find(c => c.is_current);
+                const monthlyFee = parseFloat(currentContract?.monthly_fee || 0);
+                
+                rows.push([
+                    line.internal_number,
+                    line.line_number,
+                    line.business_department,
+                    line.line_type,
+                    currentContract?.operator_name || '-',
+                    monthlyFee.toFixed(2),
+                    getStatusText(line.status),
+                    getContractStatusText(currentContract)
+                ]);
+            });
+            
+            const csvContent = [headers.join(','), ...rows.map(row => row.join(','))].join('\n');
+            const blob = new Blob(['\ufeff' + csvContent], { type: 'text/csv;charset=utf-8;' });
+            const link = document.createElement('a');
+            link.href = URL.createObjectURL(blob);
+            link.download = `专线费用报表_${new Date().toISOString().split('T')[0]}.csv`;
+            link.click();
+        }
+
+        // 导出合同报表
+        function exportContractData() {
+            const headers = ['内部编号', '线路编号', '业务部门', 'OA流程号', '合同开始', '合同结束', '到期状态', '月费', '运营商', '合同类型', '专线状态'];
+            const rows = [];
+            
+            allLines.forEach(line => {
+                if (line.contracts) {
+                    line.contracts.forEach(contract => {
+                        const endDate = new Date(contract.contract_end_date);
+                        const today = new Date();
+                        const daysUntilExpiry = Math.ceil((endDate - today) / (1000 * 60 * 60 * 24));
+                        
+                        let expiryStatus = '';
+                        if (daysUntilExpiry < 0) {
+                            expiryStatus = `已过期${Math.abs(daysUntilExpiry)}天`;
+                        } else if (daysUntilExpiry <= 30) {
+                            expiryStatus = `${daysUntilExpiry}天后到期`;
+                        } else if (daysUntilExpiry <= 90) {
+                            expiryStatus = `${daysUntilExpiry}天后到期`;
+                        } else {
+                            expiryStatus = `${daysUntilExpiry}天后到期`;
+                        }
+                        
+                        rows.push([
+                            line.internal_number,
+                            line.line_number,
+                            line.business_department,
+                            contract.oa_process_number,
+                            contract.contract_start_date,
+                            contract.contract_end_date,
+                            expiryStatus,
+                            parseFloat(contract.monthly_fee || 0).toFixed(2),
+                            contract.operator_name,
+                            contract.is_current ? '当前' : '历史',
+                            getStatusText(line.status)
+                        ]);
+                    });
+                }
+            });
+            
+            const csvContent = [headers.join(','), ...rows.map(row => row.join(','))].join('\n');
+            const blob = new Blob(['\ufeff' + csvContent], { type: 'text/csv;charset=utf-8;' });
+            const link = document.createElement('a');
+            link.href = URL.createObjectURL(blob);
+            link.download = `专线合同报表_${new Date().toISOString().split('T')[0]}.csv`;
+            link.click();
+        }
+
+        // 从合同管理页面添加合同
+        function showAddContractFromManagement() {
+            // 清空表单
+            document.getElementById('addContractForm').reset();
+            
+            // 显示专线选择下拉框
+            const lineSelectContainer = document.getElementById('lineSelectContainer');
+            lineSelectContainer.style.display = 'block';
+            
+            // 填充专线选择下拉框
+            const lineSelect = document.getElementById('lineSelect');
+            lineSelect.innerHTML = '<option value="">请选择专线...</option>';
+            allLines.forEach(line => {
+                const option = document.createElement('option');
+                option.value = line.id;
+                option.textContent = `${line.internal_number} - ${line.line_number} (${line.business_department})`;
+                lineSelect.appendChild(option);
+            });
+            
+            // 显示模态框
+            const modal = new bootstrap.Modal(document.getElementById('addContractModal'));
+            modal.show();
+        }
+
+                 // 专线选择变化时更新隐藏的line_id字段
+         function onLineSelectChange() {
+             const lineSelect = document.getElementById('lineSelect');
+             const lineIdInput = document.getElementById('addContractForm').line_id;
+             lineIdInput.value = lineSelect.value;
+         }
+
+         // 显示合同到期提醒
+         function showContractAlerts() {
+             const alertsContainer = document.getElementById('contractAlerts');
+             const expiredLines = [];
+             const expiringLines = [];
+             
+             allLines.forEach(line => {
+                 const currentContract = line.contracts?.find(c => c.is_current);
+                 if (currentContract) {
+                     const endDate = new Date(currentContract.contract_end_date);
+                     const today = new Date();
+                     const daysUntilExpiry = Math.ceil((endDate - today) / (1000 * 60 * 60 * 24));
+                     
+                     if (daysUntilExpiry < 0) {
+                         expiredLines.push({
+                             ...line,
+                             daysExpired: Math.abs(daysUntilExpiry)
+                         });
+                     } else if (daysUntilExpiry <= 30) {
+                         expiringLines.push({
+                             ...line,
+                             daysUntilExpiry: daysUntilExpiry
+                         });
+                     }
+                 }
+             });
+             
+             let alertsHTML = '';
+             
+             if (expiredLines.length > 0) {
+                 alertsHTML += `
+                     <div class="alert alert-danger alert-dismissible fade show" role="alert">
+                         <i class="fas fa-exclamation-triangle me-2"></i>
+                         <strong>合同已过期！</strong> 
+                         有 ${expiredLines.length} 个专线的合同已过期，需要及时续签：
+                         <ul class="mt-2 mb-0">
+                             ${expiredLines.slice(0, 5).map(line => 
+                                 `<li>${line.internal_number} (${line.business_department}) - 已过期 ${line.daysExpired} 天 
+                                  <button class="btn btn-sm btn-outline-light ms-2" onclick="addContractForLine('${line.id}')">
+                                      添加合同
+                                  </button>
+                                  </li>`
+                             ).join('')}
+                             ${expiredLines.length > 5 ? `<li>还有 ${expiredLines.length - 5} 个专线...</li>` : ''}
+                         </ul>
+                         <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+                     </div>
+                 `;
+             }
+             
+             if (expiringLines.length > 0) {
+                 alertsHTML += `
+                     <div class="alert alert-warning alert-dismissible fade show" role="alert">
+                         <i class="fas fa-clock me-2"></i>
+                         <strong>合同即将到期！</strong> 
+                         有 ${expiringLines.length} 个专线的合同将在30天内到期：
+                         <ul class="mt-2 mb-0">
+                             ${expiringLines.slice(0, 5).map(line => 
+                                 `<li>${line.internal_number} (${line.business_department}) - ${line.daysUntilExpiry} 天后到期
+                                  <button class="btn btn-sm btn-outline-dark ms-2" onclick="addContractForLine('${line.id}')">
+                                      添加合同
+                                  </button>
+                                  </li>`
+                             ).join('')}
+                             ${expiringLines.length > 5 ? `<li>还有 ${expiringLines.length - 5} 个专线...</li>` : ''}
+                         </ul>
+                         <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+                     </div>
+                 `;
+             }
+             
+             alertsContainer.innerHTML = alertsHTML;
+         }
+
+         // 加载历史账单数据
+         async function loadBillingHistory(year, month = null) {
+             try {
+                 let url = `/api/billing_history?year=${year}`;
+                 if (month) {
+                     url += `&month=${month}`;
+                 }
+                 
+                 const response = await fetch(url);
+                 const result = await response.json();
+                 
+                 if (response.ok) {
+                     renderBillingHistory(result);
+                 } else {
+                     showError('加载历史账单失败: ' + result.error);
+                 }
+             } catch (error) {
+                 showError('网络错误: ' + error.message);
+             }
+         }
+
+         // 渲染历史账单数据
+         function renderBillingHistory(data) {
+             const tbody = document.getElementById('billingHistoryTableBody');
+             tbody.innerHTML = '';
+             
+             data.billing_data.forEach(period => {
+                 const row = document.createElement('tr');
+                 row.innerHTML = `
+                     <td>${period.period}</td>
+                     <td class="text-end">¥${period.total_fee.toFixed(2)}</td>
+                     <td class="text-center">${period.total_lines}</td>
+                     <td class="text-center">${period.active_lines}</td>
+                     <td>
+                         <button class="btn btn-sm btn-outline-primary" onclick="showPeriodDetails('${period.period}')">
+                             <i class="fas fa-eye me-1"></i>
+                             详情
+                         </button>
+                     </td>
+                 `;
+                 tbody.appendChild(row);
+             });
+             
+             // 更新汇总信息
+             document.getElementById('totalPeriods').textContent = data.summary.total_periods;
+             document.getElementById('totalAmount').textContent = `¥${data.summary.total_amount.toFixed(2)}`;
+             document.getElementById('averageMonthlyFee').textContent = `¥${data.summary.average_monthly_fee.toFixed(2)}`;
+             document.getElementById('maxMonthlyFee').textContent = `¥${data.summary.max_monthly_fee.toFixed(2)}`;
+             document.getElementById('minMonthlyFee').textContent = `¥${data.summary.min_monthly_fee.toFixed(2)}`;
+             
+             // 存储数据以供详情查看
+             window.billingHistoryData = data;
+         }
+
+         // 显示某个月的详情
+         function showPeriodDetails(period) {
+             const periodData = window.billingHistoryData.billing_data.find(p => p.period === period);
+             if (!periodData) return;
+             
+             const modal = new bootstrap.Modal(document.getElementById('periodDetailsModal'));
+             modal.show();
+             
+             // 设置标题
+             document.getElementById('periodDetailsTitle').textContent = `${period} 账单详情`;
+             
+             // 渲染详情表格
+             const tbody = document.getElementById('periodDetailsTableBody');
+             tbody.innerHTML = '';
+             
+             periodData.lines.forEach(line => {
+                 const row = document.createElement('tr');
+                 row.innerHTML = `
+                     <td>${line.internal_number}</td>
+                     <td>${line.line_number}</td>
+                     <td>${line.business_department}</td>
+                     <td>${line.operator_name}</td>
+                     <td class="text-end">¥${line.monthly_fee.toFixed(2)}</td>
+                     <td>
+                         <span class="status-badge ${getStatusClass(line.status)}">
+                             ${getStatusText(line.status)}
+                         </span>
+                     </td>
+                 `;
+                 tbody.appendChild(row);
+             });
+             
+             // 更新汇总
+             document.getElementById('periodTotalFee').textContent = `¥${periodData.total_fee.toFixed(2)}`;
+             document.getElementById('periodTotalLines').textContent = periodData.total_lines;
+             document.getElementById('periodActiveLines').textContent = periodData.active_lines;
+         }
+
+         // 查询历史账单
+         function queryBillingHistory() {
+             const queryType = document.getElementById('queryType').value;
+             const yearInput = document.getElementById('queryYear').value;
+             const monthInput = document.getElementById('queryMonth').value;
+             const startDateInput = document.getElementById('startDate').value;
+             const endDateInput = document.getElementById('endDate').value;
+             
+             if (queryType === 'year' && yearInput) {
+                 loadBillingHistory(yearInput);
+             } else if (queryType === 'month' && yearInput && monthInput) {
+                 loadBillingHistory(yearInput, monthInput);
+             } else if (queryType === 'range' && startDateInput && endDateInput) {
+                 loadBillingHistoryByRange(startDateInput, endDateInput);
+             } else {
+                 showError('请填写完整的查询条件');
+             }
+         }
+
+         // 按日期范围加载账单
+         async function loadBillingHistoryByRange(startDate, endDate) {
+             try {
+                 const response = await fetch(`/api/billing_history?start_date=${startDate}&end_date=${endDate}`);
+                 const result = await response.json();
+                 
+                 if (response.ok) {
+                     renderBillingHistory(result);
+                 } else {
+                     showError('加载历史账单失败: ' + result.error);
+                 }
+             } catch (error) {
+                 showError('网络错误: ' + error.message);
+             }
+         }
+
+         // 导出历史账单
+         function exportBillingHistory() {
+             if (!window.billingHistoryData) {
+                 showError('请先查询账单数据');
+                 return;
+             }
+             
+             const headers = ['期间', '总费用', '专线数量', '活跃专线数量'];
+             const rows = [];
+             
+             window.billingHistoryData.billing_data.forEach(period => {
+                 rows.push([
+                     period.period,
+                     period.total_fee.toFixed(2),
+                     period.total_lines,
+                     period.active_lines
+                 ]);
+             });
+             
+             const csvContent = [headers.join(','), ...rows.map(row => row.join(','))].join('\n');
+             const blob = new Blob(['\ufeff' + csvContent], { type: 'text/csv;charset=utf-8;' });
+             const link = document.createElement('a');
+             link.href = URL.createObjectURL(blob);
+             link.download = `历史账单_${new Date().toISOString().split('T')[0]}.csv`;
+             link.click();
+         }
+
+         // 查询类型切换
+         function onQueryTypeChange() {
+             const queryType = document.getElementById('queryType').value;
+             const yearMonthSection = document.getElementById('yearMonthSection');
+             const dateRangeSection = document.getElementById('dateRangeSection');
+             
+             if (queryType === 'range') {
+                 yearMonthSection.style.display = 'none';
+                 dateRangeSection.style.display = 'block';
+             } else {
+                 yearMonthSection.style.display = 'block';
+                 dateRangeSection.style.display = 'none';
+             }
+         }
+
+         // 预览详细账单
+         async function previewDetailedBilling() {
+             try {
+                 const queryType = document.getElementById('queryType').value;
+                 const yearInput = document.getElementById('queryYear').value;
+                 const monthInput = document.getElementById('queryMonth').value;
+                 const startDateInput = document.getElementById('startDate').value;
+                 const endDateInput = document.getElementById('endDate').value;
+                 
+                 let url = '/api/detailed_billing_export?';
+                 
+                 if (queryType === 'year' && yearInput) {
+                     url += `year=${yearInput}`;
+                     if (monthInput) {
+                         url += `&month=${monthInput}`;
+                     }
+                 } else if (queryType === 'range' && startDateInput && endDateInput) {
+                     url += `start_date=${startDateInput}&end_date=${endDateInput}`;
+                 } else {
+                     showError('请先设置查询条件');
+                     return;
+                 }
+                 
+                 const response = await fetch(url);
+                 const result = await response.json();
+                 
+                 if (response.ok) {
+                     showDetailedBillingPreview(result);
+                 } else {
+                     showError('加载失败: ' + result.error);
+                 }
+             } catch (error) {
+                 showError('加载失败: ' + error.message);
+             }
+         }
+
+         // 显示详细账单预览
+         function showDetailedBillingPreview(data) {
+             const { detailed_data, months, monthly_totals, summary } = data;
+             
+             // 存储数据供导出使用
+             window.detailedBillingData = data;
+             
+             // 设置模态框标题
+             document.getElementById('detailedPreviewTitle').textContent = `详细账单预览 (${months[0]} - ${months[months.length - 1]})`;
+             
+             // 更新汇总信息
+             document.getElementById('previewTotalLines').textContent = summary.total_lines;
+             document.getElementById('previewTotalMonths').textContent = summary.total_months;
+             document.getElementById('previewGrandTotal').textContent = `¥${summary.grand_total.toFixed(2)}`;
+             
+             // 构建预览表格
+             const tableContainer = document.getElementById('detailedPreviewTable');
+             
+                           // 创建表格
+              let tableHTML = `
+                  <div class="table-responsive">
+                      <table class="table table-hover table-sm">
+                          <thead class="table-dark">
+                              <tr>
+                                  <th rowspan="2">内部编号</th>
+                                  <th rowspan="2">线路编号</th>
+                                  <th rowspan="2">业务部门</th>
+                                  <th rowspan="2">线路类型</th>
+                                  <th rowspan="2">状态</th>
+                                  <th rowspan="2">活跃月数</th>
+                                  <th rowspan="2">总费用</th>
+                                  <th colspan="${months.length}">月度费用详情</th>
+                              </tr>
+                              <tr>
+              `;
+              
+              months.forEach(month => {
+                  tableHTML += `<th>${month}</th>`;
+              });
+              
+              tableHTML += `
+                              </tr>
+                          </thead>
+                          <tbody>
+              `;
+              
+              // 为每个专线生成颜色方案
+              const contractColors = [
+                  'rgba(255, 193, 7, 0.3)',   // 黄色
+                  'rgba(25, 135, 84, 0.3)',   // 绿色
+                  'rgba(13, 110, 253, 0.3)',  // 蓝色
+                  'rgba(220, 53, 69, 0.3)',   // 红色
+                  'rgba(111, 66, 193, 0.3)',  // 紫色
+                  'rgba(255, 99, 132, 0.3)',  // 粉色
+                  'rgba(54, 162, 235, 0.3)',  // 天蓝色
+                  'rgba(255, 159, 64, 0.3)'   // 橙色
+              ];
+              
+              // 添加数据行
+              detailed_data.forEach(line => {
+                  // 分析该专线的合同周期
+                  const contractPeriods = [];
+                  let currentContract = null;
+                  let currentPeriod = null;
+                  
+                  months.forEach((month, index) => {
+                      const monthData = line.monthly_fees[month];
+                      
+                      if (monthData.contract_id) {
+                          if (currentContract !== monthData.contract_id) {
+                              // 新合同开始
+                              if (currentPeriod) {
+                                  contractPeriods.push(currentPeriod);
+                              }
+                              currentContract = monthData.contract_id;
+                              currentPeriod = {
+                                  contract_id: monthData.contract_id,
+                                  oa_process_number: monthData.oa_process_number,
+                                  operator: monthData.operator,
+                                  start_index: index,
+                                  end_index: index,
+                                  fee: monthData.fee
+                              };
+                          } else {
+                              // 继续当前合同
+                              currentPeriod.end_index = index;
+                          }
+                      } else {
+                          // 无合同月份
+                          if (currentPeriod) {
+                              contractPeriods.push(currentPeriod);
+                              currentPeriod = null;
+                              currentContract = null;
+                          }
+                      }
+                  });
+                  
+                  if (currentPeriod) {
+                      contractPeriods.push(currentPeriod);
+                  }
+                  
+                  tableHTML += `
+                      <tr>
+                          <td>${line.internal_number}</td>
+                          <td>${line.line_number}</td>
+                          <td>${line.business_department}</td>
+                          <td>${line.line_type}</td>
+                          <td><span class="status-badge ${getStatusClass(line.status)}">${getStatusText(line.status)}</span></td>
+                          <td>${line.active_months}</td>
+                          <td class="text-end fw-bold">¥${line.total_fee.toFixed(2)}</td>
+                  `;
+                  
+                  months.forEach((month, index) => {
+                      const monthData = line.monthly_fees[month];
+                      const feeClass = monthData.fee > 0 ? 'text-success fw-bold' : 'text-muted';
+                      
+                      // 找到该月份对应的合同周期
+                      const contractPeriod = contractPeriods.find(p => index >= p.start_index && index <= p.end_index);
+                      let bgColor = '';
+                      let title = '';
+                      
+                      if (contractPeriod) {
+                          const colorIndex = contractPeriods.indexOf(contractPeriod) % contractColors.length;
+                          bgColor = `background-color: ${contractColors[colorIndex]};`;
+                          const startMonth = months[contractPeriod.start_index];
+                          const endMonth = months[contractPeriod.end_index];
+                          title = `合同周期: ${startMonth} - ${endMonth}\\n合同号: ${contractPeriod.oa_process_number}\\n运营商: ${contractPeriod.operator}`;
+                      }
+                      
+                      tableHTML += `<td class="${feeClass}" style="${bgColor}" title="${title}">¥${monthData.fee.toFixed(2)}</td>`;
+                  });
+                  
+                  tableHTML += `</tr>`;
+              });
+             
+             // 添加月度汇总行
+             tableHTML += `
+                         <tr class="table-warning">
+                             <td colspan="7" class="fw-bold">月度汇总</td>
+             `;
+             
+             months.forEach(month => {
+                 const monthTotal = monthly_totals[month];
+                 tableHTML += `<td class="fw-bold text-end">¥${monthTotal.total_fee.toFixed(2)}</td>`;
+             });
+             
+             tableHTML += `
+                         </tr>
+                     </tbody>
+                 </table>
+             </div>
+             `;
+             
+             tableContainer.innerHTML = tableHTML;
+             
+             // 显示模态框
+             const modal = new bootstrap.Modal(document.getElementById('detailedPreviewModal'));
+             modal.show();
+         }
+
+         // 从预览模态框导出
+         function exportFromPreview() {
+             exportDetailedBillingExcel();
+         }
+
+         // 导出详细账单
+         async function exportDetailedBilling() {
+             try {
+                 const queryType = document.getElementById('queryType').value;
+                 const yearInput = document.getElementById('queryYear').value;
+                 const monthInput = document.getElementById('queryMonth').value;
+                 const startDateInput = document.getElementById('startDate').value;
+                 const endDateInput = document.getElementById('endDate').value;
+                 
+                 let url = '/api/detailed_billing_export?format=excel&';
+                 
+                 if (queryType === 'year' && yearInput) {
+                     url += `year=${yearInput}`;
+                     if (monthInput) {
+                         url += `&month=${monthInput}`;
+                     }
+                 } else if (queryType === 'range' && startDateInput && endDateInput) {
+                     url += `start_date=${startDateInput}&end_date=${endDateInput}`;
+                 } else {
+                     showError('请先设置查询条件');
+                     return;
+                 }
+                 
+                 // 直接下载Excel文件
+                 const link = document.createElement('a');
+                 link.href = url;
+                 link.download = '';
+                 document.body.appendChild(link);
+                 link.click();
+                 document.body.removeChild(link);
+                 
+                 showSuccess('正在生成Excel文件，请稍候...');
+             } catch (error) {
+                 showError('导出失败: ' + error.message);
+             }
+         }
+         
+         // 导出详细账单Excel（用于预览后导出）
+         async function exportDetailedBillingExcel() {
+             try {
+                 const queryType = document.getElementById('queryType').value;
+                 const yearInput = document.getElementById('queryYear').value;
+                 const monthInput = document.getElementById('queryMonth').value;
+                 const startDateInput = document.getElementById('startDate').value;
+                 const endDateInput = document.getElementById('endDate').value;
+                 
+                 let url = '/api/detailed_billing_export?format=excel&';
+                 
+                 if (queryType === 'year' && yearInput) {
+                     url += `year=${yearInput}`;
+                     if (monthInput) {
+                         url += `&month=${monthInput}`;
+                     }
+                 } else if (queryType === 'range' && startDateInput && endDateInput) {
+                     url += `start_date=${startDateInput}&end_date=${endDateInput}`;
+                 } else {
+                     showError('请先设置查询条件');
+                     return;
+                 }
+                 
+                 // 直接下载Excel文件
+                 const link = document.createElement('a');
+                 link.href = url;
+                 link.download = '';
+                 document.body.appendChild(link);
+                 link.click();
+                 document.body.removeChild(link);
+                 
+                 showSuccess('正在生成Excel文件，请稍候...');
+             } catch (error) {
+                 showError('导出失败: ' + error.message);
+             }
+         }
+
+         // 生成详细账单Excel
+         function generateDetailedBillingExcel(data) {
+             const { detailed_data, months, monthly_totals, summary } = data;
+             
+             // 构建CSV内容
+             let csvContent = '\ufeff'; // BOM for UTF-8
+             
+             // 添加标题
+             csvContent += `专线详细月度费用报表\n`;
+             csvContent += `导出时间: ${new Date().toLocaleString()}\n`;
+             csvContent += `查询期间: ${months[0]} 至 ${months[months.length - 1]}\n`;
+             csvContent += `专线总数: ${summary.total_lines}, 总月数: ${summary.total_months}, 总费用: ¥${summary.grand_total.toFixed(2)}\n\n`;
+             
+                           // 构建表头
+              const headers = ['内部编号', '线路编号', '业务部门', '线路类型', '专线状态', '活跃月数', '总费用'];
+              months.forEach(month => {
+                  headers.push(`${month}月费`);
+              });
+              csvContent += headers.join(',') + '\n';
+              
+              // 添加数据行
+              detailed_data.forEach(line => {
+                  const row = [
+                      line.internal_number,
+                      line.line_number,
+                      line.business_department,
+                      line.line_type,
+                      getStatusText(line.status),
+                      line.active_months,
+                      line.total_fee.toFixed(2)
+                  ];
+                  
+                  months.forEach(month => {
+                      const monthData = line.monthly_fees[month];
+                      row.push(monthData.fee.toFixed(2));
+                  });
+                  
+                  csvContent += row.join(',') + '\n';
+              });
+              
+              // 添加合同周期信息
+              csvContent += '\n合同周期信息:\n';
+              csvContent += '内部编号,线路编号,合同开始,合同结束,合同号,运营商,月费\n';
+              detailed_data.forEach(line => {
+                  // 获取该专线的所有合同并按时间排序
+                  const lineContracts = [];
+                  months.forEach(month => {
+                      const monthData = line.monthly_fees[month];
+                      if (monthData.contract_id && !lineContracts.find(c => c.contract_id === monthData.contract_id)) {
+                          lineContracts.push({
+                              contract_id: monthData.contract_id,
+                              oa_process_number: monthData.oa_process_number,
+                              operator: monthData.operator,
+                              fee: monthData.fee,
+                              months: [month]
+                          });
+                      } else if (monthData.contract_id) {
+                          const existingContract = lineContracts.find(c => c.contract_id === monthData.contract_id);
+                          if (existingContract) {
+                              existingContract.months.push(month);
+                          }
+                      }
+                  });
+                  
+                  lineContracts.forEach(contract => {
+                      const startMonth = contract.months[0];
+                      const endMonth = contract.months[contract.months.length - 1];
+                      csvContent += `${line.internal_number},${line.line_number},${startMonth},${endMonth},${contract.oa_process_number},${contract.operator},${contract.fee.toFixed(2)}\n`;
+                  });
+              });
+             
+             // 添加月度汇总
+             csvContent += '\n月度汇总:\n';
+             csvContent += '月份,总费用,活跃专线数,总专线数\n';
+             months.forEach(month => {
+                 const monthTotal = monthly_totals[month];
+                 csvContent += `${month},${monthTotal.total_fee.toFixed(2)},${monthTotal.active_lines},${monthTotal.total_lines}\n`;
+             });
+             
+             // 创建并下载文件
+             const blob = new Blob([csvContent], { type: 'text/csv;charset=utf-8;' });
+             const link = document.createElement('a');
+             link.href = URL.createObjectURL(blob);
+             link.download = `专线详细月度费用报表_${months[0]}_${months[months.length - 1]}_${new Date().toISOString().split('T')[0]}.csv`;
+             link.click();
+             
+             showSuccess('详细账单导出成功！');
+         }
+
+         // 显示成功消息
+         function showSuccess(message) {
+             const toast = document.createElement('div');
+             toast.className = 'toast align-items-center text-white bg-success border-0';
+             toast.setAttribute('role', 'alert');
+             toast.innerHTML = `
+                 <div class="d-flex">
+                     <div class="toast-body">
+                         <i class="fas fa-check-circle me-2"></i>
+                         ${message}
+                     </div>
+                     <button type="button" class="btn-close btn-close-white me-2 m-auto" data-bs-dismiss="toast"></button>
+                 </div>
+             `;
+             
+             let toastContainer = document.querySelector('.toast-container');
+             if (!toastContainer) {
+                 toastContainer = document.createElement('div');
+                 toastContainer.className = 'toast-container position-fixed top-0 end-0 p-3';
+                 document.body.appendChild(toastContainer);
+             }
+             
+             toastContainer.appendChild(toast);
+             const bsToast = new bootstrap.Toast(toast);
+             bsToast.show();
+             
+             // 自动移除
+             setTimeout(() => {
+                 toast.remove();
+             }, 5000);
+         }
+    </script>
+
+    <!-- 费用管理模态框 -->
+    <div class="modal fade" id="feeManagementModal" tabindex="-1">
+        <div class="modal-dialog modal-xl">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">
+                        <i class="fas fa-money-bill-wave me-2"></i>
+                        费用管理
+                    </h5>
+                    <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal"></button>
+                </div>
+                <div class="modal-body">
+                    <!-- 费用统计 -->
+                    <div class="row mb-4">
+                        <div class="col-lg-2 col-md-4 col-sm-6">
+                            <div class="card text-center">
+                                <div class="card-body">
+                                    <h5 class="card-title text-primary" id="totalMonthlyFee">¥0.00</h5>
+                                    <p class="card-text">总月费</p>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-lg-2 col-md-4 col-sm-6">
+                            <div class="card text-center">
+                                <div class="card-body">
+                                    <h5 class="card-title text-success" id="activeMonthlyFee">¥0.00</h5>
+                                    <p class="card-text">活跃专线月费</p>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-lg-2 col-md-4 col-sm-6">
+                            <div class="card text-center">
+                                <div class="card-body">
+                                    <h5 class="card-title text-danger" id="expiredContractFee">¥0.00</h5>
+                                    <p class="card-text">过期合同月费</p>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-lg-2 col-md-4 col-sm-6">
+                            <div class="card text-center">
+                                <div class="card-body">
+                                    <h5 class="card-title text-info" id="totalLines">0</h5>
+                                    <p class="card-text">总专线数</p>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-lg-2 col-md-4 col-sm-6">
+                            <div class="card text-center">
+                                <div class="card-body">
+                                    <h5 class="card-title text-warning" id="activeLines">0</h5>
+                                    <p class="card-text">活跃专线数</p>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-lg-2 col-md-4 col-sm-6">
+                            <div class="card text-center">
+                                <div class="card-body">
+                                    <h5 class="card-title text-secondary" id="expiredLines">0</h5>
+                                    <p class="card-text">过期合同数</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- 费用详情表 -->
+                    <div class="table-responsive">
+                        <table class="table table-hover">
+                            <thead>
+                                <tr>
+                                    <th>内部编号</th>
+                                    <th>线路编号</th>
+                                    <th>业务部门</th>
+                                    <th>线路类型</th>
+                                    <th>运营商</th>
+                                    <th>月费</th>
+                                    <th>专线状态</th>
+                                    <th>合同状态</th>
+                                </tr>
+                            </thead>
+                            <tbody id="feeTableBody">
+                                <!-- 费用数据将通过JavaScript动态加载 -->
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-outline-success" onclick="exportFeeData()">
+                        <i class="fas fa-download me-1"></i>
+                        导出费用报表
+                    </button>
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">关闭</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- 合同管理模态框 -->
+    <div class="modal fade" id="contractManagementModal" tabindex="-1">
+        <div class="modal-dialog modal-xl">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">
+                        <i class="fas fa-file-contract me-2"></i>
+                        合同管理
+                    </h5>
+                    <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal"></button>
+                </div>
+                <div class="modal-body">
+                    <div class="alert alert-info">
+                        <i class="fas fa-info-circle me-2"></i>
+                        <strong>提示：</strong>合同到期不代表专线停用。专线可以在合同到期后继续使用，等待新合同签订。
+                    </div>
+                    
+                    <div class="mb-3">
+                        <button class="btn btn-primary" onclick="showAddContractFromManagement()">
+                            <i class="fas fa-plus me-1"></i>
+                            添加新合同
+                        </button>
+                    </div>
+                    
+                    <!-- 合同详情表 -->
+                    <div class="table-responsive">
+                        <table class="table table-hover">
+                            <thead>
+                                <tr>
+                                    <th>内部编号</th>
+                                    <th>线路编号</th>
+                                    <th>业务部门</th>
+                                    <th>OA流程号</th>
+                                    <th>合同开始</th>
+                                    <th>合同结束</th>
+                                    <th>到期状态</th>
+                                    <th>月费</th>
+                                    <th>运营商</th>
+                                    <th>合同类型</th>
+                                    <th>专线状态</th>
+                                </tr>
+                            </thead>
+                            <tbody id="contractTableBody">
+                                <!-- 合同数据将通过JavaScript动态加载 -->
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-outline-success" onclick="exportContractData()">
+                        <i class="fas fa-download me-1"></i>
+                        导出合同报表
+                    </button>
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">关闭</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- 历史账单模态框 -->
+    <div class="modal fade" id="billingHistoryModal" tabindex="-1">
+        <div class="modal-dialog modal-xl">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">
+                        <i class="fas fa-history me-2"></i>
+                        历史账单
+                    </h5>
+                    <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal"></button>
+                </div>
+                <div class="modal-body">
+                    <!-- 功能说明 -->
+                    <div class="alert alert-info mb-4">
+                        <i class="fas fa-info-circle me-2"></i>
+                        <strong>功能说明：</strong>
+                        <ul class="mb-0">
+                            <li><strong>汇总账单：</strong>按月汇总，显示每月总费用和专线数量</li>
+                            <li><strong>详细账单：</strong>显示每条专线在每个月的具体费用，用颜色标记合同周期</li>
+                            <li><strong>预览功能：</strong>可以在导出前预览详细账单内容，合同周期用背景色区分</li>
+                            <li><strong>纯账单导出：</strong>导出文件包含纯费用数据和单独的合同周期信息表</li>
+                        </ul>
+                    </div>
+                    
+                    <!-- 查询条件 -->
+                    <div class="card mb-4">
+                        <div class="card-body">
+                            <h6 class="card-title">查询条件</h6>
+                            <div class="row">
+                                <div class="col-md-3">
+                                    <label class="form-label">查询类型</label>
+                                    <select class="form-select" id="queryType" onchange="onQueryTypeChange()">
+                                        <option value="year">按年度</option>
+                                        <option value="month">按月度</option>
+                                        <option value="range">按日期范围</option>
+                                    </select>
+                                </div>
+                                <div class="col-md-6" id="yearMonthSection">
+                                    <div class="row">
+                                        <div class="col-md-6">
+                                            <label class="form-label">年份</label>
+                                            <input type="number" class="form-control" id="queryYear" min="2020" max="2030" value="2024">
+                                        </div>
+                                        <div class="col-md-6">
+                                            <label class="form-label">月份（可选）</label>
+                                            <select class="form-select" id="queryMonth">
+                                                <option value="">全年</option>
+                                                <option value="1">1月</option>
+                                                <option value="2">2月</option>
+                                                <option value="3">3月</option>
+                                                <option value="4">4月</option>
+                                                <option value="5">5月</option>
+                                                <option value="6">6月</option>
+                                                <option value="7">7月</option>
+                                                <option value="8">8月</option>
+                                                <option value="9">9月</option>
+                                                <option value="10">10月</option>
+                                                <option value="11">11月</option>
+                                                <option value="12">12月</option>
+                                            </select>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-md-6" id="dateRangeSection" style="display: none;">
+                                    <div class="row">
+                                        <div class="col-md-6">
+                                            <label class="form-label">开始日期</label>
+                                            <input type="date" class="form-control" id="startDate">
+                                        </div>
+                                        <div class="col-md-6">
+                                            <label class="form-label">结束日期</label>
+                                            <input type="date" class="form-control" id="endDate">
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-md-3">
+                                    <label class="form-label">&nbsp;</label>
+                                    <div>
+                                        <button class="btn btn-primary" onclick="queryBillingHistory()">
+                                            <i class="fas fa-search me-1"></i>
+                                            查询
+                                        </button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- 统计汇总 -->
+                    <div class="row mb-4">
+                        <div class="col-md-2">
+                            <div class="card text-center">
+                                <div class="card-body">
+                                    <h5 class="card-title text-primary" id="totalPeriods">0</h5>
+                                    <p class="card-text">查询期数</p>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-2">
+                            <div class="card text-center">
+                                <div class="card-body">
+                                    <h5 class="card-title text-success" id="totalAmount">¥0.00</h5>
+                                    <p class="card-text">总费用</p>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-2">
+                            <div class="card text-center">
+                                <div class="card-body">
+                                    <h5 class="card-title text-info" id="averageMonthlyFee">¥0.00</h5>
+                                    <p class="card-text">平均月费</p>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-2">
+                            <div class="card text-center">
+                                <div class="card-body">
+                                    <h5 class="card-title text-warning" id="maxMonthlyFee">¥0.00</h5>
+                                    <p class="card-text">最高月费</p>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-2">
+                            <div class="card text-center">
+                                <div class="card-body">
+                                    <h5 class="card-title text-secondary" id="minMonthlyFee">¥0.00</h5>
+                                    <p class="card-text">最低月费</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- 历史账单表 -->
+                    <div class="table-responsive">
+                        <table class="table table-hover">
+                            <thead>
+                                <tr>
+                                    <th>期间</th>
+                                    <th>总费用</th>
+                                    <th>专线数量</th>
+                                    <th>活跃专线</th>
+                                    <th>操作</th>
+                                </tr>
+                            </thead>
+                            <tbody id="billingHistoryTableBody">
+                                <!-- 历史账单数据将通过JavaScript动态加载 -->
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-outline-success" onclick="exportBillingHistory()">
+                        <i class="fas fa-download me-1"></i>
+                        导出汇总账单
+                    </button>
+                    <button type="button" class="btn btn-info" onclick="previewDetailedBilling()">
+                        <i class="fas fa-eye me-1"></i>
+                        预览详细账单
+                    </button>
+                    <button type="button" class="btn btn-success" onclick="exportDetailedBilling()">
+                        <i class="fas fa-file-excel me-1"></i>
+                        导出详细账单
+                    </button>
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">关闭</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- 账单期间详情模态框 -->
+    <div class="modal fade" id="periodDetailsModal" tabindex="-1">
+        <div class="modal-dialog modal-lg">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="periodDetailsTitle">
+                        <i class="fas fa-calendar-alt me-2"></i>
+                        账单详情
+                    </h5>
+                    <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal"></button>
+                </div>
+                <div class="modal-body">
+                    <!-- 期间汇总 -->
+                    <div class="row mb-4">
+                        <div class="col-md-4">
+                            <div class="card text-center">
+                                <div class="card-body">
+                                    <h5 class="card-title text-primary" id="periodTotalFee">¥0.00</h5>
+                                    <p class="card-text">总费用</p>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                            <div class="card text-center">
+                                <div class="card-body">
+                                    <h5 class="card-title text-info" id="periodTotalLines">0</h5>
+                                    <p class="card-text">专线数量</p>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                            <div class="card text-center">
+                                <div class="card-body">
+                                    <h5 class="card-title text-success" id="periodActiveLines">0</h5>
+                                    <p class="card-text">活跃专线</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- 专线详情表 -->
+                    <div class="table-responsive">
+                        <table class="table table-hover">
+                            <thead>
+                                <tr>
+                                    <th>内部编号</th>
+                                    <th>线路编号</th>
+                                    <th>业务部门</th>
+                                    <th>运营商</th>
+                                    <th>月费</th>
+                                    <th>状态</th>
+                                </tr>
+                            </thead>
+                            <tbody id="periodDetailsTableBody">
+                                <!-- 期间详情数据将通过JavaScript动态加载 -->
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">关闭</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- 详细账单预览模态框 -->
+    <div class="modal fade" id="detailedPreviewModal" tabindex="-1">
+        <div class="modal-dialog modal-fullscreen">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="detailedPreviewTitle">
+                        <i class="fas fa-table me-2"></i>
+                        详细账单预览
+                    </h5>
+                    <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal"></button>
+                </div>
+                <div class="modal-body">
+                    <!-- 汇总信息 -->
+                    <div class="row mb-4">
+                        <div class="col-md-4">
+                            <div class="card text-center">
+                                <div class="card-body">
+                                    <h5 class="card-title text-primary" id="previewTotalLines">0</h5>
+                                    <p class="card-text">专线总数</p>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                            <div class="card text-center">
+                                <div class="card-body">
+                                    <h5 class="card-title text-info" id="previewTotalMonths">0</h5>
+                                    <p class="card-text">查询月数</p>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                            <div class="card text-center">
+                                <div class="card-body">
+                                    <h5 class="card-title text-success" id="previewGrandTotal">¥0.00</h5>
+                                    <p class="card-text">总费用</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- 合同周期图例 -->
+                    <div class="card mb-3">
+                        <div class="card-body">
+                            <h6 class="card-title">
+                                <i class="fas fa-palette me-2"></i>
+                                合同周期颜色图例
+                            </h6>
+                            <div class="row">
+                                <div class="col-md-3">
+                                    <div class="d-flex align-items-center mb-2">
+                                        <div style="width: 20px; height: 20px; background-color: rgba(255, 193, 7, 0.3); border: 1px solid #ffc107; margin-right: 8px;"></div>
+                                        <span>合同周期 1</span>
+                                    </div>
+                                </div>
+                                <div class="col-md-3">
+                                    <div class="d-flex align-items-center mb-2">
+                                        <div style="width: 20px; height: 20px; background-color: rgba(25, 135, 84, 0.3); border: 1px solid #198754; margin-right: 8px;"></div>
+                                        <span>合同周期 2</span>
+                                    </div>
+                                </div>
+                                <div class="col-md-3">
+                                    <div class="d-flex align-items-center mb-2">
+                                        <div style="width: 20px; height: 20px; background-color: rgba(13, 110, 253, 0.3); border: 1px solid #0d6efd; margin-right: 8px;"></div>
+                                        <span>合同周期 3</span>
+                                    </div>
+                                </div>
+                                <div class="col-md-3">
+                                    <div class="d-flex align-items-center mb-2">
+                                        <div style="width: 20px; height: 20px; background-color: rgba(220, 53, 69, 0.3); border: 1px solid #dc3545; margin-right: 8px;"></div>
+                                        <span>合同周期 4</span>
+                                    </div>
+                                </div>
+                            </div>
+                            <small class="text-muted">
+                                <i class="fas fa-info-circle me-1"></i>
+                                每条专线的不同合同周期用不同颜色标记，同一颜色表示同一个合同期间
+                            </small>
+                        </div>
+                    </div>
+                    
+                    <!-- 详细表格 -->
+                    <div id="detailedPreviewTable">
+                        <!-- 表格内容将通过JavaScript动态生成 -->
+                    </div>
+                    
+                    <div class="alert alert-info mt-3">
+                        <i class="fas fa-info-circle me-2"></i>
+                        <strong>说明：</strong>
+                        <ul class="mb-0">
+                            <li><strong>费用显示：</strong>绿色加粗数字表示有合同的月份费用，灰色数字表示无合同的月份（费用为0）</li>
+                            <li><strong>合同周期：</strong>相同背景颜色的月份属于同一个合同周期</li>
+                            <li><strong>详细信息：</strong>鼠标悬停在月费上可查看合同周期、合同号和运营商</li>
+                            <li><strong>汇总行：</strong>黄色行显示每月汇总费用</li>
+                            <li><strong>导出文件：</strong>包含纯账单数据和单独的合同周期信息表</li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-success" onclick="exportFromPreview()">
+                        <i class="fas fa-file-excel me-1"></i>
+                        导出Excel
+                    </button>
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">关闭</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+</html> 

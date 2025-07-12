@@ -1,464 +1,108 @@
 {
   "version": "2.0",
-  "timestamp": "2025-07-08T13:55:56.718025",
+  "timestamp": "2025-07-12T23:26:46.104483",
   "racks": [
     {
-      "id": "rack_1749632196564_1",
+      "id": "f0ce228e-66ac-435d-b609-85938969f68e",
       "name": "A01",
-      "room_id": "room_1749092010312",
+      "room_id": "room_1750669584043",
       "height_u": 42,
-      "department": "跳纤柜",
+      "department": "",
       "devices": [
         {
           "instance_id": "device_50b9a0ce0dca",
-          "rack_u": 3
-        },
-        {
-          "instance_id": "device_86a51df0a471",
-          "rack_u": 5
-        },
-        {
-          "instance_id": "device_a984d477ccd9",
-          "rack_u": 7
+          "rack_u": 35
         }
       ]
     },
     {
-      "id": "rack_1749632196566_2",
+      "id": "b5bd8af2-aa21-4be4-b842-cbd8fd3545f0",
       "name": "A02",
-      "room_id": "room_1749092010312",
+      "room_id": "room_1750669584043",
       "height_u": 42,
-      "department": "运营商",
-      "devices": []
+      "department": "",
+      "devices": [
+        {
+          "instance_id": "device_86a51df0a471",
+          "rack_u": 35
+        }
+      ]
     },
     {
-      "id": "rack_1749632196567_3",
+      "id": "ca319ae0-ebc3-4492-84bc-ea2eb33a123d",
       "name": "A03",
-      "room_id": "room_1749092010312",
+      "room_id": "room_1750669584043",
       "height_u": 42,
-      "department": "运营商",
-      "devices": []
+      "department": "",
+      "devices": [
+        {
+          "instance_id": "device_a984d477ccd9",
+          "rack_u": 35
+        }
+      ]
     },
     {
-      "id": "rack_1749632196569_4",
+      "id": "ab25aea4-ed61-4891-9200-2ed88443094d",
       "name": "A04",
-      "room_id": "room_1749092010312",
+      "room_id": "room_1750669584043",
       "height_u": 42,
-      "department": "基金",
-      "devices": []
+      "department": "",
+      "devices": [
+        {
+          "instance_id": "device_9edddbdb2dd9",
+          "rack_u": 35
+        }
+      ]
     },
     {
-      "id": "rack_1749632196571_5",
+      "id": "7bd59bef-c7f5-489f-87c4-600ae8e67092",
       "name": "A05",
-      "room_id": "room_1749092010312",
+      "room_id": "room_1750669584043",
       "height_u": 42,
-      "department": "基金",
-      "devices": []
+      "department": "",
+      "devices": [
+        {
+          "instance_id": "device_95fbb5bbc396",
+          "rack_u": 35
+        }
+      ]
     },
     {
-      "id": "rack_1749632196573_6",
+      "id": "d4272593-abe7-4360-bb6f-3bc822c14613",
       "name": "A06",
-      "room_id": "room_1749092010312",
+      "room_id": "room_1750669584043",
       "height_u": 42,
-      "department": "基金",
+      "department": "",
       "devices": []
     },
     {
-      "id": "rack_1749632196574_7",
+      "id": "6e80ce30-8e0a-466c-b4d2-57e5a0dd4b16",
       "name": "A07",
-      "room_id": "room_1749092010312",
+      "room_id": "room_1750669584043",
       "height_u": 42,
-      "department": "基金",
+      "department": "",
       "devices": []
     },
     {
-      "id": "rack_1749632196576_8",
+      "id": "5a5ba3fa-2306-4fd6-8180-4a8c38c272a9",
       "name": "A08",
-      "room_id": "room_1749092010312",
+      "room_id": "room_1750669584043",
       "height_u": 42,
-      "department": "预留",
+      "department": "",
       "devices": []
     },
     {
-      "id": "rack_1749632196578_9",
+      "id": "4dcb1667-788c-4b98-9cd6-febd9eb86751",
       "name": "A09",
-      "room_id": "room_1749092010312",
+      "room_id": "room_1750669584043",
       "height_u": 42,
-      "department": "预留",
+      "department": "",
       "devices": []
     },
     {
-      "id": "rack_1749632196580_10",
+      "id": "04b58040-f2cf-48f5-ba3e-be14c3e3f52c",
       "name": "A10",
-      "room_id": "room_1749092010312",
-      "height_u": 42,
-      "department": "证券",
-      "devices": []
-    },
-    {
-      "id": "rack_1749632196582_11",
-      "name": "A11",
-      "room_id": "room_1749092010312",
-      "height_u": 42,
-      "department": "证券",
-      "devices": []
-    },
-    {
-      "id": "rack_1749632196584_12",
-      "name": "A12",
-      "room_id": "room_1749092010312",
-      "height_u": 42,
-      "department": "证券",
-      "devices": []
-    },
-    {
-      "id": "rack_1749632196585_13",
-      "name": "A13",
-      "room_id": "room_1749092010312",
-      "height_u": 42,
-      "department": "证券",
-      "devices": []
-    },
-    {
-      "id": "rack_1749632196587_14",
-      "name": "A14",
-      "room_id": "room_1749092010312",
-      "height_u": 42,
-      "department": "证券",
-      "devices": []
-    },
-    {
-      "id": "rack_1749632223954_1",
-      "name": "B01",
-      "room_id": "room_1749092010312",
-      "height_u": 42,
-      "department": "集团",
-      "devices": []
-    },
-    {
-      "id": "rack_1749632223956_2",
-      "name": "B02",
-      "room_id": "room_1749092010312",
-      "height_u": 42,
-      "department": "集团",
-      "devices": []
-    },
-    {
-      "id": "rack_1749632223957_3",
-      "name": "B03",
-      "room_id": "room_1749092010312",
-      "height_u": 42,
-      "department": "集团",
-      "devices": []
-    },
-    {
-      "id": "rack_1749632223959_4",
-      "name": "B04",
-      "room_id": "room_1749092010312",
-      "height_u": 42,
-      "department": "集团",
-      "devices": []
-    },
-    {
-      "id": "rack_1749632223961_5",
-      "name": "B05",
-      "room_id": "room_1749092010312",
-      "height_u": 42,
-      "department": "投顾",
-      "devices": []
-    },
-    {
-      "id": "rack_1749632223962_6",
-      "name": "B06",
-      "room_id": "room_1749092010312",
-      "height_u": 42,
-      "department": "投顾",
-      "devices": []
-    },
-    {
-      "id": "rack_1749632223964_7",
-      "name": "B07",
-      "room_id": "room_1749092010312",
-      "height_u": 42,
-      "department": "投顾",
-      "devices": []
-    },
-    {
-      "id": "rack_1749632223966_8",
-      "name": "B08",
-      "room_id": "room_1749092010312",
-      "height_u": 42,
-      "department": "投顾",
-      "devices": []
-    },
-    {
-      "id": "rack_1749632223967_9",
-      "name": "B09",
-      "room_id": "room_1749092010312",
-      "height_u": 42,
-      "department": "预留",
-      "devices": []
-    },
-    {
-      "id": "rack_1749632223969_10",
-      "name": "B10",
-      "room_id": "room_1749092010312",
-      "height_u": 42,
-      "department": "预留",
-      "devices": []
-    },
-    {
-      "id": "rack_1749632223971_11",
-      "name": "B11",
-      "room_id": "room_1749092010312",
-      "height_u": 42,
-      "department": "期货",
-      "devices": []
-    },
-    {
-      "id": "rack_1749632223973_12",
-      "name": "B12",
-      "room_id": "room_1749092010312",
-      "height_u": 42,
-      "department": "期货",
-      "devices": []
-    },
-    {
-      "id": "rack_1749632223975_13",
-      "name": "B13",
-      "room_id": "room_1749092010312",
-      "height_u": 42,
-      "department": "期货",
-      "devices": []
-    },
-    {
-      "id": "rack_1749632223977_14",
-      "name": "B14",
-      "room_id": "room_1749092010312",
-      "height_u": 42,
-      "department": "期货",
-      "devices": []
-    },
-    {
-      "id": "rack_1749632288781_1",
-      "name": "A01",
-      "room_id": "room_1749092025450",
-      "height_u": 42,
-      "department": "",
-      "devices": []
-    },
-    {
-      "id": "rack_1749632288783_2",
-      "name": "A02",
-      "room_id": "room_1749092025450",
-      "height_u": 42,
-      "department": "",
-      "devices": []
-    },
-    {
-      "id": "rack_1749632288784_3",
-      "name": "A03",
-      "room_id": "room_1749092025450",
-      "height_u": 42,
-      "department": "",
-      "devices": []
-    },
-    {
-      "id": "rack_1749632288786_4",
-      "name": "A04",
-      "room_id": "room_1749092025450",
-      "height_u": 42,
-      "department": "",
-      "devices": []
-    },
-    {
-      "id": "rack_1749632288788_5",
-      "name": "A05",
-      "room_id": "room_1749092025450",
-      "height_u": 42,
-      "department": "",
-      "devices": []
-    },
-    {
-      "id": "rack_1749632288790_6",
-      "name": "A06",
-      "room_id": "room_1749092025450",
-      "height_u": 42,
-      "department": "",
-      "devices": []
-    },
-    {
-      "id": "rack_1749632288792_7",
-      "name": "A07",
-      "room_id": "room_1749092025450",
-      "height_u": 42,
-      "department": "",
-      "devices": []
-    },
-    {
-      "id": "rack_1749632288794_8",
-      "name": "A08",
-      "room_id": "room_1749092025450",
-      "height_u": 42,
-      "department": "",
-      "devices": []
-    },
-    {
-      "id": "rack_1749632288796_9",
-      "name": "A09",
-      "room_id": "room_1749092025450",
-      "height_u": 42,
-      "department": "",
-      "devices": []
-    },
-    {
-      "id": "rack_1749632288798_10",
-      "name": "A10",
-      "room_id": "room_1749092025450",
-      "height_u": 42,
-      "department": "",
-      "devices": []
-    },
-    {
-      "id": "rack_1749632299412_1",
-      "name": "B01",
-      "room_id": "room_1749092025450",
-      "height_u": 42,
-      "department": "",
-      "devices": []
-    },
-    {
-      "id": "rack_1749632299414_2",
-      "name": "B02",
-      "room_id": "room_1749092025450",
-      "height_u": 42,
-      "department": "",
-      "devices": []
-    },
-    {
-      "id": "rack_1749632299416_3",
-      "name": "B03",
-      "room_id": "room_1749092025450",
-      "height_u": 42,
-      "department": "",
-      "devices": []
-    },
-    {
-      "id": "rack_1749632299418_4",
-      "name": "B04",
-      "room_id": "room_1749092025450",
-      "height_u": 42,
-      "department": "",
-      "devices": []
-    },
-    {
-      "id": "rack_1749632299419_5",
-      "name": "B05",
-      "room_id": "room_1749092025450",
-      "height_u": 42,
-      "department": "",
-      "devices": []
-    },
-    {
-      "id": "rack_1749632299421_6",
-      "name": "B06",
-      "room_id": "room_1749092025450",
-      "height_u": 42,
-      "department": "",
-      "devices": []
-    },
-    {
-      "id": "rack_1749632299423_7",
-      "name": "B07",
-      "room_id": "room_1749092025450",
-      "height_u": 42,
-      "department": "",
-      "devices": []
-    },
-    {
-      "id": "rack_1749632299425_8",
-      "name": "B08",
-      "room_id": "room_1749092025450",
-      "height_u": 42,
-      "department": "",
-      "devices": []
-    },
-    {
-      "id": "rack_1749632299427_9",
-      "name": "B09",
-      "room_id": "room_1749092025450",
-      "height_u": 42,
-      "department": "",
-      "devices": []
-    },
-    {
-      "id": "rack_1749632299428_10",
-      "name": "B10",
-      "room_id": "room_1749092025450",
-      "height_u": 42,
-      "department": "",
-      "devices": []
-    },
-    {
-      "id": "rack_1749632311049_1",
-      "name": "C01",
-      "room_id": "room_1749092025450",
-      "height_u": 42,
-      "department": "",
-      "devices": []
-    },
-    {
-      "id": "rack_1749632311051_2",
-      "name": "C02",
-      "room_id": "room_1749092025450",
-      "height_u": 42,
-      "department": "",
-      "devices": []
-    },
-    {
-      "id": "rack_1749632311052_3",
-      "name": "C03",
-      "room_id": "room_1749092025450",
-      "height_u": 42,
-      "department": "",
-      "devices": []
-    },
-    {
-      "id": "rack_1749632311054_4",
-      "name": "C04",
-      "room_id": "room_1749092025450",
-      "height_u": 42,
-      "department": "",
-      "devices": []
-    },
-    {
-      "id": "rack_1749632311056_5",
-      "name": "C05",
-      "room_id": "room_1749092025450",
-      "height_u": 42,
-      "department": "",
-      "devices": []
-    },
-    {
-      "id": "rack_1749632311058_6",
-      "name": "C06",
-      "room_id": "room_1749092025450",
-      "height_u": 42,
-      "department": "",
-      "devices": []
-    },
-    {
-      "id": "rack_1749632311059_7",
-      "name": "C07",
-      "room_id": "room_1749092025450",
-      "height_u": 42,
-      "department": "",
-      "devices": []
-    },
-    {
-      "id": "rack_1749632311061_8",
-      "name": "C08",
-      "room_id": "room_1749092025450",
+      "room_id": "room_1750669584043",
       "height_u": 42,
       "department": "",
       "devices": []
