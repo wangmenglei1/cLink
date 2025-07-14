@@ -681,20 +681,20 @@
             // 添加设备类型选项
             if (allTypes && allTypes.length > 0) {
                 console.log(`添加 ${allTypes.length} 个设备类型到选择框`);
-                allTypes.forEach(type => {
+            allTypes.forEach(type => {
                     console.log('添加设备类型:', type.model);
-                    // 为单台添加创建选项
-                    const singleOption = document.createElement('option');
+                // 为单台添加创建选项
+                const singleOption = document.createElement('option');
                     singleOption.value = type.model;
                     singleOption.textContent = type.model;
-                    singleSelect.appendChild(singleOption);
+                singleSelect.appendChild(singleOption);
 
-                    // 为批量添加创建选项
-                    const batchOption = document.createElement('option');
+                // 为批量添加创建选项
+                const batchOption = document.createElement('option');
                     batchOption.value = type.model;
                     batchOption.textContent = type.model;
-                    batchSelect.appendChild(batchOption);
-                });
+                batchSelect.appendChild(batchOption);
+            });
                 console.log('设备类型选择框填充完成');
             } else {
                 console.warn('没有可用的设备类型数据');
@@ -1590,29 +1590,29 @@
                     const rate = row.querySelector('.rate-select').value;
                     const interface_type = row.querySelector('.interface-type-select').value;
                     const naming_prefix = row.querySelector('.naming-prefix').value.trim();
-                    const start = parseInt(row.querySelector('.start-number').value, 10);
-                    const end = parseInt(row.querySelector('.end-number').value, 10);
+                const start = parseInt(row.querySelector('.start-number').value, 10);
+                const end = parseInt(row.querySelector('.end-number').value, 10);
                     
                     if (!rate || !interface_type) {
                         alert(`接口组 ${index + 1} 缺少速率或接口类型`);
                         formIsValid = false;
                         return;
                     }
-                    
-                    if (isNaN(start) || isNaN(end) || start < 0 || end < 0 || start > end) {
+                
+                if (isNaN(start) || isNaN(end) || start < 0 || end < 0 || start > end) {
                         alert(`接口组 ${index + 1} 的起止编号无效`);
-                        formIsValid = false;
+                    formIsValid = false;
                         return;
-                    }
+                }
 
-                    interfaces.push({
+                interfaces.push({
                         rate: rate,
                         interface_type: interface_type,
                         naming_prefix: naming_prefix || '1/0/',
-                        start: start,
-                        end: end,
-                    });
+                    start: start,
+                    end: end,
                 });
+            });
             }
 
             if (!deviceModel) {

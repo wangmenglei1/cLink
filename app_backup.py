@@ -3391,7 +3391,7 @@ def add_ip_pool():
         pools_data['last_updated'] = datetime.now().isoformat()
         save_data(IP_POOLS_FILE, pools_data)
     else:
-        save_data(IP_POOLS_FILE, pools)
+    save_data(IP_POOLS_FILE, pools)
     
     return jsonify(new_pool), 201
 
@@ -3431,7 +3431,7 @@ def delete_ip_pool(pool_id):
         pools_data['last_updated'] = datetime.now().isoformat()
         save_data(IP_POOLS_FILE, pools_data)
     else:
-        save_data(IP_POOLS_FILE, pools)
+    save_data(IP_POOLS_FILE, pools)
     
     return '', 204
 
@@ -3666,7 +3666,7 @@ def import_ip_data():
                     continue
 
                 # 验证网段格式
-                try:
+            try:
                     network = ipaddress.ip_network(f"{row[1]}{row[2]}")
                 except ValueError:
                     errors.append(f'网段第{index+2}行：无效的网段格式 {row[1]}{row[2]}')

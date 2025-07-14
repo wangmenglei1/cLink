@@ -728,10 +728,10 @@
                     // 清空表单
                     $('#assignSubnetForm')[0].reset();
                 },
-                                    error: function(xhr) {
+                error: function(xhr) {
                         const errorMsg = xhr.responseJSON && xhr.responseJSON.error ? xhr.responseJSON.error : '分配子网失败';
                         alert('分配子网失败：' + errorMsg);
-                    }
+                }
             });
         }
 

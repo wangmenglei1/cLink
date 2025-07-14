@@ -509,7 +509,7 @@
                                 const typeName = type.name || type.model;
                                 return typeName && typeName.trim() === device.device_type.trim();
                             });
-                            usedU += deviceType ? deviceType.height_u : 1;
+                        usedU += deviceType ? deviceType.height_u : 1;
                         }
                     });
                 });
@@ -615,9 +615,9 @@
                 const filteredByRow = {};
                 filtered.forEach(rack => {
                     if (rack.name && rack.name.length > 0) {
-                        const row = rack.name[0].toUpperCase();
-                        if (!filteredByRow[row]) filteredByRow[row] = [];
-                        filteredByRow[row].push(rack);
+                    const row = rack.name[0].toUpperCase();
+                    if (!filteredByRow[row]) filteredByRow[row] = [];
+                    filteredByRow[row].push(rack);
                     }
                 });
 
