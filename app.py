@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 
-from flask import Flask, render_template, request, jsonify, redirect, url_for, flash, send_file, g
+from flask import Flask, render_template, request, jsonify, redirect, url_for, flash, send_file, g, make_response
 import os
 import threading
 import json
@@ -8,6 +8,10 @@ import uuid
 import threading
 import shutil
 import io
+import pandas as pd
+from openpyxl import Workbook
+from openpyxl.styles import Font, PatternFill, Alignment, Border, Side
+from openpyxl.utils.dataframe import dataframe_to_rows
 import time
 import pandas as pd
 from datetime import datetime, timedelta
@@ -31,6 +35,8 @@ device_groups = {}
 device_port_templates = {}
 dedicated_lines = []
 line_contracts = []
+inventory = []
+naming_rules = {}
 
 # File path constants
 DATA_DIR = 'data'
@@ -47,6 +53,8 @@ IP_ADDRESSES_FILE = os.path.join(DATA_DIR, 'ip_addresses.json')
 ASSIGNED_SUBNETS_FILE = os.path.join(DATA_DIR, 'assigned_subnets.json')
 DEDICATED_LINES_FILE = os.path.join(DATA_DIR, 'dedicated_lines.json')
 LINE_CONTRACTS_FILE = os.path.join(DATA_DIR, 'line_contracts.json')
+INVENTORY_FILE = os.path.join(DATA_DIR, 'inventory.json')
+NAMING_RULES_FILE = os.path.join(DATA_DIR, 'naming_rules.json')
 
 # File lock objects
 file_lock = threading.Lock()
@@ -59,7 +67,9 @@ file_locks = {
     'device_groups': threading.Lock(),
     'device_port_templates': threading.Lock(),
     'dedicated_lines': threading.Lock(),
-    'line_contracts': threading.Lock()
+    'line_contracts': threading.Lock(),
+    'inventory': threading.Lock(),
+    'naming_rules': threading.Lock()
 }
 
 # Interface configuration - loaded from JSON file
@@ -208,6 +218,10 @@ def get_default_data_structure(filepath):
         return {'dedicated_lines': []}
     elif 'line_contracts' in filepath:
         return {'line_contracts': []}
+    elif 'inventory' in filepath:
+        return {'inventory': []}
+    elif 'naming_rules' in filepath:
+        return {'naming_rules': {}}
     else:
         return {}
 
@@ -270,6 +284,12 @@ def save_data(filepath, data):
                     "timestamp": datetime.now().isoformat(),
                     "groups": data
                 }
+            elif 'inventory' in filename:
+                data_wrapper = {
+                    "version": "2.0",
+                    "timestamp": datetime.now().isoformat(),
+                    "inventory": data
+                }
             else:
                 # 对于其他文件，直接保存原始数据
                 data_wrapper = data
@@ -291,7 +311,7 @@ def save_data(filepath, data):
 # Load data on application startup using before_request
 @app.before_request
 def load_all_data_before_request():
-    global device_types, device_instances, connections, rooms, racks, device_groups, device_port_templates, dedicated_lines, line_contracts
+    global device_types, device_instances, connections, rooms, racks, device_groups, device_port_templates, dedicated_lines, line_contracts, inventory, naming_rules
     
     try:
         # Load interface configuration first
@@ -307,7 +327,20 @@ def load_all_data_before_request():
         
         # Extract data from new format
         device_types = device_types_data.get('device_types', [])
-        device_instances = device_instances_data.get('device_instances', [])
+        
+        # 处理可能的嵌套结构
+        device_instances_raw = device_instances_data.get('device_instances', [])
+        if isinstance(device_instances_raw, dict) and 'device_instances' in device_instances_raw:
+            # 如果是嵌套结构，提取内层数组
+            device_instances = device_instances_raw.get('device_instances', [])
+            print("后端检测到嵌套结构，已提取内层数组")
+        elif isinstance(device_instances_raw, list):
+            # 如果直接是数组，直接使用
+            device_instances = device_instances_raw
+        else:
+            # fallback到空数组
+            device_instances = []
+            print(f"未知的device_instances数据格式: {type(device_instances_raw)}")
         if isinstance(connections_data, dict) and 'connections' in connections_data:
             if isinstance(connections_data['connections'], dict) and 'connections' in connections_data['connections']:
                 connections = connections_data['connections']['connections']
@@ -322,11 +355,15 @@ def load_all_data_before_request():
         # Load dedicated lines data
         dedicated_lines_data = load_data(DEDICATED_LINES_FILE)
         line_contracts_data = load_data(LINE_CONTRACTS_FILE)
+        inventory_data = load_data(INVENTORY_FILE)
+        naming_rules_data = load_data(NAMING_RULES_FILE)
         
         dedicated_lines = dedicated_lines_data.get('dedicated_lines', [])
         line_contracts = line_contracts_data.get('line_contracts', [])
+        inventory = inventory_data.get('inventory', [])
+        naming_rules = naming_rules_data.get('naming_rules', {})
         
-        print(f"Data loaded - Rooms: {len(rooms)}, Racks: {len(racks)}, Devices: {len(device_instances)}, Types: {len(device_types)}, Connections: {len(connections)}, Groups: {len(device_groups)}, Lines: {len(dedicated_lines)}, Contracts: {len(line_contracts)}")
+        print(f"Data loaded - Rooms: {len(rooms)}, Racks: {len(racks)}, Devices: {len(device_instances)}, Types: {len(device_types)}, Connections: {len(connections)}, Groups: {len(device_groups)}, Lines: {len(dedicated_lines)}, Contracts: {len(line_contracts)}, Inventory: {len(inventory)}, NamingRules: {'loaded' if naming_rules else 'empty'}")
         
     except Exception as e:
         print(f"Error loading data: {e}")
@@ -338,6 +375,8 @@ def load_all_data_before_request():
         device_groups = []
         dedicated_lines = []
         line_contracts = []
+        inventory = []
+        naming_rules = {}
 
     # 加载端口模板数据
     with file_locks['device_port_templates']:
@@ -470,7 +509,7 @@ def perform_delete_device_instance(instance_id):
                       updated_instances_data.append(updated_instance)
 
     # Save updated data to files
-    save_data(DEVICE_INSTANCES_FILE, device_instances)
+    save_data(DEVICE_INSTANCES_FILE, {"device_instances": device_instances})
     if len(connections) != initial_connection_count:
          save_data(CONNECTIONS_FILE, connections)
 
@@ -768,6 +807,46 @@ def delete_device_type(device_type_model):
         traceback.print_exc()
         return jsonify({'message': '删除设备型号时发生内部错误'}), 500
 
+@app.route('/delete_device_type_by_id/<string:type_id>', methods=['DELETE'])
+def delete_device_type_by_id(type_id):
+    """根据ID删除设备型号"""
+    try:
+        load_all_data_before_request()
+        
+        print(f"[DEBUG] delete_device_type_by_id: Attempting to delete ID '{type_id}'")
+        
+        # 根据ID查找设备型号
+        target_type = next((dt for dt in device_types if dt.get('id') == type_id), None)
+        if not target_type:
+            print(f"[DEBUG] Device type with ID '{type_id}' not found")
+            return jsonify({'message': f'设备型号未找到'}), 404
+        
+        device_model = target_type.get('model', '未知型号')
+        
+        # 检查是否有设备实例在使用这个型号
+        instances_using_type = [inst for inst in device_instances if inst['device_type'] == device_model]
+        if instances_using_type:
+            print(f"[DEBUG] Device type '{device_model}' is in use by {len(instances_using_type)} instances")
+            return jsonify({'message': f'设备型号 "{device_model}" 正在被 {len(instances_using_type)} 个设备实例使用，无法删除'}), 400
+
+        initial_count = len(device_types)
+        # 根据ID删除设备类型
+        device_types[:] = [d for d in device_types if d.get('id') != type_id]
+
+        if len(device_types) < initial_count:
+            save_data(DEVICE_TYPES_FILE, device_types)
+            print(f'[API] delete_device_type_by_id: Successfully deleted device type: {device_model} (ID: {type_id})')
+            return jsonify({'message': f'设备型号 "{device_model}" 删除成功'}), 200
+        else:
+            print(f"[DEBUG] Failed to delete device type with ID '{type_id}' - not found in list")
+            return jsonify({'message': f'设备型号未找到'}), 404
+
+    except Exception as e:
+        print(f'Error deleting device type by ID: {e}')
+        import traceback
+        traceback.print_exc()
+        return jsonify({'message': '删除设备型号时发生内部错误'}), 500
+
 @app.route('/update_device_type/<string:original_type_model>', methods=['PUT'])
 def update_device_type(original_type_model):
     """Updates an existing device type using structured interface definitions."""
@@ -903,7 +982,7 @@ def add_device_instance():
         'power_status': 'off'
     }
     device_instances.append(new_instance)
-    save_data(DEVICE_INSTANCES_FILE, device_instances)
+    save_data(DEVICE_INSTANCES_FILE, {"device_instances": device_instances})
 
     return jsonify({'message': 'Device instance added successfully to warehouse', 'instance': new_instance}), 201
 
@@ -969,7 +1048,7 @@ def batch_add_device_instances():
         return jsonify({'message': f'未能添加任何新设备。以下名称均已存在 {", ".join(skipped_names)}'}), 409
 
     device_instances.extend(new_instances)
-    save_data(DEVICE_INSTANCES_FILE, device_instances)
+    save_data(DEVICE_INSTANCES_FILE, {"device_instances": device_instances})
 
     message = f'成功添加 {len(new_instances)} 台设备'
     if skipped_names:
@@ -999,7 +1078,7 @@ def update_device_instance_position(instance_id):
         instance = find_instance_by_id(instance_id)
         if instance:
             instance['position'] = new_position
-            save_data(DEVICE_INSTANCES_FILE, device_instances)
+            save_data(DEVICE_INSTANCES_FILE, {"device_instances": device_instances})
             print(f'Updated position for instance {instance_id}: {new_position}')
             return jsonify({'message': 'Position updated successfully', 'instance_id': instance_id, 'new_position': new_position}), 200
         else:
@@ -1556,7 +1635,7 @@ def batch_rack_mount():
 
                 current_u += height + spacing_u # Add spacing for the next device
 
-            save_data(DEVICE_INSTANCES_FILE, device_instances)
+            save_data(DEVICE_INSTANCES_FILE, {"device_instances": device_instances})
             save_data(RACKS_FILE, racks)
 
         return jsonify({
@@ -1633,7 +1712,7 @@ def batch_delete_devices():
                 rack['devices'][:] = [dev_id for dev_id in rack['devices'] if dev_id not in ids_to_delete_set]
 
         # Save all changes once
-        save_data(DEVICE_INSTANCES_FILE, device_instances)
+        save_data(DEVICE_INSTANCES_FILE, {"device_instances": device_instances})
         save_data(CONNECTIONS_FILE, connections)
         save_data(RACKS_FILE, racks)
         
@@ -2055,7 +2134,7 @@ def batch_rack_unmount():
             instance['rack_u'] = None
             unmounted_count += 1
         
-        save_data(DEVICE_INSTANCES_FILE, device_instances)
+        save_data(DEVICE_INSTANCES_FILE, {"device_instances": device_instances})
         save_data(RACKS_FILE, racks)
         
         message = f'成功下架 {unmounted_count} 台设备'
@@ -2212,7 +2291,7 @@ def multi_rack_batch_mount():
             mounted_count += 1
         
         # 保存更改
-        save_data(DEVICE_INSTANCES_FILE, device_instances)
+        save_data(DEVICE_INSTANCES_FILE, {"device_instances": device_instances})
         save_data(RACKS_FILE, racks)
         
         # 生成结果信息
@@ -2299,7 +2378,7 @@ def update_device_instance(instance_id):
         if not instance_found:
             return jsonify({'message': '设备实例未找到'}), 404
 
-        save_data(DEVICE_INSTANCES_FILE, device_instances)
+        save_data(DEVICE_INSTANCES_FILE, {"device_instances": device_instances})
         return jsonify({'message': '设备实例更新成功'}), 200
 
     except Exception as e:
@@ -2335,7 +2414,7 @@ def batch_power_devices():
             instance['power_status'] = status
             success_count += 1
         
-        save_data(DEVICE_INSTANCES_FILE, device_instances)
+        save_data(DEVICE_INSTANCES_FILE, {"device_instances": device_instances})
 
         message = f"成功 {status_map.get(status, '')} {success_count} 个设备"
         if error_details:
@@ -2415,7 +2494,7 @@ def import_device_instances():
         # Add all valid devices
         if imported_devices:
             device_instances.extend(imported_devices)
-            save_data(DEVICE_INSTANCES_FILE, device_instances)
+            save_data(DEVICE_INSTANCES_FILE, {"device_instances": device_instances})
 
         # Generate response message
         message_parts = []
@@ -2542,7 +2621,7 @@ def add_connection():
 
         # 保存更改
         print(f"Saving connection data: {connection}")
-        save_data(DEVICE_INSTANCES_FILE, device_instances)
+        save_data(DEVICE_INSTANCES_FILE, {"device_instances": device_instances})
         save_data(CONNECTIONS_FILE, connections)
 
         return jsonify({
@@ -2601,7 +2680,7 @@ def delete_connection(connection_id):
         connections.remove(connection)
 
         # 保存更改
-        save_data(DEVICE_INSTANCES_FILE, device_instances)
+        save_data(DEVICE_INSTANCES_FILE, {"device_instances": device_instances})
         save_data(CONNECTIONS_FILE, connections)
 
         return jsonify({
@@ -5677,6 +5756,1116 @@ def generate_comprehensive_excel(comprehensive_data, months, start_date, end_dat
     except Exception as e:
         print(f"Error generating comprehensive Excel: {e}")
         return jsonify({'error': f'生成Excel文件失败: {str(e)}'}), 500
+
+# ============================================================================
+# 设备命名规则和自动命名
+# ============================================================================
+
+def generate_device_name(device_type, rack_id, u_position, function=None, layer=None):
+    """
+    根据企业命名规则自动生成设备名称
+    格式: {building}-{floor}-{rack}{u_position}-{function}-{layer}-{device_type}{sequence}
+    """
+    try:
+        load_all_data_before_request()
+        
+        if not naming_rules:
+            return None
+            
+        # 查找机柜信息
+        rack = next((r for r in racks if r['id'] == rack_id), None)
+        if not rack:
+            return None
+            
+        # 查找机房信息
+        room = next((ro for ro in rooms if ro['id'] == rack['room_id']), None)
+        if not room:
+            return None
+            
+        # 构建命名组件
+        building_code = "JD1"  # 默认使用嘉定1号楼，可以根据实际情况调整
+        
+        # 获取楼层信息
+        floor_code = "10F"  # 默认楼层
+        if room.get('name'):
+            if "10F" in room['name']:
+                floor_code = "10F"
+            elif "B1" in room['name']:
+                floor_code = "B1F"
+            elif "弱电间" in room['name'] or "强电间" in room['name']:
+                floor_code = "1F"
+                
+        rack_name = rack['name']
+        u_pos = f"U{u_position}"
+        
+        # 根据设备型号推断设备类型
+        device_type_code = "SW"  # 默认交换机
+        if "Router" in device_type or "路由器" in device_type:
+            device_type_code = "R"
+        elif "Firewall" in device_type or "防火墙" in device_type:
+            device_type_code = "FW"
+        elif "AC" in device_type or "控制器" in device_type:
+            device_type_code = "AC"
+        elif "AP" in device_type:
+            device_type_code = "AP"
+        
+        # 使用默认值或用户指定值
+        function_code = function or "OFFICE"
+        layer_code = layer or "ACC"
+        
+        # 生成序号（查找相同类型的设备数量）
+        existing_devices = [d for d in device_instances if d.get('device_type') == device_type]
+        sequence = f"{len(existing_devices) + 1:02d}"
+        
+        # 生成名称
+        device_name = f"{building_code}-{floor_code}-{rack_name}{u_pos}-{function_code}-{layer_code}-{device_type_code}{sequence}"
+        
+        return device_name
+        
+    except Exception as e:
+        print(f"Error generating device name: {e}")
+        return None
+
+@app.route('/api/naming_rules', methods=['GET'])
+def get_naming_rules():
+    """获取设备命名规则"""
+    try:
+        load_all_data_before_request()
+        return jsonify({'naming_rules': naming_rules}), 200
+    except Exception as e:
+        print(f"Error getting naming rules: {e}")
+        return jsonify({'message': '获取命名规则失败'}), 500
+
+# ============================================================================
+# 设备上架和下架 API (新流程)
+# ============================================================================
+
+@app.route('/api/devices/mount', methods=['POST'])
+def mount_device_from_inventory():
+    """从库存上架设备（自动命名）"""
+    try:
+        load_all_data_before_request()
+        data = request.get_json()
+        
+        if not data:
+            return jsonify({'message': '无效的请求数据'}), 400
+        
+        device_type = data.get('device_type', '').strip()
+        rack_id = data.get('rack_id', '').strip()
+        u_position = data.get('u_position', 0)
+        function = data.get('function', 'OFFICE').strip()
+        layer = data.get('layer', 'ACC').strip()
+        custom_name = data.get('custom_name', '').strip()  # 可选的自定义名称
+        
+        # 验证数据
+        if not device_type or not rack_id:
+            return jsonify({'message': '设备型号和机柜ID不能为空'}), 400
+        
+        if not isinstance(u_position, int) or u_position <= 0:
+            return jsonify({'message': 'U位必须是大于0的整数'}), 400
+        
+        # 检查库存是否充足
+        available_quantity = sum(item['quantity'] for item in inventory if item['device_type'] == device_type)
+        if available_quantity < 1:
+            return jsonify({'message': f'库存不足，{device_type} 当前库存: {available_quantity}'}), 400
+        
+        # 检查机柜位置是否被占用
+        occupied_device = next((d for d in device_instances 
+                               if d.get('rack_id') == rack_id and d.get('rack_u') == u_position), None)
+        if occupied_device:
+            return jsonify({'message': f'机柜位置已被占用，设备: {occupied_device.get("instance_name", "未知")}'}), 409
+        
+        # 生成设备名称
+        if custom_name:
+            device_name = custom_name
+            # 检查名称是否重复
+            existing_names = [inst['instance_name'] for inst in device_instances if inst.get('instance_name')]
+            if device_name in existing_names:
+                return jsonify({'message': f'设备名称 "{device_name}" 已存在'}), 409
+        else:
+            device_name = generate_device_name(device_type, rack_id, u_position, function, layer)
+            if not device_name:
+                return jsonify({'message': '自动生成设备名称失败，请检查命名规则配置'}), 500
+        
+        # 获取设备型号定义
+        device_type_definition = next((dt for dt in device_types if dt.get('model') == device_type), None)
+        if not device_type_definition:
+            return jsonify({'message': f'设备型号 "{device_type}" 未定义'}), 404
+        
+        # 从库存中减去1台设备
+        remaining_to_deduct = 1
+        items_to_remove = []
+        
+        for item in inventory:
+            if item['device_type'] == device_type and remaining_to_deduct > 0:
+                if item['quantity'] <= remaining_to_deduct:
+                    # 这个库存条目全部用完
+                    remaining_to_deduct -= item['quantity']
+                    items_to_remove.append(item)
+                else:
+                    # 部分使用这个库存条目
+                    item['quantity'] -= remaining_to_deduct
+                    remaining_to_deduct = 0
+                    break
+        
+        # 移除已用完的库存条目
+        for item in items_to_remove:
+            inventory.remove(item)
+        
+        # 创建接口
+        instance_interfaces = []
+        for iface_template in device_type_definition.get('interfaces', []):
+            instance_interfaces.append({
+                'name': iface_template['name'],
+                'type': iface_template['type'],
+                'status': 'available'
+            })
+        
+        # 添加管理接口
+        has_mgmt_if = any(iface['name'] == 'M-GigabitEthernet0/0/0' for iface in instance_interfaces)
+        if not has_mgmt_if:
+            instance_interfaces.insert(0, {
+                'name': 'M-GigabitEthernet0/0/0', 
+                'type': 'management', 
+                'status': 'available'
+            })
+        
+        # 创建已上架的设备实例
+        new_instance = {
+            'id': f'device_{uuid.uuid4().hex[:12]}',
+            'instance_name': device_name,
+            'device_type': device_type,
+            'interfaces': instance_interfaces,
+            'position': None,  # 连线工具位置信息
+            'rack_id': rack_id,
+            'rack_u': u_position,
+            'power_status': 'off',
+            'mounted_time': datetime.now().isoformat(),
+            'function': function,
+            'layer': layer
+        }
+        
+        device_instances.append(new_instance)
+        
+        # 保存数据
+        save_data(INVENTORY_FILE, inventory)
+        save_data(DEVICE_INSTANCES_FILE, {"device_instances": device_instances})
+        
+        return jsonify({
+            'message': f'成功上架设备: {device_name}',
+            'device': new_instance
+        }), 201
+        
+    except Exception as e:
+        print(f"Error mounting device from inventory: {e}")
+        return jsonify({'message': '设备上架失败'}), 500
+
+@app.route('/api/devices/unmount', methods=['POST'])
+def unmount_device_to_inventory():
+    """下架设备并退回库存"""
+    try:
+        load_all_data_before_request()
+        data = request.get_json()
+        
+        if not data:
+            return jsonify({'message': '无效的请求数据'}), 400
+        
+        # 支持单个设备ID或设备ID列表
+        device_id = data.get('device_id')
+        device_ids = data.get('device_ids', [])
+        
+        if device_id:
+            device_ids = [device_id]
+        
+        if not device_ids or not isinstance(device_ids, list):
+            return jsonify({'message': '设备ID不能为空'}), 400
+        
+        unmounted_devices = []
+        
+        for device_id in device_ids:
+            # 查找设备
+            device = next((d for d in device_instances if d['id'] == device_id), None)
+            if not device:
+                continue
+            
+            # 检查设备状态（只有已上架的设备才能下架）
+            if not device.get('rack_id'):
+                return jsonify({'message': f'设备 "{device["instance_name"]}" 未上架，无法下架'}), 400
+            
+            # 检查设备是否上电（上电的设备不能下架）
+            if device.get('power_status') == 'on':
+                return jsonify({'message': f'设备 "{device["instance_name"]}" 已上电，请先下电后再下架'}), 400
+            
+            # 从设备列表中移除
+            device_instances.remove(device)
+            unmounted_devices.append(device)
+            
+            # 增加库存
+            inventory_item = {
+                'id': str(uuid.uuid4()),
+                'device_type': device['device_type'],
+                'quantity': 1,
+                'notes': f'设备 "{device["instance_name"]}" 下架退库',
+                'created_time': datetime.now().isoformat(),
+                'created_by': '系统管理员',
+                'operation_type': 'unmount'
+            }
+            inventory.append(inventory_item)
+        
+        # 保存数据
+        save_data(INVENTORY_FILE, inventory)
+        save_data(DEVICE_INSTANCES_FILE, {"device_instances": device_instances})
+        
+        return jsonify({
+            'message': f'成功下架 {len(unmounted_devices)} 台设备并退回库存',
+            'unmounted_devices': unmounted_devices
+        }), 200
+        
+    except Exception as e:
+        print(f"Error unmounting devices to inventory: {e}")
+        return jsonify({'message': '设备下架失败'}), 500
+
+# ============================================================================
+# 库存管理 API
+# ============================================================================
+
+@app.route('/api/inventory', methods=['GET', 'POST'])
+def handle_inventory():
+    """库存管理 - 获取库存或设备入库"""
+    try:
+        load_all_data_before_request()
+        
+        if request.method == 'GET':
+            # 获取库存
+            return jsonify({'inventory': inventory}), 200
+            
+        elif request.method == 'POST':
+            # 设备入库
+            data = request.get_json()
+            if not data:
+                return jsonify({'message': '无效的请求数据'}), 400
+            
+            device_type = data.get('device_type', '').strip()
+            quantity = data.get('quantity', 0)
+            notes = data.get('notes', '').strip()
+            
+            # 验证数据
+            if not device_type:
+                return jsonify({'message': '设备型号不能为空'}), 400
+            
+            if not isinstance(quantity, int) or quantity <= 0:
+                return jsonify({'message': '入库数量必须是大于0的整数'}), 400
+            
+            # 检查设备型号是否存在
+            if not any(dt.get('model') == device_type for dt in device_types):
+                return jsonify({'message': f'设备型号 "{device_type}" 不存在'}), 404
+            
+            # 添加到库存
+            inventory_item = {
+                'id': str(uuid.uuid4()),
+                'device_type': device_type,
+                'quantity': quantity,
+                'notes': notes,
+                'created_time': datetime.now().isoformat(),
+                'created_by': '系统管理员',  # 可以后续从认证信息中获取
+                'operation_type': 'purchase'  # 采购入库
+            }
+            
+            inventory.append(inventory_item)
+            save_data(INVENTORY_FILE, inventory)
+            
+            return jsonify({
+                'message': f'成功入库 {quantity} 台 {device_type}',
+                'inventory_item': inventory_item
+            }), 201
+            
+    except Exception as e:
+        print(f"Error handling inventory: {e}")
+        return jsonify({'message': '库存操作失败'}), 500
+
+
+
+
+
+@app.route('/api/inventory/adjust', methods=['POST'])
+def adjust_inventory():
+    """调整库存数量（增加、减少、设置）"""
+    try:
+        load_all_data_before_request()
+        data = request.get_json()
+        
+        if not data:
+            return jsonify({'message': '无效的请求数据'}), 400
+        
+        device_type = data.get('device_type', '').strip()
+        adjust_type = data.get('adjust_type', '').strip()  # add, reduce, set
+        quantity = data.get('quantity', 0)
+        notes = data.get('notes', '').strip()
+        
+        # 验证数据
+        if not device_type:
+            return jsonify({'message': '设备型号不能为空'}), 400
+        
+        if adjust_type not in ['add', 'reduce', 'set']:
+            return jsonify({'message': '调整类型无效'}), 400
+        
+        if not isinstance(quantity, int) or quantity < 0:
+            return jsonify({'message': '调整数量必须是非负整数'}), 400
+        
+        if not notes:
+            return jsonify({'message': '调整说明不能为空'}), 400
+        
+        # 计算当前库存
+        current_quantity = sum(item['quantity'] for item in inventory if item['device_type'] == device_type)
+        
+        # 计算调整量
+        adjustment = 0
+        new_quantity = current_quantity
+        
+        if adjust_type == 'add':
+            adjustment = quantity
+            new_quantity = current_quantity + quantity
+        elif adjust_type == 'reduce':
+            adjustment = -min(quantity, current_quantity)  # 不能减少超过现有库存
+            new_quantity = current_quantity + adjustment
+        elif adjust_type == 'set':
+            adjustment = quantity - current_quantity
+            new_quantity = quantity
+        
+        if adjustment == 0:
+            return jsonify({'message': '无需调整，当前库存已是目标数量'}), 400
+        
+        # 记录库存调整
+        inventory_adjustment = {
+            'id': str(uuid.uuid4()),
+            'device_type': device_type,
+            'quantity': adjustment,
+            'notes': f'{notes} (调整前: {current_quantity}台, 调整后: {new_quantity}台)',
+            'created_time': datetime.now().isoformat(),
+            'created_by': '系统管理员',
+            'operation_type': 'adjustment'
+        }
+        inventory.append(inventory_adjustment)
+        
+        # 保存数据
+        save_data(INVENTORY_FILE, inventory)
+        
+        adjust_text = {
+            'add': '增加',
+            'reduce': '减少', 
+            'set': '设置'
+        }[adjust_type]
+        
+        return jsonify({
+            'message': f'成功{adjust_text}库存，{device_type} 从 {current_quantity} 台调整为 {new_quantity} 台',
+            'adjustment': inventory_adjustment,
+            'before_quantity': current_quantity,
+            'after_quantity': new_quantity
+        }), 200
+        
+    except Exception as e:
+        print(f"Error adjusting inventory: {e}")
+        return jsonify({'message': '调整库存失败'}), 500
+
+@app.route('/api/inventory/delete_type', methods=['DELETE'])
+def delete_inventory_type():
+    """删除某个设备型号的所有库存记录"""
+    try:
+        load_all_data_before_request()
+        data = request.get_json()
+        
+        if not data:
+            return jsonify({'message': '无效的请求数据'}), 400
+        
+        device_type = data.get('device_type', '').strip()
+        
+        if not device_type:
+            return jsonify({'message': '设备型号不能为空'}), 400
+        
+        # 计算要删除的库存总量
+        total_to_delete = sum(item['quantity'] for item in inventory if item['device_type'] == device_type)
+        
+        if total_to_delete == 0:
+            return jsonify({'message': f'设备型号 "{device_type}" 没有库存记录'}), 404
+        
+        # 删除所有相关库存记录
+        initial_count = len(inventory)
+        inventory[:] = [item for item in inventory if item['device_type'] != device_type]
+        deleted_count = initial_count - len(inventory)
+        
+        # 添加删除操作记录
+        delete_record = {
+            'id': str(uuid.uuid4()),
+            'device_type': device_type,
+            'quantity': -total_to_delete,
+            'notes': f'删除设备型号所有库存记录，共删除 {total_to_delete} 台',
+            'created_time': datetime.now().isoformat(),
+            'created_by': '系统管理员',
+            'operation_type': 'delete_type'
+        }
+        inventory.append(delete_record)
+        
+        # 保存数据
+        save_data(INVENTORY_FILE, inventory)
+        
+        return jsonify({
+            'message': f'成功删除设备型号 "{device_type}" 的所有库存记录，共删除 {total_to_delete} 台设备，{deleted_count} 条记录',
+            'deleted_quantity': total_to_delete,
+            'deleted_records': deleted_count
+        }), 200
+        
+    except Exception as e:
+        print(f"Error deleting inventory type: {e}")
+        return jsonify({'message': '删除库存型号失败'}), 500
+
+@app.route('/api/devices/<device_id>/update', methods=['PUT'])
+def update_device_info(device_id):
+    """更新设备信息（名称、管理IP、接口VLAN配置）"""
+    try:
+        load_all_data_before_request()
+        
+        data = request.get_json()
+        device_name = data.get('device_name', '').strip()
+        management_ip = data.get('management_ip', '').strip()
+        inband_interface = data.get('inband_interface', '').strip()
+        inband_ip = data.get('inband_ip', '').strip()
+        business_interface = data.get('business_interface', '').strip()
+        business_ipv4 = data.get('business_ipv4', '').strip()
+        business_ipv6 = data.get('business_ipv6', '').strip()
+        interface_configs = data.get('interface_configs', {})  # {interface_name: {port_mode, vlan_id}}
+        aggregate_ports = data.get('aggregate_ports', [])  # [{'lag_id', 'mode', 'vlan_id', 'vlan_range', 'member_ports'}]
+        
+        # 查找设备
+        device = next((d for d in device_instances if d['id'] == device_id), None)
+        if not device:
+            return jsonify({'message': '设备未找到'}), 404
+        
+        # 检查设备名称是否重复（如果修改了名称）
+        if device_name and device_name != device.get('instance_name'):
+            existing_device = next((d for d in device_instances if d.get('instance_name') == device_name and d['id'] != device_id), None)
+            if existing_device:
+                return jsonify({'message': f'设备名称 "{device_name}" 已存在'}), 400
+        
+        # 更新设备信息
+        if device_name:
+            device['instance_name'] = device_name
+        
+        if management_ip:
+            device['management_ip'] = management_ip
+        elif 'management_ip' in data:  # 如果明确传入了空值，则清除管理IP
+            device['management_ip'] = None
+        
+        # 更新带内管理配置
+        if inband_interface:
+            device['inband_interface'] = int(inband_interface)
+        elif 'inband_interface' in data:
+            device['inband_interface'] = None
+            
+        if inband_ip:
+            device['inband_ip'] = inband_ip
+        elif 'inband_ip' in data:
+            device['inband_ip'] = None
+        
+        # 更新业务地址配置
+        if business_interface:
+            device['business_interface'] = int(business_interface)
+        elif 'business_interface' in data:
+            device['business_interface'] = None
+            
+        if business_ipv4:
+            device['business_ipv4'] = business_ipv4
+        elif 'business_ipv4' in data:
+            device['business_ipv4'] = None
+            
+        if business_ipv6:
+            device['business_ipv6'] = business_ipv6
+        elif 'business_ipv6' in data:
+            device['business_ipv6'] = None
+        
+        # 更新接口配置（端口模式和VLAN）
+        if interface_configs:
+            for interface in device.get('interfaces', []):
+                interface_name = interface['name']
+                if interface_name in interface_configs:
+                    config = interface_configs[interface_name]
+                    interface['port_mode'] = config.get('port_mode', 'access')
+                    if config.get('port_mode') == 'route':
+                        # Route模式清除VLAN配置
+                        interface['vlan_id'] = None
+                        interface['vlan_range'] = None
+                    elif config.get('port_mode') == 'access':
+                        # Access模式使用vlan_id
+                        interface['vlan_id'] = config.get('vlan_id')
+                        interface['vlan_range'] = None
+                    elif config.get('port_mode') in ['trunk', 'hybrid']:
+                        # Trunk/Hybrid模式使用vlan_range
+                        interface['vlan_id'] = None
+                        interface['vlan_range'] = config.get('vlan_range', '2-4094')
+        
+        # 更新聚合口配置
+        device['aggregate_ports'] = aggregate_ports
+        
+        # 保存数据
+        save_data(DEVICE_INSTANCES_FILE, {'device_instances': device_instances})
+        
+        return jsonify({
+            'message': '设备信息更新成功',
+            'device': {
+                'id': device['id'],
+                'instance_name': device.get('instance_name'),
+                'management_ip': device.get('management_ip'),
+                'inband_interface': device.get('inband_interface'),
+                'inband_ip': device.get('inband_ip'),
+                'business_interface': device.get('business_interface'),
+                'business_ipv4': device.get('business_ipv4'),
+                'business_ipv6': device.get('business_ipv6'),
+                'interfaces': device.get('interfaces', []),
+                'aggregate_ports': device.get('aggregate_ports', [])
+            }
+        }), 200
+        
+    except Exception as e:
+        print(f'Error updating device info: {e}')
+        import traceback
+        traceback.print_exc()
+        return jsonify({'message': '获取设备接口信息时发生错误'}), 500
+
+
+def setup_worksheet_style(ws, sheet_type):
+    """设置工作表样式"""
+    from openpyxl.styles import Font, PatternFill, Alignment, Border, Side
+    
+    # 设置样式
+    header_font = Font(bold=True, color='FFFFFF')
+    header_fill = PatternFill(start_color='366092', end_color='366092', fill_type='solid')
+    header_alignment = Alignment(horizontal='center', vertical='center')
+    
+    # 边框样式
+    thin_border = Border(
+        left=Side(style='thin'),
+        right=Side(style='thin'),
+        top=Side(style='thin'),
+        bottom=Side(style='thin')
+    )
+    
+    # 设置表头样式
+    for cell in ws[1]:
+        cell.font = header_font
+        cell.fill = header_fill
+        cell.alignment = header_alignment
+        cell.border = thin_border
+    
+    # 设置数据样式和列宽
+    for row_idx, row in enumerate(ws.iter_rows(min_row=2), start=2):
+        # 设置行高以适应多行文本
+        ws.row_dimensions[row_idx].height = 60
+        
+        for col_idx, cell in enumerate(row, start=1):
+            cell.border = thin_border
+            
+            # 对于配置列，设置自动换行和顶部对齐
+            column_header = ws.cell(row=1, column=col_idx).value
+            if column_header in ['接口配置', '聚合口配置', '成员设备', '堆叠互联端口']:
+                cell.alignment = Alignment(
+                    horizontal='left', 
+                    vertical='top',
+                    wrap_text=True
+                )
+            else:
+                cell.alignment = Alignment(horizontal='left', vertical='center')
+    
+    # 设置列宽
+    if sheet_type == '独立设备配置':
+        column_widths = {
+            '设备名称': 25, '设备型号': 20, '机房位置': 15, '机柜编号': 12, 'U位': 8,
+            '设备功能': 12, '网络层级': 12, '电源状态': 10, '上架时间': 12,
+            '带外管理IP': 16, '带内管理接口': 15, '带内管理IP': 16,
+            '业务接口': 15, '业务IPv4': 18, '业务IPv6': 25,
+            '接口配置': 40, '聚合口配置': 35, '设备ID': 12
+        }
+    else:  # 堆叠设备配置
+        column_widths = {
+            '堆叠名称': 30, '设备型号': 20, '机房位置': 15, '机柜编号': 12, 'U位': 8,
+            '设备功能': 12, '网络层级': 12, '电源状态': 10, '上架时间': 12,
+            '成员数量': 10, '成员设备': 50, '堆叠互联端口': 30,
+            '带外管理IP': 16, '带内管理接口': 15, '带内管理IP': 16,
+            '业务接口': 15, '业务IPv4': 18, '业务IPv6': 25,
+            '接口配置': 40, '聚合口配置': 35, '堆叠ID': 12
+        }
+    
+    for col_idx, column in enumerate(ws.columns, start=1):
+        column_letter = column[0].column_letter
+        header = ws.cell(row=1, column=col_idx).value
+        width = column_widths.get(header, 15)
+        ws.column_dimensions[column_letter].width = width
+
+
+@app.route('/api/devices/export', methods=['GET'])
+def export_devices_excel():
+    """导出已上架设备到Excel"""
+    try:
+        load_all_data_before_request()
+        
+        # 筛选已上架设备
+        mounted_devices = [d for d in device_instances if d.get('rack_id') and d.get('rack_u')]
+        
+        if not mounted_devices:
+            return jsonify({'message': '没有已上架的设备可导出'}), 404
+        
+        # 分离堆叠设备和独立设备
+        stack_devices = [d for d in mounted_devices if d.get('is_stack')]
+        standalone_devices = [d for d in mounted_devices if not d.get('is_stack') and not d.get('stack_hidden')]
+        
+        # 准备独立设备导出数据
+        standalone_export_data = []
+        
+        # 处理独立设备数据
+        for device in standalone_devices:
+            # 获取机柜和机房信息
+            rack = next((r for r in racks if r['id'] == device.get('rack_id')), None)
+            room = next((ro for ro in rooms if ro['id'] == rack['room_id']) if rack else None, None)
+            
+            # 处理接口配置汇总
+            interfaces = device.get('interfaces', [])
+            interface_configs = []
+            
+            for interface in interfaces:
+                if interface.get('type') != 'management':  # 排除管理接口
+                    port_name = interface.get('name', '')
+                    port_mode = interface.get('port_mode', 'access')
+                    
+                    if port_mode == 'route':
+                        config_detail = f"{port_name}(路由模式)"
+                    elif port_mode == 'access':
+                        vlan_id = interface.get('vlan_id')
+                        if vlan_id:
+                            config_detail = f"{port_name}(Access:VLAN{vlan_id})"
+                        else:
+                            config_detail = f"{port_name}(Access:未配置)"
+                    elif port_mode in ['trunk', 'hybrid']:
+                        vlan_range = interface.get('vlan_range', '2-4094')
+                        config_detail = f"{port_name}({port_mode.title()}:{vlan_range})"
+                    else:
+                        config_detail = f"{port_name}({port_mode})"
+                    
+                    interface_configs.append(config_detail)
+            
+            interface_summary = '\n'.join(interface_configs) if interface_configs else '无配置'
+            
+            # 处理聚合口配置汇总
+            aggregate_ports = device.get('aggregate_ports', [])
+            agg_configs = []
+            
+            for agg_port in aggregate_ports:
+                lag_id = agg_port.get('lag_id', '')
+                mode = agg_port.get('mode', 'access')
+                member_ports = agg_port.get('member_ports', [])
+                
+                if mode == 'access':
+                    vlan_id = agg_port.get('vlan_id', '')
+                    vlan_info = f"Access:VLAN{vlan_id}" if vlan_id else "Access:未配置"
+                elif mode in ['trunk', 'hybrid']:
+                    vlan_range = agg_port.get('vlan_range', '2-4094')
+                    vlan_info = f"{mode.title()}:{vlan_range}"
+                else:
+                    vlan_info = mode
+                
+                members_str = ','.join(member_ports) if member_ports else '无成员'
+                agg_config = f"LAG{lag_id}({vlan_info})\n成员:{members_str}"
+                agg_configs.append(agg_config)
+            
+            agg_summary = '\n\n'.join(agg_configs) if agg_configs else '无聚合口'
+            
+            standalone_export_data.append({
+                '设备名称': device.get('instance_name', ''),
+                '设备型号': device.get('device_type', ''),
+                '机房位置': room['name'] if room else '',
+                '机柜编号': rack['name'] if rack else '',
+                'U位': f"U{device.get('rack_u', '')}",
+                '设备功能': device.get('function', ''),
+                '网络层级': device.get('layer', ''),
+                '电源状态': '开机' if device.get('power_status') == 'on' else '关机',
+                '上架时间': device.get('mounted_time', '').split('T')[0] if device.get('mounted_time') else '',
+                '带外管理IP': device.get('management_ip', ''),
+                '带内管理接口': f"VLAN{device.get('inband_interface', '')}" if device.get('inband_interface') else '',
+                '带内管理IP': device.get('inband_ip', ''),
+                '业务接口': f"VLAN{device.get('business_interface', '')}" if device.get('business_interface') else '',
+                '业务IPv4': device.get('business_ipv4', ''),
+                '业务IPv6': device.get('business_ipv6', ''),
+                '接口配置': interface_summary,
+                '聚合口配置': agg_summary,
+                '设备ID': device.get('id', '')
+            })
+        
+        # 处理堆叠设备数据
+        stack_export_data = []
+        
+        for stack_device in stack_devices:
+            # 获取机柜和机房信息
+            rack = next((r for r in racks if r['id'] == stack_device.get('rack_id')), None)
+            room = next((ro for ro in rooms if ro['id'] == rack['room_id']) if rack else None, None)
+            
+            # 获取堆叠成员信息
+            stack_members = stack_device.get('stack_members', [])
+            member_info = []
+            
+            for member in stack_members:
+                member_name = member.get('original_device_name', member.get('device_id', ''))
+                member_id = member.get('member_id', '')
+                priority = member.get('priority', '')
+                rack_pos = member.get('rack_position', '')
+                member_info.append(f"成员{member_id}: {member_name} (优先级:{priority}, 位置:{rack_pos})")
+            
+            member_summary = '\n'.join(member_info) if member_info else '无成员信息'
+            
+            # 处理接口配置汇总（与独立设备相同逻辑）
+            interfaces = stack_device.get('interfaces', [])
+            interface_configs = []
+            stack_links = []
+            management_interface = None
+            
+            for interface in interfaces:
+                interface_name = interface.get('name', '')
+                interface_type = interface.get('type', '')
+                
+                if interface_type == 'management':
+                    management_interface = interface_name
+                elif 'stack' in interface_name.lower() or interface_name.endswith('/49') or interface_name.endswith('/50'):
+                    # 堆叠互联端口单独记录
+                    stack_links.append(f"{interface_name}(堆叠互联)")
+                else:
+                    # 业务接口配置
+                    port_mode = interface.get('port_mode', 'access')
+                    
+                    if port_mode == 'route':
+                        config_detail = f"{interface_name}(路由模式)"
+                    elif port_mode == 'access':
+                        vlan_id = interface.get('vlan_id')
+                        if vlan_id:
+                            config_detail = f"{interface_name}(Access:VLAN{vlan_id})"
+                        else:
+                            config_detail = f"{interface_name}(Access:未配置)"
+                    elif port_mode in ['trunk', 'hybrid']:
+                        vlan_range = interface.get('vlan_range', '2-4094')
+                        config_detail = f"{interface_name}({port_mode.title()}:{vlan_range})"
+                    else:
+                        config_detail = f"{interface_name}({port_mode})"
+                    
+                    interface_configs.append(config_detail)
+            
+            interface_summary = '\n'.join(interface_configs) if interface_configs else '无配置'
+            stack_link_summary = '\n'.join(stack_links) if stack_links else '自动检测堆叠端口'
+            
+            # 处理聚合口配置
+            aggregate_ports = stack_device.get('aggregate_ports', [])
+            agg_configs = []
+            
+            for agg_port in aggregate_ports:
+                lag_id = agg_port.get('lag_id', '')
+                mode = agg_port.get('mode', 'access')
+                member_ports = agg_port.get('member_ports', [])
+                
+                if mode == 'access':
+                    vlan_id = agg_port.get('vlan_id', '')
+                    vlan_info = f"Access:VLAN{vlan_id}" if vlan_id else "Access:未配置"
+                elif mode in ['trunk', 'hybrid']:
+                    vlan_range = agg_port.get('vlan_range', '2-4094')
+                    vlan_info = f"{mode.title()}:{vlan_range}"
+                else:
+                    vlan_info = mode
+                
+                members_str = ','.join(member_ports) if member_ports else '无成员'
+                agg_config = f"LAG{lag_id}({vlan_info})\n成员:{members_str}"
+                agg_configs.append(agg_config)
+            
+            agg_summary = '\n\n'.join(agg_configs) if agg_configs else '无聚合口'
+            
+            stack_export_data.append({
+                '堆叠名称': stack_device.get('instance_name', ''),
+                '设备型号': stack_device.get('device_type', ''),
+                '机房位置': room['name'] if room else '',
+                '机柜编号': rack['name'] if rack else '',
+                'U位': f"U{stack_device.get('rack_u', '')}",
+                '设备功能': stack_device.get('function', ''),
+                '网络层级': stack_device.get('layer', ''),
+                '电源状态': '开机' if stack_device.get('power_status') == 'on' else '关机',
+                '上架时间': stack_device.get('mounted_time', '').split('T')[0] if stack_device.get('mounted_time') else '',
+                '成员数量': len(stack_members),
+                '成员设备': member_summary,
+                '堆叠互联端口': stack_link_summary,
+                '带外管理IP': stack_device.get('management_ip', ''),
+                '带内管理接口': f"VLAN{stack_device.get('inband_interface', '')}" if stack_device.get('inband_interface') else '',
+                '带内管理IP': stack_device.get('inband_ip', ''),
+                '业务接口': f"VLAN{stack_device.get('business_interface', '')}" if stack_device.get('business_interface') else '',
+                '业务IPv4': stack_device.get('business_ipv4', ''),
+                '业务IPv6': stack_device.get('business_ipv6', ''),
+                '接口配置': interface_summary,
+                '聚合口配置': agg_summary,
+                '堆叠ID': stack_device.get('id', '')
+            })
+        
+        # 创建Excel工作簿
+        from openpyxl import Workbook
+        from openpyxl.utils.dataframe import dataframe_to_rows
+        import pandas as pd
+        import io
+        
+        wb = Workbook()
+        wb.remove(wb.active)  # 删除默认工作表
+        
+        # 创建独立设备工作表
+        if standalone_export_data:
+            ws_standalone = wb.create_sheet(title="独立设备配置")
+            df_standalone = pd.DataFrame(standalone_export_data)
+            
+            for r in dataframe_to_rows(df_standalone, index=False, header=True):
+                ws_standalone.append(r)
+            
+            setup_worksheet_style(ws_standalone, '独立设备配置')
+        
+        # 创建堆叠设备工作表
+        if stack_export_data:
+            ws_stack = wb.create_sheet(title="堆叠设备配置")
+            df_stack = pd.DataFrame(stack_export_data)
+            
+            for r in dataframe_to_rows(df_stack, index=False, header=True):
+                ws_stack.append(r)
+            
+            setup_worksheet_style(ws_stack, '堆叠设备配置')
+        
+        # 如果没有任何设备，创建一个空的工作表
+        if not standalone_export_data and not stack_export_data:
+            ws_empty = wb.create_sheet(title="无设备数据")
+            ws_empty.append(['没有已上架的设备可导出'])
+        
+        # 创建响应
+        output = io.BytesIO()
+        wb.save(output)
+        output.seek(0)
+        
+        # 生成文件名
+        from datetime import datetime
+        timestamp = datetime.now().strftime('%Y%m%d_%H%M%S')
+        filename = f'devices_export_{timestamp}.xlsx'
+        
+        response = make_response(output.getvalue())
+        response.headers['Content-Type'] = 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet'
+        response.headers['Content-Disposition'] = f'attachment; filename="{filename}"'
+        
+        return response
+        
+    except Exception as e:
+        print(f'Error exporting devices: {e}')
+        import traceback
+        traceback.print_exc()
+        return jsonify({'message': '导出失败，请稍后重试'}), 500
+
+
+@app.route('/api/create_stack', methods=['POST'])
+def create_stack():
+    """创建堆叠设备"""
+    try:
+        data = request.get_json()
+        stack_name = data.get('stack_name')
+        description = data.get('description', '')
+        member_devices = data.get('member_devices', [])
+        
+        if not stack_name:
+            return jsonify({'error': '请提供堆叠设备名称'}), 400
+            
+        if len(member_devices) < 2:
+            return jsonify({'error': '堆叠至少需要2台设备'}), 400
+        
+        # 加载数据
+        load_all_data_before_request()
+        devices_data = device_instances
+        
+        # 验证所有成员设备存在且未被使用
+        stack_members = []
+        for member in member_devices:
+            device_id = member.get('device_id')
+            device = next((d for d in devices_data if d.get('id') == device_id), None)
+            if not device:
+                return jsonify({'error': f'设备 {device_id} 不存在'}), 400
+            if device.get('is_stack') or device.get('stack_member_of'):
+                return jsonify({'error': f'设备 {device.get("instance_name")} 已在堆叠中'}), 400
+            stack_members.append(device)
+        
+        # 验证设备型号一致
+        device_types = list(set(device.get('device_type') for device in stack_members))
+        if len(device_types) > 1:
+            return jsonify({'error': '堆叠设备必须为相同型号'}), 400
+        
+        # 生成堆叠设备ID
+        stack_id = str(uuid.uuid4())
+        
+        # 确定主设备（华三设备优先级最高的设备，数值越大优先级越高）
+        primary_member = max(member_devices, key=lambda m: m.get('priority', 32))
+        primary_device = next(d for d in stack_members if d.get('id') == primary_member.get('device_id'))
+        
+        # 生成堆叠接口
+        stack_interfaces = []
+        for member_info, device in zip(member_devices, stack_members):
+            member_id = member_info.get('member_id', 1)
+            
+            # 为每个成员设备生成接口
+            for interface in device.get('interfaces', []):
+                if interface.get('type') == 'management':
+                    # 管理接口只保留优先级最高的设备（华三设备数值越大优先级越高）
+                    device_priority = member_info.get('priority', 32)
+                    primary_priority = max(m.get('priority', 32) for m in member_devices)
+                    if device_priority == primary_priority:
+                        stack_interfaces.append(interface.copy())
+                else:
+                    # 修改接口名称以包含成员ID
+                    stack_interface = interface.copy()
+                    original_name = interface.get('name', '')
+                    # 替换接口名称中的成员编号，支持所有接口类型
+                    import re
+                    if re.match(r'^(GE|XGE|TWE|FGE|HGE|ETH|CE)\d+/', original_name):
+                        new_name = re.sub(r'^(GE|XGE|TWE|FGE|HGE|ETH|CE)(\d+)/', f'\\g<1>{member_id}/', original_name)
+                        stack_interface['name'] = new_name
+                        print(f"堆叠接口命名: {original_name} -> {new_name} (成员ID: {member_id})")
+                    else:
+                        # 对于其他格式的接口，尝试通用的数字替换
+                        new_name = re.sub(r'^([A-Z]+)(\d+)/', f'\\g<1>{member_id}/', original_name)
+                        stack_interface['name'] = new_name
+                        print(f"堆叠接口命名(通用): {original_name} -> {new_name} (成员ID: {member_id})")
+                    stack_interface['stack_member_id'] = member_id
+                    stack_interface['original_device_id'] = device.get('id')
+                    stack_interfaces.append(stack_interface)
+        
+        # 创建堆叠设备对象
+        stack_device = {
+            'id': stack_id,
+            'instance_name': stack_name,
+            'device_type': device_types[0],
+            'description': description,
+            'is_stack': True,
+            'stack_members': [
+                {
+                    'device_id': member.get('device_id'),
+                    'member_id': member.get('member_id', 1),
+                    'priority': member.get('priority', 1),
+                    'original_device_name': next(d.get('instance_name') for d in stack_members if d.get('id') == member.get('device_id')),
+                    'rack_position': next(d.get('rack_u') for d in stack_members if d.get('id') == member.get('device_id'))
+                }
+                for member in member_devices
+            ],
+            'interfaces': stack_interfaces,
+            'room_id': primary_device.get('room_id'),
+            'room': primary_device.get('room'),
+            'rack_id': primary_device.get('rack_id'), 
+            'rack': primary_device.get('rack'),
+            'rack_u': min(device.get('rack_u', 999) for device in stack_members),  # 使用最小U位
+            'power_status': 'off',
+            'management_ipv4': '',
+            'management_ipv6': '',
+            'management_interface': '',
+            'business_interface': '',
+            'business_ipv4': '',
+            'business_ipv6': '',
+            'aggregate_ports': [],
+            'created_at': datetime.now().isoformat()
+        }
+        
+        # 标记原设备为堆叠成员
+        for device in stack_members:
+            device['stack_member_of'] = stack_id
+            device['stack_hidden'] = True  # 隐藏原始设备
+        
+        # 添加堆叠设备到列表
+        devices_data.append(stack_device)
+        
+        # 保存数据
+        save_data(DEVICE_INSTANCES_FILE, {"device_instances": device_instances})
+        
+        return jsonify({
+            'message': '堆叠设备创建成功',
+            'stack_id': stack_id,
+            'stack_name': stack_name,
+            'member_count': len(member_devices),
+            'total_interfaces': len(stack_interfaces)
+        }), 200
+        
+    except Exception as e:
+        return jsonify({'error': str(e)}), 500
+
+@app.route('/api/stacks/<stack_id>/dismantle', methods=['DELETE'])
+def dismantle_stack(stack_id):
+    """拆除堆叠设备"""
+    try:
+        load_all_data_before_request()
+        
+        # 查找堆叠设备
+        stack_device = next((d for d in device_instances if d.get('id') == stack_id and d.get('is_stack')), None)
+        if not stack_device:
+            return jsonify({'error': '堆叠设备未找到'}), 404
+        
+        stack_members = stack_device.get('stack_members', [])
+        if not stack_members:
+            return jsonify({'error': '堆叠成员信息缺失'}), 400
+        
+        print(f"开始拆除堆叠: {stack_device.get('instance_name')}")
+        
+        # 恢复成员设备
+        restored_devices = []
+        for member_info in stack_members:
+            member_device_id = member_info.get('device_id')
+            member_device = next((d for d in device_instances if d.get('id') == member_device_id), None)
+            
+            if member_device:
+                print(f"恢复成员设备: {member_info.get('original_device_name')}")
+                
+                # 恢复设备可见性
+                member_device['stack_hidden'] = False
+                member_device.pop('stack_member_of', None)
+                
+                # 恢复接口命名：GE2/0/1 -> GE1/0/1
+                original_interfaces = member_device.get('interfaces', [])
+                for interface in original_interfaces:
+                    if interface.get('stack_member_id'):
+                        # 恢复原始接口名称
+                        current_name = interface.get('name', '')
+                        import re
+                        
+                        # 将成员接口名称恢复为原始格式：GE2/0/1 -> GE1/0/1
+                        if re.match(r'^([A-Z]+)\d+/', current_name):
+                            original_name = re.sub(r'^([A-Z]+)\d+/', r'\g<1>1/', current_name)
+                            interface['name'] = original_name
+                            print(f"接口名称恢复: {current_name} -> {original_name}")
+                        
+                        # 清理堆叠相关的元数据
+                        interface.pop('stack_member_id', None)
+                        interface.pop('original_device_id', None)
+                
+                # 清理堆叠配置，但保留其他重要配置
+                member_device.pop('stack_config', None)
+                
+                restored_devices.append({
+                    'id': member_device.get('id'),
+                    'name': member_device.get('instance_name'),
+                    'original_name': member_info.get('original_device_name')
+                })
+        
+        # 删除堆叠设备
+        device_instances[:] = [d for d in device_instances if d.get('id') != stack_id]
+        
+        # 保存数据
+        save_data(DEVICE_INSTANCES_FILE, {"device_instances": device_instances})
+        
+        print(f"堆叠拆除完成，恢复了 {len(restored_devices)} 台设备")
+        
+        return jsonify({
+            'message': '堆叠拆除成功',
+            'restored_devices': restored_devices
+        }), 200
+        
+    except Exception as e:
+        print(f'Error dismantling stack: {e}')
+        import traceback
+        traceback.print_exc()
+        return jsonify({'error': '拆除堆叠时发生错误'}), 500
 
 if __name__ == '__main__':
     app.run(host=SERVER_HOST, port=SERVER_PORT, debug=DEBUG_MODE)

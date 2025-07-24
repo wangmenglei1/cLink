@@ -1,0 +1,130 @@
+{
+  "version": "1.0",
+  "timestamp": "2025-01-15T12:00:00.000000",
+  "naming_rules": {
+    "format": "{building}-{floor}-{rack}{u_position}-{function}-{layer}-{device_type}{sequence}",
+    "buildings": {
+      "JD1": {
+        "name": "嘉定1号楼",
+        "code": "JD1"
+      },
+      "JD2": {
+        "name": "嘉定2号楼", 
+        "code": "JD2"
+      },
+      "JD3": {
+        "name": "嘉定3号楼",
+        "code": "JD3"
+      }
+    },
+    "floors": {
+      "10F": {
+        "name": "10楼",
+        "code": "10F"
+      },
+      "B1F": {
+        "name": "地下1楼",
+        "code": "B1F"
+      },
+      "1F": {
+        "name": "1楼",
+        "code": "1F"
+      }
+    },
+    "rooms": {
+      "10F": {
+        "name": "10F机房",
+        "code": "10F",
+        "floor": "10F",
+        "racks": ["A01", "A02", "A03", "A04", "A05", "A06", "A07", "A08", "A09", "A10", "A11", "A12", "A13", "A14", 
+                  "B01", "B02", "B03", "B04", "B05", "B06", "B07", "B08", "B09", "B10", "B11", "B12", "B13", "B14"]
+      },
+      "B1": {
+        "name": "B1机房",
+        "code": "B1",
+        "floor": "B1F",
+        "racks": ["A01", "A02", "A03", "A04", "A05", "A06", "A07", "A08", "A09", "A10",
+                  "B01", "B02", "B03", "B04", "B05", "B06", "B07", "B08", "B09", "B10",
+                  "C01", "C02", "C03", "C04", "C05", "C06", "C07", "C08"]
+      },
+      "R": {
+        "name": "弱电间",
+        "code": "R",
+        "floor": "1F",
+        "racks": ["R01", "R02", "R03"]
+      },
+      "Q": {
+        "name": "强电间", 
+        "code": "Q",
+        "floor": "1F",
+        "racks": ["Q01"]
+      }
+    },
+    "network_layers": {
+      "ACC": {
+        "name": "接入层",
+        "code": "ACC"
+      },
+      "AGG": {
+        "name": "汇聚层", 
+        "code": "AGG"
+      },
+      "CORE": {
+        "name": "核心层",
+        "code": "CORE"
+      }
+    },
+    "network_functions": {
+      "OFFICE": {
+        "name": "办公网络",
+        "code": "OFFICE"
+      },
+      "VOICE": {
+        "name": "语音网络",
+        "code": "VOICE"
+      },
+      "WLAN": {
+        "name": "无线网络", 
+        "code": "WLAN"
+      },
+      "DEVICE": {
+        "name": "设备网络",
+        "code": "DEVICE"
+      },
+      "ISP": {
+        "name": "互联网",
+        "code": "ISP"
+      },
+      "ZX": {
+        "name": "专线网络",
+        "code": "ZX"
+      }
+    },
+    "device_types": {
+      "SW": {
+        "name": "交换机",
+        "code": "SW"
+      },
+      "R": {
+        "name": "路由器",
+        "code": "R"
+      },
+      "FW": {
+        "name": "防火墙",
+        "code": "FW"
+      },
+      "AC": {
+        "name": "上网行为管理",
+        "code": "AC"
+      },
+      "WLC": {
+        "name": "无线控制器",
+        "code": "WLC"
+      },
+      "AP": {
+        "name": "无线AP",
+        "code": "AP"
+      }
+    }
+  }
+} 

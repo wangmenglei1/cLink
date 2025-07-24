@@ -1,108 +1,147 @@
 {
   "version": "2.0",
-  "timestamp": "2025-07-12T23:26:46.104483",
+  "timestamp": "2025-07-24T15:52:21.189840",
   "racks": [
     {
-      "id": "f0ce228e-66ac-435d-b609-85938969f68e",
+      "id": "44dd4f40-78e0-4c7c-a6fa-c2fa02729ccb",
       "name": "A01",
-      "room_id": "room_1750669584043",
+      "room_id": "room_1753259572532",
       "height_u": 42,
       "department": "",
-      "devices": [
-        {
-          "instance_id": "device_50b9a0ce0dca",
-          "rack_u": 35
-        }
-      ]
+      "devices": []
     },
     {
-      "id": "b5bd8af2-aa21-4be4-b842-cbd8fd3545f0",
+      "id": "7b29c313-d5da-45f9-aa2f-7aea24565546",
       "name": "A02",
-      "room_id": "room_1750669584043",
+      "room_id": "room_1753259572532",
       "height_u": 42,
       "department": "",
-      "devices": [
-        {
-          "instance_id": "device_86a51df0a471",
-          "rack_u": 35
-        }
-      ]
+      "devices": []
     },
     {
-      "id": "ca319ae0-ebc3-4492-84bc-ea2eb33a123d",
+      "id": "d96daefe-b36a-4cda-80b9-bfb8d6b6e0ee",
       "name": "A03",
-      "room_id": "room_1750669584043",
+      "room_id": "room_1753259572532",
       "height_u": 42,
       "department": "",
-      "devices": [
-        {
-          "instance_id": "device_a984d477ccd9",
-          "rack_u": 35
-        }
-      ]
+      "devices": []
     },
     {
-      "id": "ab25aea4-ed61-4891-9200-2ed88443094d",
+      "id": "46300400-837b-47ae-bbd6-d8b9c62039f0",
       "name": "A04",
-      "room_id": "room_1750669584043",
+      "room_id": "room_1753259572532",
       "height_u": 42,
       "department": "",
-      "devices": [
-        {
-          "instance_id": "device_9edddbdb2dd9",
-          "rack_u": 35
-        }
-      ]
+      "devices": []
     },
     {
-      "id": "7bd59bef-c7f5-489f-87c4-600ae8e67092",
+      "id": "e3f12b3e-9584-4186-bf93-4f662028e2e3",
       "name": "A05",
-      "room_id": "room_1750669584043",
+      "room_id": "room_1753259572532",
       "height_u": 42,
       "department": "",
-      "devices": [
-        {
-          "instance_id": "device_95fbb5bbc396",
-          "rack_u": 35
-        }
-      ]
+      "devices": []
     },
     {
-      "id": "d4272593-abe7-4360-bb6f-3bc822c14613",
+      "id": "3afe40a7-a30d-4597-adc8-a0e1fee9ebf4",
       "name": "A06",
-      "room_id": "room_1750669584043",
+      "room_id": "room_1753259572532",
       "height_u": 42,
       "department": "",
       "devices": []
     },
     {
-      "id": "6e80ce30-8e0a-466c-b4d2-57e5a0dd4b16",
+      "id": "8677f5ef-9972-4d2b-90ac-66bd7be46e29",
       "name": "A07",
-      "room_id": "room_1750669584043",
+      "room_id": "room_1753259572532",
       "height_u": 42,
       "department": "",
       "devices": []
     },
     {
-      "id": "5a5ba3fa-2306-4fd6-8180-4a8c38c272a9",
+      "id": "337ccc10-1948-483b-8508-582da75f500a",
       "name": "A08",
-      "room_id": "room_1750669584043",
+      "room_id": "room_1753259572532",
       "height_u": 42,
       "department": "",
       "devices": []
     },
     {
-      "id": "4dcb1667-788c-4b98-9cd6-febd9eb86751",
+      "id": "3eb42782-5130-4d73-ae63-f8a2ad22ace4",
       "name": "A09",
-      "room_id": "room_1750669584043",
+      "room_id": "room_1753259572532",
       "height_u": 42,
       "department": "",
       "devices": []
     },
     {
-      "id": "04b58040-f2cf-48f5-ba3e-be14c3e3f52c",
+      "id": "2e7967a1-68b0-45fd-9c66-5b69da17c2a0",
       "name": "A10",
-      "room_id": "room_1750669584043",
+      "room_id": "room_1753259572532",
+      "height_u": 42,
+      "department": "",
+      "devices": []
+    },
+    {
+      "id": "361662d9-335d-4f79-8505-621534f3b025",
+      "name": "A11",
+      "room_id": "room_1753259572532",
+      "height_u": 42,
+      "department": "",
+      "devices": []
+    },
+    {
+      "id": "fd3c92cc-b3ed-4cad-b738-dd263ceb7983",
+      "name": "A12",
+      "room_id": "room_1753259572532",
+      "height_u": 42,
+      "department": "",
+      "devices": []
+    },
+    {
+      "id": "c50de4c6-0f4e-440e-93ff-d345710890a4",
+      "name": "A13",
+      "room_id": "room_1753259572532",
+      "height_u": 42,
+      "department": "",
+      "devices": []
+    },
+    {
+      "id": "e5fdec8a-85d0-48f3-b1b4-d0806849832a",
+      "name": "A14",
+      "room_id": "room_1753259572532",
+      "height_u": 42,
+      "department": "",
+      "devices": []
+    },
+    {
+      "id": "01f9eca0-283c-4257-8625-d7bd3db1de0b",
+      "name": "R01",
+      "room_id": "room_1753343504552",
+      "height_u": 42,
+      "department": "",
+      "devices": []
+    },
+    {
+      "id": "15503ece-026b-41fc-b788-2153b078b634",
+      "name": "R02",
+      "room_id": "room_1753343504552",
+      "height_u": 42,
+      "department": "",
+      "devices": []
+    },
+    {
+      "id": "b52406a0-9319-4fd6-87f6-80b16e34c97a",
+      "name": "R03",
+      "room_id": "room_1753343504552",
+      "height_u": 42,
+      "department": "",
+      "devices": []
+    },
+    {
+      "id": "493847d5-97dc-40c5-a015-ad17a87e0c36",
+      "name": "R04",
+      "room_id": "room_1753343504552",
       "height_u": 42,
       "department": "",
       "devices": []

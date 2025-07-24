@@ -1,0 +1,231 @@
+{
+  "version": "2.0",
+  "timestamp": "2025-07-23T21:20:58.672425",
+  "inventory": [
+    {
+      "id": "52c61619-7071-4cb0-a21d-cec1941e9978",
+      "device_type": "S6520X-30QC-EI",
+      "quantity": 46,
+      "notes": "汇聚交换机",
+      "created_time": "2025-07-23T19:43:33.655564",
+      "created_by": "系统管理员",
+      "operation_type": "purchase"
+    },
+    {
+      "id": "e846152d-f4c0-47df-b5a8-c066019cd2f9",
+      "device_type": "S6550XE-56HF-HI",
+      "quantity": 54,
+      "notes": "",
+      "created_time": "2025-07-23T19:43:51.412246",
+      "created_by": "系统管理员",
+      "operation_type": "purchase"
+    },
+    {
+      "id": "f3a0527f-2bb5-4926-b35e-a3191db69a2a",
+      "device_type": "S5570S-54S-EI",
+      "quantity": 156,
+      "notes": "48口接入交换机",
+      "created_time": "2025-07-23T20:09:26.061667",
+      "created_by": "系统管理员",
+      "operation_type": "purchase"
+    },
+    {
+      "id": "664822a8-dc63-4986-bdb8-989b181cb407",
+      "device_type": "S5570S-54S-EI",
+      "quantity": -2,
+      "notes": "分配给设备: ACC-SW-01, ACC-SW-02",
+      "created_time": "2025-07-23T20:11:10.321664",
+      "created_by": "系统管理员",
+      "operation_type": "assign"
+    },
+    {
+      "id": "c7b76b36-644d-435e-8ba1-464bdce7b8ea",
+      "device_type": "S5570S-54S-EI",
+      "quantity": -2,
+      "notes": "分配给设备: ACC-SW03-01, ACC-SW03-02",
+      "created_time": "2025-07-23T20:23:06.082470",
+      "created_by": "系统管理员",
+      "operation_type": "assign"
+    },
+    {
+      "id": "496a24c0-170f-4bab-a5cd-7fc960525c06",
+      "device_type": "S5570S-54S-EI",
+      "quantity": -1,
+      "notes": "上架设备: JD1-A01U10-OFFICE-ACC-SW05",
+      "created_time": "2025-07-23T20:27:46.274252",
+      "created_by": "系统管理员",
+      "operation_type": "mount"
+    },
+    {
+      "id": "30a0e5f2-599f-4562-8fe6-ff7b3c0ab573",
+      "device_type": "S5570S-54S-EI",
+      "quantity": 1,
+      "notes": "设备 \"JD1-A01U10-OFFICE-ACC-SW05\" 下架退库",
+      "created_time": "2025-07-23T20:28:50.990382",
+      "created_by": "系统管理员",
+      "operation_type": "unmount"
+    },
+    {
+      "id": "818efba0-c888-4ca2-8087-c5e243df5953",
+      "device_type": "S5570S-54S-EI",
+      "quantity": -1,
+      "notes": "上架设备: JD1-A01U10-OFFICE-ACC-SW05",
+      "created_time": "2025-07-23T20:30:31.372270",
+      "created_by": "系统管理员",
+      "operation_type": "mount"
+    },
+    {
+      "id": "8f81a091-d192-4100-99a4-2aa08e37a624",
+      "device_type": "S5570S-54S-EI",
+      "quantity": 1,
+      "notes": "设备 \"JD1-A01U10-OFFICE-ACC-SW05\" 下架退库",
+      "created_time": "2025-07-23T20:30:55.377766",
+      "created_by": "系统管理员",
+      "operation_type": "unmount"
+    },
+    {
+      "id": "8f3a2093-b0b9-480a-88c2-c01e4530bb85",
+      "device_type": "S5570S-54S-EI",
+      "quantity": -1,
+      "notes": "上架设备: JD1-A01U1-OFFICE-ACC-SW05",
+      "created_time": "2025-07-23T20:31:14.991179",
+      "created_by": "系统管理员",
+      "operation_type": "mount"
+    },
+    {
+      "id": "19d95fb6-3c5a-4cc9-b706-0aaf4cc70ca0",
+      "device_type": "S5570S-54S-EI",
+      "quantity": 1,
+      "notes": "设备 \"JD1-A01U1-OFFICE-ACC-SW05\" 下架退库",
+      "created_time": "2025-07-23T20:32:31.930869",
+      "created_by": "系统管理员",
+      "operation_type": "unmount"
+    },
+    {
+      "id": "69431590-33d7-4824-8693-d4abb7ff53c6",
+      "device_type": "S5570S-54S-EI",
+      "quantity": -1,
+      "notes": "上架设备: JD1-A01U2-OFFICE-ACC-SW05",
+      "created_time": "2025-07-23T20:34:50.764349",
+      "created_by": "系统管理员",
+      "operation_type": "mount"
+    },
+    {
+      "id": "135a2228-5304-4724-afe2-e0ba2e7ec537",
+      "device_type": "S5570S-54S-EI",
+      "quantity": -1,
+      "notes": "上架设备: JD1-A01U30-OFFICE-ACC-SW06",
+      "created_time": "2025-07-23T20:35:37.558237",
+      "created_by": "系统管理员",
+      "operation_type": "mount"
+    },
+    {
+      "id": "2012f955-0dd5-4dda-a5f3-24bf114a6a73",
+      "device_type": "S5570S-54S-EI",
+      "quantity": -1,
+      "notes": "上架设备: JD1-A01U35-OFFICE-ACC-SW07",
+      "created_time": "2025-07-23T20:36:48.724526",
+      "created_by": "系统管理员",
+      "operation_type": "mount"
+    },
+    {
+      "id": "4a83c32c-af4d-4c77-89f4-8fbb438b70f6",
+      "device_type": "S5570S-54S-EI",
+      "quantity": 1,
+      "notes": "设备 \"JD1-A01U2-OFFICE-ACC-SW05\" 下架退库",
+      "created_time": "2025-07-23T20:51:41.378513",
+      "created_by": "系统管理员",
+      "operation_type": "unmount"
+    },
+    {
+      "id": "98249642-8d89-480a-a377-99e0691a196c",
+      "device_type": "S5570S-54S-EI",
+      "quantity": 1,
+      "notes": "设备 \"JD1-A01U30-OFFICE-ACC-SW06\" 下架退库",
+      "created_time": "2025-07-23T20:51:41.378513",
+      "created_by": "系统管理员",
+      "operation_type": "unmount"
+    },
+    {
+      "id": "35fde25f-0503-4a1c-afa1-095b804e035e",
+      "device_type": "S5570S-54S-EI",
+      "quantity": 1,
+      "notes": "设备 \"JD1-A01U35-OFFICE-ACC-SW07\" 下架退库",
+      "created_time": "2025-07-23T20:51:41.378513",
+      "created_by": "系统管理员",
+      "operation_type": "unmount"
+    },
+    {
+      "id": "4c67670a-1abc-4180-8b80-23765d3bdb8c",
+      "device_type": "S5570S-54S-EI",
+      "quantity": 1,
+      "notes": "设备 \"JD1-A01U36-DEVICE-ACC-SW08\" 下架退库",
+      "created_time": "2025-07-23T20:51:41.378513",
+      "created_by": "系统管理员",
+      "operation_type": "unmount"
+    },
+    {
+      "id": "fab3a04d-d17a-48fd-85cb-dc2410b999ed",
+      "device_type": "S5570S-54S-EI",
+      "quantity": 1,
+      "notes": "设备 \"JD1-A02U22-WLAN-ACC-SW05\" 下架退库",
+      "created_time": "2025-07-23T20:56:22.430928",
+      "created_by": "系统管理员",
+      "operation_type": "unmount"
+    },
+    {
+      "id": "cleanup_20250723_210913_S5570S-54S-EI",
+      "device_type": "S5570S-54S-EI",
+      "quantity": 4,
+      "notes": "数据清理时自动加回库存 - 清理了4台残留设备",
+      "created_time": "2025-07-23T21:09:13.970963",
+      "created_by": "系统清理工具",
+      "operation_type": "cleanup"
+    },
+    {
+      "id": "6639df8a-fec1-4a4e-8879-1c2e8affd41c",
+      "device_type": "S5570S-54S-EI",
+      "quantity": 1,
+      "notes": "设备 \"JD1-A02U2-VOICE-ACC-SW05\" 下架退库",
+      "created_time": "2025-07-23T21:15:46.920953",
+      "created_by": "系统管理员",
+      "operation_type": "unmount"
+    },
+    {
+      "id": "510eafad-c170-47cd-b7fa-4ba31fb8fc91",
+      "device_type": "S6805-54",
+      "quantity": 16,
+      "notes": "删除设备型号所有库存记录，共删除 -16 台",
+      "created_time": "2025-07-23T21:19:41.106691",
+      "created_by": "系统管理员",
+      "operation_type": "delete_type"
+    },
+    {
+      "id": "6cf646c1-c2e5-4454-9b62-1c04b56a9b7a",
+      "device_type": "TestServer",
+      "quantity": 1,
+      "notes": "删除设备型号所有库存记录，共删除 -1 台",
+      "created_time": "2025-07-23T21:20:10.766724",
+      "created_by": "系统管理员",
+      "operation_type": "delete_type"
+    },
+    {
+      "id": "922b1229-2c58-471b-95a4-9140e3e47b2a",
+      "device_type": "S6805-54",
+      "quantity": -16,
+      "notes": "1 (调整前: 16台, 调整后: 0台)",
+      "created_time": "2025-07-23T21:20:33.348003",
+      "created_by": "系统管理员",
+      "operation_type": "adjustment"
+    },
+    {
+      "id": "8671e1d5-bbe2-4431-ae76-249e455ce1c0",
+      "device_type": "TestServer",
+      "quantity": -1,
+      "notes": "1 (调整前: 1台, 调整后: 0台)",
+      "created_time": "2025-07-23T21:20:58.672425",
+      "created_by": "系统管理员",
+      "operation_type": "adjustment"
+    }
+  ]
+}

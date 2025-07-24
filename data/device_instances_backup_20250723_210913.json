@@ -1,0 +1,6254 @@
+{
+  "version": "2.0",
+  "timestamp": "2025-07-23T20:56:37.246386",
+  "device_instances": [
+    {
+      "id": "device_50b9a0ce0dca",
+      "instance_name": "SW01",
+      "device_type": "S6805-54",
+      "interfaces": [
+        {
+          "name": "TwentyFiveGigE1/0/1",
+          "type": "optical",
+          "status": "available",
+          "connected_to": null
+        },
+        {
+          "name": "TwentyFiveGigE1/0/2",
+          "type": "optical",
+          "status": "available"
+        },
+        {
+          "name": "TwentyFiveGigE1/0/3",
+          "type": "optical",
+          "status": "available"
+        },
+        {
+          "name": "TwentyFiveGigE1/0/4",
+          "type": "optical",
+          "status": "available"
+        },
+        {
+          "name": "TwentyFiveGigE1/0/5",
+          "type": "optical",
+          "status": "available",
+          "connected_to": null
+        },
+        {
+          "name": "TwentyFiveGigE1/0/6",
+          "type": "optical",
+          "status": "available",
+          "connected_to": null
+        },
+        {
+          "name": "TwentyFiveGigE1/0/7",
+          "type": "optical",
+          "status": "available",
+          "connected_to": null
+        },
+        {
+          "name": "TwentyFiveGigE1/0/8",
+          "type": "optical",
+          "status": "available"
+        },
+        {
+          "name": "TwentyFiveGigE1/0/9",
+          "type": "optical",
+          "status": "available"
+        },
+        {
+          "name": "TwentyFiveGigE1/0/10",
+          "type": "optical",
+          "status": "available"
+        },
+        {
+          "name": "TwentyFiveGigE1/0/11",
+          "type": "optical",
+          "status": "available"
+        },
+        {
+          "name": "TwentyFiveGigE1/0/12",
+          "type": "optical",
+          "status": "available"
+        },
+        {
+          "name": "TwentyFiveGigE1/0/13",
+          "type": "optical",
+          "status": "available"
+        },
+        {
+          "name": "TwentyFiveGigE1/0/14",
+          "type": "optical",
+          "status": "available"
+        },
+        {
+          "name": "TwentyFiveGigE1/0/15",
+          "type": "optical",
+          "status": "available"
+        },
+        {
+          "name": "TwentyFiveGigE1/0/16",
+          "type": "optical",
+          "status": "available"
+        },
+        {
+          "name": "TwentyFiveGigE1/0/17",
+          "type": "optical",
+          "status": "available"
+        },
+        {
+          "name": "TwentyFiveGigE1/0/18",
+          "type": "optical",
+          "status": "available"
+        },
+        {
+          "name": "TwentyFiveGigE1/0/19",
+          "type": "optical",
+          "status": "available"
+        },
+        {
+          "name": "TwentyFiveGigE1/0/20",
+          "type": "optical",
+          "status": "available"
+        },
+        {
+          "name": "TwentyFiveGigE1/0/21",
+          "type": "optical",
+          "status": "available"
+        },
+        {
+          "name": "TwentyFiveGigE1/0/22",
+          "type": "optical",
+          "status": "available"
+        },
+        {
+          "name": "TwentyFiveGigE1/0/23",
+          "type": "optical",
+          "status": "available"
+        },
+        {
+          "name": "TwentyFiveGigE1/0/24",
+          "type": "optical",
+          "status": "available"
+        },
+        {
+          "name": "HundredGigE1/0/25",
+          "type": "optical",
+          "status": "available"
+        },
+        {
+          "name": "HundredGigE1/0/26",
+          "type": "optical",
+          "status": "available"
+        },
+        {
+          "name": "HundredGigE1/0/27",
+          "type": "optical",
+          "status": "available"
+        },
+        {
+          "name": "HundredGigE1/0/28",
+          "type": "optical",
+          "status": "available"
+        },
+        {
+          "name": "HundredGigE1/0/29",
+          "type": "optical",
+          "status": "available"
+        },
+        {
+          "name": "HundredGigE1/0/30",
+          "type": "optical",
+          "status": "available"
+        },
+        {
+          "name": "TwentyFiveGigE1/0/31",
+          "type": "optical",
+          "status": "available"
+        },
+        {
+          "name": "TwentyFiveGigE1/0/32",
+          "type": "optical",
+          "status": "available"
+        },
+        {
+          "name": "TwentyFiveGigE1/0/33",
+          "type": "optical",
+          "status": "available"
+        },
+        {
+          "name": "TwentyFiveGigE1/0/34",
+          "type": "optical",
+          "status": "available"
+        },
+        {
+          "name": "TwentyFiveGigE1/0/35",
+          "type": "optical",
+          "status": "available"
+        },
+        {
+          "name": "TwentyFiveGigE1/0/36",
+          "type": "optical",
+          "status": "available"
+        },
+        {
+          "name": "TwentyFiveGigE1/0/37",
+          "type": "optical",
+          "status": "available"
+        },
+        {
+          "name": "TwentyFiveGigE1/0/38",
+          "type": "optical",
+          "status": "available"
+        },
+        {
+          "name": "TwentyFiveGigE1/0/39",
+          "type": "optical",
+          "status": "available"
+        },
+        {
+          "name": "TwentyFiveGigE1/0/40",
+          "type": "optical",
+          "status": "available"
+        },
+        {
+          "name": "TwentyFiveGigE1/0/41",
+          "type": "optical",
+          "status": "available"
+        },
+        {
+          "name": "TwentyFiveGigE1/0/42",
+          "type": "optical",
+          "status": "available"
+        },
+        {
+          "name": "TwentyFiveGigE1/0/43",
+          "type": "optical",
+          "status": "available"
+        },
+        {
+          "name": "TwentyFiveGigE1/0/44",
+          "type": "optical",
+          "status": "available"
+        },
+        {
+          "name": "TwentyFiveGigE1/0/45",
+          "type": "optical",
+          "status": "available"
+        },
+        {
+          "name": "TwentyFiveGigE1/0/46",
+          "type": "optical",
+          "status": "available"
+        },
+        {
+          "name": "TwentyFiveGigE1/0/47",
+          "type": "optical",
+          "status": "available"
+        },
+        {
+          "name": "TwentyFiveGigE1/0/48",
+          "type": "optical",
+          "status": "available"
+        },
+        {
+          "name": "TwentyFiveGigE1/0/49",
+          "type": "optical",
+          "status": "available"
+        },
+        {
+          "name": "TwentyFiveGigE1/0/50",
+          "type": "optical",
+          "status": "available"
+        },
+        {
+          "name": "TwentyFiveGigE1/0/51",
+          "type": "optical",
+          "status": "available"
+        },
+        {
+          "name": "TwentyFiveGigE1/0/52",
+          "type": "optical",
+          "status": "available"
+        },
+        {
+          "name": "TwentyFiveGigE1/0/53",
+          "type": "optical",
+          "status": "available"
+        },
+        {
+          "name": "TwentyFiveGigE1/0/54",
+          "type": "optical",
+          "status": "available"
+        }
+      ],
+      "position": {
+        "x": 405.04043934098854,
+        "y": 92.00918622066901
+      },
+      "rack_id": null,
+      "rack_u": null,
+      "power_status": "off"
+    },
+    {
+      "id": "device_86a51df0a471",
+      "instance_name": "SW02",
+      "device_type": "S6805-54",
+      "interfaces": [
+        {
+          "name": "TwentyFiveGigE1/0/1",
+          "type": "optical",
+          "status": "available",
+          "connected_to": null
+        },
+        {
+          "name": "TwentyFiveGigE1/0/2",
+          "type": "optical",
+          "status": "available"
+        },
+        {
+          "name": "TwentyFiveGigE1/0/3",
+          "type": "optical",
+          "status": "available"
+        },
+        {
+          "name": "TwentyFiveGigE1/0/4",
+          "type": "optical",
+          "status": "available"
+        },
+        {
+          "name": "TwentyFiveGigE1/0/5",
+          "type": "optical",
+          "status": "available"
+        },
+        {
+          "name": "TwentyFiveGigE1/0/6",
+          "type": "optical",
+          "status": "available",
+          "connected_to": null
+        },
+        {
+          "name": "TwentyFiveGigE1/0/7",
+          "type": "optical",
+          "status": "available"
+        },
+        {
+          "name": "TwentyFiveGigE1/0/8",
+          "type": "optical",
+          "status": "available"
+        },
+        {
+          "name": "TwentyFiveGigE1/0/9",
+          "type": "optical",
+          "status": "available"
+        },
+        {
+          "name": "TwentyFiveGigE1/0/10",
+          "type": "optical",
+          "status": "available"
+        },
+        {
+          "name": "TwentyFiveGigE1/0/11",
+          "type": "optical",
+          "status": "available"
+        },
+        {
+          "name": "TwentyFiveGigE1/0/12",
+          "type": "optical",
+          "status": "available"
+        },
+        {
+          "name": "TwentyFiveGigE1/0/13",
+          "type": "optical",
+          "status": "available"
+        },
+        {
+          "name": "TwentyFiveGigE1/0/14",
+          "type": "optical",
+          "status": "available"
+        },
+        {
+          "name": "TwentyFiveGigE1/0/15",
+          "type": "optical",
+          "status": "available"
+        },
+        {
+          "name": "TwentyFiveGigE1/0/16",
+          "type": "optical",
+          "status": "available"
+        },
+        {
+          "name": "TwentyFiveGigE1/0/17",
+          "type": "optical",
+          "status": "available"
+        },
+        {
+          "name": "TwentyFiveGigE1/0/18",
+          "type": "optical",
+          "status": "available"
+        },
+        {
+          "name": "TwentyFiveGigE1/0/19",
+          "type": "optical",
+          "status": "available"
+        },
+        {
+          "name": "TwentyFiveGigE1/0/20",
+          "type": "optical",
+          "status": "available"
+        },
+        {
+          "name": "TwentyFiveGigE1/0/21",
+          "type": "optical",
+          "status": "available"
+        },
+        {
+          "name": "TwentyFiveGigE1/0/22",
+          "type": "optical",
+          "status": "available"
+        },
+        {
+          "name": "TwentyFiveGigE1/0/23",
+          "type": "optical",
+          "status": "available"
+        },
+        {
+          "name": "TwentyFiveGigE1/0/24",
+          "type": "optical",
+          "status": "available"
+        },
+        {
+          "name": "HundredGigE1/0/25",
+          "type": "optical",
+          "status": "available"
+        },
+        {
+          "name": "HundredGigE1/0/26",
+          "type": "optical",
+          "status": "available"
+        },
+        {
+          "name": "HundredGigE1/0/27",
+          "type": "optical",
+          "status": "available"
+        },
+        {
+          "name": "HundredGigE1/0/28",
+          "type": "optical",
+          "status": "available"
+        },
+        {
+          "name": "HundredGigE1/0/29",
+          "type": "optical",
+          "status": "available"
+        },
+        {
+          "name": "HundredGigE1/0/30",
+          "type": "optical",
+          "status": "available"
+        },
+        {
+          "name": "TwentyFiveGigE1/0/31",
+          "type": "optical",
+          "status": "available"
+        },
+        {
+          "name": "TwentyFiveGigE1/0/32",
+          "type": "optical",
+          "status": "available"
+        },
+        {
+          "name": "TwentyFiveGigE1/0/33",
+          "type": "optical",
+          "status": "available"
+        },
+        {
+          "name": "TwentyFiveGigE1/0/34",
+          "type": "optical",
+          "status": "available"
+        },
+        {
+          "name": "TwentyFiveGigE1/0/35",
+          "type": "optical",
+          "status": "available"
+        },
+        {
+          "name": "TwentyFiveGigE1/0/36",
+          "type": "optical",
+          "status": "available"
+        },
+        {
+          "name": "TwentyFiveGigE1/0/37",
+          "type": "optical",
+          "status": "available"
+        },
+        {
+          "name": "TwentyFiveGigE1/0/38",
+          "type": "optical",
+          "status": "available"
+        },
+        {
+          "name": "TwentyFiveGigE1/0/39",
+          "type": "optical",
+          "status": "available"
+        },
+        {
+          "name": "TwentyFiveGigE1/0/40",
+          "type": "optical",
+          "status": "available"
+        },
+        {
+          "name": "TwentyFiveGigE1/0/41",
+          "type": "optical",
+          "status": "available"
+        },
+        {
+          "name": "TwentyFiveGigE1/0/42",
+          "type": "optical",
+          "status": "available"
+        },
+        {
+          "name": "TwentyFiveGigE1/0/43",
+          "type": "optical",
+          "status": "available"
+        },
+        {
+          "name": "TwentyFiveGigE1/0/44",
+          "type": "optical",
+          "status": "available"
+        },
+        {
+          "name": "TwentyFiveGigE1/0/45",
+          "type": "optical",
+          "status": "available"
+        },
+        {
+          "name": "TwentyFiveGigE1/0/46",
+          "type": "optical",
+          "status": "available"
+        },
+        {
+          "name": "TwentyFiveGigE1/0/47",
+          "type": "optical",
+          "status": "available"
+        },
+        {
+          "name": "TwentyFiveGigE1/0/48",
+          "type": "optical",
+          "status": "available"
+        },
+        {
+          "name": "TwentyFiveGigE1/0/49",
+          "type": "optical",
+          "status": "available"
+        },
+        {
+          "name": "TwentyFiveGigE1/0/50",
+          "type": "optical",
+          "status": "available"
+        },
+        {
+          "name": "TwentyFiveGigE1/0/51",
+          "type": "optical",
+          "status": "available"
+        },
+        {
+          "name": "TwentyFiveGigE1/0/52",
+          "type": "optical",
+          "status": "available"
+        },
+        {
+          "name": "TwentyFiveGigE1/0/53",
+          "type": "optical",
+          "status": "available"
+        },
+        {
+          "name": "TwentyFiveGigE1/0/54",
+          "type": "optical",
+          "status": "available"
+        }
+      ],
+      "position": {
+        "x": 326.0325511732401,
+        "y": 25.002496255616578
+      },
+      "rack_id": null,
+      "rack_u": null,
+      "power_status": "off"
+    },
+    {
+      "id": "device_a984d477ccd9",
+      "instance_name": "SW03",
+      "device_type": "S6805-54",
+      "interfaces": [
+        {
+          "name": "TwentyFiveGigE1/0/1",
+          "type": "optical",
+          "status": "available"
+        },
+        {
+          "name": "TwentyFiveGigE1/0/2",
+          "type": "optical",
+          "status": "available"
+        },
+        {
+          "name": "TwentyFiveGigE1/0/3",
+          "type": "optical",
+          "status": "available"
+        },
+        {
+          "name": "TwentyFiveGigE1/0/4",
+          "type": "optical",
+          "status": "available"
+        },
+        {
+          "name": "TwentyFiveGigE1/0/5",
+          "type": "optical",
+          "status": "available"
+        },
+        {
+          "name": "TwentyFiveGigE1/0/6",
+          "type": "optical",
+          "status": "available"
+        },
+        {
+          "name": "TwentyFiveGigE1/0/7",
+          "type": "optical",
+          "status": "available"
+        },
+        {
+          "name": "TwentyFiveGigE1/0/8",
+          "type": "optical",
+          "status": "available"
+        },
+        {
+          "name": "TwentyFiveGigE1/0/9",
+          "type": "optical",
+          "status": "available"
+        },
+        {
+          "name": "TwentyFiveGigE1/0/10",
+          "type": "optical",
+          "status": "available"
+        },
+        {
+          "name": "TwentyFiveGigE1/0/11",
+          "type": "optical",
+          "status": "available"
+        },
+        {
+          "name": "TwentyFiveGigE1/0/12",
+          "type": "optical",
+          "status": "available"
+        },
+        {
+          "name": "TwentyFiveGigE1/0/13",
+          "type": "optical",
+          "status": "available"
+        },
+        {
+          "name": "TwentyFiveGigE1/0/14",
+          "type": "optical",
+          "status": "available"
+        },
+        {
+          "name": "TwentyFiveGigE1/0/15",
+          "type": "optical",
+          "status": "available"
+        },
+        {
+          "name": "TwentyFiveGigE1/0/16",
+          "type": "optical",
+          "status": "available"
+        },
+        {
+          "name": "TwentyFiveGigE1/0/17",
+          "type": "optical",
+          "status": "available"
+        },
+        {
+          "name": "TwentyFiveGigE1/0/18",
+          "type": "optical",
+          "status": "available"
+        },
+        {
+          "name": "TwentyFiveGigE1/0/19",
+          "type": "optical",
+          "status": "available"
+        },
+        {
+          "name": "TwentyFiveGigE1/0/20",
+          "type": "optical",
+          "status": "available"
+        },
+        {
+          "name": "TwentyFiveGigE1/0/21",
+          "type": "optical",
+          "status": "available"
+        },
+        {
+          "name": "TwentyFiveGigE1/0/22",
+          "type": "optical",
+          "status": "available"
+        },
+        {
+          "name": "TwentyFiveGigE1/0/23",
+          "type": "optical",
+          "status": "available"
+        },
+        {
+          "name": "TwentyFiveGigE1/0/24",
+          "type": "optical",
+          "status": "available"
+        },
+        {
+          "name": "HundredGigE1/0/25",
+          "type": "optical",
+          "status": "available"
+        },
+        {
+          "name": "HundredGigE1/0/26",
+          "type": "optical",
+          "status": "available"
+        },
+        {
+          "name": "HundredGigE1/0/27",
+          "type": "optical",
+          "status": "available"
+        },
+        {
+          "name": "HundredGigE1/0/28",
+          "type": "optical",
+          "status": "available"
+        },
+        {
+          "name": "HundredGigE1/0/29",
+          "type": "optical",
+          "status": "available"
+        },
+        {
+          "name": "HundredGigE1/0/30",
+          "type": "optical",
+          "status": "available"
+        },
+        {
+          "name": "TwentyFiveGigE1/0/31",
+          "type": "optical",
+          "status": "available"
+        },
+        {
+          "name": "TwentyFiveGigE1/0/32",
+          "type": "optical",
+          "status": "available"
+        },
+        {
+          "name": "TwentyFiveGigE1/0/33",
+          "type": "optical",
+          "status": "available"
+        },
+        {
+          "name": "TwentyFiveGigE1/0/34",
+          "type": "optical",
+          "status": "available"
+        },
+        {
+          "name": "TwentyFiveGigE1/0/35",
+          "type": "optical",
+          "status": "available"
+        },
+        {
+          "name": "TwentyFiveGigE1/0/36",
+          "type": "optical",
+          "status": "available"
+        },
+        {
+          "name": "TwentyFiveGigE1/0/37",
+          "type": "optical",
+          "status": "available"
+        },
+        {
+          "name": "TwentyFiveGigE1/0/38",
+          "type": "optical",
+          "status": "available"
+        },
+        {
+          "name": "TwentyFiveGigE1/0/39",
+          "type": "optical",
+          "status": "available"
+        },
+        {
+          "name": "TwentyFiveGigE1/0/40",
+          "type": "optical",
+          "status": "available"
+        },
+        {
+          "name": "TwentyFiveGigE1/0/41",
+          "type": "optical",
+          "status": "available"
+        },
+        {
+          "name": "TwentyFiveGigE1/0/42",
+          "type": "optical",
+          "status": "available"
+        },
+        {
+          "name": "TwentyFiveGigE1/0/43",
+          "type": "optical",
+          "status": "available"
+        },
+        {
+          "name": "TwentyFiveGigE1/0/44",
+          "type": "optical",
+          "status": "available"
+        },
+        {
+          "name": "TwentyFiveGigE1/0/45",
+          "type": "optical",
+          "status": "available"
+        },
+        {
+          "name": "TwentyFiveGigE1/0/46",
+          "type": "optical",
+          "status": "available"
+        },
+        {
+          "name": "TwentyFiveGigE1/0/47",
+          "type": "optical",
+          "status": "available"
+        },
+        {
+          "name": "TwentyFiveGigE1/0/48",
+          "type": "optical",
+          "status": "available"
+        },
+        {
+          "name": "TwentyFiveGigE1/0/49",
+          "type": "optical",
+          "status": "available"
+        },
+        {
+          "name": "TwentyFiveGigE1/0/50",
+          "type": "optical",
+          "status": "available"
+        },
+        {
+          "name": "TwentyFiveGigE1/0/51",
+          "type": "optical",
+          "status": "available"
+        },
+        {
+          "name": "TwentyFiveGigE1/0/52",
+          "type": "optical",
+          "status": "available"
+        },
+        {
+          "name": "TwentyFiveGigE1/0/53",
+          "type": "optical",
+          "status": "available"
+        },
+        {
+          "name": "TwentyFiveGigE1/0/54",
+          "type": "optical",
+          "status": "available"
+        }
+      ],
+      "position": {
+        "x": 403.04023964053914,
+        "y": 44.004393409885175
+      },
+      "rack_id": null,
+      "rack_u": null,
+      "power_status": "off"
+    },
+    {
+      "id": "device_9edddbdb2dd9",
+      "instance_name": "SW04",
+      "device_type": "S6805-54",
+      "interfaces": [
+        {
+          "name": "TwentyFiveGigE1/0/1",
+          "type": "optical",
+          "status": "available"
+        },
+        {
+          "name": "TwentyFiveGigE1/0/2",
+          "type": "optical",
+          "status": "available"
+        },
+        {
+          "name": "TwentyFiveGigE1/0/3",
+          "type": "optical",
+          "status": "available"
+        },
+        {
+          "name": "TwentyFiveGigE1/0/4",
+          "type": "optical",
+          "status": "available"
+        },
+        {
+          "name": "TwentyFiveGigE1/0/5",
+          "type": "optical",
+          "status": "available",
+          "connected_to": null
+        },
+        {
+          "name": "TwentyFiveGigE1/0/6",
+          "type": "optical",
+          "status": "available"
+        },
+        {
+          "name": "TwentyFiveGigE1/0/7",
+          "type": "optical",
+          "status": "available"
+        },
+        {
+          "name": "TwentyFiveGigE1/0/8",
+          "type": "optical",
+          "status": "available"
+        },
+        {
+          "name": "TwentyFiveGigE1/0/9",
+          "type": "optical",
+          "status": "available"
+        },
+        {
+          "name": "TwentyFiveGigE1/0/10",
+          "type": "optical",
+          "status": "available"
+        },
+        {
+          "name": "TwentyFiveGigE1/0/11",
+          "type": "optical",
+          "status": "available"
+        },
+        {
+          "name": "TwentyFiveGigE1/0/12",
+          "type": "optical",
+          "status": "available"
+        },
+        {
+          "name": "TwentyFiveGigE1/0/13",
+          "type": "optical",
+          "status": "available"
+        },
+        {
+          "name": "TwentyFiveGigE1/0/14",
+          "type": "optical",
+          "status": "available"
+        },
+        {
+          "name": "TwentyFiveGigE1/0/15",
+          "type": "optical",
+          "status": "available"
+        },
+        {
+          "name": "TwentyFiveGigE1/0/16",
+          "type": "optical",
+          "status": "available"
+        },
+        {
+          "name": "TwentyFiveGigE1/0/17",
+          "type": "optical",
+          "status": "available"
+        },
+        {
+          "name": "TwentyFiveGigE1/0/18",
+          "type": "optical",
+          "status": "available"
+        },
+        {
+          "name": "TwentyFiveGigE1/0/19",
+          "type": "optical",
+          "status": "available"
+        },
+        {
+          "name": "TwentyFiveGigE1/0/20",
+          "type": "optical",
+          "status": "available"
+        },
+        {
+          "name": "TwentyFiveGigE1/0/21",
+          "type": "optical",
+          "status": "available"
+        },
+        {
+          "name": "TwentyFiveGigE1/0/22",
+          "type": "optical",
+          "status": "available"
+        },
+        {
+          "name": "TwentyFiveGigE1/0/23",
+          "type": "optical",
+          "status": "available"
+        },
+        {
+          "name": "TwentyFiveGigE1/0/24",
+          "type": "optical",
+          "status": "available"
+        },
+        {
+          "name": "HundredGigE1/0/25",
+          "type": "optical",
+          "status": "available"
+        },
+        {
+          "name": "HundredGigE1/0/26",
+          "type": "optical",
+          "status": "available"
+        },
+        {
+          "name": "HundredGigE1/0/27",
+          "type": "optical",
+          "status": "available"
+        },
+        {
+          "name": "HundredGigE1/0/28",
+          "type": "optical",
+          "status": "available"
+        },
+        {
+          "name": "HundredGigE1/0/29",
+          "type": "optical",
+          "status": "available"
+        },
+        {
+          "name": "HundredGigE1/0/30",
+          "type": "optical",
+          "status": "available"
+        },
+        {
+          "name": "TwentyFiveGigE1/0/31",
+          "type": "optical",
+          "status": "available"
+        },
+        {
+          "name": "TwentyFiveGigE1/0/32",
+          "type": "optical",
+          "status": "available"
+        },
+        {
+          "name": "TwentyFiveGigE1/0/33",
+          "type": "optical",
+          "status": "available"
+        },
+        {
+          "name": "TwentyFiveGigE1/0/34",
+          "type": "optical",
+          "status": "available"
+        },
+        {
+          "name": "TwentyFiveGigE1/0/35",
+          "type": "optical",
+          "status": "available"
+        },
+        {
+          "name": "TwentyFiveGigE1/0/36",
+          "type": "optical",
+          "status": "available"
+        },
+        {
+          "name": "TwentyFiveGigE1/0/37",
+          "type": "optical",
+          "status": "available"
+        },
+        {
+          "name": "TwentyFiveGigE1/0/38",
+          "type": "optical",
+          "status": "available"
+        },
+        {
+          "name": "TwentyFiveGigE1/0/39",
+          "type": "optical",
+          "status": "available"
+        },
+        {
+          "name": "TwentyFiveGigE1/0/40",
+          "type": "optical",
+          "status": "available"
+        },
+        {
+          "name": "TwentyFiveGigE1/0/41",
+          "type": "optical",
+          "status": "available"
+        },
+        {
+          "name": "TwentyFiveGigE1/0/42",
+          "type": "optical",
+          "status": "available"
+        },
+        {
+          "name": "TwentyFiveGigE1/0/43",
+          "type": "optical",
+          "status": "available"
+        },
+        {
+          "name": "TwentyFiveGigE1/0/44",
+          "type": "optical",
+          "status": "available"
+        },
+        {
+          "name": "TwentyFiveGigE1/0/45",
+          "type": "optical",
+          "status": "available"
+        },
+        {
+          "name": "TwentyFiveGigE1/0/46",
+          "type": "optical",
+          "status": "available"
+        },
+        {
+          "name": "TwentyFiveGigE1/0/47",
+          "type": "optical",
+          "status": "available"
+        },
+        {
+          "name": "TwentyFiveGigE1/0/48",
+          "type": "optical",
+          "status": "available"
+        },
+        {
+          "name": "TwentyFiveGigE1/0/49",
+          "type": "optical",
+          "status": "available"
+        },
+        {
+          "name": "TwentyFiveGigE1/0/50",
+          "type": "optical",
+          "status": "available"
+        },
+        {
+          "name": "TwentyFiveGigE1/0/51",
+          "type": "optical",
+          "status": "available"
+        },
+        {
+          "name": "TwentyFiveGigE1/0/52",
+          "type": "optical",
+          "status": "available"
+        },
+        {
+          "name": "TwentyFiveGigE1/0/53",
+          "type": "optical",
+          "status": "available"
+        },
+        {
+          "name": "TwentyFiveGigE1/0/54",
+          "type": "optical",
+          "status": "available"
+        }
+      ],
+      "position": {
+        "x": 255.02546180728905,
+        "y": 48.004792810783826
+      },
+      "rack_id": null,
+      "rack_u": null,
+      "power_status": "off"
+    },
+    {
+      "id": "device_95fbb5bbc396",
+      "instance_name": "SW05",
+      "device_type": "S6805-54",
+      "interfaces": [
+        {
+          "name": "TwentyFiveGigE1/0/1",
+          "type": "optical",
+          "status": "available"
+        },
+        {
+          "name": "TwentyFiveGigE1/0/2",
+          "type": "optical",
+          "status": "available"
+        },
+        {
+          "name": "TwentyFiveGigE1/0/3",
+          "type": "optical",
+          "status": "available"
+        },
+        {
+          "name": "TwentyFiveGigE1/0/4",
+          "type": "optical",
+          "status": "available"
+        },
+        {
+          "name": "TwentyFiveGigE1/0/5",
+          "type": "optical",
+          "status": "available"
+        },
+        {
+          "name": "TwentyFiveGigE1/0/6",
+          "type": "optical",
+          "status": "available"
+        },
+        {
+          "name": "TwentyFiveGigE1/0/7",
+          "type": "optical",
+          "status": "available"
+        },
+        {
+          "name": "TwentyFiveGigE1/0/8",
+          "type": "optical",
+          "status": "available"
+        },
+        {
+          "name": "TwentyFiveGigE1/0/9",
+          "type": "optical",
+          "status": "available"
+        },
+        {
+          "name": "TwentyFiveGigE1/0/10",
+          "type": "optical",
+          "status": "available"
+        },
+        {
+          "name": "TwentyFiveGigE1/0/11",
+          "type": "optical",
+          "status": "available"
+        },
+        {
+          "name": "TwentyFiveGigE1/0/12",
+          "type": "optical",
+          "status": "available"
+        },
+        {
+          "name": "TwentyFiveGigE1/0/13",
+          "type": "optical",
+          "status": "available"
+        },
+        {
+          "name": "TwentyFiveGigE1/0/14",
+          "type": "optical",
+          "status": "available"
+        },
+        {
+          "name": "TwentyFiveGigE1/0/15",
+          "type": "optical",
+          "status": "available"
+        },
+        {
+          "name": "TwentyFiveGigE1/0/16",
+          "type": "optical",
+          "status": "available"
+        },
+        {
+          "name": "TwentyFiveGigE1/0/17",
+          "type": "optical",
+          "status": "available"
+        },
+        {
+          "name": "TwentyFiveGigE1/0/18",
+          "type": "optical",
+          "status": "available"
+        },
+        {
+          "name": "TwentyFiveGigE1/0/19",
+          "type": "optical",
+          "status": "available"
+        },
+        {
+          "name": "TwentyFiveGigE1/0/20",
+          "type": "optical",
+          "status": "available"
+        },
+        {
+          "name": "TwentyFiveGigE1/0/21",
+          "type": "optical",
+          "status": "available"
+        },
+        {
+          "name": "TwentyFiveGigE1/0/22",
+          "type": "optical",
+          "status": "available"
+        },
+        {
+          "name": "TwentyFiveGigE1/0/23",
+          "type": "optical",
+          "status": "available"
+        },
+        {
+          "name": "TwentyFiveGigE1/0/24",
+          "type": "optical",
+          "status": "available"
+        },
+        {
+          "name": "HundredGigE1/0/25",
+          "type": "optical",
+          "status": "available"
+        },
+        {
+          "name": "HundredGigE1/0/26",
+          "type": "optical",
+          "status": "available"
+        },
+        {
+          "name": "HundredGigE1/0/27",
+          "type": "optical",
+          "status": "available"
+        },
+        {
+          "name": "HundredGigE1/0/28",
+          "type": "optical",
+          "status": "available"
+        },
+        {
+          "name": "HundredGigE1/0/29",
+          "type": "optical",
+          "status": "available"
+        },
+        {
+          "name": "HundredGigE1/0/30",
+          "type": "optical",
+          "status": "available"
+        },
+        {
+          "name": "TwentyFiveGigE1/0/31",
+          "type": "optical",
+          "status": "available"
+        },
+        {
+          "name": "TwentyFiveGigE1/0/32",
+          "type": "optical",
+          "status": "available"
+        },
+        {
+          "name": "TwentyFiveGigE1/0/33",
+          "type": "optical",
+          "status": "available"
+        },
+        {
+          "name": "TwentyFiveGigE1/0/34",
+          "type": "optical",
+          "status": "available"
+        },
+        {
+          "name": "TwentyFiveGigE1/0/35",
+          "type": "optical",
+          "status": "available"
+        },
+        {
+          "name": "TwentyFiveGigE1/0/36",
+          "type": "optical",
+          "status": "available"
+        },
+        {
+          "name": "TwentyFiveGigE1/0/37",
+          "type": "optical",
+          "status": "available"
+        },
+        {
+          "name": "TwentyFiveGigE1/0/38",
+          "type": "optical",
+          "status": "available"
+        },
+        {
+          "name": "TwentyFiveGigE1/0/39",
+          "type": "optical",
+          "status": "available"
+        },
+        {
+          "name": "TwentyFiveGigE1/0/40",
+          "type": "optical",
+          "status": "available"
+        },
+        {
+          "name": "TwentyFiveGigE1/0/41",
+          "type": "optical",
+          "status": "available"
+        },
+        {
+          "name": "TwentyFiveGigE1/0/42",
+          "type": "optical",
+          "status": "available"
+        },
+        {
+          "name": "TwentyFiveGigE1/0/43",
+          "type": "optical",
+          "status": "available"
+        },
+        {
+          "name": "TwentyFiveGigE1/0/44",
+          "type": "optical",
+          "status": "available"
+        },
+        {
+          "name": "TwentyFiveGigE1/0/45",
+          "type": "optical",
+          "status": "available"
+        },
+        {
+          "name": "TwentyFiveGigE1/0/46",
+          "type": "optical",
+          "status": "available"
+        },
+        {
+          "name": "TwentyFiveGigE1/0/47",
+          "type": "optical",
+          "status": "available"
+        },
+        {
+          "name": "TwentyFiveGigE1/0/48",
+          "type": "optical",
+          "status": "available"
+        },
+        {
+          "name": "TwentyFiveGigE1/0/49",
+          "type": "optical",
+          "status": "available"
+        },
+        {
+          "name": "TwentyFiveGigE1/0/50",
+          "type": "optical",
+          "status": "available"
+        },
+        {
+          "name": "TwentyFiveGigE1/0/51",
+          "type": "optical",
+          "status": "available"
+        },
+        {
+          "name": "TwentyFiveGigE1/0/52",
+          "type": "optical",
+          "status": "available"
+        },
+        {
+          "name": "TwentyFiveGigE1/0/53",
+          "type": "optical",
+          "status": "available"
+        },
+        {
+          "name": "TwentyFiveGigE1/0/54",
+          "type": "optical",
+          "status": "available"
+        }
+      ],
+      "position": {
+        "x": 154.0153769345981,
+        "y": 57.00569146280579
+      },
+      "rack_id": null,
+      "rack_u": null,
+      "power_status": "off"
+    },
+    {
+      "id": "device_4088d8150edc",
+      "instance_name": "SW06",
+      "device_type": "S6805-54",
+      "interfaces": [
+        {
+          "name": "TwentyFiveGigE1/0/1",
+          "type": "optical",
+          "status": "available"
+        },
+        {
+          "name": "TwentyFiveGigE1/0/2",
+          "type": "optical",
+          "status": "available"
+        },
+        {
+          "name": "TwentyFiveGigE1/0/3",
+          "type": "optical",
+          "status": "available"
+        },
+        {
+          "name": "TwentyFiveGigE1/0/4",
+          "type": "optical",
+          "status": "available"
+        },
+        {
+          "name": "TwentyFiveGigE1/0/5",
+          "type": "optical",
+          "status": "available"
+        },
+        {
+          "name": "TwentyFiveGigE1/0/6",
+          "type": "optical",
+          "status": "available"
+        },
+        {
+          "name": "TwentyFiveGigE1/0/7",
+          "type": "optical",
+          "status": "available"
+        },
+        {
+          "name": "TwentyFiveGigE1/0/8",
+          "type": "optical",
+          "status": "available"
+        },
+        {
+          "name": "TwentyFiveGigE1/0/9",
+          "type": "optical",
+          "status": "available"
+        },
+        {
+          "name": "TwentyFiveGigE1/0/10",
+          "type": "optical",
+          "status": "available"
+        },
+        {
+          "name": "TwentyFiveGigE1/0/11",
+          "type": "optical",
+          "status": "available"
+        },
+        {
+          "name": "TwentyFiveGigE1/0/12",
+          "type": "optical",
+          "status": "available"
+        },
+        {
+          "name": "TwentyFiveGigE1/0/13",
+          "type": "optical",
+          "status": "available"
+        },
+        {
+          "name": "TwentyFiveGigE1/0/14",
+          "type": "optical",
+          "status": "available"
+        },
+        {
+          "name": "TwentyFiveGigE1/0/15",
+          "type": "optical",
+          "status": "available"
+        },
+        {
+          "name": "TwentyFiveGigE1/0/16",
+          "type": "optical",
+          "status": "available"
+        },
+        {
+          "name": "TwentyFiveGigE1/0/17",
+          "type": "optical",
+          "status": "available"
+        },
+        {
+          "name": "TwentyFiveGigE1/0/18",
+          "type": "optical",
+          "status": "available"
+        },
+        {
+          "name": "TwentyFiveGigE1/0/19",
+          "type": "optical",
+          "status": "available"
+        },
+        {
+          "name": "TwentyFiveGigE1/0/20",
+          "type": "optical",
+          "status": "available"
+        },
+        {
+          "name": "TwentyFiveGigE1/0/21",
+          "type": "optical",
+          "status": "available"
+        },
+        {
+          "name": "TwentyFiveGigE1/0/22",
+          "type": "optical",
+          "status": "available"
+        },
+        {
+          "name": "TwentyFiveGigE1/0/23",
+          "type": "optical",
+          "status": "available"
+        },
+        {
+          "name": "TwentyFiveGigE1/0/24",
+          "type": "optical",
+          "status": "available"
+        },
+        {
+          "name": "HundredGigE1/0/25",
+          "type": "optical",
+          "status": "available"
+        },
+        {
+          "name": "HundredGigE1/0/26",
+          "type": "optical",
+          "status": "available"
+        },
+        {
+          "name": "HundredGigE1/0/27",
+          "type": "optical",
+          "status": "available"
+        },
+        {
+          "name": "HundredGigE1/0/28",
+          "type": "optical",
+          "status": "available"
+        },
+        {
+          "name": "HundredGigE1/0/29",
+          "type": "optical",
+          "status": "available"
+        },
+        {
+          "name": "HundredGigE1/0/30",
+          "type": "optical",
+          "status": "available"
+        },
+        {
+          "name": "TwentyFiveGigE1/0/31",
+          "type": "optical",
+          "status": "available"
+        },
+        {
+          "name": "TwentyFiveGigE1/0/32",
+          "type": "optical",
+          "status": "available"
+        },
+        {
+          "name": "TwentyFiveGigE1/0/33",
+          "type": "optical",
+          "status": "available"
+        },
+        {
+          "name": "TwentyFiveGigE1/0/34",
+          "type": "optical",
+          "status": "available"
+        },
+        {
+          "name": "TwentyFiveGigE1/0/35",
+          "type": "optical",
+          "status": "available"
+        },
+        {
+          "name": "TwentyFiveGigE1/0/36",
+          "type": "optical",
+          "status": "available"
+        },
+        {
+          "name": "TwentyFiveGigE1/0/37",
+          "type": "optical",
+          "status": "available"
+        },
+        {
+          "name": "TwentyFiveGigE1/0/38",
+          "type": "optical",
+          "status": "available"
+        },
+        {
+          "name": "TwentyFiveGigE1/0/39",
+          "type": "optical",
+          "status": "available"
+        },
+        {
+          "name": "TwentyFiveGigE1/0/40",
+          "type": "optical",
+          "status": "available"
+        },
+        {
+          "name": "TwentyFiveGigE1/0/41",
+          "type": "optical",
+          "status": "available"
+        },
+        {
+          "name": "TwentyFiveGigE1/0/42",
+          "type": "optical",
+          "status": "available"
+        },
+        {
+          "name": "TwentyFiveGigE1/0/43",
+          "type": "optical",
+          "status": "available"
+        },
+        {
+          "name": "TwentyFiveGigE1/0/44",
+          "type": "optical",
+          "status": "available"
+        },
+        {
+          "name": "TwentyFiveGigE1/0/45",
+          "type": "optical",
+          "status": "available"
+        },
+        {
+          "name": "TwentyFiveGigE1/0/46",
+          "type": "optical",
+          "status": "available"
+        },
+        {
+          "name": "TwentyFiveGigE1/0/47",
+          "type": "optical",
+          "status": "available"
+        },
+        {
+          "name": "TwentyFiveGigE1/0/48",
+          "type": "optical",
+          "status": "available"
+        },
+        {
+          "name": "TwentyFiveGigE1/0/49",
+          "type": "optical",
+          "status": "available"
+        },
+        {
+          "name": "TwentyFiveGigE1/0/50",
+          "type": "optical",
+          "status": "available"
+        },
+        {
+          "name": "TwentyFiveGigE1/0/51",
+          "type": "optical",
+          "status": "available"
+        },
+        {
+          "name": "TwentyFiveGigE1/0/52",
+          "type": "optical",
+          "status": "available"
+        },
+        {
+          "name": "TwentyFiveGigE1/0/53",
+          "type": "optical",
+          "status": "available"
+        },
+        {
+          "name": "TwentyFiveGigE1/0/54",
+          "type": "optical",
+          "status": "available"
+        }
+      ],
+      "position": {
+        "x": 94.00938592111832,
+        "y": 60.00599101347978
+      },
+      "rack_id": null,
+      "rack_u": null,
+      "power_status": "off"
+    },
+    {
+      "id": "device_28a20aaa4028",
+      "instance_name": "SW07",
+      "device_type": "S6805-54",
+      "interfaces": [
+        {
+          "name": "TwentyFiveGigE1/0/1",
+          "type": "optical",
+          "status": "available"
+        },
+        {
+          "name": "TwentyFiveGigE1/0/2",
+          "type": "optical",
+          "status": "available"
+        },
+        {
+          "name": "TwentyFiveGigE1/0/3",
+          "type": "optical",
+          "status": "available"
+        },
+        {
+          "name": "TwentyFiveGigE1/0/4",
+          "type": "optical",
+          "status": "available"
+        },
+        {
+          "name": "TwentyFiveGigE1/0/5",
+          "type": "optical",
+          "status": "available"
+        },
+        {
+          "name": "TwentyFiveGigE1/0/6",
+          "type": "optical",
+          "status": "available"
+        },
+        {
+          "name": "TwentyFiveGigE1/0/7",
+          "type": "optical",
+          "status": "available"
+        },
+        {
+          "name": "TwentyFiveGigE1/0/8",
+          "type": "optical",
+          "status": "available"
+        },
+        {
+          "name": "TwentyFiveGigE1/0/9",
+          "type": "optical",
+          "status": "available"
+        },
+        {
+          "name": "TwentyFiveGigE1/0/10",
+          "type": "optical",
+          "status": "available"
+        },
+        {
+          "name": "TwentyFiveGigE1/0/11",
+          "type": "optical",
+          "status": "available"
+        },
+        {
+          "name": "TwentyFiveGigE1/0/12",
+          "type": "optical",
+          "status": "available"
+        },
+        {
+          "name": "TwentyFiveGigE1/0/13",
+          "type": "optical",
+          "status": "available"
+        },
+        {
+          "name": "TwentyFiveGigE1/0/14",
+          "type": "optical",
+          "status": "available"
+        },
+        {
+          "name": "TwentyFiveGigE1/0/15",
+          "type": "optical",
+          "status": "available"
+        },
+        {
+          "name": "TwentyFiveGigE1/0/16",
+          "type": "optical",
+          "status": "available"
+        },
+        {
+          "name": "TwentyFiveGigE1/0/17",
+          "type": "optical",
+          "status": "available"
+        },
+        {
+          "name": "TwentyFiveGigE1/0/18",
+          "type": "optical",
+          "status": "available"
+        },
+        {
+          "name": "TwentyFiveGigE1/0/19",
+          "type": "optical",
+          "status": "available"
+        },
+        {
+          "name": "TwentyFiveGigE1/0/20",
+          "type": "optical",
+          "status": "available"
+        },
+        {
+          "name": "TwentyFiveGigE1/0/21",
+          "type": "optical",
+          "status": "available"
+        },
+        {
+          "name": "TwentyFiveGigE1/0/22",
+          "type": "optical",
+          "status": "available"
+        },
+        {
+          "name": "TwentyFiveGigE1/0/23",
+          "type": "optical",
+          "status": "available"
+        },
+        {
+          "name": "TwentyFiveGigE1/0/24",
+          "type": "optical",
+          "status": "available"
+        },
+        {
+          "name": "HundredGigE1/0/25",
+          "type": "optical",
+          "status": "available"
+        },
+        {
+          "name": "HundredGigE1/0/26",
+          "type": "optical",
+          "status": "available"
+        },
+        {
+          "name": "HundredGigE1/0/27",
+          "type": "optical",
+          "status": "available"
+        },
+        {
+          "name": "HundredGigE1/0/28",
+          "type": "optical",
+          "status": "available"
+        },
+        {
+          "name": "HundredGigE1/0/29",
+          "type": "optical",
+          "status": "available"
+        },
+        {
+          "name": "HundredGigE1/0/30",
+          "type": "optical",
+          "status": "available"
+        },
+        {
+          "name": "TwentyFiveGigE1/0/31",
+          "type": "optical",
+          "status": "available"
+        },
+        {
+          "name": "TwentyFiveGigE1/0/32",
+          "type": "optical",
+          "status": "available"
+        },
+        {
+          "name": "TwentyFiveGigE1/0/33",
+          "type": "optical",
+          "status": "available"
+        },
+        {
+          "name": "TwentyFiveGigE1/0/34",
+          "type": "optical",
+          "status": "available"
+        },
+        {
+          "name": "TwentyFiveGigE1/0/35",
+          "type": "optical",
+          "status": "available"
+        },
+        {
+          "name": "TwentyFiveGigE1/0/36",
+          "type": "optical",
+          "status": "available"
+        },
+        {
+          "name": "TwentyFiveGigE1/0/37",
+          "type": "optical",
+          "status": "available"
+        },
+        {
+          "name": "TwentyFiveGigE1/0/38",
+          "type": "optical",
+          "status": "available"
+        },
+        {
+          "name": "TwentyFiveGigE1/0/39",
+          "type": "optical",
+          "status": "available"
+        },
+        {
+          "name": "TwentyFiveGigE1/0/40",
+          "type": "optical",
+          "status": "available"
+        },
+        {
+          "name": "TwentyFiveGigE1/0/41",
+          "type": "optical",
+          "status": "available"
+        },
+        {
+          "name": "TwentyFiveGigE1/0/42",
+          "type": "optical",
+          "status": "available"
+        },
+        {
+          "name": "TwentyFiveGigE1/0/43",
+          "type": "optical",
+          "status": "available"
+        },
+        {
+          "name": "TwentyFiveGigE1/0/44",
+          "type": "optical",
+          "status": "available"
+        },
+        {
+          "name": "TwentyFiveGigE1/0/45",
+          "type": "optical",
+          "status": "available"
+        },
+        {
+          "name": "TwentyFiveGigE1/0/46",
+          "type": "optical",
+          "status": "available"
+        },
+        {
+          "name": "TwentyFiveGigE1/0/47",
+          "type": "optical",
+          "status": "available"
+        },
+        {
+          "name": "TwentyFiveGigE1/0/48",
+          "type": "optical",
+          "status": "available"
+        },
+        {
+          "name": "TwentyFiveGigE1/0/49",
+          "type": "optical",
+          "status": "available"
+        },
+        {
+          "name": "TwentyFiveGigE1/0/50",
+          "type": "optical",
+          "status": "available"
+        },
+        {
+          "name": "TwentyFiveGigE1/0/51",
+          "type": "optical",
+          "status": "available"
+        },
+        {
+          "name": "TwentyFiveGigE1/0/52",
+          "type": "optical",
+          "status": "available"
+        },
+        {
+          "name": "TwentyFiveGigE1/0/53",
+          "type": "optical",
+          "status": "available"
+        },
+        {
+          "name": "TwentyFiveGigE1/0/54",
+          "type": "optical",
+          "status": "available"
+        }
+      ],
+      "position": {
+        "x": 100.0099850224663,
+        "y": 53.00529206190714
+      },
+      "rack_id": null,
+      "rack_u": null,
+      "power_status": "off"
+    },
+    {
+      "id": "device_445eec4fd6fa",
+      "instance_name": "SW08",
+      "device_type": "S6805-54",
+      "interfaces": [
+        {
+          "name": "TwentyFiveGigE1/0/1",
+          "type": "optical",
+          "status": "available"
+        },
+        {
+          "name": "TwentyFiveGigE1/0/2",
+          "type": "optical",
+          "status": "available"
+        },
+        {
+          "name": "TwentyFiveGigE1/0/3",
+          "type": "optical",
+          "status": "available"
+        },
+        {
+          "name": "TwentyFiveGigE1/0/4",
+          "type": "optical",
+          "status": "available"
+        },
+        {
+          "name": "TwentyFiveGigE1/0/5",
+          "type": "optical",
+          "status": "available"
+        },
+        {
+          "name": "TwentyFiveGigE1/0/6",
+          "type": "optical",
+          "status": "available"
+        },
+        {
+          "name": "TwentyFiveGigE1/0/7",
+          "type": "optical",
+          "status": "available"
+        },
+        {
+          "name": "TwentyFiveGigE1/0/8",
+          "type": "optical",
+          "status": "available"
+        },
+        {
+          "name": "TwentyFiveGigE1/0/9",
+          "type": "optical",
+          "status": "available"
+        },
+        {
+          "name": "TwentyFiveGigE1/0/10",
+          "type": "optical",
+          "status": "available"
+        },
+        {
+          "name": "TwentyFiveGigE1/0/11",
+          "type": "optical",
+          "status": "available"
+        },
+        {
+          "name": "TwentyFiveGigE1/0/12",
+          "type": "optical",
+          "status": "available"
+        },
+        {
+          "name": "TwentyFiveGigE1/0/13",
+          "type": "optical",
+          "status": "available"
+        },
+        {
+          "name": "TwentyFiveGigE1/0/14",
+          "type": "optical",
+          "status": "available"
+        },
+        {
+          "name": "TwentyFiveGigE1/0/15",
+          "type": "optical",
+          "status": "available"
+        },
+        {
+          "name": "TwentyFiveGigE1/0/16",
+          "type": "optical",
+          "status": "available"
+        },
+        {
+          "name": "TwentyFiveGigE1/0/17",
+          "type": "optical",
+          "status": "available"
+        },
+        {
+          "name": "TwentyFiveGigE1/0/18",
+          "type": "optical",
+          "status": "available"
+        },
+        {
+          "name": "TwentyFiveGigE1/0/19",
+          "type": "optical",
+          "status": "available"
+        },
+        {
+          "name": "TwentyFiveGigE1/0/20",
+          "type": "optical",
+          "status": "available"
+        },
+        {
+          "name": "TwentyFiveGigE1/0/21",
+          "type": "optical",
+          "status": "available"
+        },
+        {
+          "name": "TwentyFiveGigE1/0/22",
+          "type": "optical",
+          "status": "available"
+        },
+        {
+          "name": "TwentyFiveGigE1/0/23",
+          "type": "optical",
+          "status": "available"
+        },
+        {
+          "name": "TwentyFiveGigE1/0/24",
+          "type": "optical",
+          "status": "available"
+        },
+        {
+          "name": "HundredGigE1/0/25",
+          "type": "optical",
+          "status": "available"
+        },
+        {
+          "name": "HundredGigE1/0/26",
+          "type": "optical",
+          "status": "available"
+        },
+        {
+          "name": "HundredGigE1/0/27",
+          "type": "optical",
+          "status": "available"
+        },
+        {
+          "name": "HundredGigE1/0/28",
+          "type": "optical",
+          "status": "available"
+        },
+        {
+          "name": "HundredGigE1/0/29",
+          "type": "optical",
+          "status": "available"
+        },
+        {
+          "name": "HundredGigE1/0/30",
+          "type": "optical",
+          "status": "available"
+        },
+        {
+          "name": "TwentyFiveGigE1/0/31",
+          "type": "optical",
+          "status": "available"
+        },
+        {
+          "name": "TwentyFiveGigE1/0/32",
+          "type": "optical",
+          "status": "available"
+        },
+        {
+          "name": "TwentyFiveGigE1/0/33",
+          "type": "optical",
+          "status": "available"
+        },
+        {
+          "name": "TwentyFiveGigE1/0/34",
+          "type": "optical",
+          "status": "available"
+        },
+        {
+          "name": "TwentyFiveGigE1/0/35",
+          "type": "optical",
+          "status": "available"
+        },
+        {
+          "name": "TwentyFiveGigE1/0/36",
+          "type": "optical",
+          "status": "available"
+        },
+        {
+          "name": "TwentyFiveGigE1/0/37",
+          "type": "optical",
+          "status": "available"
+        },
+        {
+          "name": "TwentyFiveGigE1/0/38",
+          "type": "optical",
+          "status": "available"
+        },
+        {
+          "name": "TwentyFiveGigE1/0/39",
+          "type": "optical",
+          "status": "available"
+        },
+        {
+          "name": "TwentyFiveGigE1/0/40",
+          "type": "optical",
+          "status": "available"
+        },
+        {
+          "name": "TwentyFiveGigE1/0/41",
+          "type": "optical",
+          "status": "available"
+        },
+        {
+          "name": "TwentyFiveGigE1/0/42",
+          "type": "optical",
+          "status": "available"
+        },
+        {
+          "name": "TwentyFiveGigE1/0/43",
+          "type": "optical",
+          "status": "available"
+        },
+        {
+          "name": "TwentyFiveGigE1/0/44",
+          "type": "optical",
+          "status": "available"
+        },
+        {
+          "name": "TwentyFiveGigE1/0/45",
+          "type": "optical",
+          "status": "available"
+        },
+        {
+          "name": "TwentyFiveGigE1/0/46",
+          "type": "optical",
+          "status": "available"
+        },
+        {
+          "name": "TwentyFiveGigE1/0/47",
+          "type": "optical",
+          "status": "available"
+        },
+        {
+          "name": "TwentyFiveGigE1/0/48",
+          "type": "optical",
+          "status": "available"
+        },
+        {
+          "name": "TwentyFiveGigE1/0/49",
+          "type": "optical",
+          "status": "available"
+        },
+        {
+          "name": "TwentyFiveGigE1/0/50",
+          "type": "optical",
+          "status": "available"
+        },
+        {
+          "name": "TwentyFiveGigE1/0/51",
+          "type": "optical",
+          "status": "available"
+        },
+        {
+          "name": "TwentyFiveGigE1/0/52",
+          "type": "optical",
+          "status": "available"
+        },
+        {
+          "name": "TwentyFiveGigE1/0/53",
+          "type": "optical",
+          "status": "available"
+        },
+        {
+          "name": "TwentyFiveGigE1/0/54",
+          "type": "optical",
+          "status": "available"
+        }
+      ],
+      "position": {
+        "x": 134.01337993010486,
+        "y": 33.00329505741388
+      },
+      "rack_id": null,
+      "rack_u": null,
+      "power_status": "off"
+    },
+    {
+      "id": "device_41a6e2e93cc4",
+      "instance_name": "SW09",
+      "device_type": "S6805-54",
+      "interfaces": [
+        {
+          "name": "TwentyFiveGigE1/0/1",
+          "type": "optical",
+          "status": "available"
+        },
+        {
+          "name": "TwentyFiveGigE1/0/2",
+          "type": "optical",
+          "status": "available"
+        },
+        {
+          "name": "TwentyFiveGigE1/0/3",
+          "type": "optical",
+          "status": "available"
+        },
+        {
+          "name": "TwentyFiveGigE1/0/4",
+          "type": "optical",
+          "status": "available"
+        },
+        {
+          "name": "TwentyFiveGigE1/0/5",
+          "type": "optical",
+          "status": "available"
+        },
+        {
+          "name": "TwentyFiveGigE1/0/6",
+          "type": "optical",
+          "status": "available"
+        },
+        {
+          "name": "TwentyFiveGigE1/0/7",
+          "type": "optical",
+          "status": "available"
+        },
+        {
+          "name": "TwentyFiveGigE1/0/8",
+          "type": "optical",
+          "status": "available"
+        },
+        {
+          "name": "TwentyFiveGigE1/0/9",
+          "type": "optical",
+          "status": "available"
+        },
+        {
+          "name": "TwentyFiveGigE1/0/10",
+          "type": "optical",
+          "status": "available"
+        },
+        {
+          "name": "TwentyFiveGigE1/0/11",
+          "type": "optical",
+          "status": "available"
+        },
+        {
+          "name": "TwentyFiveGigE1/0/12",
+          "type": "optical",
+          "status": "available"
+        },
+        {
+          "name": "TwentyFiveGigE1/0/13",
+          "type": "optical",
+          "status": "available"
+        },
+        {
+          "name": "TwentyFiveGigE1/0/14",
+          "type": "optical",
+          "status": "available"
+        },
+        {
+          "name": "TwentyFiveGigE1/0/15",
+          "type": "optical",
+          "status": "available"
+        },
+        {
+          "name": "TwentyFiveGigE1/0/16",
+          "type": "optical",
+          "status": "available"
+        },
+        {
+          "name": "TwentyFiveGigE1/0/17",
+          "type": "optical",
+          "status": "available"
+        },
+        {
+          "name": "TwentyFiveGigE1/0/18",
+          "type": "optical",
+          "status": "available"
+        },
+        {
+          "name": "TwentyFiveGigE1/0/19",
+          "type": "optical",
+          "status": "available"
+        },
+        {
+          "name": "TwentyFiveGigE1/0/20",
+          "type": "optical",
+          "status": "available"
+        },
+        {
+          "name": "TwentyFiveGigE1/0/21",
+          "type": "optical",
+          "status": "available"
+        },
+        {
+          "name": "TwentyFiveGigE1/0/22",
+          "type": "optical",
+          "status": "available"
+        },
+        {
+          "name": "TwentyFiveGigE1/0/23",
+          "type": "optical",
+          "status": "available"
+        },
+        {
+          "name": "TwentyFiveGigE1/0/24",
+          "type": "optical",
+          "status": "available"
+        },
+        {
+          "name": "HundredGigE1/0/25",
+          "type": "optical",
+          "status": "available"
+        },
+        {
+          "name": "HundredGigE1/0/26",
+          "type": "optical",
+          "status": "available"
+        },
+        {
+          "name": "HundredGigE1/0/27",
+          "type": "optical",
+          "status": "available"
+        },
+        {
+          "name": "HundredGigE1/0/28",
+          "type": "optical",
+          "status": "available"
+        },
+        {
+          "name": "HundredGigE1/0/29",
+          "type": "optical",
+          "status": "available"
+        },
+        {
+          "name": "HundredGigE1/0/30",
+          "type": "optical",
+          "status": "available"
+        },
+        {
+          "name": "TwentyFiveGigE1/0/31",
+          "type": "optical",
+          "status": "available"
+        },
+        {
+          "name": "TwentyFiveGigE1/0/32",
+          "type": "optical",
+          "status": "available"
+        },
+        {
+          "name": "TwentyFiveGigE1/0/33",
+          "type": "optical",
+          "status": "available"
+        },
+        {
+          "name": "TwentyFiveGigE1/0/34",
+          "type": "optical",
+          "status": "available"
+        },
+        {
+          "name": "TwentyFiveGigE1/0/35",
+          "type": "optical",
+          "status": "available"
+        },
+        {
+          "name": "TwentyFiveGigE1/0/36",
+          "type": "optical",
+          "status": "available"
+        },
+        {
+          "name": "TwentyFiveGigE1/0/37",
+          "type": "optical",
+          "status": "available"
+        },
+        {
+          "name": "TwentyFiveGigE1/0/38",
+          "type": "optical",
+          "status": "available"
+        },
+        {
+          "name": "TwentyFiveGigE1/0/39",
+          "type": "optical",
+          "status": "available"
+        },
+        {
+          "name": "TwentyFiveGigE1/0/40",
+          "type": "optical",
+          "status": "available"
+        },
+        {
+          "name": "TwentyFiveGigE1/0/41",
+          "type": "optical",
+          "status": "available"
+        },
+        {
+          "name": "TwentyFiveGigE1/0/42",
+          "type": "optical",
+          "status": "available"
+        },
+        {
+          "name": "TwentyFiveGigE1/0/43",
+          "type": "optical",
+          "status": "available"
+        },
+        {
+          "name": "TwentyFiveGigE1/0/44",
+          "type": "optical",
+          "status": "available"
+        },
+        {
+          "name": "TwentyFiveGigE1/0/45",
+          "type": "optical",
+          "status": "available"
+        },
+        {
+          "name": "TwentyFiveGigE1/0/46",
+          "type": "optical",
+          "status": "available"
+        },
+        {
+          "name": "TwentyFiveGigE1/0/47",
+          "type": "optical",
+          "status": "available"
+        },
+        {
+          "name": "TwentyFiveGigE1/0/48",
+          "type": "optical",
+          "status": "available"
+        },
+        {
+          "name": "TwentyFiveGigE1/0/49",
+          "type": "optical",
+          "status": "available"
+        },
+        {
+          "name": "TwentyFiveGigE1/0/50",
+          "type": "optical",
+          "status": "available"
+        },
+        {
+          "name": "TwentyFiveGigE1/0/51",
+          "type": "optical",
+          "status": "available"
+        },
+        {
+          "name": "TwentyFiveGigE1/0/52",
+          "type": "optical",
+          "status": "available"
+        },
+        {
+          "name": "TwentyFiveGigE1/0/53",
+          "type": "optical",
+          "status": "available"
+        },
+        {
+          "name": "TwentyFiveGigE1/0/54",
+          "type": "optical",
+          "status": "available"
+        }
+      ],
+      "position": {
+        "x": 143.01427858212682,
+        "y": 17.001697453819272
+      },
+      "rack_id": null,
+      "rack_u": null,
+      "power_status": "off"
+    },
+    {
+      "id": "device_3a22ffcf3edf",
+      "instance_name": "SW10",
+      "device_type": "S6805-54",
+      "interfaces": [
+        {
+          "name": "TwentyFiveGigE1/0/1",
+          "type": "optical",
+          "status": "available"
+        },
+        {
+          "name": "TwentyFiveGigE1/0/2",
+          "type": "optical",
+          "status": "available"
+        },
+        {
+          "name": "TwentyFiveGigE1/0/3",
+          "type": "optical",
+          "status": "available"
+        },
+        {
+          "name": "TwentyFiveGigE1/0/4",
+          "type": "optical",
+          "status": "available"
+        },
+        {
+          "name": "TwentyFiveGigE1/0/5",
+          "type": "optical",
+          "status": "available"
+        },
+        {
+          "name": "TwentyFiveGigE1/0/6",
+          "type": "optical",
+          "status": "available"
+        },
+        {
+          "name": "TwentyFiveGigE1/0/7",
+          "type": "optical",
+          "status": "available"
+        },
+        {
+          "name": "TwentyFiveGigE1/0/8",
+          "type": "optical",
+          "status": "available"
+        },
+        {
+          "name": "TwentyFiveGigE1/0/9",
+          "type": "optical",
+          "status": "available"
+        },
+        {
+          "name": "TwentyFiveGigE1/0/10",
+          "type": "optical",
+          "status": "available"
+        },
+        {
+          "name": "TwentyFiveGigE1/0/11",
+          "type": "optical",
+          "status": "available"
+        },
+        {
+          "name": "TwentyFiveGigE1/0/12",
+          "type": "optical",
+          "status": "available"
+        },
+        {
+          "name": "TwentyFiveGigE1/0/13",
+          "type": "optical",
+          "status": "available"
+        },
+        {
+          "name": "TwentyFiveGigE1/0/14",
+          "type": "optical",
+          "status": "available"
+        },
+        {
+          "name": "TwentyFiveGigE1/0/15",
+          "type": "optical",
+          "status": "available"
+        },
+        {
+          "name": "TwentyFiveGigE1/0/16",
+          "type": "optical",
+          "status": "available"
+        },
+        {
+          "name": "TwentyFiveGigE1/0/17",
+          "type": "optical",
+          "status": "available"
+        },
+        {
+          "name": "TwentyFiveGigE1/0/18",
+          "type": "optical",
+          "status": "available"
+        },
+        {
+          "name": "TwentyFiveGigE1/0/19",
+          "type": "optical",
+          "status": "available"
+        },
+        {
+          "name": "TwentyFiveGigE1/0/20",
+          "type": "optical",
+          "status": "available"
+        },
+        {
+          "name": "TwentyFiveGigE1/0/21",
+          "type": "optical",
+          "status": "available"
+        },
+        {
+          "name": "TwentyFiveGigE1/0/22",
+          "type": "optical",
+          "status": "available"
+        },
+        {
+          "name": "TwentyFiveGigE1/0/23",
+          "type": "optical",
+          "status": "available"
+        },
+        {
+          "name": "TwentyFiveGigE1/0/24",
+          "type": "optical",
+          "status": "available"
+        },
+        {
+          "name": "HundredGigE1/0/25",
+          "type": "optical",
+          "status": "available"
+        },
+        {
+          "name": "HundredGigE1/0/26",
+          "type": "optical",
+          "status": "available"
+        },
+        {
+          "name": "HundredGigE1/0/27",
+          "type": "optical",
+          "status": "available"
+        },
+        {
+          "name": "HundredGigE1/0/28",
+          "type": "optical",
+          "status": "available"
+        },
+        {
+          "name": "HundredGigE1/0/29",
+          "type": "optical",
+          "status": "available"
+        },
+        {
+          "name": "HundredGigE1/0/30",
+          "type": "optical",
+          "status": "available"
+        },
+        {
+          "name": "TwentyFiveGigE1/0/31",
+          "type": "optical",
+          "status": "available"
+        },
+        {
+          "name": "TwentyFiveGigE1/0/32",
+          "type": "optical",
+          "status": "available"
+        },
+        {
+          "name": "TwentyFiveGigE1/0/33",
+          "type": "optical",
+          "status": "available"
+        },
+        {
+          "name": "TwentyFiveGigE1/0/34",
+          "type": "optical",
+          "status": "available"
+        },
+        {
+          "name": "TwentyFiveGigE1/0/35",
+          "type": "optical",
+          "status": "available"
+        },
+        {
+          "name": "TwentyFiveGigE1/0/36",
+          "type": "optical",
+          "status": "available"
+        },
+        {
+          "name": "TwentyFiveGigE1/0/37",
+          "type": "optical",
+          "status": "available"
+        },
+        {
+          "name": "TwentyFiveGigE1/0/38",
+          "type": "optical",
+          "status": "available"
+        },
+        {
+          "name": "TwentyFiveGigE1/0/39",
+          "type": "optical",
+          "status": "available"
+        },
+        {
+          "name": "TwentyFiveGigE1/0/40",
+          "type": "optical",
+          "status": "available"
+        },
+        {
+          "name": "TwentyFiveGigE1/0/41",
+          "type": "optical",
+          "status": "available"
+        },
+        {
+          "name": "TwentyFiveGigE1/0/42",
+          "type": "optical",
+          "status": "available"
+        },
+        {
+          "name": "TwentyFiveGigE1/0/43",
+          "type": "optical",
+          "status": "available"
+        },
+        {
+          "name": "TwentyFiveGigE1/0/44",
+          "type": "optical",
+          "status": "available"
+        },
+        {
+          "name": "TwentyFiveGigE1/0/45",
+          "type": "optical",
+          "status": "available"
+        },
+        {
+          "name": "TwentyFiveGigE1/0/46",
+          "type": "optical",
+          "status": "available"
+        },
+        {
+          "name": "TwentyFiveGigE1/0/47",
+          "type": "optical",
+          "status": "available"
+        },
+        {
+          "name": "TwentyFiveGigE1/0/48",
+          "type": "optical",
+          "status": "available"
+        },
+        {
+          "name": "TwentyFiveGigE1/0/49",
+          "type": "optical",
+          "status": "available"
+        },
+        {
+          "name": "TwentyFiveGigE1/0/50",
+          "type": "optical",
+          "status": "available"
+        },
+        {
+          "name": "TwentyFiveGigE1/0/51",
+          "type": "optical",
+          "status": "available"
+        },
+        {
+          "name": "TwentyFiveGigE1/0/52",
+          "type": "optical",
+          "status": "available"
+        },
+        {
+          "name": "TwentyFiveGigE1/0/53",
+          "type": "optical",
+          "status": "available"
+        },
+        {
+          "name": "TwentyFiveGigE1/0/54",
+          "type": "optical",
+          "status": "available"
+        }
+      ],
+      "position": {
+        "x": 329.0328507239141,
+        "y": 49.00489266100849
+      },
+      "rack_id": null,
+      "rack_u": null,
+      "power_status": "off"
+    },
+    {
+      "id": "device_0722124c9695",
+      "instance_name": "SW11",
+      "device_type": "S6805-54",
+      "interfaces": [
+        {
+          "name": "TwentyFiveGigE1/0/1",
+          "type": "optical",
+          "status": "available"
+        },
+        {
+          "name": "TwentyFiveGigE1/0/2",
+          "type": "optical",
+          "status": "available"
+        },
+        {
+          "name": "TwentyFiveGigE1/0/3",
+          "type": "optical",
+          "status": "available"
+        },
+        {
+          "name": "TwentyFiveGigE1/0/4",
+          "type": "optical",
+          "status": "available"
+        },
+        {
+          "name": "TwentyFiveGigE1/0/5",
+          "type": "optical",
+          "status": "available"
+        },
+        {
+          "name": "TwentyFiveGigE1/0/6",
+          "type": "optical",
+          "status": "available"
+        },
+        {
+          "name": "TwentyFiveGigE1/0/7",
+          "type": "optical",
+          "status": "available"
+        },
+        {
+          "name": "TwentyFiveGigE1/0/8",
+          "type": "optical",
+          "status": "available"
+        },
+        {
+          "name": "TwentyFiveGigE1/0/9",
+          "type": "optical",
+          "status": "available"
+        },
+        {
+          "name": "TwentyFiveGigE1/0/10",
+          "type": "optical",
+          "status": "available"
+        },
+        {
+          "name": "TwentyFiveGigE1/0/11",
+          "type": "optical",
+          "status": "available"
+        },
+        {
+          "name": "TwentyFiveGigE1/0/12",
+          "type": "optical",
+          "status": "available"
+        },
+        {
+          "name": "TwentyFiveGigE1/0/13",
+          "type": "optical",
+          "status": "available"
+        },
+        {
+          "name": "TwentyFiveGigE1/0/14",
+          "type": "optical",
+          "status": "available"
+        },
+        {
+          "name": "TwentyFiveGigE1/0/15",
+          "type": "optical",
+          "status": "available"
+        },
+        {
+          "name": "TwentyFiveGigE1/0/16",
+          "type": "optical",
+          "status": "available"
+        },
+        {
+          "name": "TwentyFiveGigE1/0/17",
+          "type": "optical",
+          "status": "available"
+        },
+        {
+          "name": "TwentyFiveGigE1/0/18",
+          "type": "optical",
+          "status": "available"
+        },
+        {
+          "name": "TwentyFiveGigE1/0/19",
+          "type": "optical",
+          "status": "available"
+        },
+        {
+          "name": "TwentyFiveGigE1/0/20",
+          "type": "optical",
+          "status": "available"
+        },
+        {
+          "name": "TwentyFiveGigE1/0/21",
+          "type": "optical",
+          "status": "available"
+        },
+        {
+          "name": "TwentyFiveGigE1/0/22",
+          "type": "optical",
+          "status": "available"
+        },
+        {
+          "name": "TwentyFiveGigE1/0/23",
+          "type": "optical",
+          "status": "available"
+        },
+        {
+          "name": "TwentyFiveGigE1/0/24",
+          "type": "optical",
+          "status": "available"
+        },
+        {
+          "name": "HundredGigE1/0/25",
+          "type": "optical",
+          "status": "available"
+        },
+        {
+          "name": "HundredGigE1/0/26",
+          "type": "optical",
+          "status": "available"
+        },
+        {
+          "name": "HundredGigE1/0/27",
+          "type": "optical",
+          "status": "available"
+        },
+        {
+          "name": "HundredGigE1/0/28",
+          "type": "optical",
+          "status": "available"
+        },
+        {
+          "name": "HundredGigE1/0/29",
+          "type": "optical",
+          "status": "available"
+        },
+        {
+          "name": "HundredGigE1/0/30",
+          "type": "optical",
+          "status": "available"
+        },
+        {
+          "name": "TwentyFiveGigE1/0/31",
+          "type": "optical",
+          "status": "available"
+        },
+        {
+          "name": "TwentyFiveGigE1/0/32",
+          "type": "optical",
+          "status": "available"
+        },
+        {
+          "name": "TwentyFiveGigE1/0/33",
+          "type": "optical",
+          "status": "available"
+        },
+        {
+          "name": "TwentyFiveGigE1/0/34",
+          "type": "optical",
+          "status": "available"
+        },
+        {
+          "name": "TwentyFiveGigE1/0/35",
+          "type": "optical",
+          "status": "available"
+        },
+        {
+          "name": "TwentyFiveGigE1/0/36",
+          "type": "optical",
+          "status": "available"
+        },
+        {
+          "name": "TwentyFiveGigE1/0/37",
+          "type": "optical",
+          "status": "available"
+        },
+        {
+          "name": "TwentyFiveGigE1/0/38",
+          "type": "optical",
+          "status": "available"
+        },
+        {
+          "name": "TwentyFiveGigE1/0/39",
+          "type": "optical",
+          "status": "available"
+        },
+        {
+          "name": "TwentyFiveGigE1/0/40",
+          "type": "optical",
+          "status": "available"
+        },
+        {
+          "name": "TwentyFiveGigE1/0/41",
+          "type": "optical",
+          "status": "available"
+        },
+        {
+          "name": "TwentyFiveGigE1/0/42",
+          "type": "optical",
+          "status": "available"
+        },
+        {
+          "name": "TwentyFiveGigE1/0/43",
+          "type": "optical",
+          "status": "available"
+        },
+        {
+          "name": "TwentyFiveGigE1/0/44",
+          "type": "optical",
+          "status": "available"
+        },
+        {
+          "name": "TwentyFiveGigE1/0/45",
+          "type": "optical",
+          "status": "available"
+        },
+        {
+          "name": "TwentyFiveGigE1/0/46",
+          "type": "optical",
+          "status": "available"
+        },
+        {
+          "name": "TwentyFiveGigE1/0/47",
+          "type": "optical",
+          "status": "available"
+        },
+        {
+          "name": "TwentyFiveGigE1/0/48",
+          "type": "optical",
+          "status": "available"
+        },
+        {
+          "name": "TwentyFiveGigE1/0/49",
+          "type": "optical",
+          "status": "available"
+        },
+        {
+          "name": "TwentyFiveGigE1/0/50",
+          "type": "optical",
+          "status": "available"
+        },
+        {
+          "name": "TwentyFiveGigE1/0/51",
+          "type": "optical",
+          "status": "available"
+        },
+        {
+          "name": "TwentyFiveGigE1/0/52",
+          "type": "optical",
+          "status": "available"
+        },
+        {
+          "name": "TwentyFiveGigE1/0/53",
+          "type": "optical",
+          "status": "available"
+        },
+        {
+          "name": "TwentyFiveGigE1/0/54",
+          "type": "optical",
+          "status": "available"
+        }
+      ],
+      "position": {
+        "x": 277.02765851223165,
+        "y": 54.005391912131806
+      },
+      "rack_id": null,
+      "rack_u": null,
+      "power_status": "off"
+    },
+    {
+      "id": "device_7114c9646587",
+      "instance_name": "SW12",
+      "device_type": "S6805-54",
+      "interfaces": [
+        {
+          "name": "TwentyFiveGigE1/0/1",
+          "type": "optical",
+          "status": "available"
+        },
+        {
+          "name": "TwentyFiveGigE1/0/2",
+          "type": "optical",
+          "status": "available"
+        },
+        {
+          "name": "TwentyFiveGigE1/0/3",
+          "type": "optical",
+          "status": "available"
+        },
+        {
+          "name": "TwentyFiveGigE1/0/4",
+          "type": "optical",
+          "status": "available"
+        },
+        {
+          "name": "TwentyFiveGigE1/0/5",
+          "type": "optical",
+          "status": "available"
+        },
+        {
+          "name": "TwentyFiveGigE1/0/6",
+          "type": "optical",
+          "status": "available"
+        },
+        {
+          "name": "TwentyFiveGigE1/0/7",
+          "type": "optical",
+          "status": "available"
+        },
+        {
+          "name": "TwentyFiveGigE1/0/8",
+          "type": "optical",
+          "status": "available"
+        },
+        {
+          "name": "TwentyFiveGigE1/0/9",
+          "type": "optical",
+          "status": "available"
+        },
+        {
+          "name": "TwentyFiveGigE1/0/10",
+          "type": "optical",
+          "status": "available"
+        },
+        {
+          "name": "TwentyFiveGigE1/0/11",
+          "type": "optical",
+          "status": "available"
+        },
+        {
+          "name": "TwentyFiveGigE1/0/12",
+          "type": "optical",
+          "status": "available"
+        },
+        {
+          "name": "TwentyFiveGigE1/0/13",
+          "type": "optical",
+          "status": "available"
+        },
+        {
+          "name": "TwentyFiveGigE1/0/14",
+          "type": "optical",
+          "status": "available"
+        },
+        {
+          "name": "TwentyFiveGigE1/0/15",
+          "type": "optical",
+          "status": "available"
+        },
+        {
+          "name": "TwentyFiveGigE1/0/16",
+          "type": "optical",
+          "status": "available"
+        },
+        {
+          "name": "TwentyFiveGigE1/0/17",
+          "type": "optical",
+          "status": "available"
+        },
+        {
+          "name": "TwentyFiveGigE1/0/18",
+          "type": "optical",
+          "status": "available"
+        },
+        {
+          "name": "TwentyFiveGigE1/0/19",
+          "type": "optical",
+          "status": "available"
+        },
+        {
+          "name": "TwentyFiveGigE1/0/20",
+          "type": "optical",
+          "status": "available"
+        },
+        {
+          "name": "TwentyFiveGigE1/0/21",
+          "type": "optical",
+          "status": "available"
+        },
+        {
+          "name": "TwentyFiveGigE1/0/22",
+          "type": "optical",
+          "status": "available"
+        },
+        {
+          "name": "TwentyFiveGigE1/0/23",
+          "type": "optical",
+          "status": "available"
+        },
+        {
+          "name": "TwentyFiveGigE1/0/24",
+          "type": "optical",
+          "status": "available"
+        },
+        {
+          "name": "HundredGigE1/0/25",
+          "type": "optical",
+          "status": "available"
+        },
+        {
+          "name": "HundredGigE1/0/26",
+          "type": "optical",
+          "status": "available"
+        },
+        {
+          "name": "HundredGigE1/0/27",
+          "type": "optical",
+          "status": "available"
+        },
+        {
+          "name": "HundredGigE1/0/28",
+          "type": "optical",
+          "status": "available"
+        },
+        {
+          "name": "HundredGigE1/0/29",
+          "type": "optical",
+          "status": "available"
+        },
+        {
+          "name": "HundredGigE1/0/30",
+          "type": "optical",
+          "status": "available"
+        },
+        {
+          "name": "TwentyFiveGigE1/0/31",
+          "type": "optical",
+          "status": "available"
+        },
+        {
+          "name": "TwentyFiveGigE1/0/32",
+          "type": "optical",
+          "status": "available"
+        },
+        {
+          "name": "TwentyFiveGigE1/0/33",
+          "type": "optical",
+          "status": "available"
+        },
+        {
+          "name": "TwentyFiveGigE1/0/34",
+          "type": "optical",
+          "status": "available"
+        },
+        {
+          "name": "TwentyFiveGigE1/0/35",
+          "type": "optical",
+          "status": "available"
+        },
+        {
+          "name": "TwentyFiveGigE1/0/36",
+          "type": "optical",
+          "status": "available"
+        },
+        {
+          "name": "TwentyFiveGigE1/0/37",
+          "type": "optical",
+          "status": "available"
+        },
+        {
+          "name": "TwentyFiveGigE1/0/38",
+          "type": "optical",
+          "status": "available"
+        },
+        {
+          "name": "TwentyFiveGigE1/0/39",
+          "type": "optical",
+          "status": "available"
+        },
+        {
+          "name": "TwentyFiveGigE1/0/40",
+          "type": "optical",
+          "status": "available"
+        },
+        {
+          "name": "TwentyFiveGigE1/0/41",
+          "type": "optical",
+          "status": "available"
+        },
+        {
+          "name": "TwentyFiveGigE1/0/42",
+          "type": "optical",
+          "status": "available"
+        },
+        {
+          "name": "TwentyFiveGigE1/0/43",
+          "type": "optical",
+          "status": "available"
+        },
+        {
+          "name": "TwentyFiveGigE1/0/44",
+          "type": "optical",
+          "status": "available"
+        },
+        {
+          "name": "TwentyFiveGigE1/0/45",
+          "type": "optical",
+          "status": "available"
+        },
+        {
+          "name": "TwentyFiveGigE1/0/46",
+          "type": "optical",
+          "status": "available"
+        },
+        {
+          "name": "TwentyFiveGigE1/0/47",
+          "type": "optical",
+          "status": "available"
+        },
+        {
+          "name": "TwentyFiveGigE1/0/48",
+          "type": "optical",
+          "status": "available"
+        },
+        {
+          "name": "TwentyFiveGigE1/0/49",
+          "type": "optical",
+          "status": "available"
+        },
+        {
+          "name": "TwentyFiveGigE1/0/50",
+          "type": "optical",
+          "status": "available"
+        },
+        {
+          "name": "TwentyFiveGigE1/0/51",
+          "type": "optical",
+          "status": "available"
+        },
+        {
+          "name": "TwentyFiveGigE1/0/52",
+          "type": "optical",
+          "status": "available"
+        },
+        {
+          "name": "TwentyFiveGigE1/0/53",
+          "type": "optical",
+          "status": "available"
+        },
+        {
+          "name": "TwentyFiveGigE1/0/54",
+          "type": "optical",
+          "status": "available"
+        }
+      ],
+      "position": {
+        "x": 316.0315526709935,
+        "y": 62.00619071392911
+      },
+      "rack_id": null,
+      "rack_u": null,
+      "power_status": "off"
+    },
+    {
+      "id": "device_8ca5efa66fc0",
+      "instance_name": "SW13",
+      "device_type": "S6805-54",
+      "interfaces": [
+        {
+          "name": "TwentyFiveGigE1/0/1",
+          "type": "optical",
+          "status": "available"
+        },
+        {
+          "name": "TwentyFiveGigE1/0/2",
+          "type": "optical",
+          "status": "available"
+        },
+        {
+          "name": "TwentyFiveGigE1/0/3",
+          "type": "optical",
+          "status": "available"
+        },
+        {
+          "name": "TwentyFiveGigE1/0/4",
+          "type": "optical",
+          "status": "available"
+        },
+        {
+          "name": "TwentyFiveGigE1/0/5",
+          "type": "optical",
+          "status": "available"
+        },
+        {
+          "name": "TwentyFiveGigE1/0/6",
+          "type": "optical",
+          "status": "available"
+        },
+        {
+          "name": "TwentyFiveGigE1/0/7",
+          "type": "optical",
+          "status": "available"
+        },
+        {
+          "name": "TwentyFiveGigE1/0/8",
+          "type": "optical",
+          "status": "available"
+        },
+        {
+          "name": "TwentyFiveGigE1/0/9",
+          "type": "optical",
+          "status": "available"
+        },
+        {
+          "name": "TwentyFiveGigE1/0/10",
+          "type": "optical",
+          "status": "available"
+        },
+        {
+          "name": "TwentyFiveGigE1/0/11",
+          "type": "optical",
+          "status": "available"
+        },
+        {
+          "name": "TwentyFiveGigE1/0/12",
+          "type": "optical",
+          "status": "available"
+        },
+        {
+          "name": "TwentyFiveGigE1/0/13",
+          "type": "optical",
+          "status": "available"
+        },
+        {
+          "name": "TwentyFiveGigE1/0/14",
+          "type": "optical",
+          "status": "available"
+        },
+        {
+          "name": "TwentyFiveGigE1/0/15",
+          "type": "optical",
+          "status": "available"
+        },
+        {
+          "name": "TwentyFiveGigE1/0/16",
+          "type": "optical",
+          "status": "available"
+        },
+        {
+          "name": "TwentyFiveGigE1/0/17",
+          "type": "optical",
+          "status": "available"
+        },
+        {
+          "name": "TwentyFiveGigE1/0/18",
+          "type": "optical",
+          "status": "available"
+        },
+        {
+          "name": "TwentyFiveGigE1/0/19",
+          "type": "optical",
+          "status": "available"
+        },
+        {
+          "name": "TwentyFiveGigE1/0/20",
+          "type": "optical",
+          "status": "available"
+        },
+        {
+          "name": "TwentyFiveGigE1/0/21",
+          "type": "optical",
+          "status": "available"
+        },
+        {
+          "name": "TwentyFiveGigE1/0/22",
+          "type": "optical",
+          "status": "available"
+        },
+        {
+          "name": "TwentyFiveGigE1/0/23",
+          "type": "optical",
+          "status": "available"
+        },
+        {
+          "name": "TwentyFiveGigE1/0/24",
+          "type": "optical",
+          "status": "available"
+        },
+        {
+          "name": "HundredGigE1/0/25",
+          "type": "optical",
+          "status": "available"
+        },
+        {
+          "name": "HundredGigE1/0/26",
+          "type": "optical",
+          "status": "available"
+        },
+        {
+          "name": "HundredGigE1/0/27",
+          "type": "optical",
+          "status": "available"
+        },
+        {
+          "name": "HundredGigE1/0/28",
+          "type": "optical",
+          "status": "available"
+        },
+        {
+          "name": "HundredGigE1/0/29",
+          "type": "optical",
+          "status": "available"
+        },
+        {
+          "name": "HundredGigE1/0/30",
+          "type": "optical",
+          "status": "available"
+        },
+        {
+          "name": "TwentyFiveGigE1/0/31",
+          "type": "optical",
+          "status": "available"
+        },
+        {
+          "name": "TwentyFiveGigE1/0/32",
+          "type": "optical",
+          "status": "available"
+        },
+        {
+          "name": "TwentyFiveGigE1/0/33",
+          "type": "optical",
+          "status": "available"
+        },
+        {
+          "name": "TwentyFiveGigE1/0/34",
+          "type": "optical",
+          "status": "available"
+        },
+        {
+          "name": "TwentyFiveGigE1/0/35",
+          "type": "optical",
+          "status": "available"
+        },
+        {
+          "name": "TwentyFiveGigE1/0/36",
+          "type": "optical",
+          "status": "available"
+        },
+        {
+          "name": "TwentyFiveGigE1/0/37",
+          "type": "optical",
+          "status": "available"
+        },
+        {
+          "name": "TwentyFiveGigE1/0/38",
+          "type": "optical",
+          "status": "available"
+        },
+        {
+          "name": "TwentyFiveGigE1/0/39",
+          "type": "optical",
+          "status": "available"
+        },
+        {
+          "name": "TwentyFiveGigE1/0/40",
+          "type": "optical",
+          "status": "available"
+        },
+        {
+          "name": "TwentyFiveGigE1/0/41",
+          "type": "optical",
+          "status": "available"
+        },
+        {
+          "name": "TwentyFiveGigE1/0/42",
+          "type": "optical",
+          "status": "available"
+        },
+        {
+          "name": "TwentyFiveGigE1/0/43",
+          "type": "optical",
+          "status": "available"
+        },
+        {
+          "name": "TwentyFiveGigE1/0/44",
+          "type": "optical",
+          "status": "available"
+        },
+        {
+          "name": "TwentyFiveGigE1/0/45",
+          "type": "optical",
+          "status": "available"
+        },
+        {
+          "name": "TwentyFiveGigE1/0/46",
+          "type": "optical",
+          "status": "available"
+        },
+        {
+          "name": "TwentyFiveGigE1/0/47",
+          "type": "optical",
+          "status": "available"
+        },
+        {
+          "name": "TwentyFiveGigE1/0/48",
+          "type": "optical",
+          "status": "available"
+        },
+        {
+          "name": "TwentyFiveGigE1/0/49",
+          "type": "optical",
+          "status": "available"
+        },
+        {
+          "name": "TwentyFiveGigE1/0/50",
+          "type": "optical",
+          "status": "available"
+        },
+        {
+          "name": "TwentyFiveGigE1/0/51",
+          "type": "optical",
+          "status": "available"
+        },
+        {
+          "name": "TwentyFiveGigE1/0/52",
+          "type": "optical",
+          "status": "available"
+        },
+        {
+          "name": "TwentyFiveGigE1/0/53",
+          "type": "optical",
+          "status": "available"
+        },
+        {
+          "name": "TwentyFiveGigE1/0/54",
+          "type": "optical",
+          "status": "available"
+        }
+      ],
+      "position": {
+        "x": 292.0291562656016,
+        "y": 58.00579131303046
+      },
+      "rack_id": null,
+      "rack_u": null,
+      "power_status": "off"
+    },
+    {
+      "id": "device_0b5ff3ef4346",
+      "instance_name": "SW14",
+      "device_type": "S6805-54",
+      "interfaces": [
+        {
+          "name": "TwentyFiveGigE1/0/1",
+          "type": "optical",
+          "status": "available"
+        },
+        {
+          "name": "TwentyFiveGigE1/0/2",
+          "type": "optical",
+          "status": "available"
+        },
+        {
+          "name": "TwentyFiveGigE1/0/3",
+          "type": "optical",
+          "status": "available"
+        },
+        {
+          "name": "TwentyFiveGigE1/0/4",
+          "type": "optical",
+          "status": "available"
+        },
+        {
+          "name": "TwentyFiveGigE1/0/5",
+          "type": "optical",
+          "status": "available"
+        },
+        {
+          "name": "TwentyFiveGigE1/0/6",
+          "type": "optical",
+          "status": "available"
+        },
+        {
+          "name": "TwentyFiveGigE1/0/7",
+          "type": "optical",
+          "status": "available"
+        },
+        {
+          "name": "TwentyFiveGigE1/0/8",
+          "type": "optical",
+          "status": "available"
+        },
+        {
+          "name": "TwentyFiveGigE1/0/9",
+          "type": "optical",
+          "status": "available"
+        },
+        {
+          "name": "TwentyFiveGigE1/0/10",
+          "type": "optical",
+          "status": "available"
+        },
+        {
+          "name": "TwentyFiveGigE1/0/11",
+          "type": "optical",
+          "status": "available"
+        },
+        {
+          "name": "TwentyFiveGigE1/0/12",
+          "type": "optical",
+          "status": "available"
+        },
+        {
+          "name": "TwentyFiveGigE1/0/13",
+          "type": "optical",
+          "status": "available"
+        },
+        {
+          "name": "TwentyFiveGigE1/0/14",
+          "type": "optical",
+          "status": "available"
+        },
+        {
+          "name": "TwentyFiveGigE1/0/15",
+          "type": "optical",
+          "status": "available"
+        },
+        {
+          "name": "TwentyFiveGigE1/0/16",
+          "type": "optical",
+          "status": "available"
+        },
+        {
+          "name": "TwentyFiveGigE1/0/17",
+          "type": "optical",
+          "status": "available"
+        },
+        {
+          "name": "TwentyFiveGigE1/0/18",
+          "type": "optical",
+          "status": "available"
+        },
+        {
+          "name": "TwentyFiveGigE1/0/19",
+          "type": "optical",
+          "status": "available"
+        },
+        {
+          "name": "TwentyFiveGigE1/0/20",
+          "type": "optical",
+          "status": "available"
+        },
+        {
+          "name": "TwentyFiveGigE1/0/21",
+          "type": "optical",
+          "status": "available"
+        },
+        {
+          "name": "TwentyFiveGigE1/0/22",
+          "type": "optical",
+          "status": "available"
+        },
+        {
+          "name": "TwentyFiveGigE1/0/23",
+          "type": "optical",
+          "status": "available"
+        },
+        {
+          "name": "TwentyFiveGigE1/0/24",
+          "type": "optical",
+          "status": "available"
+        },
+        {
+          "name": "HundredGigE1/0/25",
+          "type": "optical",
+          "status": "available"
+        },
+        {
+          "name": "HundredGigE1/0/26",
+          "type": "optical",
+          "status": "available"
+        },
+        {
+          "name": "HundredGigE1/0/27",
+          "type": "optical",
+          "status": "available"
+        },
+        {
+          "name": "HundredGigE1/0/28",
+          "type": "optical",
+          "status": "available"
+        },
+        {
+          "name": "HundredGigE1/0/29",
+          "type": "optical",
+          "status": "available"
+        },
+        {
+          "name": "HundredGigE1/0/30",
+          "type": "optical",
+          "status": "available"
+        },
+        {
+          "name": "TwentyFiveGigE1/0/31",
+          "type": "optical",
+          "status": "available"
+        },
+        {
+          "name": "TwentyFiveGigE1/0/32",
+          "type": "optical",
+          "status": "available"
+        },
+        {
+          "name": "TwentyFiveGigE1/0/33",
+          "type": "optical",
+          "status": "available"
+        },
+        {
+          "name": "TwentyFiveGigE1/0/34",
+          "type": "optical",
+          "status": "available"
+        },
+        {
+          "name": "TwentyFiveGigE1/0/35",
+          "type": "optical",
+          "status": "available"
+        },
+        {
+          "name": "TwentyFiveGigE1/0/36",
+          "type": "optical",
+          "status": "available"
+        },
+        {
+          "name": "TwentyFiveGigE1/0/37",
+          "type": "optical",
+          "status": "available"
+        },
+        {
+          "name": "TwentyFiveGigE1/0/38",
+          "type": "optical",
+          "status": "available"
+        },
+        {
+          "name": "TwentyFiveGigE1/0/39",
+          "type": "optical",
+          "status": "available"
+        },
+        {
+          "name": "TwentyFiveGigE1/0/40",
+          "type": "optical",
+          "status": "available"
+        },
+        {
+          "name": "TwentyFiveGigE1/0/41",
+          "type": "optical",
+          "status": "available"
+        },
+        {
+          "name": "TwentyFiveGigE1/0/42",
+          "type": "optical",
+          "status": "available"
+        },
+        {
+          "name": "TwentyFiveGigE1/0/43",
+          "type": "optical",
+          "status": "available"
+        },
+        {
+          "name": "TwentyFiveGigE1/0/44",
+          "type": "optical",
+          "status": "available"
+        },
+        {
+          "name": "TwentyFiveGigE1/0/45",
+          "type": "optical",
+          "status": "available"
+        },
+        {
+          "name": "TwentyFiveGigE1/0/46",
+          "type": "optical",
+          "status": "available"
+        },
+        {
+          "name": "TwentyFiveGigE1/0/47",
+          "type": "optical",
+          "status": "available"
+        },
+        {
+          "name": "TwentyFiveGigE1/0/48",
+          "type": "optical",
+          "status": "available"
+        },
+        {
+          "name": "TwentyFiveGigE1/0/49",
+          "type": "optical",
+          "status": "available"
+        },
+        {
+          "name": "TwentyFiveGigE1/0/50",
+          "type": "optical",
+          "status": "available"
+        },
+        {
+          "name": "TwentyFiveGigE1/0/51",
+          "type": "optical",
+          "status": "available"
+        },
+        {
+          "name": "TwentyFiveGigE1/0/52",
+          "type": "optical",
+          "status": "available"
+        },
+        {
+          "name": "TwentyFiveGigE1/0/53",
+          "type": "optical",
+          "status": "available"
+        },
+        {
+          "name": "TwentyFiveGigE1/0/54",
+          "type": "optical",
+          "status": "available"
+        }
+      ],
+      "position": {
+        "x": 227.02266600099853,
+        "y": 72.00718921617573
+      },
+      "rack_id": null,
+      "rack_u": null,
+      "power_status": "off"
+    },
+    {
+      "id": "device_e146ac33f2a2",
+      "instance_name": "SW15",
+      "device_type": "S6805-54",
+      "interfaces": [
+        {
+          "name": "TwentyFiveGigE1/0/1",
+          "type": "optical",
+          "status": "available"
+        },
+        {
+          "name": "TwentyFiveGigE1/0/2",
+          "type": "optical",
+          "status": "available"
+        },
+        {
+          "name": "TwentyFiveGigE1/0/3",
+          "type": "optical",
+          "status": "available"
+        },
+        {
+          "name": "TwentyFiveGigE1/0/4",
+          "type": "optical",
+          "status": "available"
+        },
+        {
+          "name": "TwentyFiveGigE1/0/5",
+          "type": "optical",
+          "status": "available"
+        },
+        {
+          "name": "TwentyFiveGigE1/0/6",
+          "type": "optical",
+          "status": "available"
+        },
+        {
+          "name": "TwentyFiveGigE1/0/7",
+          "type": "optical",
+          "status": "available"
+        },
+        {
+          "name": "TwentyFiveGigE1/0/8",
+          "type": "optical",
+          "status": "available"
+        },
+        {
+          "name": "TwentyFiveGigE1/0/9",
+          "type": "optical",
+          "status": "available"
+        },
+        {
+          "name": "TwentyFiveGigE1/0/10",
+          "type": "optical",
+          "status": "available"
+        },
+        {
+          "name": "TwentyFiveGigE1/0/11",
+          "type": "optical",
+          "status": "available"
+        },
+        {
+          "name": "TwentyFiveGigE1/0/12",
+          "type": "optical",
+          "status": "available"
+        },
+        {
+          "name": "TwentyFiveGigE1/0/13",
+          "type": "optical",
+          "status": "available"
+        },
+        {
+          "name": "TwentyFiveGigE1/0/14",
+          "type": "optical",
+          "status": "available"
+        },
+        {
+          "name": "TwentyFiveGigE1/0/15",
+          "type": "optical",
+          "status": "available"
+        },
+        {
+          "name": "TwentyFiveGigE1/0/16",
+          "type": "optical",
+          "status": "available"
+        },
+        {
+          "name": "TwentyFiveGigE1/0/17",
+          "type": "optical",
+          "status": "available"
+        },
+        {
+          "name": "TwentyFiveGigE1/0/18",
+          "type": "optical",
+          "status": "available"
+        },
+        {
+          "name": "TwentyFiveGigE1/0/19",
+          "type": "optical",
+          "status": "available"
+        },
+        {
+          "name": "TwentyFiveGigE1/0/20",
+          "type": "optical",
+          "status": "available"
+        },
+        {
+          "name": "TwentyFiveGigE1/0/21",
+          "type": "optical",
+          "status": "available"
+        },
+        {
+          "name": "TwentyFiveGigE1/0/22",
+          "type": "optical",
+          "status": "available"
+        },
+        {
+          "name": "TwentyFiveGigE1/0/23",
+          "type": "optical",
+          "status": "available"
+        },
+        {
+          "name": "TwentyFiveGigE1/0/24",
+          "type": "optical",
+          "status": "available"
+        },
+        {
+          "name": "HundredGigE1/0/25",
+          "type": "optical",
+          "status": "available"
+        },
+        {
+          "name": "HundredGigE1/0/26",
+          "type": "optical",
+          "status": "available"
+        },
+        {
+          "name": "HundredGigE1/0/27",
+          "type": "optical",
+          "status": "available"
+        },
+        {
+          "name": "HundredGigE1/0/28",
+          "type": "optical",
+          "status": "available"
+        },
+        {
+          "name": "HundredGigE1/0/29",
+          "type": "optical",
+          "status": "available"
+        },
+        {
+          "name": "HundredGigE1/0/30",
+          "type": "optical",
+          "status": "available"
+        },
+        {
+          "name": "TwentyFiveGigE1/0/31",
+          "type": "optical",
+          "status": "available"
+        },
+        {
+          "name": "TwentyFiveGigE1/0/32",
+          "type": "optical",
+          "status": "available"
+        },
+        {
+          "name": "TwentyFiveGigE1/0/33",
+          "type": "optical",
+          "status": "available"
+        },
+        {
+          "name": "TwentyFiveGigE1/0/34",
+          "type": "optical",
+          "status": "available"
+        },
+        {
+          "name": "TwentyFiveGigE1/0/35",
+          "type": "optical",
+          "status": "available"
+        },
+        {
+          "name": "TwentyFiveGigE1/0/36",
+          "type": "optical",
+          "status": "available"
+        },
+        {
+          "name": "TwentyFiveGigE1/0/37",
+          "type": "optical",
+          "status": "available"
+        },
+        {
+          "name": "TwentyFiveGigE1/0/38",
+          "type": "optical",
+          "status": "available"
+        },
+        {
+          "name": "TwentyFiveGigE1/0/39",
+          "type": "optical",
+          "status": "available"
+        },
+        {
+          "name": "TwentyFiveGigE1/0/40",
+          "type": "optical",
+          "status": "available"
+        },
+        {
+          "name": "TwentyFiveGigE1/0/41",
+          "type": "optical",
+          "status": "available"
+        },
+        {
+          "name": "TwentyFiveGigE1/0/42",
+          "type": "optical",
+          "status": "available"
+        },
+        {
+          "name": "TwentyFiveGigE1/0/43",
+          "type": "optical",
+          "status": "available"
+        },
+        {
+          "name": "TwentyFiveGigE1/0/44",
+          "type": "optical",
+          "status": "available"
+        },
+        {
+          "name": "TwentyFiveGigE1/0/45",
+          "type": "optical",
+          "status": "available"
+        },
+        {
+          "name": "TwentyFiveGigE1/0/46",
+          "type": "optical",
+          "status": "available"
+        },
+        {
+          "name": "TwentyFiveGigE1/0/47",
+          "type": "optical",
+          "status": "available"
+        },
+        {
+          "name": "TwentyFiveGigE1/0/48",
+          "type": "optical",
+          "status": "available"
+        },
+        {
+          "name": "TwentyFiveGigE1/0/49",
+          "type": "optical",
+          "status": "available"
+        },
+        {
+          "name": "TwentyFiveGigE1/0/50",
+          "type": "optical",
+          "status": "available"
+        },
+        {
+          "name": "TwentyFiveGigE1/0/51",
+          "type": "optical",
+          "status": "available"
+        },
+        {
+          "name": "TwentyFiveGigE1/0/52",
+          "type": "optical",
+          "status": "available"
+        },
+        {
+          "name": "TwentyFiveGigE1/0/53",
+          "type": "optical",
+          "status": "available"
+        },
+        {
+          "name": "TwentyFiveGigE1/0/54",
+          "type": "optical",
+          "status": "available"
+        }
+      ],
+      "position": {
+        "x": 195.0194707938093,
+        "y": 77.00768846729905
+      },
+      "rack_id": null,
+      "rack_u": null,
+      "power_status": "off"
+    },
+    {
+      "id": "device_a91a953aeb58",
+      "instance_name": "SW16",
+      "device_type": "S6805-54",
+      "interfaces": [
+        {
+          "name": "TwentyFiveGigE1/0/1",
+          "type": "optical",
+          "status": "available"
+        },
+        {
+          "name": "TwentyFiveGigE1/0/2",
+          "type": "optical",
+          "status": "available"
+        },
+        {
+          "name": "TwentyFiveGigE1/0/3",
+          "type": "optical",
+          "status": "available"
+        },
+        {
+          "name": "TwentyFiveGigE1/0/4",
+          "type": "optical",
+          "status": "available"
+        },
+        {
+          "name": "TwentyFiveGigE1/0/5",
+          "type": "optical",
+          "status": "available"
+        },
+        {
+          "name": "TwentyFiveGigE1/0/6",
+          "type": "optical",
+          "status": "available"
+        },
+        {
+          "name": "TwentyFiveGigE1/0/7",
+          "type": "optical",
+          "status": "available"
+        },
+        {
+          "name": "TwentyFiveGigE1/0/8",
+          "type": "optical",
+          "status": "available"
+        },
+        {
+          "name": "TwentyFiveGigE1/0/9",
+          "type": "optical",
+          "status": "available"
+        },
+        {
+          "name": "TwentyFiveGigE1/0/10",
+          "type": "optical",
+          "status": "available"
+        },
+        {
+          "name": "TwentyFiveGigE1/0/11",
+          "type": "optical",
+          "status": "available"
+        },
+        {
+          "name": "TwentyFiveGigE1/0/12",
+          "type": "optical",
+          "status": "available"
+        },
+        {
+          "name": "TwentyFiveGigE1/0/13",
+          "type": "optical",
+          "status": "available"
+        },
+        {
+          "name": "TwentyFiveGigE1/0/14",
+          "type": "optical",
+          "status": "available"
+        },
+        {
+          "name": "TwentyFiveGigE1/0/15",
+          "type": "optical",
+          "status": "available"
+        },
+        {
+          "name": "TwentyFiveGigE1/0/16",
+          "type": "optical",
+          "status": "available"
+        },
+        {
+          "name": "TwentyFiveGigE1/0/17",
+          "type": "optical",
+          "status": "available"
+        },
+        {
+          "name": "TwentyFiveGigE1/0/18",
+          "type": "optical",
+          "status": "available"
+        },
+        {
+          "name": "TwentyFiveGigE1/0/19",
+          "type": "optical",
+          "status": "available"
+        },
+        {
+          "name": "TwentyFiveGigE1/0/20",
+          "type": "optical",
+          "status": "available"
+        },
+        {
+          "name": "TwentyFiveGigE1/0/21",
+          "type": "optical",
+          "status": "available"
+        },
+        {
+          "name": "TwentyFiveGigE1/0/22",
+          "type": "optical",
+          "status": "available"
+        },
+        {
+          "name": "TwentyFiveGigE1/0/23",
+          "type": "optical",
+          "status": "available"
+        },
+        {
+          "name": "TwentyFiveGigE1/0/24",
+          "type": "optical",
+          "status": "available"
+        },
+        {
+          "name": "HundredGigE1/0/25",
+          "type": "optical",
+          "status": "available"
+        },
+        {
+          "name": "HundredGigE1/0/26",
+          "type": "optical",
+          "status": "available"
+        },
+        {
+          "name": "HundredGigE1/0/27",
+          "type": "optical",
+          "status": "available"
+        },
+        {
+          "name": "HundredGigE1/0/28",
+          "type": "optical",
+          "status": "available"
+        },
+        {
+          "name": "HundredGigE1/0/29",
+          "type": "optical",
+          "status": "available"
+        },
+        {
+          "name": "HundredGigE1/0/30",
+          "type": "optical",
+          "status": "available"
+        },
+        {
+          "name": "TwentyFiveGigE1/0/31",
+          "type": "optical",
+          "status": "available"
+        },
+        {
+          "name": "TwentyFiveGigE1/0/32",
+          "type": "optical",
+          "status": "available"
+        },
+        {
+          "name": "TwentyFiveGigE1/0/33",
+          "type": "optical",
+          "status": "available"
+        },
+        {
+          "name": "TwentyFiveGigE1/0/34",
+          "type": "optical",
+          "status": "available"
+        },
+        {
+          "name": "TwentyFiveGigE1/0/35",
+          "type": "optical",
+          "status": "available"
+        },
+        {
+          "name": "TwentyFiveGigE1/0/36",
+          "type": "optical",
+          "status": "available"
+        },
+        {
+          "name": "TwentyFiveGigE1/0/37",
+          "type": "optical",
+          "status": "available"
+        },
+        {
+          "name": "TwentyFiveGigE1/0/38",
+          "type": "optical",
+          "status": "available"
+        },
+        {
+          "name": "TwentyFiveGigE1/0/39",
+          "type": "optical",
+          "status": "available"
+        },
+        {
+          "name": "TwentyFiveGigE1/0/40",
+          "type": "optical",
+          "status": "available"
+        },
+        {
+          "name": "TwentyFiveGigE1/0/41",
+          "type": "optical",
+          "status": "available"
+        },
+        {
+          "name": "TwentyFiveGigE1/0/42",
+          "type": "optical",
+          "status": "available"
+        },
+        {
+          "name": "TwentyFiveGigE1/0/43",
+          "type": "optical",
+          "status": "available"
+        },
+        {
+          "name": "TwentyFiveGigE1/0/44",
+          "type": "optical",
+          "status": "available"
+        },
+        {
+          "name": "TwentyFiveGigE1/0/45",
+          "type": "optical",
+          "status": "available"
+        },
+        {
+          "name": "TwentyFiveGigE1/0/46",
+          "type": "optical",
+          "status": "available"
+        },
+        {
+          "name": "TwentyFiveGigE1/0/47",
+          "type": "optical",
+          "status": "available"
+        },
+        {
+          "name": "TwentyFiveGigE1/0/48",
+          "type": "optical",
+          "status": "available"
+        },
+        {
+          "name": "TwentyFiveGigE1/0/49",
+          "type": "optical",
+          "status": "available"
+        },
+        {
+          "name": "TwentyFiveGigE1/0/50",
+          "type": "optical",
+          "status": "available"
+        },
+        {
+          "name": "TwentyFiveGigE1/0/51",
+          "type": "optical",
+          "status": "available"
+        },
+        {
+          "name": "TwentyFiveGigE1/0/52",
+          "type": "optical",
+          "status": "available"
+        },
+        {
+          "name": "TwentyFiveGigE1/0/53",
+          "type": "optical",
+          "status": "available"
+        },
+        {
+          "name": "TwentyFiveGigE1/0/54",
+          "type": "optical",
+          "status": "available"
+        }
+      ],
+      "position": {
+        "x": 539.0538192710934,
+        "y": 128.0127808287569
+      },
+      "rack_id": null,
+      "rack_u": null,
+      "power_status": "off"
+    },
+    {
+      "id": "device_6337cd0e3517",
+      "instance_name": "测试服务器_001",
+      "device_type": "TestServer",
+      "interfaces": [
+        {
+          "name": "M-GigabitEthernet0/0/0",
+          "type": "management",
+          "status": "available"
+        },
+        {
+          "name": "HundredGigE1/0/1",
+          "type": "optical",
+          "status": "available"
+        },
+        {
+          "name": "HundredGigE1/0/2",
+          "type": "optical",
+          "status": "available"
+        },
+        {
+          "name": "HundredGigE1/0/3",
+          "type": "optical",
+          "status": "available"
+        },
+        {
+          "name": "HundredGigE1/0/4",
+          "type": "optical",
+          "status": "available"
+        },
+        {
+          "name": "HundredGigE1/0/5",
+          "type": "optical",
+          "status": "available"
+        },
+        {
+          "name": "HundredGigE1/0/6",
+          "type": "optical",
+          "status": "available"
+        },
+        {
+          "name": "HundredGigE1/0/7",
+          "type": "optical",
+          "status": "available"
+        },
+        {
+          "name": "HundredGigE1/0/8",
+          "type": "optical",
+          "status": "available"
+        },
+        {
+          "name": "HundredGigE1/0/9",
+          "type": "optical",
+          "status": "available"
+        },
+        {
+          "name": "HundredGigE1/0/10",
+          "type": "optical",
+          "status": "available"
+        },
+        {
+          "name": "HundredGigE1/0/11",
+          "type": "optical",
+          "status": "available"
+        },
+        {
+          "name": "HundredGigE1/0/12",
+          "type": "optical",
+          "status": "available"
+        },
+        {
+          "name": "HundredGigE1/0/13",
+          "type": "optical",
+          "status": "available"
+        },
+        {
+          "name": "HundredGigE1/0/14",
+          "type": "optical",
+          "status": "available"
+        },
+        {
+          "name": "HundredGigE1/0/15",
+          "type": "optical",
+          "status": "available"
+        },
+        {
+          "name": "HundredGigE1/0/16",
+          "type": "optical",
+          "status": "available"
+        },
+        {
+          "name": "HundredGigE1/0/17",
+          "type": "optical",
+          "status": "available"
+        },
+        {
+          "name": "HundredGigE1/0/18",
+          "type": "optical",
+          "status": "available"
+        },
+        {
+          "name": "HundredGigE1/0/19",
+          "type": "optical",
+          "status": "available"
+        },
+        {
+          "name": "HundredGigE1/0/20",
+          "type": "optical",
+          "status": "available"
+        },
+        {
+          "name": "HundredGigE1/0/21",
+          "type": "optical",
+          "status": "available"
+        },
+        {
+          "name": "HundredGigE1/0/22",
+          "type": "optical",
+          "status": "available"
+        },
+        {
+          "name": "HundredGigE1/0/23",
+          "type": "optical",
+          "status": "available"
+        },
+        {
+          "name": "HundredGigE1/0/24",
+          "type": "optical",
+          "status": "available"
+        },
+        {
+          "name": "HundredGigE1/0/25",
+          "type": "optical",
+          "status": "available"
+        },
+        {
+          "name": "HundredGigE1/0/26",
+          "type": "optical",
+          "status": "available"
+        },
+        {
+          "name": "HundredGigE1/0/27",
+          "type": "optical",
+          "status": "available"
+        },
+        {
+          "name": "HundredGigE1/0/28",
+          "type": "optical",
+          "status": "available"
+        },
+        {
+          "name": "HundredGigE1/0/29",
+          "type": "optical",
+          "status": "available"
+        },
+        {
+          "name": "HundredGigE1/0/30",
+          "type": "optical",
+          "status": "available"
+        },
+        {
+          "name": "HundredGigE1/0/31",
+          "type": "optical",
+          "status": "available"
+        },
+        {
+          "name": "HundredGigE1/0/32",
+          "type": "optical",
+          "status": "available"
+        },
+        {
+          "name": "HundredGigE1/0/33",
+          "type": "optical",
+          "status": "available"
+        },
+        {
+          "name": "HundredGigE1/0/34",
+          "type": "optical",
+          "status": "available"
+        },
+        {
+          "name": "HundredGigE1/0/35",
+          "type": "optical",
+          "status": "available"
+        },
+        {
+          "name": "HundredGigE1/0/36",
+          "type": "optical",
+          "status": "available"
+        },
+        {
+          "name": "HundredGigE1/0/37",
+          "type": "optical",
+          "status": "available"
+        },
+        {
+          "name": "HundredGigE1/0/38",
+          "type": "optical",
+          "status": "available"
+        },
+        {
+          "name": "HundredGigE1/0/39",
+          "type": "optical",
+          "status": "available"
+        },
+        {
+          "name": "HundredGigE1/0/40",
+          "type": "optical",
+          "status": "available"
+        },
+        {
+          "name": "HundredGigE1/0/41",
+          "type": "optical",
+          "status": "available"
+        },
+        {
+          "name": "HundredGigE1/0/42",
+          "type": "optical",
+          "status": "available"
+        },
+        {
+          "name": "HundredGigE1/0/43",
+          "type": "optical",
+          "status": "available"
+        },
+        {
+          "name": "HundredGigE1/0/44",
+          "type": "optical",
+          "status": "available"
+        },
+        {
+          "name": "HundredGigE1/0/45",
+          "type": "optical",
+          "status": "available"
+        },
+        {
+          "name": "HundredGigE1/0/46",
+          "type": "optical",
+          "status": "available"
+        },
+        {
+          "name": "HundredGigE1/0/47",
+          "type": "optical",
+          "status": "available"
+        },
+        {
+          "name": "HundredGigE1/0/48",
+          "type": "optical",
+          "status": "available"
+        }
+      ],
+      "position": null,
+      "rack_id": null,
+      "rack_u": null,
+      "power_status": "off"
+    },
+    {
+      "id": "device_f5e144dacb76",
+      "instance_name": "ACC-SW-01",
+      "device_type": "S5570S-54S-EI",
+      "interfaces": [
+        {
+          "name": "M-GigabitEthernet0/0/0",
+          "type": "management",
+          "status": "available"
+        },
+        {
+          "name": "GE1/0/1",
+          "type": "electrical",
+          "status": "available"
+        },
+        {
+          "name": "GE1/0/2",
+          "type": "electrical",
+          "status": "available"
+        },
+        {
+          "name": "GE1/0/3",
+          "type": "electrical",
+          "status": "available"
+        },
+        {
+          "name": "GE1/0/4",
+          "type": "electrical",
+          "status": "available"
+        },
+        {
+          "name": "GE1/0/5",
+          "type": "electrical",
+          "status": "available"
+        },
+        {
+          "name": "GE1/0/6",
+          "type": "electrical",
+          "status": "available"
+        },
+        {
+          "name": "GE1/0/7",
+          "type": "electrical",
+          "status": "available"
+        },
+        {
+          "name": "GE1/0/8",
+          "type": "electrical",
+          "status": "available"
+        },
+        {
+          "name": "GE1/0/9",
+          "type": "electrical",
+          "status": "available"
+        },
+        {
+          "name": "GE1/0/10",
+          "type": "electrical",
+          "status": "available"
+        },
+        {
+          "name": "GE1/0/11",
+          "type": "electrical",
+          "status": "available"
+        },
+        {
+          "name": "GE1/0/12",
+          "type": "electrical",
+          "status": "available"
+        },
+        {
+          "name": "GE1/0/13",
+          "type": "electrical",
+          "status": "available"
+        },
+        {
+          "name": "GE1/0/14",
+          "type": "electrical",
+          "status": "available"
+        },
+        {
+          "name": "GE1/0/15",
+          "type": "electrical",
+          "status": "available"
+        },
+        {
+          "name": "GE1/0/16",
+          "type": "electrical",
+          "status": "available"
+        },
+        {
+          "name": "GE1/0/17",
+          "type": "electrical",
+          "status": "available"
+        },
+        {
+          "name": "GE1/0/18",
+          "type": "electrical",
+          "status": "available"
+        },
+        {
+          "name": "GE1/0/19",
+          "type": "electrical",
+          "status": "available"
+        },
+        {
+          "name": "GE1/0/20",
+          "type": "electrical",
+          "status": "available"
+        },
+        {
+          "name": "GE1/0/21",
+          "type": "electrical",
+          "status": "available"
+        },
+        {
+          "name": "GE1/0/22",
+          "type": "electrical",
+          "status": "available"
+        },
+        {
+          "name": "GE1/0/23",
+          "type": "electrical",
+          "status": "available"
+        },
+        {
+          "name": "GE1/0/24",
+          "type": "electrical",
+          "status": "available"
+        },
+        {
+          "name": "GE1/0/25",
+          "type": "electrical",
+          "status": "available"
+        },
+        {
+          "name": "GE1/0/26",
+          "type": "electrical",
+          "status": "available"
+        },
+        {
+          "name": "GE1/0/27",
+          "type": "electrical",
+          "status": "available"
+        },
+        {
+          "name": "GE1/0/28",
+          "type": "electrical",
+          "status": "available"
+        },
+        {
+          "name": "GE1/0/29",
+          "type": "electrical",
+          "status": "available"
+        },
+        {
+          "name": "GE1/0/30",
+          "type": "electrical",
+          "status": "available"
+        },
+        {
+          "name": "GE1/0/31",
+          "type": "electrical",
+          "status": "available"
+        },
+        {
+          "name": "GE1/0/32",
+          "type": "electrical",
+          "status": "available"
+        },
+        {
+          "name": "GE1/0/33",
+          "type": "electrical",
+          "status": "available"
+        },
+        {
+          "name": "GE1/0/34",
+          "type": "electrical",
+          "status": "available"
+        },
+        {
+          "name": "GE1/0/35",
+          "type": "electrical",
+          "status": "available"
+        },
+        {
+          "name": "GE1/0/36",
+          "type": "electrical",
+          "status": "available"
+        },
+        {
+          "name": "GE1/0/37",
+          "type": "electrical",
+          "status": "available"
+        },
+        {
+          "name": "GE1/0/38",
+          "type": "electrical",
+          "status": "available"
+        },
+        {
+          "name": "GE1/0/39",
+          "type": "electrical",
+          "status": "available"
+        },
+        {
+          "name": "GE1/0/40",
+          "type": "electrical",
+          "status": "available"
+        },
+        {
+          "name": "GE1/0/41",
+          "type": "electrical",
+          "status": "available"
+        },
+        {
+          "name": "GE1/0/42",
+          "type": "electrical",
+          "status": "available"
+        },
+        {
+          "name": "GE1/0/43",
+          "type": "electrical",
+          "status": "available"
+        },
+        {
+          "name": "GE1/0/44",
+          "type": "electrical",
+          "status": "available"
+        },
+        {
+          "name": "GE1/0/45",
+          "type": "electrical",
+          "status": "available"
+        },
+        {
+          "name": "GE1/0/46",
+          "type": "electrical",
+          "status": "available"
+        },
+        {
+          "name": "GE1/0/47",
+          "type": "electrical",
+          "status": "available"
+        },
+        {
+          "name": "GE1/0/48",
+          "type": "electrical",
+          "status": "available"
+        },
+        {
+          "name": "XGE1/0/49",
+          "type": "optical",
+          "status": "available"
+        },
+        {
+          "name": "XGE1/0/50",
+          "type": "optical",
+          "status": "available"
+        },
+        {
+          "name": "XGE1/0/51",
+          "type": "optical",
+          "status": "available"
+        },
+        {
+          "name": "XGE1/0/52",
+          "type": "optical",
+          "status": "available"
+        },
+        {
+          "name": "XGE1/0/53",
+          "type": "optical",
+          "status": "available"
+        },
+        {
+          "name": "XGE1/0/54",
+          "type": "optical",
+          "status": "available"
+        }
+      ],
+      "position": null,
+      "rack_id": null,
+      "rack_u": null,
+      "power_status": "off",
+      "assigned_from_inventory": true,
+      "assigned_time": "2025-07-23T20:11:10.321664"
+    },
+    {
+      "id": "device_5bd0f5ca234a",
+      "instance_name": "ACC-SW-02",
+      "device_type": "S5570S-54S-EI",
+      "interfaces": [
+        {
+          "name": "M-GigabitEthernet0/0/0",
+          "type": "management",
+          "status": "available"
+        },
+        {
+          "name": "GE1/0/1",
+          "type": "electrical",
+          "status": "available"
+        },
+        {
+          "name": "GE1/0/2",
+          "type": "electrical",
+          "status": "available"
+        },
+        {
+          "name": "GE1/0/3",
+          "type": "electrical",
+          "status": "available"
+        },
+        {
+          "name": "GE1/0/4",
+          "type": "electrical",
+          "status": "available"
+        },
+        {
+          "name": "GE1/0/5",
+          "type": "electrical",
+          "status": "available"
+        },
+        {
+          "name": "GE1/0/6",
+          "type": "electrical",
+          "status": "available"
+        },
+        {
+          "name": "GE1/0/7",
+          "type": "electrical",
+          "status": "available"
+        },
+        {
+          "name": "GE1/0/8",
+          "type": "electrical",
+          "status": "available"
+        },
+        {
+          "name": "GE1/0/9",
+          "type": "electrical",
+          "status": "available"
+        },
+        {
+          "name": "GE1/0/10",
+          "type": "electrical",
+          "status": "available"
+        },
+        {
+          "name": "GE1/0/11",
+          "type": "electrical",
+          "status": "available"
+        },
+        {
+          "name": "GE1/0/12",
+          "type": "electrical",
+          "status": "available"
+        },
+        {
+          "name": "GE1/0/13",
+          "type": "electrical",
+          "status": "available"
+        },
+        {
+          "name": "GE1/0/14",
+          "type": "electrical",
+          "status": "available"
+        },
+        {
+          "name": "GE1/0/15",
+          "type": "electrical",
+          "status": "available"
+        },
+        {
+          "name": "GE1/0/16",
+          "type": "electrical",
+          "status": "available"
+        },
+        {
+          "name": "GE1/0/17",
+          "type": "electrical",
+          "status": "available"
+        },
+        {
+          "name": "GE1/0/18",
+          "type": "electrical",
+          "status": "available"
+        },
+        {
+          "name": "GE1/0/19",
+          "type": "electrical",
+          "status": "available"
+        },
+        {
+          "name": "GE1/0/20",
+          "type": "electrical",
+          "status": "available"
+        },
+        {
+          "name": "GE1/0/21",
+          "type": "electrical",
+          "status": "available"
+        },
+        {
+          "name": "GE1/0/22",
+          "type": "electrical",
+          "status": "available"
+        },
+        {
+          "name": "GE1/0/23",
+          "type": "electrical",
+          "status": "available"
+        },
+        {
+          "name": "GE1/0/24",
+          "type": "electrical",
+          "status": "available"
+        },
+        {
+          "name": "GE1/0/25",
+          "type": "electrical",
+          "status": "available"
+        },
+        {
+          "name": "GE1/0/26",
+          "type": "electrical",
+          "status": "available"
+        },
+        {
+          "name": "GE1/0/27",
+          "type": "electrical",
+          "status": "available"
+        },
+        {
+          "name": "GE1/0/28",
+          "type": "electrical",
+          "status": "available"
+        },
+        {
+          "name": "GE1/0/29",
+          "type": "electrical",
+          "status": "available"
+        },
+        {
+          "name": "GE1/0/30",
+          "type": "electrical",
+          "status": "available"
+        },
+        {
+          "name": "GE1/0/31",
+          "type": "electrical",
+          "status": "available"
+        },
+        {
+          "name": "GE1/0/32",
+          "type": "electrical",
+          "status": "available"
+        },
+        {
+          "name": "GE1/0/33",
+          "type": "electrical",
+          "status": "available"
+        },
+        {
+          "name": "GE1/0/34",
+          "type": "electrical",
+          "status": "available"
+        },
+        {
+          "name": "GE1/0/35",
+          "type": "electrical",
+          "status": "available"
+        },
+        {
+          "name": "GE1/0/36",
+          "type": "electrical",
+          "status": "available"
+        },
+        {
+          "name": "GE1/0/37",
+          "type": "electrical",
+          "status": "available"
+        },
+        {
+          "name": "GE1/0/38",
+          "type": "electrical",
+          "status": "available"
+        },
+        {
+          "name": "GE1/0/39",
+          "type": "electrical",
+          "status": "available"
+        },
+        {
+          "name": "GE1/0/40",
+          "type": "electrical",
+          "status": "available"
+        },
+        {
+          "name": "GE1/0/41",
+          "type": "electrical",
+          "status": "available"
+        },
+        {
+          "name": "GE1/0/42",
+          "type": "electrical",
+          "status": "available"
+        },
+        {
+          "name": "GE1/0/43",
+          "type": "electrical",
+          "status": "available"
+        },
+        {
+          "name": "GE1/0/44",
+          "type": "electrical",
+          "status": "available"
+        },
+        {
+          "name": "GE1/0/45",
+          "type": "electrical",
+          "status": "available"
+        },
+        {
+          "name": "GE1/0/46",
+          "type": "electrical",
+          "status": "available"
+        },
+        {
+          "name": "GE1/0/47",
+          "type": "electrical",
+          "status": "available"
+        },
+        {
+          "name": "GE1/0/48",
+          "type": "electrical",
+          "status": "available"
+        },
+        {
+          "name": "XGE1/0/49",
+          "type": "optical",
+          "status": "available"
+        },
+        {
+          "name": "XGE1/0/50",
+          "type": "optical",
+          "status": "available"
+        },
+        {
+          "name": "XGE1/0/51",
+          "type": "optical",
+          "status": "available"
+        },
+        {
+          "name": "XGE1/0/52",
+          "type": "optical",
+          "status": "available"
+        },
+        {
+          "name": "XGE1/0/53",
+          "type": "optical",
+          "status": "available"
+        },
+        {
+          "name": "XGE1/0/54",
+          "type": "optical",
+          "status": "available"
+        }
+      ],
+      "position": null,
+      "rack_id": null,
+      "rack_u": null,
+      "power_status": "off",
+      "assigned_from_inventory": true,
+      "assigned_time": "2025-07-23T20:11:10.321664"
+    },
+    {
+      "id": "device_e34e8a4a5e46",
+      "instance_name": "ACC-SW03-01",
+      "device_type": "S5570S-54S-EI",
+      "interfaces": [
+        {
+          "name": "M-GigabitEthernet0/0/0",
+          "type": "management",
+          "status": "available"
+        },
+        {
+          "name": "GE1/0/1",
+          "type": "electrical",
+          "status": "available"
+        },
+        {
+          "name": "GE1/0/2",
+          "type": "electrical",
+          "status": "available"
+        },
+        {
+          "name": "GE1/0/3",
+          "type": "electrical",
+          "status": "available"
+        },
+        {
+          "name": "GE1/0/4",
+          "type": "electrical",
+          "status": "available"
+        },
+        {
+          "name": "GE1/0/5",
+          "type": "electrical",
+          "status": "available"
+        },
+        {
+          "name": "GE1/0/6",
+          "type": "electrical",
+          "status": "available"
+        },
+        {
+          "name": "GE1/0/7",
+          "type": "electrical",
+          "status": "available"
+        },
+        {
+          "name": "GE1/0/8",
+          "type": "electrical",
+          "status": "available"
+        },
+        {
+          "name": "GE1/0/9",
+          "type": "electrical",
+          "status": "available"
+        },
+        {
+          "name": "GE1/0/10",
+          "type": "electrical",
+          "status": "available"
+        },
+        {
+          "name": "GE1/0/11",
+          "type": "electrical",
+          "status": "available"
+        },
+        {
+          "name": "GE1/0/12",
+          "type": "electrical",
+          "status": "available"
+        },
+        {
+          "name": "GE1/0/13",
+          "type": "electrical",
+          "status": "available"
+        },
+        {
+          "name": "GE1/0/14",
+          "type": "electrical",
+          "status": "available"
+        },
+        {
+          "name": "GE1/0/15",
+          "type": "electrical",
+          "status": "available"
+        },
+        {
+          "name": "GE1/0/16",
+          "type": "electrical",
+          "status": "available"
+        },
+        {
+          "name": "GE1/0/17",
+          "type": "electrical",
+          "status": "available"
+        },
+        {
+          "name": "GE1/0/18",
+          "type": "electrical",
+          "status": "available"
+        },
+        {
+          "name": "GE1/0/19",
+          "type": "electrical",
+          "status": "available"
+        },
+        {
+          "name": "GE1/0/20",
+          "type": "electrical",
+          "status": "available"
+        },
+        {
+          "name": "GE1/0/21",
+          "type": "electrical",
+          "status": "available"
+        },
+        {
+          "name": "GE1/0/22",
+          "type": "electrical",
+          "status": "available"
+        },
+        {
+          "name": "GE1/0/23",
+          "type": "electrical",
+          "status": "available"
+        },
+        {
+          "name": "GE1/0/24",
+          "type": "electrical",
+          "status": "available"
+        },
+        {
+          "name": "GE1/0/25",
+          "type": "electrical",
+          "status": "available"
+        },
+        {
+          "name": "GE1/0/26",
+          "type": "electrical",
+          "status": "available"
+        },
+        {
+          "name": "GE1/0/27",
+          "type": "electrical",
+          "status": "available"
+        },
+        {
+          "name": "GE1/0/28",
+          "type": "electrical",
+          "status": "available"
+        },
+        {
+          "name": "GE1/0/29",
+          "type": "electrical",
+          "status": "available"
+        },
+        {
+          "name": "GE1/0/30",
+          "type": "electrical",
+          "status": "available"
+        },
+        {
+          "name": "GE1/0/31",
+          "type": "electrical",
+          "status": "available"
+        },
+        {
+          "name": "GE1/0/32",
+          "type": "electrical",
+          "status": "available"
+        },
+        {
+          "name": "GE1/0/33",
+          "type": "electrical",
+          "status": "available"
+        },
+        {
+          "name": "GE1/0/34",
+          "type": "electrical",
+          "status": "available"
+        },
+        {
+          "name": "GE1/0/35",
+          "type": "electrical",
+          "status": "available"
+        },
+        {
+          "name": "GE1/0/36",
+          "type": "electrical",
+          "status": "available"
+        },
+        {
+          "name": "GE1/0/37",
+          "type": "electrical",
+          "status": "available"
+        },
+        {
+          "name": "GE1/0/38",
+          "type": "electrical",
+          "status": "available"
+        },
+        {
+          "name": "GE1/0/39",
+          "type": "electrical",
+          "status": "available"
+        },
+        {
+          "name": "GE1/0/40",
+          "type": "electrical",
+          "status": "available"
+        },
+        {
+          "name": "GE1/0/41",
+          "type": "electrical",
+          "status": "available"
+        },
+        {
+          "name": "GE1/0/42",
+          "type": "electrical",
+          "status": "available"
+        },
+        {
+          "name": "GE1/0/43",
+          "type": "electrical",
+          "status": "available"
+        },
+        {
+          "name": "GE1/0/44",
+          "type": "electrical",
+          "status": "available"
+        },
+        {
+          "name": "GE1/0/45",
+          "type": "electrical",
+          "status": "available"
+        },
+        {
+          "name": "GE1/0/46",
+          "type": "electrical",
+          "status": "available"
+        },
+        {
+          "name": "GE1/0/47",
+          "type": "electrical",
+          "status": "available"
+        },
+        {
+          "name": "GE1/0/48",
+          "type": "electrical",
+          "status": "available"
+        },
+        {
+          "name": "XGE1/0/49",
+          "type": "optical",
+          "status": "available"
+        },
+        {
+          "name": "XGE1/0/50",
+          "type": "optical",
+          "status": "available"
+        },
+        {
+          "name": "XGE1/0/51",
+          "type": "optical",
+          "status": "available"
+        },
+        {
+          "name": "XGE1/0/52",
+          "type": "optical",
+          "status": "available"
+        },
+        {
+          "name": "XGE1/0/53",
+          "type": "optical",
+          "status": "available"
+        },
+        {
+          "name": "XGE1/0/54",
+          "type": "optical",
+          "status": "available"
+        }
+      ],
+      "position": null,
+      "rack_id": null,
+      "rack_u": null,
+      "power_status": "off",
+      "assigned_from_inventory": true,
+      "assigned_time": "2025-07-23T20:23:06.082470"
+    },
+    {
+      "id": "device_e73feda2076e",
+      "instance_name": "ACC-SW03-02",
+      "device_type": "S5570S-54S-EI",
+      "interfaces": [
+        {
+          "name": "M-GigabitEthernet0/0/0",
+          "type": "management",
+          "status": "available"
+        },
+        {
+          "name": "GE1/0/1",
+          "type": "electrical",
+          "status": "available"
+        },
+        {
+          "name": "GE1/0/2",
+          "type": "electrical",
+          "status": "available"
+        },
+        {
+          "name": "GE1/0/3",
+          "type": "electrical",
+          "status": "available"
+        },
+        {
+          "name": "GE1/0/4",
+          "type": "electrical",
+          "status": "available"
+        },
+        {
+          "name": "GE1/0/5",
+          "type": "electrical",
+          "status": "available"
+        },
+        {
+          "name": "GE1/0/6",
+          "type": "electrical",
+          "status": "available"
+        },
+        {
+          "name": "GE1/0/7",
+          "type": "electrical",
+          "status": "available"
+        },
+        {
+          "name": "GE1/0/8",
+          "type": "electrical",
+          "status": "available"
+        },
+        {
+          "name": "GE1/0/9",
+          "type": "electrical",
+          "status": "available"
+        },
+        {
+          "name": "GE1/0/10",
+          "type": "electrical",
+          "status": "available"
+        },
+        {
+          "name": "GE1/0/11",
+          "type": "electrical",
+          "status": "available"
+        },
+        {
+          "name": "GE1/0/12",
+          "type": "electrical",
+          "status": "available"
+        },
+        {
+          "name": "GE1/0/13",
+          "type": "electrical",
+          "status": "available"
+        },
+        {
+          "name": "GE1/0/14",
+          "type": "electrical",
+          "status": "available"
+        },
+        {
+          "name": "GE1/0/15",
+          "type": "electrical",
+          "status": "available"
+        },
+        {
+          "name": "GE1/0/16",
+          "type": "electrical",
+          "status": "available"
+        },
+        {
+          "name": "GE1/0/17",
+          "type": "electrical",
+          "status": "available"
+        },
+        {
+          "name": "GE1/0/18",
+          "type": "electrical",
+          "status": "available"
+        },
+        {
+          "name": "GE1/0/19",
+          "type": "electrical",
+          "status": "available"
+        },
+        {
+          "name": "GE1/0/20",
+          "type": "electrical",
+          "status": "available"
+        },
+        {
+          "name": "GE1/0/21",
+          "type": "electrical",
+          "status": "available"
+        },
+        {
+          "name": "GE1/0/22",
+          "type": "electrical",
+          "status": "available"
+        },
+        {
+          "name": "GE1/0/23",
+          "type": "electrical",
+          "status": "available"
+        },
+        {
+          "name": "GE1/0/24",
+          "type": "electrical",
+          "status": "available"
+        },
+        {
+          "name": "GE1/0/25",
+          "type": "electrical",
+          "status": "available"
+        },
+        {
+          "name": "GE1/0/26",
+          "type": "electrical",
+          "status": "available"
+        },
+        {
+          "name": "GE1/0/27",
+          "type": "electrical",
+          "status": "available"
+        },
+        {
+          "name": "GE1/0/28",
+          "type": "electrical",
+          "status": "available"
+        },
+        {
+          "name": "GE1/0/29",
+          "type": "electrical",
+          "status": "available"
+        },
+        {
+          "name": "GE1/0/30",
+          "type": "electrical",
+          "status": "available"
+        },
+        {
+          "name": "GE1/0/31",
+          "type": "electrical",
+          "status": "available"
+        },
+        {
+          "name": "GE1/0/32",
+          "type": "electrical",
+          "status": "available"
+        },
+        {
+          "name": "GE1/0/33",
+          "type": "electrical",
+          "status": "available"
+        },
+        {
+          "name": "GE1/0/34",
+          "type": "electrical",
+          "status": "available"
+        },
+        {
+          "name": "GE1/0/35",
+          "type": "electrical",
+          "status": "available"
+        },
+        {
+          "name": "GE1/0/36",
+          "type": "electrical",
+          "status": "available"
+        },
+        {
+          "name": "GE1/0/37",
+          "type": "electrical",
+          "status": "available"
+        },
+        {
+          "name": "GE1/0/38",
+          "type": "electrical",
+          "status": "available"
+        },
+        {
+          "name": "GE1/0/39",
+          "type": "electrical",
+          "status": "available"
+        },
+        {
+          "name": "GE1/0/40",
+          "type": "electrical",
+          "status": "available"
+        },
+        {
+          "name": "GE1/0/41",
+          "type": "electrical",
+          "status": "available"
+        },
+        {
+          "name": "GE1/0/42",
+          "type": "electrical",
+          "status": "available"
+        },
+        {
+          "name": "GE1/0/43",
+          "type": "electrical",
+          "status": "available"
+        },
+        {
+          "name": "GE1/0/44",
+          "type": "electrical",
+          "status": "available"
+        },
+        {
+          "name": "GE1/0/45",
+          "type": "electrical",
+          "status": "available"
+        },
+        {
+          "name": "GE1/0/46",
+          "type": "electrical",
+          "status": "available"
+        },
+        {
+          "name": "GE1/0/47",
+          "type": "electrical",
+          "status": "available"
+        },
+        {
+          "name": "GE1/0/48",
+          "type": "electrical",
+          "status": "available"
+        },
+        {
+          "name": "XGE1/0/49",
+          "type": "optical",
+          "status": "available"
+        },
+        {
+          "name": "XGE1/0/50",
+          "type": "optical",
+          "status": "available"
+        },
+        {
+          "name": "XGE1/0/51",
+          "type": "optical",
+          "status": "available"
+        },
+        {
+          "name": "XGE1/0/52",
+          "type": "optical",
+          "status": "available"
+        },
+        {
+          "name": "XGE1/0/53",
+          "type": "optical",
+          "status": "available"
+        },
+        {
+          "name": "XGE1/0/54",
+          "type": "optical",
+          "status": "available"
+        }
+      ],
+      "position": null,
+      "rack_id": null,
+      "rack_u": null,
+      "power_status": "off",
+      "assigned_from_inventory": true,
+      "assigned_time": "2025-07-23T20:23:06.082470"
+    },
+    {
+      "id": "device_89ac025819c1",
+      "instance_name": "JD1-A02U2-VOICE-ACC-SW05",
+      "device_type": "S5570S-54S-EI",
+      "interfaces": [
+        {
+          "name": "M-GigabitEthernet0/0/0",
+          "type": "management",
+          "status": "available"
+        },
+        {
+          "name": "GE1/0/1",
+          "type": "electrical",
+          "status": "available"
+        },
+        {
+          "name": "GE1/0/2",
+          "type": "electrical",
+          "status": "available"
+        },
+        {
+          "name": "GE1/0/3",
+          "type": "electrical",
+          "status": "available"
+        },
+        {
+          "name": "GE1/0/4",
+          "type": "electrical",
+          "status": "available"
+        },
+        {
+          "name": "GE1/0/5",
+          "type": "electrical",
+          "status": "available"
+        },
+        {
+          "name": "GE1/0/6",
+          "type": "electrical",
+          "status": "available"
+        },
+        {
+          "name": "GE1/0/7",
+          "type": "electrical",
+          "status": "available"
+        },
+        {
+          "name": "GE1/0/8",
+          "type": "electrical",
+          "status": "available"
+        },
+        {
+          "name": "GE1/0/9",
+          "type": "electrical",
+          "status": "available"
+        },
+        {
+          "name": "GE1/0/10",
+          "type": "electrical",
+          "status": "available"
+        },
+        {
+          "name": "GE1/0/11",
+          "type": "electrical",
+          "status": "available"
+        },
+        {
+          "name": "GE1/0/12",
+          "type": "electrical",
+          "status": "available"
+        },
+        {
+          "name": "GE1/0/13",
+          "type": "electrical",
+          "status": "available"
+        },
+        {
+          "name": "GE1/0/14",
+          "type": "electrical",
+          "status": "available"
+        },
+        {
+          "name": "GE1/0/15",
+          "type": "electrical",
+          "status": "available"
+        },
+        {
+          "name": "GE1/0/16",
+          "type": "electrical",
+          "status": "available"
+        },
+        {
+          "name": "GE1/0/17",
+          "type": "electrical",
+          "status": "available"
+        },
+        {
+          "name": "GE1/0/18",
+          "type": "electrical",
+          "status": "available"
+        },
+        {
+          "name": "GE1/0/19",
+          "type": "electrical",
+          "status": "available"
+        },
+        {
+          "name": "GE1/0/20",
+          "type": "electrical",
+          "status": "available"
+        },
+        {
+          "name": "GE1/0/21",
+          "type": "electrical",
+          "status": "available"
+        },
+        {
+          "name": "GE1/0/22",
+          "type": "electrical",
+          "status": "available"
+        },
+        {
+          "name": "GE1/0/23",
+          "type": "electrical",
+          "status": "available"
+        },
+        {
+          "name": "GE1/0/24",
+          "type": "electrical",
+          "status": "available"
+        },
+        {
+          "name": "GE1/0/25",
+          "type": "electrical",
+          "status": "available"
+        },
+        {
+          "name": "GE1/0/26",
+          "type": "electrical",
+          "status": "available"
+        },
+        {
+          "name": "GE1/0/27",
+          "type": "electrical",
+          "status": "available"
+        },
+        {
+          "name": "GE1/0/28",
+          "type": "electrical",
+          "status": "available"
+        },
+        {
+          "name": "GE1/0/29",
+          "type": "electrical",
+          "status": "available"
+        },
+        {
+          "name": "GE1/0/30",
+          "type": "electrical",
+          "status": "available"
+        },
+        {
+          "name": "GE1/0/31",
+          "type": "electrical",
+          "status": "available"
+        },
+        {
+          "name": "GE1/0/32",
+          "type": "electrical",
+          "status": "available"
+        },
+        {
+          "name": "GE1/0/33",
+          "type": "electrical",
+          "status": "available"
+        },
+        {
+          "name": "GE1/0/34",
+          "type": "electrical",
+          "status": "available"
+        },
+        {
+          "name": "GE1/0/35",
+          "type": "electrical",
+          "status": "available"
+        },
+        {
+          "name": "GE1/0/36",
+          "type": "electrical",
+          "status": "available"
+        },
+        {
+          "name": "GE1/0/37",
+          "type": "electrical",
+          "status": "available"
+        },
+        {
+          "name": "GE1/0/38",
+          "type": "electrical",
+          "status": "available"
+        },
+        {
+          "name": "GE1/0/39",
+          "type": "electrical",
+          "status": "available"
+        },
+        {
+          "name": "GE1/0/40",
+          "type": "electrical",
+          "status": "available"
+        },
+        {
+          "name": "GE1/0/41",
+          "type": "electrical",
+          "status": "available"
+        },
+        {
+          "name": "GE1/0/42",
+          "type": "electrical",
+          "status": "available"
+        },
+        {
+          "name": "GE1/0/43",
+          "type": "electrical",
+          "status": "available"
+        },
+        {
+          "name": "GE1/0/44",
+          "type": "electrical",
+          "status": "available"
+        },
+        {
+          "name": "GE1/0/45",
+          "type": "electrical",
+          "status": "available"
+        },
+        {
+          "name": "GE1/0/46",
+          "type": "electrical",
+          "status": "available"
+        },
+        {
+          "name": "GE1/0/47",
+          "type": "electrical",
+          "status": "available"
+        },
+        {
+          "name": "GE1/0/48",
+          "type": "electrical",
+          "status": "available"
+        },
+        {
+          "name": "XGE1/0/49",
+          "type": "optical",
+          "status": "available"
+        },
+        {
+          "name": "XGE1/0/50",
+          "type": "optical",
+          "status": "available"
+        },
+        {
+          "name": "XGE1/0/51",
+          "type": "optical",
+          "status": "available"
+        },
+        {
+          "name": "XGE1/0/52",
+          "type": "optical",
+          "status": "available"
+        },
+        {
+          "name": "XGE1/0/53",
+          "type": "optical",
+          "status": "available"
+        },
+        {
+          "name": "XGE1/0/54",
+          "type": "optical",
+          "status": "available"
+        }
+      ],
+      "position": null,
+      "rack_id": "7b29c313-d5da-45f9-aa2f-7aea24565546",
+      "rack_u": 2,
+      "power_status": "off",
+      "mounted_time": "2025-07-23T20:56:37.245283",
+      "function": "VOICE",
+      "layer": "ACC"
+    }
+  ]
+}
