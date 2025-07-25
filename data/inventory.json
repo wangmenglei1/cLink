@@ -1,11 +1,11 @@
 {
   "version": "2.0",
-  "timestamp": "2025-07-24T16:46:00.787289",
+  "timestamp": "2025-07-25T16:33:26.616443",
   "inventory": [
     {
       "id": "52c61619-7071-4cb0-a21d-cec1941e9978",
       "device_type": "S6520X-30QC-EI",
-      "quantity": 44,
+      "quantity": 38,
       "notes": "汇聚交换机",
       "created_time": "2025-07-23T19:43:33.655564",
       "created_by": "系统管理员",
@@ -14,7 +14,7 @@
     {
       "id": "e846152d-f4c0-47df-b5a8-c066019cd2f9",
       "device_type": "S6550XE-56HF-HI",
-      "quantity": 54,
+      "quantity": 46,
       "notes": "",
       "created_time": "2025-07-23T19:43:51.412246",
       "created_by": "系统管理员",
@@ -23,7 +23,7 @@
     {
       "id": "f3a0527f-2bb5-4926-b35e-a3191db69a2a",
       "device_type": "S5570S-54S-EI",
-      "quantity": 144,
+      "quantity": 119,
       "notes": "48口接入交换机",
       "created_time": "2025-07-23T20:09:26.061667",
       "created_by": "系统管理员",
@@ -242,6 +242,78 @@
       "quantity": 1,
       "notes": "设备 \"JD1-10F-A02U34-OFFICE-ACC-SW08\" 下架退库",
       "created_time": "2025-07-24T16:46:00.787289",
+      "created_by": "系统管理员",
+      "operation_type": "unmount"
+    },
+    {
+      "id": "4dd701de-c140-4675-aaa5-6d320c3b6daf",
+      "device_type": "S5570S-28S-HPWR-EI-A",
+      "quantity": 16,
+      "notes": "24口POE接入交换机",
+      "created_time": "2025-07-25T10:40:41.567314",
+      "created_by": "系统管理员",
+      "operation_type": "purchase"
+    },
+    {
+      "id": "1b82bead-c043-4d57-8257-e7f12fedb132",
+      "device_type": "S5570S-54S-PWR-EI-A",
+      "quantity": 81,
+      "notes": "48口POE接入交换机",
+      "created_time": "2025-07-25T10:41:12.062794",
+      "created_by": "系统管理员",
+      "operation_type": "purchase"
+    },
+    {
+      "id": "5ba0f02b-6fd7-466e-8531-23b3948e8fb9",
+      "device_type": "S5570S-28S-EI",
+      "quantity": 4,
+      "notes": "内网专线交换机",
+      "created_time": "2025-07-25T10:42:12.553233",
+      "created_by": "系统管理员",
+      "operation_type": "purchase"
+    },
+    {
+      "id": "5feb2460-7102-4f48-af88-dcf9e5e7fe82",
+      "device_type": "S5590-28T8XC-EI",
+      "quantity": 4,
+      "notes": "互联网交换机",
+      "created_time": "2025-07-25T10:42:50.651096",
+      "created_by": "系统管理员",
+      "operation_type": "purchase"
+    },
+    {
+      "id": "93f42c0d-322e-4250-bbe1-64e77480deda",
+      "device_type": "S5570S-28S-HPWR-EI-A",
+      "quantity": 1,
+      "notes": "设备 \"JD1-10F-R02U38-VOICE-ACC-SW01\" 下架退库",
+      "created_time": "2025-07-25T10:46:04.146995",
+      "created_by": "系统管理员",
+      "operation_type": "unmount"
+    },
+    {
+      "id": "bdd5bb07-c290-4564-a2ec-a53f7025037d",
+      "device_type": "S5570S-28S-HPWR-EI-A",
+      "quantity": 1,
+      "notes": "设备 \"JD1-09F-R01U38-WLAN-ACC-SW01\" 下架退库",
+      "created_time": "2025-07-25T14:13:09.016226",
+      "created_by": "系统管理员",
+      "operation_type": "unmount"
+    },
+    {
+      "id": "2a180151-0941-4c45-8f16-12c44b0d1de2",
+      "device_type": "WX3540X",
+      "quantity": 4,
+      "notes": "",
+      "created_time": "2025-07-25T15:28:09.721898",
+      "created_by": "系统管理员",
+      "operation_type": "purchase"
+    },
+    {
+      "id": "cb5e48f9-51b6-4ccf-be24-b18e9b53b95c",
+      "device_type": "S5570S-54S-EI",
+      "quantity": 1,
+      "notes": "设备 \"JD1-10F-B03U37-ILO-ACC-SW01\" 下架退库",
+      "created_time": "2025-07-25T16:24:19.391106",
       "created_by": "系统管理员",
       "operation_type": "unmount"
     }

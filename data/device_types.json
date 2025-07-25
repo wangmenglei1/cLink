@@ -1,6 +1,6 @@
 {
   "version": "2.0",
-  "timestamp": "2025-07-24T23:26:49.055830",
+  "timestamp": "2025-07-25T17:42:42.909782",
   "device_types": [
     {
       "id": "a5ab0808-0eaa-4c0f-8b86-cd3bc7a6eada",
@@ -3525,6 +3525,412 @@
           "naming_prefix": "1/0/",
           "start": 33,
           "end": 56
+        }
+      ]
+    },
+    {
+      "id": "5c345637-3d05-4fe0-8bc5-0e6c8022520a",
+      "model": "WX3540X",
+      "manufacturer": "H3C",
+      "height_u": 1,
+      "interfaces": [
+        {
+          "name": "GE1/0/1",
+          "type": "electrical",
+          "connected_to": null
+        },
+        {
+          "name": "GE1/0/2",
+          "type": "electrical",
+          "connected_to": null
+        },
+        {
+          "name": "GE1/0/3",
+          "type": "electrical",
+          "connected_to": null
+        },
+        {
+          "name": "GE1/0/4",
+          "type": "electrical",
+          "connected_to": null
+        },
+        {
+          "name": "GE1/0/5",
+          "type": "electrical",
+          "connected_to": null
+        },
+        {
+          "name": "GE1/0/6",
+          "type": "electrical",
+          "connected_to": null
+        },
+        {
+          "name": "GE1/0/7",
+          "type": "electrical",
+          "connected_to": null
+        },
+        {
+          "name": "GE1/0/8",
+          "type": "electrical",
+          "connected_to": null
+        },
+        {
+          "name": "GE1/0/9",
+          "type": "optical",
+          "connected_to": null
+        },
+        {
+          "name": "GE1/0/10",
+          "type": "optical",
+          "connected_to": null
+        },
+        {
+          "name": "GE1/0/11",
+          "type": "optical",
+          "connected_to": null
+        },
+        {
+          "name": "GE1/0/12",
+          "type": "optical",
+          "connected_to": null
+        },
+        {
+          "name": "GE1/0/13",
+          "type": "optical",
+          "connected_to": null
+        },
+        {
+          "name": "GE1/0/14",
+          "type": "optical",
+          "connected_to": null
+        },
+        {
+          "name": "GE1/0/15",
+          "type": "optical",
+          "connected_to": null
+        },
+        {
+          "name": "GE1/0/16",
+          "type": "optical",
+          "connected_to": null
+        }
+      ],
+      "definitions": [
+        {
+          "rate": "1G",
+          "interface_type": "Electrical",
+          "naming_prefix": "1/0/",
+          "start": 1,
+          "end": 8
+        },
+        {
+          "rate": "1G",
+          "interface_type": "Optical",
+          "naming_prefix": "1/0/",
+          "start": 9,
+          "end": 16
+        }
+      ]
+    },
+    {
+      "id": "29f2b4da-cc33-46ef-b412-b7a3d9ba7d07",
+      "model": "SG-6000-A2700",
+      "manufacturer": "Hillstone",
+      "height_u": 1,
+      "interfaces": [
+        {
+          "name": "GE0/0",
+          "type": "electrical",
+          "connected_to": null
+        },
+        {
+          "name": "GE0/1",
+          "type": "electrical",
+          "connected_to": null
+        },
+        {
+          "name": "GE0/2",
+          "type": "electrical",
+          "connected_to": null
+        },
+        {
+          "name": "GE0/3",
+          "type": "electrical",
+          "connected_to": null
+        },
+        {
+          "name": "GE0/4",
+          "type": "electrical",
+          "connected_to": null
+        },
+        {
+          "name": "GE0/5",
+          "type": "electrical",
+          "connected_to": null
+        },
+        {
+          "name": "GE0/6",
+          "type": "electrical",
+          "connected_to": null
+        },
+        {
+          "name": "GE0/7",
+          "type": "electrical",
+          "connected_to": null
+        },
+        {
+          "name": "GE0/8",
+          "type": "optical",
+          "connected_to": null
+        },
+        {
+          "name": "GE0/9",
+          "type": "optical",
+          "connected_to": null
+        },
+        {
+          "name": "GE0/10",
+          "type": "optical",
+          "connected_to": null
+        },
+        {
+          "name": "GE0/11",
+          "type": "optical",
+          "connected_to": null
+        },
+        {
+          "name": "GE0/12",
+          "type": "optical",
+          "connected_to": null
+        },
+        {
+          "name": "GE0/13",
+          "type": "optical",
+          "connected_to": null
+        },
+        {
+          "name": "GE0/14",
+          "type": "optical",
+          "connected_to": null
+        },
+        {
+          "name": "GE0/15",
+          "type": "optical",
+          "connected_to": null
+        },
+        {
+          "name": "XGE0/16",
+          "type": "optical",
+          "connected_to": null
+        },
+        {
+          "name": "XGE0/17",
+          "type": "optical",
+          "connected_to": null
+        }
+      ],
+      "definitions": [
+        {
+          "rate": "1G",
+          "interface_type": "Electrical",
+          "naming_prefix": "0/",
+          "start": 0,
+          "end": 7
+        },
+        {
+          "rate": "1G",
+          "interface_type": "Optical",
+          "naming_prefix": "0/",
+          "start": 8,
+          "end": 15
+        },
+        {
+          "rate": "10G",
+          "interface_type": "Optical",
+          "naming_prefix": "0/",
+          "start": 16,
+          "end": 17
+        }
+      ]
+    },
+    {
+      "id": "30131f96-df05-4144-acc4-9d476801afde",
+      "model": "SG-6000-A5500",
+      "manufacturer": "Hillstone",
+      "height_u": 1,
+      "interfaces": [
+        {
+          "name": "GE0/0",
+          "type": "electrical",
+          "connected_to": null
+        },
+        {
+          "name": "GE0/1",
+          "type": "electrical",
+          "connected_to": null
+        },
+        {
+          "name": "GE0/2",
+          "type": "electrical",
+          "connected_to": null
+        },
+        {
+          "name": "GE0/3",
+          "type": "electrical",
+          "connected_to": null
+        },
+        {
+          "name": "GE0/4",
+          "type": "electrical",
+          "connected_to": null
+        },
+        {
+          "name": "GE0/5",
+          "type": "electrical",
+          "connected_to": null
+        },
+        {
+          "name": "GE0/6",
+          "type": "electrical",
+          "connected_to": null
+        },
+        {
+          "name": "GE0/7",
+          "type": "electrical",
+          "connected_to": null
+        },
+        {
+          "name": "GE0/8",
+          "type": "optical",
+          "connected_to": null
+        },
+        {
+          "name": "GE0/9",
+          "type": "optical",
+          "connected_to": null
+        },
+        {
+          "name": "GE0/10",
+          "type": "optical",
+          "connected_to": null
+        },
+        {
+          "name": "GE0/11",
+          "type": "optical",
+          "connected_to": null
+        },
+        {
+          "name": "GE0/12",
+          "type": "optical",
+          "connected_to": null
+        },
+        {
+          "name": "GE0/13",
+          "type": "optical",
+          "connected_to": null
+        },
+        {
+          "name": "GE0/14",
+          "type": "optical",
+          "connected_to": null
+        },
+        {
+          "name": "GE0/15",
+          "type": "optical",
+          "connected_to": null
+        },
+        {
+          "name": "GE0/16",
+          "type": "optical",
+          "connected_to": null
+        },
+        {
+          "name": "GE0/17",
+          "type": "optical",
+          "connected_to": null
+        },
+        {
+          "name": "GE0/18",
+          "type": "optical",
+          "connected_to": null
+        },
+        {
+          "name": "GE0/19",
+          "type": "optical",
+          "connected_to": null
+        },
+        {
+          "name": "GE0/20",
+          "type": "optical",
+          "connected_to": null
+        },
+        {
+          "name": "GE0/21",
+          "type": "optical",
+          "connected_to": null
+        },
+        {
+          "name": "GE0/22",
+          "type": "optical",
+          "connected_to": null
+        },
+        {
+          "name": "GE0/23",
+          "type": "optical",
+          "connected_to": null
+        },
+        {
+          "name": "XGE0/24",
+          "type": "optical",
+          "connected_to": null
+        },
+        {
+          "name": "XGE0/25",
+          "type": "optical",
+          "connected_to": null
+        },
+        {
+          "name": "XGE0/26",
+          "type": "optical",
+          "connected_to": null
+        },
+        {
+          "name": "XGE0/27",
+          "type": "optical",
+          "connected_to": null
+        },
+        {
+          "name": "XGE0/28",
+          "type": "optical",
+          "connected_to": null
+        },
+        {
+          "name": "XGE0/29",
+          "type": "optical",
+          "connected_to": null
+        }
+      ],
+      "definitions": [
+        {
+          "rate": "1G",
+          "interface_type": "Electrical",
+          "naming_prefix": "0/",
+          "start": 0,
+          "end": 7
+        },
+        {
+          "rate": "1G",
+          "interface_type": "Optical",
+          "naming_prefix": "0/",
+          "start": 8,
+          "end": 23
+        },
+        {
+          "rate": "10G",
+          "interface_type": "Optical",
+          "naming_prefix": "0/",
+          "start": 24,
+          "end": 29
         }
       ]
     }
